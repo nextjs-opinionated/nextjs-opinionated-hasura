@@ -14,11 +14,12 @@ type ButtonTypes = {
    */
   onClick(): void;
 };
+
 const BASE_BUTTON =
   "outline-none rounded-full shadow py-3 px-12 font-normal uppercase tracking-wider text-lg focus:outline-none";
 const CONTAINED_BUTTON = `${BASE_BUTTON}  bg-blue-500  hover:bg-blue-700 text-white`;
 const OUTLINED_BUTTON = `${BASE_BUTTON}   border-2 border-blue-500  hover:border-blue-700   text-blue-500 `;
-export const Button: FC<ButtonTypes> = ({
+const Button: FC<ButtonTypes> = ({
   onClick,
   label = "Some label",
   outlined,
@@ -32,3 +33,4 @@ export const Button: FC<ButtonTypes> = ({
     </button>
   );
 };
+export default Button;
