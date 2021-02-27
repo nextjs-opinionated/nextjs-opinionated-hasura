@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home page matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="w-1/2 pt-8 m-auto text-center"
+  >
+    <button
+      class="outline-none rounded-full shadow py-3 px-12 font-normal uppercase tracking-wider text-lg focus:outline-none  bg-blue-500  hover:bg-blue-700 text-white"
+    >
+      <span>
+        Hello World
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
