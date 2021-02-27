@@ -1,17 +1,15 @@
-import React from "react";
-import Button from "./Button";
-import { action } from "@storybook/addon-actions";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import React from 'react'
+import Button from './Button'
+import { action } from '@storybook/addon-actions'
+import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 
 export default {
-  title: "Button",
+  title: 'Button',
   decorators: [withKnobs],
-};
+}
 
 export const primary = () => {
-  const label = text("Label", "See now");
-  const outlined = boolean("Oultined", false);
-  return (
-    <Button onClick={action("clicked")} outlined={outlined} label={label} />
-  );
-};
+  const label = text('Label', 'See now')
+  const outlined = boolean('Oultined', false)
+  return <Button onClick={action('clicked')} outlined={outlined} label={label} />
+}

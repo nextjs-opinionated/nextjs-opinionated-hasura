@@ -6,7 +6,7 @@ exports[`Home page matches snapshot 1`] = `
     class="w-1/2 pt-8 m-auto text-center"
   >
     <button
-      class="outline-none rounded-full shadow py-3 px-12 font-normal uppercase tracking-wider text-lg focus:outline-none  bg-blue-500  hover:bg-blue-700 text-white"
+      class="px-12 py-3 text-lg font-normal tracking-wider text-white uppercase bg-blue-500 rounded-full shadow outline-none focus:outline-none hover:bg-blue-700"
     >
       <span>
         Hello World

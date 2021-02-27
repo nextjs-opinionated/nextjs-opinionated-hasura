@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "nextjs-opinionated",
   "version": "0.2.0",
   "scripts": {
     "build": "next build",
