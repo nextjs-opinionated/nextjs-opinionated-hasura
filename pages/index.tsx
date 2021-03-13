@@ -118,6 +118,14 @@ const Home: React.FunctionComponent = () => {
                 >
                   sweetalert2
                 </a>
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://react-icons.github.io/react-icons/'
+                >
+                  react-icons
+                </a>
               </div>
             </main>
 

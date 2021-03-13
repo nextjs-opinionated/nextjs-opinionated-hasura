@@ -8,6 +8,7 @@ This Next.js's boilerplate includes:
 - [eslint](https://eslint.org/)
 - [prettifier](https://prettier.io/)
 - [sweetalert2](https://sweetalert2.github.io/)
+- [react-icons](https://react-icons.github.io/react-icons/)
 
 _based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-TS-boilerplate_
 
