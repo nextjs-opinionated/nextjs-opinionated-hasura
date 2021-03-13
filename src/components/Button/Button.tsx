@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-type ButtonTypes = {
+export type ButtonProps = {
   /**
    * Label of the button
    */
@@ -16,10 +16,10 @@ type ButtonTypes = {
 }
 
 const BASE_BUTTON =
-  'outline-none rounded shadow py-3 px-12 font-normal uppercase tracking-wider text-lg focus:outline-none'
+  'outline-none rounded shadow py-2 px-8 font-normal tracking-wider text-lg focus:outline-none'
 const CONTAINED_BUTTON = `${BASE_BUTTON} bg-blue-500 hover:bg-blue-700 text-white`
 const OUTLINED_BUTTON = `${BASE_BUTTON} border-2 border-blue-500 hover:border-blue-700 text-blue-500`
-const Button: FC<ButtonTypes> = ({ onClick, label = 'Some label', outlined }) => {
+const Button: FC<ButtonProps> = ({ onClick, label = 'empty label', outlined }) => {
   return (
     <button onClick={onClick} className={outlined ? OUTLINED_BUTTON : CONTAINED_BUTTON}>
       <span>{label}</span>

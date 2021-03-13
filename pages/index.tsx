@@ -1,71 +1,154 @@
 import * as React from 'react'
-import Button from '../src/components/Button/Button'
-import { FiGithub } from 'react-icons/fi'
-import { SiStorybook } from 'react-icons/si'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import Image from 'next/image'
+import { FiZap } from 'react-icons/fi'
 
 const Home: React.FunctionComponent = () => {
   return (
-    <div className='container'>
-      <div className='bg-gray-50'>
-        <div className='px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between'>
-          <h2 className='text-4xl font-extrabold tracking-tight text-center text-gray-900 sm:text-6xl'>
-            <span className='block'>next.js opinionated</span>
-          </h2>
-          <div className='flex flex-col mt-8 gap-y-4 lg:mt-0 lg:flex-shrink-0'>
-            <Button label='Show Alert' onClick={() => alert('Hello World')} />
-            <div className='flex justify-end'>
+    <div className=''>
+      {/* component */}
+      <div className='p-6 bg-purple-800'>
+        <div className='flex flex-col py-4 font-sans bg-white'>
+          <div className='container md:px-20 md:mx-auto'>
+            <header className='relative flex flex-col items-center justify-between py-2 sm:flex-row'>
+              <nav className='hidden text-lg md:flex'>
+                <a href='#' className='px-6 py-3 text-gray-00 hover:text-purple-300'>
+                  Home
+                </a>
+                <a
+                  href='https://github.com/saitodisse/nextjs-opinionated'
+                  className='px-6 py-3 text-gray-00 hover:text-purple-300'
+                >
+                  Github
+                </a>
+              </nav>
+              <button className='absolute top-0 right-0 flex flex-col p-4 mt-5 md:hidden'>
+                <span className='w-5 h-px mb-1 bg-orange-500' />
+                <span className='w-5 h-px mb-1 bg-orange-500' />
+                <span className='w-5 h-px mb-1 bg-orange-500' />
+              </button>
+            </header>
+
+            <main className='flex flex-col justify-between pt-8 mx-8 sm:flex-row'>
+              <div className='flex flex-col items-center text-center sm:w-2/5 sm:items-start sm:text-left'>
+                <h1 className='flex flex-col mb-2 text-6xl font-bold leading-none text-purple-900 uppercase sm:flex-row md:tracking-wide'>
+                  <FiZap size={60} className='mr-2 text-purple-500' />
+                  Next.js
+                </h1>
+                <h2 className='mb-6 ml-6 text-2xl text-orange-500 uppercase sm:text-4xl sm:tracking-widest text-secondary'>
+                  opinionated
+                </h2>
+                <p className='mb-12 leading-relaxed text-gray-600'>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at
+                  enim congue scelerisque. Sed suscipit metu non iaculis semper consectetur
+                  adipiscing elit.
+                </p>
+              </div>
+
+              <div className='flex flex-col items-end my-3 text-right md:ml-20'>
+                <div className='text-3xl font-bold text-purple-900'>Libs</div>
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://www.typescriptlang.org/'
+                >
+                  typescript
+                </a>
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://nextjs.org/'
+                >
+                  next.js
+                </a>
+
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://tailwindcss.com/'
+                >
+                  tailwindcss
+                </a>
+
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://storybook.js.org/'
+                >
+                  storybook
+                </a>
+
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://jestjs.io/'
+                >
+                  jest
+                </a>
+
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://eslint.org/'
+                >
+                  eslint
+                </a>
+
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://prettier.io/'
+                >
+                  prettier
+                </a>
+
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://sweetalert2.github.io/'
+                >
+                  sweetalert2
+                </a>
+              </div>
+            </main>
+
+            <div className='flex flex-wrap justify-center mx-2 my-4'>
               <a
-                className='flex items-center text-gray-700 underline'
-                target='_blank'
-                rel='noreferrer'
-                href='http://localhost:5000'
-              >
-                <SiStorybook size={30} className='mx-2' />
-              </a>
-              <a
-                className='flex items-center text-gray-700 underline'
+                className='px-6 py-3 m-2 text-lg font-bold text-white uppercase bg-purple-300 rounded-full hover:bg-purple-400'
                 target='_blank'
                 rel='noreferrer'
                 href='https://github.com/saitodisse/nextjs-opinionated'
               >
-                <FiGithub size={30} className='mx-2' />
+                Github
               </a>
+              <button
+                className='px-6 py-3 m-2 text-lg font-bold text-white uppercase bg-purple-300 rounded-full hover:bg-purple-400'
+                onClick={async () => {
+                  const myAlert = withReactContent(Swal)
+                  await myAlert.fire({
+                    title: 'Some Alert Title',
+                    // text: 'sweetalert2',
+                    // imageUrl: 'https://unsplash.it/600/300',
+                    // imageWidth: 600,
+                    // imageHeight: 300,
+                    html: <Image />,
+                    imageAlt: 'Custom image',
+                    confirmButtonText: 'ok button',
+                  })
+                }}
+              >
+                Show Alert
+              </button>
             </div>
-          </div>
-        </div>
-        <div className='flex flex-col px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:py-16 lg:px-8'>
-          <hr className='my-3' />
-
-          <div className='my-3 text-2xl font-bold text-gray-600'>Dependencies: </div>
-
-          <div className='flex flex-col my-3 ml-2 text-blue-700 underline'>
-            <a target='_blank' rel='noreferrer' href='https://nextjs.org/'>
-              next.js
-            </a>
-
-            <a target='_blank' rel='noreferrer' href='https://tailwindcss.com/'>
-              tailwindcss
-            </a>
-
-            <a target='_blank' rel='noreferrer' href='https://storybook.js.org/'>
-              storybook
-            </a>
-
-            <a target='_blank' rel='noreferrer' href='https://openbase.com/js/jest'>
-              jest
-            </a>
-
-            <a target='_blank' rel='noreferrer' href='https://openbase.com/js/typescript'>
-              typescript
-            </a>
-
-            <a target='_blank' rel='noreferrer' href='https://openbase.com/js/eslint'>
-              eslint
-            </a>
-
-            <a target='_blank' rel='noreferrer' href='https://openbase.com/js/prettifier'>
-              prettifier
-            </a>
           </div>
         </div>
       </div>

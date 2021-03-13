@@ -1,12 +1,13 @@
 This Next.js's boilerplate includes:
 
-- [typescript](https://openbase.com/js/typescript)
-- [next.js](https://openbase.com/js/next)
-- [tailwindcss](https://openbase.com/js/tailwindcss)
-- [storybook](https://openbase.com/js/storybook)
-- [jest](https://openbase.com/js/jest)
-- [eslint](https://openbase.com/js/eslint)
-- [prettifier](https://openbase.com/js/prettifier)
+- [typescript](https://www.typescriptlang.org/)
+- [next.js](https://nextjs.org/)
+- [tailwindcss](https://tailwindcss.com/)
+- [storybook](https://storybook.js.org/)
+- [jest](https://jestjs.io/)
+- [eslint](https://eslint.org/)
+- [prettifier](https://prettier.io/)
+- [sweetalert2](https://sweetalert2.github.io/)
 
 _based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-TS-boilerplate_
 
