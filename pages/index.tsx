@@ -140,7 +140,7 @@ const Home: React.FunctionComponent = () => {
                     // imageUrl: 'https://unsplash.it/600/300',
                     // imageWidth: 600,
                     // imageHeight: 300,
-                    html: <Image />,
+                    html: <Image width={600} height={300} src='https://unsplash.it/600/300' />,
                     imageAlt: 'Custom image',
                     confirmButtonText: 'ok button',
                   })
