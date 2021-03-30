@@ -1,0 +1,11 @@
+query messagesAll {
+  messages(limit: 20) {
+    id
+    body
+    message_tags {
+      tag {
+        name
+      }
+    }
+  }
+}

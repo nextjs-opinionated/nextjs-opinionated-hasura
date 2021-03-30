@@ -1,0 +1,17 @@
+overwrite: true
+schema:
+  - http://localhost:8080/v1/graphql:
+      headers:
+        x-hasura-admin-secret: admin_secret_local_zzz
+documents: 'src/graphql/gqls/**/*.gql'
+generates:
+  src/graphql/generated.ts:
+    plugins:
+      - add:
+          content:
+            - '/* eslint-disable no-shadow */'
+            - '/* eslint-disable @typescript-eslint/no-unused-vars */'
+            - '/* eslint-disable import/newline-after-import */'
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request

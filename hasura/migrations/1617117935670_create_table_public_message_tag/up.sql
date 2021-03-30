@@ -1,0 +1,1 @@
+CREATE TABLE "public"."message_tag"("message_id" integer NOT NULL, "tag_id" integer NOT NULL, PRIMARY KEY ("message_id","tag_id") , FOREIGN KEY ("message_id") REFERENCES "public"."messages"("id") ON UPDATE set null ON DELETE set null, FOREIGN KEY ("tag_id") REFERENCES "public"."tags"("id") ON UPDATE set null ON DELETE set null);
