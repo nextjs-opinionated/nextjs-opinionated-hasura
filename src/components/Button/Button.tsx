@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-interface ButtonProps {
+export interface ButtonProps {
   /**
    * Label of the button
    */
