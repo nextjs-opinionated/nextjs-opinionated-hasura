@@ -4,6 +4,7 @@ import withReactContent from 'sweetalert2-react-content'
 import Image from 'next/image'
 import { FiZap } from 'react-icons/fi'
 import { Button } from '../components/Button/Button'
+import { Header } from '../components/Header'
 
 const Home: React.FunctionComponent = () => {
   return (
@@ -12,24 +13,7 @@ const Home: React.FunctionComponent = () => {
       <div className='p-6 bg-purple-800'>
         <div className='flex flex-col py-4 font-sans bg-white'>
           <div className='container md:px-20 md:mx-auto'>
-            <header className='relative flex flex-col items-center justify-between py-2 sm:flex-row'>
-              <nav className='hidden text-lg md:flex'>
-                <a href='#' className='px-6 py-3 text-gray-00 hover:text-purple-300'>
-                  Home
-                </a>
-                <a
-                  href='https://github.com/saitodisse/nextjs-opinionated-hasura'
-                  className='px-6 py-3 text-gray-00 hover:text-purple-300'
-                >
-                  Github
-                </a>
-              </nav>
-              <button className='absolute top-0 right-0 flex flex-col p-4 mt-5 md:hidden'>
-                <span className='w-5 h-px mb-1 bg-orange-500' />
-                <span className='w-5 h-px mb-1 bg-orange-500' />
-                <span className='w-5 h-px mb-1 bg-orange-500' />
-              </button>
-            </header>
+            <Header />
 
             <main className='flex flex-col justify-between pt-8 mx-8 sm:flex-row'>
               <div className='flex flex-col items-center text-center sm:w-2/5 sm:items-start sm:text-left'>

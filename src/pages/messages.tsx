@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { MessagesLast8Query } from '../graphql/generated'
 import { Button } from '../components/Button/Button'
 import { mutate } from 'swr'
+import { Header } from '../components/Header'
 
 const Messages: React.FunctionComponent = () => {
   const { data, loading, error } = useSWRFetch<MessagesLast8Query>('/api/messagesLast8')
@@ -20,24 +21,7 @@ const Messages: React.FunctionComponent = () => {
       <div className='p-6 bg-purple-800'>
         <div className='flex flex-col py-4 font-sans bg-white'>
           <div className='container md:px-20 md:mx-auto'>
-            <header className='relative flex flex-col items-center justify-between py-2 sm:flex-row'>
-              <nav className='hidden text-lg md:flex'>
-                <a href='#' className='px-6 py-3 text-gray-00 hover:text-purple-300'>
-                  Home
-                </a>
-                <a
-                  href='https://github.com/saitodisse/nextjs-opinionated-hasura'
-                  className='px-6 py-3 text-gray-00 hover:text-purple-300'
-                >
-                  Github
-                </a>
-              </nav>
-              <button className='absolute top-0 right-0 flex flex-col p-4 mt-5 md:hidden'>
-                <span className='w-5 h-px mb-1 bg-orange-500' />
-                <span className='w-5 h-px mb-1 bg-orange-500' />
-                <span className='w-5 h-px mb-1 bg-orange-500' />
-              </button>
-            </header>
+            <Header />
 
             <main className='flex flex-col pt-8 mx-8'>
               <div className='my-4'>
@@ -47,7 +31,7 @@ const Messages: React.FunctionComponent = () => {
                     await mutate('/api/messagesLast8')
                   }}
                 >
-                  add new item
+                  add new item on server (Hasura, postgresql, graphql)
                 </Button>
               </div>
               {loading ? (
