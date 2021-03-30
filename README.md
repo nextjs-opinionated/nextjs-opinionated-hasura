@@ -24,6 +24,8 @@ _based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-T
 
 - `cp .env.local.example .env.local`
 
+- `yarn migrateLocalToProd`
+
 ---
 
 ## FREE Deploy on Heroku and Vercel
@@ -39,7 +41,7 @@ _based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-T
 - run `heroku login`
 
 - `cp .env.production.sh.example .env.production.sh`
-- update `HASURA_ADMIN_SECRET`, `NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT`, `HASURA_GRAPHQL_ADMIN_SECRET` at `.env.production.sh` - search for `xxx`
+- update `HASURA_ADMIN_SECRET`, `NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT`, `HASURA_GRAPHQL_ADMIN_SECRET` at `.env.production.sh` - search/replace for `xxx`
 
 ---
 

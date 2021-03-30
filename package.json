@@ -12,6 +12,7 @@
     "hasuraLocal": "(cd ./hasura; concurrently --raw 'docker-compose up' 'bash ./wait-for-url.sh && hasura console --skip-update-check --no-browser --console-port 9696')",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "migrationLocalApply": "export $(cat .env.local | xargs) && (cd ./hasura; hasura migrate apply --skip-update-check --admin-secret=$HASURA_ADMIN_SECRET; hasura metadata apply --skip-update-check --admin-secret=$HASURA_ADMIN_SECRET)",
+    "migrateLocalToProd": "export $(cat .env.local | xargs) && (cd ./hasura; hasura migrate apply --skip-update-check --endpoint \"$HASURA_PROD_SERVER_URL\" --admin-secret=$HASURA_PROD_ADMIN_SECRET; hasura metadata apply --skip-update-check --endpoint \"$HASURA_PROD_SERVER_URL\" --admin-secret=$HASURA_PROD_ADMIN_SECRET)",
     "start": "next start",
     "storybook": "start-storybook --ci -p 5000",
     "swr": "^0.5.4",
