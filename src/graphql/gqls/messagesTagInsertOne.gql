@@ -1,0 +1,10 @@
+mutation messagesTagInsertOne($message_tag: message_tag_insert_input!) {
+  insert_message_tag_one(object: $message_tag) {
+    message {
+      id
+    }
+    tag {
+      id
+    }
+  }
+}

@@ -4,6 +4,7 @@ import { showErrorAlert } from '../src/components/showErrorAlert'
 import { useEffect } from 'react'
 import { MessagesAllQuery } from '../src/graphql/generated'
 import { Button } from '../src/components/Button/Button'
+import { mutate } from 'swr'
 
 const Messages: React.FunctionComponent = () => {
   const { data, loading, error } = useSWRFetch<MessagesAllQuery>('/api/messagesAll')
@@ -41,8 +42,9 @@ const Messages: React.FunctionComponent = () => {
             <main className='flex flex-col pt-8 mx-8'>
               <div className='my-4'>
                 <Button
-                  onClick={() => {
-                    console.log('--  1: ', 1)
+                  onClick={async () => {
+                    await fetch('/api/messagesInsertOne')
+                    await mutate('/api/messagesAll')
                   }}
                 >
                   add new item
@@ -55,7 +57,7 @@ const Messages: React.FunctionComponent = () => {
                   {data?.messages?.map((message) => (
                     <li
                       key={message.id}
-                      className='p-3 mr-2 border border-purple-300 cursor-pointer hover:bg-purple-50'
+                      className='w-64 p-3 mb-2 mr-2 border border-purple-300 cursor-pointer hover:bg-purple-50'
                     >
                       <div className='flex flex-col'>
                         <div className='text-lg'>{message.body}</div>

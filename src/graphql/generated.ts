@@ -1313,6 +1313,27 @@ export type MessagesAllQuery = { __typename?: 'query_root' } & {
   >
 }
 
+export type MessagesInsertOneMutationVariables = Exact<{
+  message: Messages_Insert_Input
+}>
+
+export type MessagesInsertOneMutation = { __typename?: 'mutation_root' } & {
+  insert_messages_one?: Maybe<{ __typename?: 'messages' } & Pick<Messages, 'id' | 'body'>>
+}
+
+export type MessagesTagInsertOneMutationVariables = Exact<{
+  message_tag: Message_Tag_Insert_Input
+}>
+
+export type MessagesTagInsertOneMutation = { __typename?: 'mutation_root' } & {
+  insert_message_tag_one?: Maybe<
+    { __typename?: 'message_tag' } & {
+      message: { __typename?: 'messages' } & Pick<Messages, 'id'>
+      tag: { __typename?: 'tags' } & Pick<Tags, 'id'>
+    }
+  >
+}
+
 export const MessagesAllDocument = gql`
   query messagesAll {
     messages(limit: 20) {
@@ -1322,6 +1343,26 @@ export const MessagesAllDocument = gql`
         tag {
           name
         }
+      }
+    }
+  }
+`
+export const MessagesInsertOneDocument = gql`
+  mutation messagesInsertOne($message: messages_insert_input!) {
+    insert_messages_one(object: $message) {
+      id
+      body
+    }
+  }
+`
+export const MessagesTagInsertOneDocument = gql`
+  mutation messagesTagInsertOne($message_tag: message_tag_insert_input!) {
+    insert_message_tag_one(object: $message_tag) {
+      message {
+        id
+      }
+      tag {
+        id
       }
     }
   }
@@ -1338,6 +1379,30 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     ): Promise<MessagesAllQuery> {
       return withWrapper(() =>
         client.request<MessagesAllQuery>(MessagesAllDocument, variables, requestHeaders)
+      )
+    },
+    messagesInsertOne(
+      variables: MessagesInsertOneMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<MessagesInsertOneMutation> {
+      return withWrapper(() =>
+        client.request<MessagesInsertOneMutation>(
+          MessagesInsertOneDocument,
+          variables,
+          requestHeaders
+        )
+      )
+    },
+    messagesTagInsertOne(
+      variables: MessagesTagInsertOneMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<MessagesTagInsertOneMutation> {
+      return withWrapper(() =>
+        client.request<MessagesTagInsertOneMutation>(
+          MessagesTagInsertOneDocument,
+          variables,
+          requestHeaders
+        )
       )
     },
   }
