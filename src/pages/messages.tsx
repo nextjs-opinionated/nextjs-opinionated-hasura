@@ -1,9 +1,9 @@
 import * as React from 'react'
-import useSWRFetch from '../src/utils/useSWRFetch'
-import { showErrorAlert } from '../src/components/showErrorAlert'
+import useSWRFetch from '../utils/useSWRFetch'
+import { showErrorAlert } from '../components/showErrorAlert'
 import { useEffect } from 'react'
-import { MessagesLast8Query } from '../src/graphql/generated'
-import { Button } from '../src/components/Button/Button'
+import { MessagesLast8Query } from '../graphql/generated'
+import { Button } from '../components/Button/Button'
 import { mutate } from 'swr'
 
 const Messages: React.FunctionComponent = () => {
@@ -26,7 +26,7 @@ const Messages: React.FunctionComponent = () => {
                   Home
                 </a>
                 <a
-                  href='https://github.com/saitodisse/nextjs-opinionated'
+                  href='https://github.com/saitodisse/nextjs-opinionated-hasura'
                   className='px-6 py-3 text-gray-00 hover:text-purple-300'
                 >
                   Github

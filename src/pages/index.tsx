@@ -3,7 +3,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Image from 'next/image'
 import { FiZap } from 'react-icons/fi'
-import { Button } from '../src/components/Button/Button'
+import { Button } from '../components/Button/Button'
 
 const Home: React.FunctionComponent = () => {
   return (
@@ -18,7 +18,7 @@ const Home: React.FunctionComponent = () => {
                   Home
                 </a>
                 <a
-                  href='https://github.com/saitodisse/nextjs-opinionated'
+                  href='https://github.com/saitodisse/nextjs-opinionated-hasura'
                   className='px-6 py-3 text-gray-00 hover:text-purple-300'
                 >
                   Github
@@ -135,7 +135,7 @@ const Home: React.FunctionComponent = () => {
                 className='px-6 py-3 mb-1 mr-1 underline'
                 target='_blank'
                 rel='noreferrer'
-                href='https://github.com/saitodisse/nextjs-opinionated'
+                href='https://github.com/saitodisse/nextjs-opinionated-hasura'
               >
                 Github
               </a>

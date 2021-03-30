@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import GqlSdkHelper from '../../src/utils/GqlSdkHelper'
+import GqlSdkHelper from '../../utils/GqlSdkHelper'
 
 export default async function API(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req

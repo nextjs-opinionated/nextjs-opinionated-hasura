@@ -1,4 +1,8 @@
 mutation messagesDeleteIdLessThan($message_id: Int!) {
+  delete_message_tag(where: { message: { id: { _lt: $message_id } } }) {
+    affected_rows
+  }
+
   delete_messages(where: { id: { _lt: $message_id } }) {
     affected_rows
   }

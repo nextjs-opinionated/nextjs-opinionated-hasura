@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { NextApiRequest, NextApiResponse } from 'next'
-import GqlSdkHelper from '../../src/utils/GqlSdkHelper'
+import GqlSdkHelper from '../../utils/GqlSdkHelper'
 
 interface SpaceFlightNewsApiType {
   id: string

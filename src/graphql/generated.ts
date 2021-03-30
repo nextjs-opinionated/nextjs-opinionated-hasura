@@ -1,6 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable import/newline-after-import */
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import gql from 'graphql-tag'
@@ -1306,6 +1303,12 @@ export type MessagesDeleteIdLessThanMutationVariables = Exact<{
 }>
 
 export type MessagesDeleteIdLessThanMutation = { __typename?: 'mutation_root' } & {
+  delete_message_tag?: Maybe<
+    { __typename?: 'message_tag_mutation_response' } & Pick<
+      Message_Tag_Mutation_Response,
+      'affected_rows'
+    >
+  >
   delete_messages?: Maybe<
     { __typename?: 'messages_mutation_response' } & Pick<
       Messages_Mutation_Response,
@@ -1349,6 +1352,9 @@ export type MessagesTagInsertOneMutation = { __typename?: 'mutation_root' } & {
 
 export const MessagesDeleteIdLessThanDocument = gql`
   mutation messagesDeleteIdLessThan($message_id: Int!) {
+    delete_message_tag(where: { message: { id: { _lt: $message_id } } }) {
+      affected_rows
+    }
     delete_messages(where: { id: { _lt: $message_id } }) {
       affected_rows
     }
