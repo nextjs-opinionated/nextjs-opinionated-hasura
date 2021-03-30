@@ -14,7 +14,36 @@ _based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-T
 
 ---
 
-## always updated
+## Configuration dev
+
+- Install node (min 14): https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04-pt
+
+- Install and configure docker without sudo: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-pt
+
+- Install and configure docker-compose: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-pt
+
+- `cp .env.local.example .env.local`
+
+---
+
+## FREE Deploy on Heroku and Vercel
+
+- Install hasura cli: https://hasura.io/docs/1.0/graphql/core/hasura-cli/install-hasura-cli.html#install-hasura-cli
+
+- Heroku Cli (optional) - https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+
+- Deploy to your vercel account
+- run `vercel link`
+
+- Deploy to heroku with the heroku button (https://heroku.com/deploy?template=https://github.com/hasura/graphql-engine-heroku)
+- run `heroku login`
+
+- `cp .env.production.sh.example .env.production.sh`
+- update `HASURA_ADMIN_SECRET`, `NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT`, `HASURA_GRAPHQL_ADMIN_SECRET` at `.env.production.sh` - search for `xxx`
+
+---
+
+## Always updated
 
 _Please, update all packages before continue:_
 
