@@ -1301,15 +1301,16 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['timestamptz']>>
 }
 
-export type MessagesAllQueryVariables = Exact<{ [key: string]: never }>
+export type MessagesDeleteIdLessThanMutationVariables = Exact<{
+  message_id: Scalars['Int']
+}>
 
-export type MessagesAllQuery = { __typename?: 'query_root' } & {
-  messages: Array<
-    { __typename?: 'messages' } & Pick<Messages, 'id' | 'body'> & {
-        message_tags: Array<
-          { __typename?: 'message_tag' } & { tag: { __typename?: 'tags' } & Pick<Tags, 'name'> }
-        >
-      }
+export type MessagesDeleteIdLessThanMutation = { __typename?: 'mutation_root' } & {
+  delete_messages?: Maybe<
+    { __typename?: 'messages_mutation_response' } & Pick<
+      Messages_Mutation_Response,
+      'affected_rows'
+    >
   >
 }
 
@@ -1319,6 +1320,18 @@ export type MessagesInsertOneMutationVariables = Exact<{
 
 export type MessagesInsertOneMutation = { __typename?: 'mutation_root' } & {
   insert_messages_one?: Maybe<{ __typename?: 'messages' } & Pick<Messages, 'id' | 'body'>>
+}
+
+export type MessagesLast8QueryVariables = Exact<{ [key: string]: never }>
+
+export type MessagesLast8Query = { __typename?: 'query_root' } & {
+  messages: Array<
+    { __typename?: 'messages' } & Pick<Messages, 'id' | 'body'> & {
+        message_tags: Array<
+          { __typename?: 'message_tag' } & { tag: { __typename?: 'tags' } & Pick<Tags, 'name'> }
+        >
+      }
+  >
 }
 
 export type MessagesTagInsertOneMutationVariables = Exact<{
@@ -1334,16 +1347,10 @@ export type MessagesTagInsertOneMutation = { __typename?: 'mutation_root' } & {
   >
 }
 
-export const MessagesAllDocument = gql`
-  query messagesAll {
-    messages(limit: 20) {
-      id
-      body
-      message_tags {
-        tag {
-          name
-        }
-      }
+export const MessagesDeleteIdLessThanDocument = gql`
+  mutation messagesDeleteIdLessThan($message_id: Int!) {
+    delete_messages(where: { id: { _lt: $message_id } }) {
+      affected_rows
     }
   }
 `
@@ -1352,6 +1359,19 @@ export const MessagesInsertOneDocument = gql`
     insert_messages_one(object: $message) {
       id
       body
+    }
+  }
+`
+export const MessagesLast8Document = gql`
+  query messagesLast8 {
+    messages(limit: 8, order_by: { id: desc }) {
+      id
+      body
+      message_tags {
+        tag {
+          name
+        }
+      }
     }
   }
 `
@@ -1373,12 +1393,16 @@ export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 const defaultWrapper: SdkFunctionWrapper = (sdkFunction) => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    messagesAll(
-      variables?: MessagesAllQueryVariables,
+    messagesDeleteIdLessThan(
+      variables: MessagesDeleteIdLessThanMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<MessagesAllQuery> {
+    ): Promise<MessagesDeleteIdLessThanMutation> {
       return withWrapper(() =>
-        client.request<MessagesAllQuery>(MessagesAllDocument, variables, requestHeaders)
+        client.request<MessagesDeleteIdLessThanMutation>(
+          MessagesDeleteIdLessThanDocument,
+          variables,
+          requestHeaders
+        )
       )
     },
     messagesInsertOne(
@@ -1391,6 +1415,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
           variables,
           requestHeaders
         )
+      )
+    },
+    messagesLast8(
+      variables?: MessagesLast8QueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<MessagesLast8Query> {
+      return withWrapper(() =>
+        client.request<MessagesLast8Query>(MessagesLast8Document, variables, requestHeaders)
       )
     },
     messagesTagInsertOne(

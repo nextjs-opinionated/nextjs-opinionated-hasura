@@ -7,7 +7,7 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'GET':
       try {
-        const data = await new GqlSdkHelper().getSdk().messagesAll()
+        const data = await new GqlSdkHelper().getSdk().messagesLast8()
         res.json(data)
       } catch (e) {
         res.statusCode = 500

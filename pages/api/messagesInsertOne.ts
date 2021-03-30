@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { NextApiRequest, NextApiResponse } from 'next'
 import GqlSdkHelper from '../../src/utils/GqlSdkHelper'
 
@@ -28,12 +29,29 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
         )
         const spaceJson = (await resSpace.json()) as SpaceFlightNewsApiType[]
 
-        const data = await new GqlSdkHelper().getSdk().messagesInsertOne({
+        // add message
+        const messageResponseData = await new GqlSdkHelper().getSdk().messagesInsertOne({
           message: {
             body: spaceJson?.[0]?.title,
           },
         })
-        res.json(data)
+
+        // add a tag
+        // const messagesTagResponseData = await new GqlSdkHelper().getSdk().messagesTagInsertOne({
+        //   message_tag: {
+        //     message_id: messageResponseData.insert_messages_one.id,
+        //     tag_id: 1,
+        //   },
+        // })
+
+        // lista all
+        const messagesLast8 = await new GqlSdkHelper().getSdk().messagesLast8()
+
+        const messagesDeleted = await new GqlSdkHelper().getSdk().messagesDeleteIdLessThan({
+          message_id: _.last(messagesLast8.messages)?.id,
+        })
+
+        res.json({ messageResponseData, messagesDeleted })
       } catch (e) {
         res.statusCode = 500
         console.error('Request error', e)

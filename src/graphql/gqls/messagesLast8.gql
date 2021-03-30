@@ -1,5 +1,5 @@
-query messagesAll {
-  messages(limit: 20) {
+query messagesLast8 {
+  messages(limit: 8, order_by: { id: desc }) {
     id
     body
     message_tags {

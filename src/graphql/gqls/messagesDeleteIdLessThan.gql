@@ -1,0 +1,5 @@
+mutation messagesDeleteIdLessThan($message_id: Int!) {
+  delete_messages(where: { id: { _lt: $message_id } }) {
+    affected_rows
+  }
+}

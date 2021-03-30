@@ -2,12 +2,12 @@ import * as React from 'react'
 import useSWRFetch from '../src/utils/useSWRFetch'
 import { showErrorAlert } from '../src/components/showErrorAlert'
 import { useEffect } from 'react'
-import { MessagesAllQuery } from '../src/graphql/generated'
+import { MessagesLast8Query } from '../src/graphql/generated'
 import { Button } from '../src/components/Button/Button'
 import { mutate } from 'swr'
 
 const Messages: React.FunctionComponent = () => {
-  const { data, loading, error } = useSWRFetch<MessagesAllQuery>('/api/messagesAll')
+  const { data, loading, error } = useSWRFetch<MessagesLast8Query>('/api/messagesLast8')
 
   useEffect(() => {
     if (error) {
@@ -44,7 +44,7 @@ const Messages: React.FunctionComponent = () => {
                 <Button
                   onClick={async () => {
                     await fetch('/api/messagesInsertOne')
-                    await mutate('/api/messagesAll')
+                    await mutate('/api/messagesLast8')
                   }}
                 >
                   add new item
@@ -53,7 +53,7 @@ const Messages: React.FunctionComponent = () => {
               {loading ? (
                 'Loading...'
               ) : (
-                <ul className='flex'>
+                <ul className='flex flex-wrap'>
                   {data?.messages?.map((message) => (
                     <li
                       key={message.id}
