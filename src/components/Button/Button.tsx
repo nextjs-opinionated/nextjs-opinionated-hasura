@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 
-export type ButtonProps = {
+interface ButtonProps {
   /**
    * Label of the button
    */
-  label: string
+  label?: string
   /**
    * Boolean value to define the button style
    */
@@ -16,14 +16,25 @@ export type ButtonProps = {
 }
 
 const BASE_BUTTON =
-  'outline-none rounded shadow py-2 px-8 font-normal tracking-wider text-lg focus:outline-none'
-const CONTAINED_BUTTON = `${BASE_BUTTON} bg-blue-500 hover:bg-blue-700 text-white`
-const OUTLINED_BUTTON = `${BASE_BUTTON} border-2 border-blue-500 hover:border-blue-700 text-blue-500`
-const Button: FC<ButtonProps> = ({ onClick, label = 'empty label', outlined }) => {
+  'px-6 py-3 mb-1 mr-1 text-sm font-bold uppercase transition-all duration-150 ease-linear'
+const CONTAINED_BUTTON = `${BASE_BUTTON} bg-indigo-500 text-white rounded shadow outline-none active:bg-indigo-600 hover:shadow-lg focus:outline-none`
+const OUTLINED_BUTTON = `${BASE_BUTTON} bg-transparent border text-indigo-700 border-indigo-500 border-solid rounded outline-none hover:bg-indigo-500 hover:text-white active:bg-indigo-600`
+
+export const Button: FC<ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>> = ({
+  onClick,
+  label = 'empty label',
+  outlined,
+  children,
+  className,
+  ...rest
+}) => {
   return (
-    <button onClick={onClick} className={outlined ? OUTLINED_BUTTON : CONTAINED_BUTTON}>
-      <span>{label}</span>
+    <button
+      onClick={onClick}
+      className={`${className} ${outlined ? OUTLINED_BUTTON : CONTAINED_BUTTON}`}
+      {...rest}
+    >
+      {children || <span>{label}</span>}
     </button>
   )
 }
-export default Button

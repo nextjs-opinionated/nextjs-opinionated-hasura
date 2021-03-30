@@ -3,6 +3,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Image from 'next/image'
 import { FiZap } from 'react-icons/fi'
+import { Button } from '../src/components/Button/Button'
 
 const Home: React.FunctionComponent = () => {
   return (
@@ -131,31 +132,45 @@ const Home: React.FunctionComponent = () => {
 
             <div className='flex flex-wrap justify-center mx-2 my-4'>
               <a
-                className='px-6 py-3 m-2 text-lg font-bold text-white uppercase bg-purple-300 rounded-full hover:bg-purple-400'
+                className='px-6 py-3 mb-1 mr-1 underline'
                 target='_blank'
                 rel='noreferrer'
                 href='https://github.com/saitodisse/nextjs-opinionated'
               >
                 Github
               </a>
-              <button
-                className='px-6 py-3 m-2 text-lg font-bold text-white uppercase bg-purple-300 rounded-full hover:bg-purple-400'
+
+              <Button
+                outlined
+                className='mx-3'
                 onClick={async () => {
                   const myAlert = withReactContent(Swal)
                   await myAlert.fire({
                     title: 'Some Alert Title',
-                    // text: 'sweetalert2',
-                    // imageUrl: 'https://unsplash.it/600/300',
-                    // imageWidth: 600,
-                    // imageHeight: 300,
                     html: <Image width={600} height={300} src='https://unsplash.it/600/300' />,
                     imageAlt: 'Custom image',
                     confirmButtonText: 'ok button',
                   })
                 }}
               >
-                Show Alert
-              </button>
+                Show Image
+              </Button>
+
+              <Button
+                outlined
+                className='mx-3'
+                label='Call API'
+                onClick={async () => {
+                  const res = await fetch('/api/say-hello-from-api')
+                  const resultJSON = await res.json()
+                  const myAlert = withReactContent(Swal)
+                  await myAlert.fire({
+                    title: 'from server',
+                    html: resultJSON.message,
+                    confirmButtonText: 'close',
+                  })
+                }}
+              />
             </div>
           </div>
         </div>
