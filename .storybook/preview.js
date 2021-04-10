@@ -1,4 +1,4 @@
-import '../styles/index.css'
+import '../src/styles/index.css'
 
 import React from 'react'
 import { addDecorator } from '@storybook/react'
@@ -12,4 +12,4 @@ addDecorator((storyFn) => <Layout>{storyFn()}</Layout>)
 //   })
 // )
 
-import '../styles/index.css'
+import '../src/styles/index.css'

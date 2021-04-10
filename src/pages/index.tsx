@@ -3,7 +3,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Image from 'next/image'
 import { FiZap } from 'react-icons/fi'
-import { Button } from '../src/components/Button/Button'
+import { Button } from '../components/Button/Button'
 
 const Home: React.FunctionComponent = () => {
   return (
