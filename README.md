@@ -1,4 +1,17 @@
-This Next.js's boilerplate includes:
+# Next.js Opinionated with Hasura
+
+This boilerplate has a very interesting advantage.
+Whenever you create or change a query in graphql you will have an automatically generated typescript code.
+
+## Libs and frameworks:
+
+- [hasura](https://hasura.io/)
+- [graphql-codegen](https://www.graphql-code-generator.com/)
+- [graphql-request](https://github.com/prisma-labs/graphql-request)
+- [swr](https://swr.vercel.app/)
+- [docker](https://www.docker.com/)
+
+_from nextjs-opinionated: https://github.com/saitodisse/nextjs-opinionated_
 
 - [typescript](https://www.typescriptlang.org/)
 - [next.js](https://nextjs.org/)
@@ -10,32 +23,52 @@ This Next.js's boilerplate includes:
 - [sweetalert2](https://sweetalert2.github.io/)
 - [react-icons](https://react-icons.github.io/react-icons/)
 
-_based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-TS-boilerplate_
+---
+
+## Pre-Requirements
+
+- Install **node** (min 14): https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04
+
+- Install and configure **docker**. Make sure you can run `docker` command without sudo (Step 2): https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
+
+- Install and configure **docker-compose**: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04
+
+- Install **hasura** cli: https://hasura.io/docs/1.0/graphql/core/hasura-cli/install-hasura-cli.html#install-hasura-cli
+
+## First-run
+
+```sh
+yarn
+
+# create .env.local
+cp .env.local.example .env.local
+
+# start your postgress
+yarn hasuraLocal
+
+# apply DB in other terminal
+yarn migrationLocalApply
+```
+
+Go to http://localhost:9696, use `admin_secret_local_zzz` as admin secret. You must see messages, tags and message_tag tables
 
 ---
 
-## Configuration dev
+## Daily: start server
 
-- Install node (min 14): https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04-pt
-
-- Install and configure docker without sudo: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-pt
-
-- Install and configure docker-compose: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-pt
-
-- `cp .env.local.example .env.local`
-
-- `yarn migrateLocalToProd`
+```sh
+# start docker-compose, generator and next.js
+yarn dev
+```
 
 ---
 
 ## FREE Deploy on Heroku and Vercel
 
-- Install hasura cli: https://hasura.io/docs/1.0/graphql/core/hasura-cli/install-hasura-cli.html#install-hasura-cli
-
-- Heroku Cli (optional) - https://devcenter.heroku.com/articles/heroku-cli#download-and-install
-
-- Deploy to your vercel account
-- run `vercel link`
+- Install Heroku CLI - https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+- Install Vercel CLI: https://vercel.com/cli
+- Push your repo to github and deploy to your vercel account
+- run `vercel link` on your project folder
 
 - Deploy to heroku with the heroku button (https://heroku.com/deploy?template=https://github.com/hasura/graphql-engine-heroku)
 - run `heroku login`
