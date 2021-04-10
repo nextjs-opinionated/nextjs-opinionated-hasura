@@ -8,10 +8,19 @@ describe('Home page', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('clicking button triggers alert', () => {
-    const { getByText } = render(<Home />, {})
-    window.alert = jest.fn()
-    fireEvent.click(getByText('Hello World'))
-    expect(window.alert).toHaveBeenCalledWith('Hello World')
+  it('SweetAlert: clicking button triggers SweetAlert with Some Alert Title', () => {
+    const { getByText, queryByText } = render(<Home />, {})
+
+    expect(queryByText('Some Alert Title')).toBeNull()
+
+    fireEvent.click(getByText('Show Image'))
+    expect(queryByText('Some Alert Title')).toBeDefined()
+  })
+
+  it('SweetAlert: ok button closes SweetAlert', () => {
+    const { getByText, queryByText } = render(<Home />, {})
+    fireEvent.click(getByText('Show Image'))
+    fireEvent.click(getByText('ok button'))
+    expect(queryByText('Some Alert Title')).toBeNull()
   })
 })
