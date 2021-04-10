@@ -6,6 +6,14 @@ module.exports = {
     '@storybook/addon-actions/register',
     '@storybook/addon-notes/register',
     '@storybook/addon-essentials',
+    {
+      name: '@storybook/addon-postcss',
+      options: {
+        postcssLoaderOptions: {
+          implementation: require('postcss'),
+        },
+      },
+    },
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({
