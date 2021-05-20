@@ -25,9 +25,9 @@ const Messages: React.FunctionComponent = () => {
 
   return (
     <div className=''>
-      <div className='p-6 bg-purple-800'>
+      <div className='m-2'>
         <div className='flex flex-col py-4 font-sans bg-white'>
-          <div className='container md:px-20 md:mx-auto'>
+          <div className='container md:mx-auto'>
             <Header />
 
             <main className='flex flex-col pt-8 mx-8'>
@@ -44,6 +44,9 @@ const Messages: React.FunctionComponent = () => {
                   new random
                 </Button>
               </div>
+
+              <p className='text-sm text-gray-700'>items below exists on server:</p>
+
               {loading ? (
                 'Loading...'
               ) : (
@@ -51,7 +54,7 @@ const Messages: React.FunctionComponent = () => {
                   {data?.messages?.map((message) => (
                     <li
                       key={message.id}
-                      className='w-64 p-4 mb-2 mr-2 border border-purple-300 cursor-pointer hover:bg-purple-50'
+                      className='w-64 p-4 m-3 border border-gray-300 cursor-pointer hover:bg-purple-50'
                     >
                       <div className='flex flex-col'>
                         <div className='text-base font-bold text-gray-600 hover:underline'>
