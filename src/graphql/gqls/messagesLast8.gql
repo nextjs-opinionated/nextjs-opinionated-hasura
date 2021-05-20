@@ -1,7 +1,11 @@
 query messagesLast8 {
   messages(limit: 8, order_by: { id: desc }) {
     id
+    title
     body
+    url
+    imageUrl
+    publishedAt
     message_tags {
       tag {
         name

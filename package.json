@@ -8,7 +8,7 @@
     "dockerClear": "docker ps -aq | xargs -I {} docker stop {}; docker ps -aq | xargs -I {} docker rm {}",
     "format": "prettier --write .",
     "gen": "graphql-codegen --config codegen.yml && prettier ./src/graphql/generated.ts --write --config .prettierrc",
-    "genWatch": "bash ./hasura/wait-for-url.sh && chokidar \"./src/graphql/gqls/**/*.gql\" --initial -c \"yarn gen\"",
+    "genWatch": "bash ./hasura/wait-for-url.sh && chokidar \"./src/graphql/gqls/**/*.gql\" \"./hasura/migrations/**/*.sql\" --initial -c \"yarn gen\"",
     "hasuraLocal": "(cd ./hasura; concurrently --raw 'docker-compose up' 'bash ./wait-for-url.sh && hasura console --skip-update-check --no-browser --console-port 9696')",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "migrationLocalApply": "export $(cat .env.local | xargs) && (cd ./hasura; hasura migrate apply --skip-update-check --admin-secret=$HASURA_ADMIN_SECRET; hasura metadata apply --skip-update-check --admin-secret=$HASURA_ADMIN_SECRET)",
@@ -23,6 +23,7 @@
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.1.2",
     "autoprefixer": "^10.2.5",
+    "dayjs": "^1.10.4",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "graphql-tag": "^2.12.4",
