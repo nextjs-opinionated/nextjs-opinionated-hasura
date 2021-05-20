@@ -54,7 +54,7 @@ const Messages: React.FunctionComponent = () => {
                   {data?.messages?.map((message) => (
                     <li
                       key={message.id}
-                      className='w-64 p-4 m-3 border border-gray-300 cursor-pointer hover:bg-purple-50'
+                      className='w-64 p-4 mx-3 my-3 border border-gray-300 cursor-pointer hover:bg-purple-50'
                     >
                       <div className='flex flex-col'>
                         <div className='text-base font-bold text-gray-600 hover:underline'>
