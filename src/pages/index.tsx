@@ -111,6 +111,39 @@ const Home: React.FunctionComponent = () => {
                 >
                   react-icons
                 </a>
+
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://hasura.io/'
+                >
+                  hasura
+                </a>
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://github.com/prisma-labs/graphql-request'
+                >
+                  graphql-request
+                </a>
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://www.graphql-code-generator.com/'
+                >
+                  graphql-codegen
+                </a>
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://docs.docker.com/compose/'
+                >
+                  docker-compose
+                </a>
               </div>
             </main>
 

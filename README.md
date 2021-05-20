@@ -1,4 +1,6 @@
-This Next.js's boilerplate includes:
+# Next.js's Opinionated Hasura Boilerplate
+
+### All packages from [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated):
 
 - [typescript](https://www.typescriptlang.org/)
 - [next.js](https://nextjs.org/)
@@ -10,7 +12,12 @@ This Next.js's boilerplate includes:
 - [sweetalert2](https://sweetalert2.github.io/)
 - [react-icons](https://react-icons.github.io/react-icons/)
 
-_based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-TS-boilerplate_
+### Plus hasura and graphql-codegen
+
+- [hasura](https://hasura.io/)
+- [graphql-request](https://github.com/prisma-labs/graphql-request)
+- [graphql-codegen](https://www.graphql-code-generator.com/)
+- [docker-compose](https://docs.docker.com/compose/)
 
 ---
 
@@ -28,7 +35,7 @@ _based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-T
 
 ---
 
-## FREE Deploy on Heroku and Vercel
+## Deploy on Heroku and Vercel for FREE
 
 - Install hasura cli: https://hasura.io/docs/1.0/graphql/core/hasura-cli/install-hasura-cli.html#install-hasura-cli
 
@@ -45,9 +52,9 @@ _based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-T
 
 ---
 
-## Always updated
+### Always updated
 
-_Please, update all packages before continue:_
+_I'm always updating all packages here_
 
 ```sh
 # yarn global add npm-check-updates
@@ -62,3 +69,7 @@ yarn build && yarn test && yarn storybook
 ```
 
 If everything is working, please make a pull request
+
+---
+
+_based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-TS-boilerplate_
