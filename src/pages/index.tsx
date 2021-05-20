@@ -10,7 +10,7 @@ const Home: React.FunctionComponent = () => {
   return (
     <div className=''>
       {/* component */}
-      <div className='p-6 bg-purple-800'>
+      <div className='m-2'>
         <div className='flex flex-col py-4 font-sans bg-white'>
           <div className='container md:px-20 md:mx-auto'>
             <Header />

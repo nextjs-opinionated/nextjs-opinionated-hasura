@@ -1,22 +1,27 @@
 import * as React from 'react'
 import useSWRFetch from '../utils/useSWRFetch'
 import { showErrorAlert } from '../components/showErrorAlert'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { MessagesLast8Query } from '../graphql/generated'
 import { Button } from '../components/Button/Button'
 import { mutate } from 'swr'
 import { Header } from '../components/Header'
 import dayjs from 'dayjs'
-import { FiExternalLink, FiLink } from 'react-icons/fi'
+import { FiExternalLink } from 'react-icons/fi'
 
 const Messages: React.FunctionComponent = () => {
   const { data, loading, error } = useSWRFetch<MessagesLast8Query>('/api/messagesLast8')
+  const [isLoading, isLoadingSet] = useState(true)
 
   useEffect(() => {
     if (error) {
       showErrorAlert({ error })
     }
   }, [])
+
+  useEffect(() => {
+    isLoadingSet(loading)
+  }, [loading])
 
   return (
     <div className=''>
@@ -29,11 +34,14 @@ const Messages: React.FunctionComponent = () => {
               <div className='my-4'>
                 <Button
                   onClick={async () => {
+                    isLoadingSet(true)
                     await fetch('/api/messagesInsertOne')
                     await mutate('/api/messagesLast8')
+                    isLoadingSet(false)
                   }}
+                  disabled={isLoading}
                 >
-                  add new item on server (Hasura, postgresql, graphql)
+                  new random
                 </Button>
               </div>
               {loading ? (
