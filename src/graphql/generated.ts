@@ -1395,53 +1395,66 @@ export const MessagesTagInsertOneDocument = gql`
   }
 `
 
-export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
+export type SdkFunctionWrapper = <T>(
+  action: (requestHeaders?: Record<string, string>) => Promise<T>,
+  operationName: string
+) => Promise<T>
 
-const defaultWrapper: SdkFunctionWrapper = (sdkFunction) => sdkFunction()
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action()
+
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
     messagesDeleteIdLessThan(
       variables: MessagesDeleteIdLessThanMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
     ): Promise<MessagesDeleteIdLessThanMutation> {
-      return withWrapper(() =>
-        client.request<MessagesDeleteIdLessThanMutation>(
-          MessagesDeleteIdLessThanDocument,
-          variables,
-          requestHeaders
-        )
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<MessagesDeleteIdLessThanMutation>(
+            MessagesDeleteIdLessThanDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'messagesDeleteIdLessThan'
       )
     },
     messagesInsertOne(
       variables: MessagesInsertOneMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
     ): Promise<MessagesInsertOneMutation> {
-      return withWrapper(() =>
-        client.request<MessagesInsertOneMutation>(
-          MessagesInsertOneDocument,
-          variables,
-          requestHeaders
-        )
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<MessagesInsertOneMutation>(MessagesInsertOneDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'messagesInsertOne'
       )
     },
     messagesLast8(
       variables?: MessagesLast8QueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
     ): Promise<MessagesLast8Query> {
-      return withWrapper(() =>
-        client.request<MessagesLast8Query>(MessagesLast8Document, variables, requestHeaders)
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<MessagesLast8Query>(MessagesLast8Document, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'messagesLast8'
       )
     },
     messagesTagInsertOne(
       variables: MessagesTagInsertOneMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
     ): Promise<MessagesTagInsertOneMutation> {
-      return withWrapper(() =>
-        client.request<MessagesTagInsertOneMutation>(
-          MessagesTagInsertOneDocument,
-          variables,
-          requestHeaders
-        )
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<MessagesTagInsertOneMutation>(MessagesTagInsertOneDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'messagesTagInsertOne'
       )
     },
   }
