@@ -32,7 +32,11 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
         // add message
         const messageResponseData = await new GqlSdkHelper().getSdk().messagesInsertOne({
           message: {
-            body: spaceJson?.[0]?.title,
+            title: spaceJson?.[0]?.title,
+            body: spaceJson?.[0]?.summary,
+            url: spaceJson?.[0]?.url,
+            imageUrl: spaceJson?.[0]?.imageUrl,
+            publishedAt: spaceJson?.[0]?.publishedAt,
           },
         })
 

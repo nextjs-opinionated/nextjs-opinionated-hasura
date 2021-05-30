@@ -3,16 +3,6 @@
 This boilerplate has a very interesting advantage.
 Whenever you create or change a query in graphql you will have an automatically generated typescript code.
 
-## Libs and frameworks:
-
-- [hasura](https://hasura.io/)
-- [graphql-codegen](https://www.graphql-code-generator.com/)
-- [graphql-request](https://github.com/prisma-labs/graphql-request)
-- [swr](https://swr.vercel.app/)
-- [docker](https://www.docker.com/)
-
-_from nextjs-opinionated: https://github.com/saitodisse/nextjs-opinionated_
-
 - [typescript](https://www.typescriptlang.org/)
 - [next.js](https://nextjs.org/)
 - [tailwindcss](https://tailwindcss.com/)
@@ -22,6 +12,15 @@ _from nextjs-opinionated: https://github.com/saitodisse/nextjs-opinionated_
 - [prettifier](https://prettier.io/)
 - [sweetalert2](https://sweetalert2.github.io/)
 - [react-icons](https://react-icons.github.io/react-icons/)
+
+### Plus hasura and graphql-codegen
+
+- [hasura](https://hasura.io/)
+- [graphql-request](https://github.com/prisma-labs/graphql-request)
+- [graphql-codegen](https://www.graphql-code-generator.com/)
+- [docker-compose](https://docs.docker.com/compose/)
+- [swr](https://swr.vercel.app/)
+- [docker](https://www.docker.com/)
 
 ---
 
@@ -54,7 +53,7 @@ Go to http://localhost:9696, use `admin_secret_local_zzz` as admin secret. You m
 
 ---
 
-## Daily: start server
+## start server
 
 ```sh
 # start docker-compose, generator and next.js
@@ -78,9 +77,9 @@ yarn dev
 
 ---
 
-## Always updated
+### Always updated
 
-_Please, update all packages before continue:_
+_I'm always updating all packages here_
 
 ```sh
 # yarn global add npm-check-updates
@@ -95,3 +94,7 @@ yarn build && yarn test && yarn storybook
 ```
 
 If everything is working, please make a pull request
+
+---
+
+_based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-TS-boilerplate_

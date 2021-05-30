@@ -11,7 +11,7 @@ export function Header() {
           </a>
         </Link>
         <Link href='/messages'>
-          <a className='px-6 py-3 text-gray-00 hover:text-purple-300'>Messages (hasura)</a>
+          <a className='px-6 py-3 text-gray-00 hover:text-purple-300'>Messages</a>
         </Link>
         <a
           href='https://github.com/saitodisse/nextjs-opinionated-hasura'

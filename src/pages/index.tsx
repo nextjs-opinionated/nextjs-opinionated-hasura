@@ -5,14 +5,17 @@ import Image from 'next/image'
 import { FiZap } from 'react-icons/fi'
 import { Button } from '../components/Button/Button'
 import { Header } from '../components/Header'
+import { useRouter } from 'next/router'
 
 const Home: React.FunctionComponent = () => {
+  const router = useRouter()
+
   return (
     <div className=''>
       {/* component */}
-      <div className='p-6 bg-purple-800'>
+      <div className='m-2'>
         <div className='flex flex-col py-4 font-sans bg-white'>
-          <div className='container md:px-20 md:mx-auto'>
+          <div className='container md:mx-auto'>
             <Header />
 
             <main className='flex flex-col justify-between pt-8 mx-8 sm:flex-row'>
@@ -111,18 +114,51 @@ const Home: React.FunctionComponent = () => {
                 >
                   react-icons
                 </a>
+
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://hasura.io/'
+                >
+                  hasura
+                </a>
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://github.com/prisma-labs/graphql-request'
+                >
+                  graphql-request
+                </a>
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://www.graphql-code-generator.com/'
+                >
+                  graphql-codegen
+                </a>
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://docs.docker.com/compose/'
+                >
+                  docker-compose
+                </a>
               </div>
             </main>
 
             <div className='flex flex-wrap justify-center mx-2 my-4'>
-              <a
-                className='px-6 py-3 mb-1 mr-1 underline'
-                target='_blank'
-                rel='noreferrer'
-                href='https://github.com/saitodisse/nextjs-opinionated-hasura'
-              >
-                Github
-              </a>
+              <Button
+                outlined
+                className='mx-3'
+                label='Server Messages Page'
+                onClick={async () => {
+                  router.push('/messages')
+                }}
+              />
 
               <Button
                 outlined
@@ -143,13 +179,13 @@ const Home: React.FunctionComponent = () => {
               <Button
                 outlined
                 className='mx-3'
-                label='Call API'
+                label='Get Server Time'
                 onClick={async () => {
-                  const res = await fetch('/api/say-hello-from-api')
+                  const res = await fetch('/api/get-server-time')
                   const resultJSON = await res.json()
                   const myAlert = withReactContent(Swal)
                   await myAlert.fire({
-                    title: 'from server',
+                    title: 'server time',
                     html: resultJSON.message,
                     confirmButtonText: 'close',
                   })

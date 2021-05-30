@@ -1,7 +1,6 @@
 import React from 'react'
-import { action } from '@storybook/addon-actions'
-import { Story, Meta } from '@storybook/react'
-import { Button, ButtonProps } from './Button'
+import { Meta } from '@storybook/react'
+import { Button } from './Button'
 
 export default {
   component: Button,
@@ -15,6 +14,16 @@ export default {
   },
 } as Meta
 
-export const NormalButton: Story<ButtonProps> = ({ outlined, label, ...rest }) => {
-  return <Button outlined={outlined} label={label} {...rest} onClick={action('clicked')} />
+const Template = (args) => <Button {...args} />
+
+export const Normal = Template.bind({})
+Normal.args = {
+  label: 'Normal Button',
+  outlined: false,
+}
+
+export const Outlined = Template.bind({})
+Outlined.args = {
+  label: 'Outlined Button',
+  outlined: true,
 }

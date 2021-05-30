@@ -334,11 +334,15 @@ export type Messages = {
   body: Scalars['String']
   created_at: Scalars['timestamptz']
   id: Scalars['Int']
+  imageUrl?: Maybe<Scalars['String']>
   /** An array relationship */
   message_tags: Array<Message_Tag>
   /** An aggregated array relationship */
   message_tags_aggregate: Message_Tag_Aggregate
+  publishedAt?: Maybe<Scalars['timestamptz']>
+  title?: Maybe<Scalars['String']>
   updated_at: Scalars['timestamptz']
+  url?: Maybe<Scalars['String']>
 }
 
 /** columns and relationships of "messages" */
@@ -428,8 +432,12 @@ export type Messages_Bool_Exp = {
   body?: Maybe<String_Comparison_Exp>
   created_at?: Maybe<Timestamptz_Comparison_Exp>
   id?: Maybe<Int_Comparison_Exp>
+  imageUrl?: Maybe<String_Comparison_Exp>
   message_tags?: Maybe<Message_Tag_Bool_Exp>
+  publishedAt?: Maybe<Timestamptz_Comparison_Exp>
+  title?: Maybe<String_Comparison_Exp>
   updated_at?: Maybe<Timestamptz_Comparison_Exp>
+  url?: Maybe<String_Comparison_Exp>
 }
 
 /** unique or primary key constraints on table "messages" */
@@ -448,8 +456,12 @@ export type Messages_Insert_Input = {
   body?: Maybe<Scalars['String']>
   created_at?: Maybe<Scalars['timestamptz']>
   id?: Maybe<Scalars['Int']>
+  imageUrl?: Maybe<Scalars['String']>
   message_tags?: Maybe<Message_Tag_Arr_Rel_Insert_Input>
+  publishedAt?: Maybe<Scalars['timestamptz']>
+  title?: Maybe<Scalars['String']>
   updated_at?: Maybe<Scalars['timestamptz']>
+  url?: Maybe<Scalars['String']>
 }
 
 /** aggregate max on columns */
@@ -458,7 +470,11 @@ export type Messages_Max_Fields = {
   body?: Maybe<Scalars['String']>
   created_at?: Maybe<Scalars['timestamptz']>
   id?: Maybe<Scalars['Int']>
+  imageUrl?: Maybe<Scalars['String']>
+  publishedAt?: Maybe<Scalars['timestamptz']>
+  title?: Maybe<Scalars['String']>
   updated_at?: Maybe<Scalars['timestamptz']>
+  url?: Maybe<Scalars['String']>
 }
 
 /** order by max() on columns of table "messages" */
@@ -466,7 +482,11 @@ export type Messages_Max_Order_By = {
   body?: Maybe<Order_By>
   created_at?: Maybe<Order_By>
   id?: Maybe<Order_By>
+  imageUrl?: Maybe<Order_By>
+  publishedAt?: Maybe<Order_By>
+  title?: Maybe<Order_By>
   updated_at?: Maybe<Order_By>
+  url?: Maybe<Order_By>
 }
 
 /** aggregate min on columns */
@@ -475,7 +495,11 @@ export type Messages_Min_Fields = {
   body?: Maybe<Scalars['String']>
   created_at?: Maybe<Scalars['timestamptz']>
   id?: Maybe<Scalars['Int']>
+  imageUrl?: Maybe<Scalars['String']>
+  publishedAt?: Maybe<Scalars['timestamptz']>
+  title?: Maybe<Scalars['String']>
   updated_at?: Maybe<Scalars['timestamptz']>
+  url?: Maybe<Scalars['String']>
 }
 
 /** order by min() on columns of table "messages" */
@@ -483,7 +507,11 @@ export type Messages_Min_Order_By = {
   body?: Maybe<Order_By>
   created_at?: Maybe<Order_By>
   id?: Maybe<Order_By>
+  imageUrl?: Maybe<Order_By>
+  publishedAt?: Maybe<Order_By>
+  title?: Maybe<Order_By>
   updated_at?: Maybe<Order_By>
+  url?: Maybe<Order_By>
 }
 
 /** response of any mutation on the table "messages" */
@@ -513,8 +541,12 @@ export type Messages_Order_By = {
   body?: Maybe<Order_By>
   created_at?: Maybe<Order_By>
   id?: Maybe<Order_By>
+  imageUrl?: Maybe<Order_By>
   message_tags_aggregate?: Maybe<Message_Tag_Aggregate_Order_By>
+  publishedAt?: Maybe<Order_By>
+  title?: Maybe<Order_By>
   updated_at?: Maybe<Order_By>
+  url?: Maybe<Order_By>
 }
 
 /** primary key columns input for table: "messages" */
@@ -531,7 +563,15 @@ export enum Messages_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  ImageUrl = 'imageUrl',
+  /** column name */
+  PublishedAt = 'publishedAt',
+  /** column name */
+  Title = 'title',
+  /** column name */
   UpdatedAt = 'updated_at',
+  /** column name */
+  Url = 'url',
 }
 
 /** input type for updating data in table "messages" */
@@ -539,7 +579,11 @@ export type Messages_Set_Input = {
   body?: Maybe<Scalars['String']>
   created_at?: Maybe<Scalars['timestamptz']>
   id?: Maybe<Scalars['Int']>
+  imageUrl?: Maybe<Scalars['String']>
+  publishedAt?: Maybe<Scalars['timestamptz']>
+  title?: Maybe<Scalars['String']>
   updated_at?: Maybe<Scalars['timestamptz']>
+  url?: Maybe<Scalars['String']>
 }
 
 /** aggregate stddev on columns */
@@ -595,7 +639,15 @@ export enum Messages_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  ImageUrl = 'imageUrl',
+  /** column name */
+  PublishedAt = 'publishedAt',
+  /** column name */
+  Title = 'title',
+  /** column name */
   UpdatedAt = 'updated_at',
+  /** column name */
+  Url = 'url',
 }
 
 /** aggregate var_pop on columns */
@@ -1330,7 +1382,10 @@ export type MessagesLast8QueryVariables = Exact<{ [key: string]: never }>
 
 export type MessagesLast8Query = { __typename?: 'query_root' } & {
   messages: Array<
-    { __typename?: 'messages' } & Pick<Messages, 'id' | 'body'> & {
+    { __typename?: 'messages' } & Pick<
+      Messages,
+      'id' | 'title' | 'body' | 'url' | 'imageUrl' | 'publishedAt'
+    > & {
         message_tags: Array<
           { __typename?: 'message_tag' } & { tag: { __typename?: 'tags' } & Pick<Tags, 'name'> }
         >
@@ -1373,7 +1428,11 @@ export const MessagesLast8Document = gql`
   query messagesLast8 {
     messages(limit: 8, order_by: { id: desc }) {
       id
+      title
       body
+      url
+      imageUrl
+      publishedAt
       message_tags {
         tag {
           name
@@ -1395,53 +1454,66 @@ export const MessagesTagInsertOneDocument = gql`
   }
 `
 
-export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
+export type SdkFunctionWrapper = <T>(
+  action: (requestHeaders?: Record<string, string>) => Promise<T>,
+  operationName: string
+) => Promise<T>
 
-const defaultWrapper: SdkFunctionWrapper = (sdkFunction) => sdkFunction()
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action()
+
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
     messagesDeleteIdLessThan(
       variables: MessagesDeleteIdLessThanMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
     ): Promise<MessagesDeleteIdLessThanMutation> {
-      return withWrapper(() =>
-        client.request<MessagesDeleteIdLessThanMutation>(
-          MessagesDeleteIdLessThanDocument,
-          variables,
-          requestHeaders
-        )
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<MessagesDeleteIdLessThanMutation>(
+            MessagesDeleteIdLessThanDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'messagesDeleteIdLessThan'
       )
     },
     messagesInsertOne(
       variables: MessagesInsertOneMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
     ): Promise<MessagesInsertOneMutation> {
-      return withWrapper(() =>
-        client.request<MessagesInsertOneMutation>(
-          MessagesInsertOneDocument,
-          variables,
-          requestHeaders
-        )
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<MessagesInsertOneMutation>(MessagesInsertOneDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'messagesInsertOne'
       )
     },
     messagesLast8(
       variables?: MessagesLast8QueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
     ): Promise<MessagesLast8Query> {
-      return withWrapper(() =>
-        client.request<MessagesLast8Query>(MessagesLast8Document, variables, requestHeaders)
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<MessagesLast8Query>(MessagesLast8Document, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'messagesLast8'
       )
     },
     messagesTagInsertOne(
       variables: MessagesTagInsertOneMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
     ): Promise<MessagesTagInsertOneMutation> {
-      return withWrapper(() =>
-        client.request<MessagesTagInsertOneMutation>(
-          MessagesTagInsertOneDocument,
-          variables,
-          requestHeaders
-        )
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<MessagesTagInsertOneMutation>(MessagesTagInsertOneDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'messagesTagInsertOne'
       )
     },
   }
