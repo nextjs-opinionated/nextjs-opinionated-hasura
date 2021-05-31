@@ -20,11 +20,11 @@ const Home: React.FunctionComponent = () => {
 
             <main className='flex flex-col justify-between pt-8 mx-8 sm:flex-row'>
               <div className='flex flex-col items-center text-center sm:w-2/5 sm:items-start sm:text-left'>
-                <h1 className='flex flex-col mb-2 text-6xl font-bold leading-none text-purple-900 uppercase sm:flex-row md:tracking-wide'>
+                <h1 className='flex flex-col mb-2 text-6xl font-bold leading-none text-purple-900 sm:flex-row md:tracking-wide'>
                   <FiZap size={60} className='mr-2 text-purple-500' />
                   Next.js
                 </h1>
-                <h2 className='mb-6 ml-6 text-2xl text-orange-500 uppercase sm:text-4xl sm:tracking-widest text-secondary'>
+                <h2 className='mb-6 ml-6 text-2xl text-orange-500 sm:text-4xl sm:tracking-widest text-secondary'>
                   opinionated
                 </h2>
                 <p className='mb-12 leading-relaxed text-gray-600'>

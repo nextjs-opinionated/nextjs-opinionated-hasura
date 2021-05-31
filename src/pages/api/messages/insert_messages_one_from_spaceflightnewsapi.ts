@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { NextApiRequest, NextApiResponse } from 'next'
-import GqlSdkHelper from '../../utils/GqlSdkHelper'
+import { Messages_Update_Column } from '../../../graphql/generated'
+import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 
 interface SpaceFlightNewsApiType {
   id: string
@@ -30,7 +31,7 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
         const spaceJson = (await resSpace.json()) as SpaceFlightNewsApiType[]
 
         // add message
-        const messageResponseData = await new GqlSdkHelper().getSdk().messagesInsertOne({
+        const messageResponseData = await new GqlSdkHelper().getSdk().insert_messages_one({
           message: {
             title: spaceJson?.[0]?.title,
             body: spaceJson?.[0]?.summary,
@@ -38,6 +39,7 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
             imageUrl: spaceJson?.[0]?.imageUrl,
             publishedAt: spaceJson?.[0]?.publishedAt,
           },
+          update_columns: Object.values(Messages_Update_Column),
         })
 
         // add a tag
@@ -49,9 +51,9 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
         // })
 
         // lista all
-        const messagesLast8 = await new GqlSdkHelper().getSdk().messagesLast8()
+        const messagesLast8 = await new GqlSdkHelper().getSdk().messages()
 
-        const messagesDeleted = await new GqlSdkHelper().getSdk().messagesDeleteIdLessThan({
+        const messagesDeleted = await new GqlSdkHelper().getSdk().delete_messages({
           message_id: _.last(messagesLast8.messages)?.id,
         })
 

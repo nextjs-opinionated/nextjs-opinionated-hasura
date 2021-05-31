@@ -22,6 +22,19 @@ Whenever you create or change a query in graphql you will have an automatically 
 - [swr](https://swr.vercel.app/)
 - [docker](https://www.docker.com/)
 
+## New scripts on package json
+
+- devNext: only run next dev
+- genRemote: generates watching on remote server (need to add codegen.remote.yml on root)
+
+## Forms, new libs package json
+
+- @tailwindcss/forms to get better fors
+- react-hook-form
+- zod (same validator on client and on server)
+- cross-env (envs on windows)
+- pino-pretty (better logs)
+
 ---
 
 ## Pre-Requirements
@@ -34,10 +47,39 @@ Whenever you create or change a query in graphql you will have an automatically 
 
 - Install **hasura** cli: https://hasura.io/docs/1.0/graphql/core/hasura-cli/install-hasura-cli.html#install-hasura-cli
 
-## First-run
+### Before yarn dev
 
 ```sh
 yarn
+
+# create .env.local
+cp .env.local.example .env.local
+
+# start your postgress if you have docker
+yarn hasuraLocal
+
+# apply DB in other terminal
+yarn migrationLocalApply
+```
+
+Go to http://localhost:9696, use `admin_secret_local_zzz` as admin secret. You must see messages, tags and message_tag tables
+
+---
+
+### Run database locally (with docker)
+
+```sh
+yarn dev
+```
+
+---
+
+### Run remote database on heroku (without docker)
+
+- first create a server using [heroku button](https://heroku.com/deploy?template=https://github.com/hasura/graphql-engine-heroku)
+
+```sh
+yarn devNext
 
 # create .env.local
 cp .env.local.example .env.local
@@ -48,10 +90,6 @@ yarn hasuraLocal
 # apply DB in other terminal
 yarn migrationLocalApply
 ```
-
-Go to http://localhost:9696, use `admin_secret_local_zzz` as admin secret. You must see messages, tags and message_tag tables
-
----
 
 ## start server
 

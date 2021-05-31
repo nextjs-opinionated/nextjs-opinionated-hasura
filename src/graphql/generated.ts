@@ -1351,11 +1351,11 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['timestamptz']>>
 }
 
-export type MessagesDeleteIdLessThanMutationVariables = Exact<{
+export type Delete_MessagesMutationVariables = Exact<{
   message_id: Scalars['Int']
 }>
 
-export type MessagesDeleteIdLessThanMutation = { __typename?: 'mutation_root' } & {
+export type Delete_MessagesMutation = { __typename?: 'mutation_root' } & {
   delete_message_tag?: Maybe<
     { __typename?: 'message_tag_mutation_response' } & Pick<
       Message_Tag_Mutation_Response,
@@ -1370,17 +1370,31 @@ export type MessagesDeleteIdLessThanMutation = { __typename?: 'mutation_root' } 
   >
 }
 
-export type MessagesInsertOneMutationVariables = Exact<{
-  message: Messages_Insert_Input
+export type Insert_Message_Tag_OneMutationVariables = Exact<{
+  message_tag: Message_Tag_Insert_Input
 }>
 
-export type MessagesInsertOneMutation = { __typename?: 'mutation_root' } & {
-  insert_messages_one?: Maybe<{ __typename?: 'messages' } & Pick<Messages, 'id' | 'body'>>
+export type Insert_Message_Tag_OneMutation = { __typename?: 'mutation_root' } & {
+  insert_message_tag_one?: Maybe<
+    { __typename?: 'message_tag' } & {
+      message: { __typename?: 'messages' } & Pick<Messages, 'id'>
+      tag: { __typename?: 'tags' } & Pick<Tags, 'id'>
+    }
+  >
 }
 
-export type MessagesLast8QueryVariables = Exact<{ [key: string]: never }>
+export type Insert_Messages_OneMutationVariables = Exact<{
+  message: Messages_Insert_Input
+  update_columns: Array<Messages_Update_Column> | Messages_Update_Column
+}>
 
-export type MessagesLast8Query = { __typename?: 'query_root' } & {
+export type Insert_Messages_OneMutation = { __typename?: 'mutation_root' } & {
+  insert_messages_one?: Maybe<{ __typename?: 'messages' } & Pick<Messages, 'id'>>
+}
+
+export type MessagesQueryVariables = Exact<{ [key: string]: never }>
+
+export type MessagesQuery = { __typename?: 'query_root' } & {
   messages: Array<
     { __typename?: 'messages' } & Pick<
       Messages,
@@ -1393,21 +1407,49 @@ export type MessagesLast8Query = { __typename?: 'query_root' } & {
   >
 }
 
-export type MessagesTagInsertOneMutationVariables = Exact<{
-  message_tag: Message_Tag_Insert_Input
+export type MessagesFragmentFragment = { __typename?: 'messages' } & Pick<
+  Messages,
+  'id' | 'title' | 'body' | 'url' | 'imageUrl' | 'publishedAt'
+> & {
+    message_tags: Array<
+      { __typename?: 'message_tag' } & { tag: { __typename?: 'tags' } & Pick<Tags, 'name'> }
+    >
+  }
+
+export type Messages_By_PkQueryVariables = Exact<{
+  id: Scalars['Int']
 }>
 
-export type MessagesTagInsertOneMutation = { __typename?: 'mutation_root' } & {
-  insert_message_tag_one?: Maybe<
-    { __typename?: 'message_tag' } & {
-      message: { __typename?: 'messages' } & Pick<Messages, 'id'>
-      tag: { __typename?: 'tags' } & Pick<Tags, 'id'>
-    }
+export type Messages_By_PkQuery = { __typename?: 'query_root' } & {
+  messages_by_pk?: Maybe<
+    { __typename?: 'messages' } & Pick<
+      Messages,
+      'id' | 'title' | 'body' | 'url' | 'imageUrl' | 'publishedAt'
+    > & {
+        message_tags: Array<
+          { __typename?: 'message_tag' } & { tag: { __typename?: 'tags' } & Pick<Tags, 'name'> }
+        >
+      }
   >
 }
 
-export const MessagesDeleteIdLessThanDocument = gql`
-  mutation messagesDeleteIdLessThan($message_id: Int!) {
+export const MessagesFragmentFragmentDoc = gql`
+  fragment messagesFragment on messages {
+    id
+    title
+    body
+    url
+    imageUrl
+    publishedAt
+    message_tags {
+      tag {
+        name
+      }
+    }
+  }
+`
+export const Delete_MessagesDocument = gql`
+  mutation delete_messages($message_id: Int!) {
     delete_message_tag(where: { message: { id: { _lt: $message_id } } }) {
       affected_rows
     }
@@ -1416,16 +1458,33 @@ export const MessagesDeleteIdLessThanDocument = gql`
     }
   }
 `
-export const MessagesInsertOneDocument = gql`
-  mutation messagesInsertOne($message: messages_insert_input!) {
-    insert_messages_one(object: $message) {
-      id
-      body
+export const Insert_Message_Tag_OneDocument = gql`
+  mutation insert_message_tag_one($message_tag: message_tag_insert_input!) {
+    insert_message_tag_one(object: $message_tag) {
+      message {
+        id
+      }
+      tag {
+        id
+      }
     }
   }
 `
-export const MessagesLast8Document = gql`
-  query messagesLast8 {
+export const Insert_Messages_OneDocument = gql`
+  mutation insert_messages_one(
+    $message: messages_insert_input!
+    $update_columns: [messages_update_column!]!
+  ) {
+    insert_messages_one(
+      object: $message
+      on_conflict: { constraint: messages_pkey, update_columns: $update_columns }
+    ) {
+      id
+    }
+  }
+`
+export const MessagesDocument = gql`
+  query messages {
     messages(limit: 8, order_by: { id: desc }) {
       id
       title
@@ -1441,14 +1500,19 @@ export const MessagesLast8Document = gql`
     }
   }
 `
-export const MessagesTagInsertOneDocument = gql`
-  mutation messagesTagInsertOne($message_tag: message_tag_insert_input!) {
-    insert_message_tag_one(object: $message_tag) {
-      message {
-        id
-      }
-      tag {
-        id
+export const Messages_By_PkDocument = gql`
+  query messages_by_pk($id: Int!) {
+    messages_by_pk(id: $id) {
+      id
+      title
+      body
+      url
+      imageUrl
+      publishedAt
+      message_tags {
+        tag {
+          name
+        }
       }
     }
   }
@@ -1463,57 +1527,70 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action()
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    messagesDeleteIdLessThan(
-      variables: MessagesDeleteIdLessThanMutationVariables,
+    delete_messages(
+      variables: Delete_MessagesMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<MessagesDeleteIdLessThanMutation> {
+    ): Promise<Delete_MessagesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<MessagesDeleteIdLessThanMutation>(
-            MessagesDeleteIdLessThanDocument,
+          client.request<Delete_MessagesMutation>(Delete_MessagesDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'delete_messages'
+      )
+    },
+    insert_message_tag_one(
+      variables: Insert_Message_Tag_OneMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<Insert_Message_Tag_OneMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<Insert_Message_Tag_OneMutation>(
+            Insert_Message_Tag_OneDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
-        'messagesDeleteIdLessThan'
+        'insert_message_tag_one'
       )
     },
-    messagesInsertOne(
-      variables: MessagesInsertOneMutationVariables,
+    insert_messages_one(
+      variables: Insert_Messages_OneMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<MessagesInsertOneMutation> {
+    ): Promise<Insert_Messages_OneMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<MessagesInsertOneMutation>(MessagesInsertOneDocument, variables, {
+          client.request<Insert_Messages_OneMutation>(Insert_Messages_OneDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'messagesInsertOne'
+        'insert_messages_one'
       )
     },
-    messagesLast8(
-      variables?: MessagesLast8QueryVariables,
+    messages(
+      variables?: MessagesQueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<MessagesLast8Query> {
+    ): Promise<MessagesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<MessagesLast8Query>(MessagesLast8Document, variables, {
+          client.request<MessagesQuery>(MessagesDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'messagesLast8'
+        'messages'
       )
     },
-    messagesTagInsertOne(
-      variables: MessagesTagInsertOneMutationVariables,
+    messages_by_pk(
+      variables: Messages_By_PkQueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<MessagesTagInsertOneMutation> {
+    ): Promise<Messages_By_PkQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<MessagesTagInsertOneMutation>(MessagesTagInsertOneDocument, variables, {
+          client.request<Messages_By_PkQuery>(Messages_By_PkDocument, variables, {
             ...requestHeaders,
             ...wrappedRequestHeaders,
           }),
-        'messagesTagInsertOne'
+        'messages_by_pk'
       )
     },
   }

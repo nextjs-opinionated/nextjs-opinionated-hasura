@@ -1,6 +1,0 @@
-mutation messagesInsertOne($message: messages_insert_input!) {
-  insert_messages_one(object: $message) {
-    id
-    body
-  }
-}

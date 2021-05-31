@@ -1,0 +1,13 @@
+fragment messagesFragment on messages {
+  id
+  title
+  body
+  url
+  imageUrl
+  publishedAt
+  message_tags {
+    tag {
+      name
+    }
+  }
+}

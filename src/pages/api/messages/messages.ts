@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import GqlSdkHelper from '../../utils/GqlSdkHelper'
+import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 
 export default async function API(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req
@@ -7,7 +7,7 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'GET':
       try {
-        const data = await new GqlSdkHelper().getSdk().messagesLast8()
+        const data = await new GqlSdkHelper().getSdk().messages()
         res.json(data)
       } catch (e) {
         res.statusCode = 500

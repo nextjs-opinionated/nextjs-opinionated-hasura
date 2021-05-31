@@ -4,11 +4,15 @@
   "scripts": {
     "build": "next build",
     "build:tailwind": "postcss src/scss/base.scss -o src/scss/tailwind.scss",
-    "dev": "yarn dockerClear; concurrently 'yarn hasuraLocal' 'yarn genWatch' 'NODE_OPTIONS=\"--inspect\" next dev -p 3000 | pino-pretty -i time,pid,hostname -c'",
+    "dev": "yarn dockerClear; run-p hasuraLocal genWatch devNext",
     "dockerClear": "docker ps -aq | xargs -I {} docker stop {}; docker ps -aq | xargs -I {} docker rm {}",
     "format": "prettier --write .",
     "gen": "graphql-codegen --config codegen.yml && prettier ./src/graphql/generated.ts --write --config .prettierrc",
     "genWatch": "bash ./hasura/wait-for-url.sh && chokidar \"./src/graphql/gqls/**/*.gql\" \"./hasura/migrations/**/*.sql\" --initial -c \"yarn gen\"",
+    "devNext": "cross-env NODE_OPTIONS=\"--inspect\" next dev -p 3000 | pino-pretty -i time,pid,hostname -c",
+    "devRemote": "run-p devNext genWatchRemote",
+    "genRemote": "graphql-codegen --config codegen.remote.yml && prettier ./src/graphql/generated.ts --write --config .prettierrc",
+    "genWatchRemote": "chokidar \"./src/graphql/gqls/**/*.gql\" --initial -c \"yarn genRemote\"",
     "hasuraLocal": "(cd ./hasura; concurrently --raw 'docker-compose up' 'bash ./wait-for-url.sh && hasura console --skip-update-check --no-browser --console-port 9696')",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "migrationLocalApply": "export $(cat .env.local | xargs) && (cd ./hasura; hasura migrate apply --skip-update-check --admin-secret=$HASURA_ADMIN_SECRET; hasura metadata apply --skip-update-check --admin-secret=$HASURA_ADMIN_SECRET)",
@@ -21,8 +25,11 @@
     "type-check": "tsc --pretty --noEmit"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.5.1",
+    "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/postcss7-compat": "^2.1.2",
     "autoprefixer": "^10.2.5",
+    "classnames": "^2.3.1",
     "dayjs": "^1.10.4",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
@@ -35,11 +42,13 @@
     "query-string": "^7.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-hook-form": "^7.7.1",
     "react-icons": "^4.2.0",
     "sweetalert2": "^11.0.8",
     "sweetalert2-react-content": "^4.0.1",
     "swr": "^0.5.6",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.2"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.2",
+    "zod": "^3.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
@@ -71,6 +80,7 @@
     "babel-loader": "^8.2.2",
     "chokidar-cli": "^2.1.0",
     "concurrently": "^6.1.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.23.2",
@@ -79,6 +89,8 @@
     "jest": "^26.6.3",
     "jest-watch-typeahead": "^0.6.3",
     "lint-staged": "^11.0.0",
+    "npm-run-all": "^4.1.5",
+    "pino-pretty": "^5.0.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.3.0",
     "react-docgen-typescript-loader": "^3.7.2",
@@ -95,5 +107,6 @@
       "yarn lint",
       "yarn format"
     ]
-  }
+  },
+  "license": "MIT"
 }

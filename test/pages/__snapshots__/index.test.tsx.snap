@@ -60,7 +60,7 @@ exports[`Home page matches snapshot 1`] = `
               class="flex flex-col items-center text-center sm:w-2/5 sm:items-start sm:text-left"
             >
               <h1
-                class="flex flex-col mb-2 text-6xl font-bold leading-none text-purple-900 uppercase sm:flex-row md:tracking-wide"
+                class="flex flex-col mb-2 text-6xl font-bold leading-none text-purple-900 sm:flex-row md:tracking-wide"
               >
                 <svg
                   class="mr-2 text-purple-500"
@@ -81,7 +81,7 @@ exports[`Home page matches snapshot 1`] = `
                 Next.js
               </h1>
               <h2
-                class="mb-6 ml-6 text-2xl text-orange-500 uppercase sm:text-4xl sm:tracking-widest text-secondary"
+                class="mb-6 ml-6 text-2xl text-orange-500 sm:text-4xl sm:tracking-widest text-secondary"
               >
                 opinionated
               </h2>
@@ -185,12 +185,12 @@ exports[`Home page matches snapshot 1`] = `
               Github
             </a>
             <button
-              class="px-6 py-3 mx-3 mb-1 mr-1 text-sm font-bold text-purple-700 uppercase transition-all duration-150 ease-linear bg-transparent border border-purple-500 border-solid rounded outline-none hover:bg-purple-500 hover:text-white active:bg-purple-600"
+              class="px-6 py-3 mx-3 mb-1 mr-1 text-sm font-bold text-purple-700 transition-all duration-150 ease-linear bg-transparent border border-purple-500 border-solid rounded outline-none hover:bg-purple-500 hover:text-white active:bg-purple-600"
             >
               Show Image
             </button>
             <button
-              class="px-6 py-3 mx-3 mb-1 mr-1 text-sm font-bold text-purple-700 uppercase transition-all duration-150 ease-linear bg-transparent border border-purple-500 border-solid rounded outline-none hover:bg-purple-500 hover:text-white active:bg-purple-600"
+              class="px-6 py-3 mx-3 mb-1 mr-1 text-sm font-bold text-purple-700 transition-all duration-150 ease-linear bg-transparent border border-purple-500 border-solid rounded outline-none hover:bg-purple-500 hover:text-white active:bg-purple-600"
             >
               <span>
                 Call API
