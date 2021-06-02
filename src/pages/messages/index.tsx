@@ -36,15 +36,6 @@ const Messages: React.FunctionComponent = () => {
                 <button
                   className='mx-2 btn btn-sm'
                   onClick={async () => {
-                    router.push(`/messages/new`)
-                  }}
-                  disabled={isLoading}
-                >
-                  new item
-                </button>
-                <button
-                  className='mx-2 btn btn-sm'
-                  onClick={async () => {
                     isLoadingSet(true)
                     await fetch('/api/messages/insert_messages_one_from_spaceflightnewsapi')
                     await mutate('/api/messages/messages')
@@ -52,7 +43,17 @@ const Messages: React.FunctionComponent = () => {
                   }}
                   disabled={isLoading}
                 >
-                  new random from spaceflightnews api
+                  new random from space-flight-news api
+                </button>
+
+                <button
+                  className='mx-2 btn btn-sm'
+                  onClick={async () => {
+                    router.push(`/messages/new`)
+                  }}
+                  disabled={isLoading}
+                >
+                  new empty item
                 </button>
               </div>
 
@@ -61,7 +62,7 @@ const Messages: React.FunctionComponent = () => {
               {loading ? (
                 'Loading...'
               ) : (
-                <ul className='flex flex-wrap'>
+                <ul className='flex flex-wrap justify-around'>
                   {data?.messages?.map((message) => (
                     <li
                       key={message.id}

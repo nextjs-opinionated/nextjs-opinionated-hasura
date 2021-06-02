@@ -15,4 +15,10 @@ export const messageValidationSchema = z.object({
     }
   ),
   title: z.string().nonempty({ message: 'Title is required' }),
+  body: z.string().nullish(),
+  url: z.string().nullish(),
+  imageUrl: z.string().nullish(),
+  publishedAt: z.string().nullish(),
+  publishedAt_date: z.string().nullish(),
+  publishedAt_time: z.string().nullish(),
 })

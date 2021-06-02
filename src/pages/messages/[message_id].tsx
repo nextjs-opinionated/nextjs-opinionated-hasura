@@ -11,8 +11,12 @@ import { useRouter } from 'next/router'
 import { Button } from '../../components/Button/Button'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
+import dayjs from 'dayjs'
 
-type FormProps = Omit<Messages_Insert_Input, 'message_tags'>
+type FormProps = Omit<Messages_Insert_Input, 'message_tags'> & {
+  publishedAt_date: string
+  publishedAt_time: string
+}
 
 const Page: React.FunctionComponent = () => {
   const router = useRouter()
@@ -25,17 +29,15 @@ const Page: React.FunctionComponent = () => {
       message_id: router.query.message_id,
     })}`
   )
-  // const [isLoading, isLoadingSet] = useState(true)
   const {
     handleSubmit,
     register,
     formState: { errors: validationErrors },
     formState,
     reset,
-    // setValue,
   } = useForm<FormProps>({
     mode: 'onChange',
-    resolver: zodResolver(messageValidationSchema) as any,
+    resolver: zodResolver(messageValidationSchema),
   })
 
   if (loadingMessages_by_pk) {
@@ -48,6 +50,10 @@ const Page: React.FunctionComponent = () => {
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
+      const publishedAt = new Date(
+        `${submitProps.publishedAt_date}:${submitProps.publishedAt_time}`
+      ) // format date to timestamps
+
       const headers = new Headers()
       headers.append('Content-Type', 'application/json')
       const res = await fetch('/api/messages/insert_messages_one', {
@@ -59,7 +65,8 @@ const Page: React.FunctionComponent = () => {
           body: submitProps.body,
           url: submitProps.url,
           imageUrl: submitProps.imageUrl,
-          publishedAt: submitProps.publishedAt,
+          publishedAt,
+          timezoneOffset: new Date().getTimezoneOffset(),
         }),
       })
 
@@ -80,6 +87,12 @@ const Page: React.FunctionComponent = () => {
   )
 
   console.log('--  validationErrors: ', validationErrors)
+  console.log(
+    '--  dataMessages_by_pk?.messages_by_pk?.publishedAt: ',
+    dataMessages_by_pk?.messages_by_pk?.publishedAt
+  )
+  // var offset = new Date().getTimezoneOffset()
+  // console.log(offset)
 
   return (
     <div>
@@ -226,32 +239,66 @@ const Page: React.FunctionComponent = () => {
                             )}
                           </div>
 
-                          {/* publishedAt */}
+                          {/* publishedAt_date DATE */}
                           <div className='col-span-6 sm:col-span-4'>
                             <label
-                              htmlFor='publishedAt'
+                              htmlFor='publishedAt_date'
                               className='block text-sm font-medium text-gray-700'
                             >
-                              publishedAt:
+                              published at:
                               <input
-                                type='text'
-                                {...register('publishedAt')}
-                                defaultValue={dataMessages_by_pk?.messages_by_pk?.publishedAt}
+                                type='date'
+                                {...register('publishedAt_date')}
+                                defaultValue={dayjs(
+                                  dataMessages_by_pk?.messages_by_pk?.publishedAt
+                                ).format('YYYY-MM-DD')}
                                 className={classnames(
                                   'block w-full mt-1 border-gray-300 rounded-md shadow-sm sm:text-sm',
                                   {
                                     'focus:border-red-400 focus:ring-red-500 border-red-300':
-                                      validationErrors.publishedAt,
+                                      validationErrors.publishedAt_date,
                                     'focus:border-indigo-500 focus:ring-indigo-500 border-gray-300':
-                                      !validationErrors.publishedAt,
+                                      !validationErrors.publishedAt_date,
                                   }
                                 )}
-                                placeholder='publishedAt...'
+                                placeholder='publishedAt_date...'
                               />
                             </label>
-                            {validationErrors.publishedAt && (
+                            {validationErrors.publishedAt_date && (
                               <p className='mt-1 text-sm text-red-600'>
-                                {validationErrors.publishedAt.message}
+                                {validationErrors.publishedAt_date.message}
+                              </p>
+                            )}
+                          </div>
+
+                          {/* publishedAt_time TIME */}
+                          <div className='col-span-6 sm:col-span-4'>
+                            <label
+                              htmlFor='publishedAt_time'
+                              className='block text-sm font-medium text-gray-700'
+                            >
+                              published at:
+                              <input
+                                type='time'
+                                {...register('publishedAt_time')}
+                                defaultValue={dayjs(
+                                  dataMessages_by_pk?.messages_by_pk?.publishedAt
+                                ).format('HH:mm')}
+                                className={classnames(
+                                  'block w-full mt-1 border-gray-300 rounded-md shadow-sm sm:text-sm',
+                                  {
+                                    'focus:border-red-400 focus:ring-red-500 border-red-300':
+                                      validationErrors.publishedAt_time,
+                                    'focus:border-indigo-500 focus:ring-indigo-500 border-gray-300':
+                                      !validationErrors.publishedAt_time,
+                                  }
+                                )}
+                                placeholder='publishedAt_time...'
+                              />
+                            </label>
+                            {validationErrors.publishedAt_time && (
+                              <p className='mt-1 text-sm text-red-600'>
+                                {validationErrors.publishedAt_time.message}
                               </p>
                             )}
                           </div>

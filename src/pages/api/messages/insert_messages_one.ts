@@ -13,6 +13,7 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
           // server validations
           messageValidationSchema.parse(req.body)
         } catch (error) {
+          console.log('--  error: ', error)
           if (error?.errors) {
             res.status(500).json(error.errors)
             return
