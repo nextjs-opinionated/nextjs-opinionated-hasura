@@ -31,7 +31,7 @@ export default function Page() {
               </div>
 
               <div className='flex flex-col items-end my-3 text-right md:ml-20'>
-                <div className='text-3xl font-bold text-purple-900'>Libs</div>
+                <div className='text-2xl font-bold text-purple-900'>Libs</div>
                 <a
                   target='_blank'
                   className='my-0.5 text-blue-700 underline'
@@ -54,9 +54,9 @@ export default function Page() {
                   target='_blank'
                   className='my-0.5 text-blue-700 underline'
                   rel='noreferrer'
-                  href='https://tailwindcss.com/'
+                  href='https://storybook.js.org/'
                 >
-                  tailwindcss
+                  storybook
                 </a>
 
                 <a
@@ -66,15 +66,6 @@ export default function Page() {
                   href='https://daisyui.com/'
                 >
                   daisyUI
-                </a>
-
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://storybook.js.org/'
-                >
-                  storybook
                 </a>
 
                 <a
@@ -121,6 +112,7 @@ export default function Page() {
                   react-icons
                 </a>
 
+                <div className='mt-3 text-2xl font-bold text-purple-900'>Extra Libs</div>
                 <a
                   target='_blank'
                   className='my-0.5 text-blue-700 underline'
@@ -152,6 +144,14 @@ export default function Page() {
                   href='https://docs.docker.com/compose/'
                 >
                   docker-compose
+                  <a
+                    target='_blank'
+                    className='my-0.5 text-blue-700 underline'
+                    rel='noreferrer'
+                    href='https://storybook.js.org/'
+                  >
+                    storybook
+                  </a>
                 </a>
               </div>
             </main>
