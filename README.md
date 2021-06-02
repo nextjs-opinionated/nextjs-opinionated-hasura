@@ -22,20 +22,8 @@ Whenever you create or change a query in graphql you will have an automatically 
 - [docker-compose](https://docs.docker.com/compose/)
 - [swr](https://swr.vercel.app/)
 - [react-hook-form](https://react-hook-form.com/)
+- [@tailwindcss/forms](https://github.com/tailwindlabs/tailwindcss-forms)
 - [zod (validations)](https://github.com/colinhacks/zod)
-
-## New scripts on package json
-
-- devNext: only run next dev
-- genRemote: generates watching on remote server (need to add codegen.remote.yml on root)
-
-## Forms, new libs package json
-
-- @tailwindcss/forms to get better fors
-- react-hook-form
-- zod (same validator on client and on server)
-- cross-env (envs on windows)
-- pino-pretty (better logs)
 
 ---
 
@@ -68,7 +56,7 @@ Go to http://localhost:9696, use `admin_secret_local_zzz` as admin secret. You m
 
 ---
 
-### Run database locally (with docker)
+### Run on local database (with docker)
 
 ```sh
 yarn dev
@@ -76,21 +64,12 @@ yarn dev
 
 ---
 
-### Run remote database on heroku (without docker)
+### Run on remote database - heroku (without docker)
 
 - first create a server using [heroku button](https://heroku.com/deploy?template=https://github.com/hasura/graphql-engine-heroku)
 
 ```sh
 yarn devNext
-
-# create .env.local
-cp .env.local.example .env.local
-
-# start your postgress
-yarn hasuraLocal
-
-# apply DB in other terminal
-yarn migrationLocalApply
 ```
 
 ## start server
@@ -104,7 +83,7 @@ yarn dev
 
 ## FREE Deploy on Heroku and Vercel
 
-- Install Heroku CLI - https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+- Install Heroku CLI: https://devcenter.heroku.com/articles/heroku-cli#download-and-install
 - Install Vercel CLI: https://vercel.com/cli
 - Push your repo to github and deploy to your vercel account
 - run `vercel link` on your project folder
