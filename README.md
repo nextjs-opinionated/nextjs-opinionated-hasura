@@ -21,7 +21,8 @@ Whenever you create or change a query in graphql you will have an automatically 
 - [graphql-codegen](https://www.graphql-code-generator.com/)
 - [docker-compose](https://docs.docker.com/compose/)
 - [swr](https://swr.vercel.app/)
-- [docker](https://www.docker.com/)
+- [react-hook-form](https://react-hook-form.com/)
+- [zod (validations)](https://github.com/colinhacks/zod)
 
 ## New scripts on package json
 

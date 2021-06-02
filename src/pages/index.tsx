@@ -148,6 +148,22 @@ export default function Page() {
                 >
                   docker-compose (optional)
                 </a>
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://react-hook-form.com/'
+                >
+                  react-hook-form
+                </a>
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://github.com/colinhacks/zod'
+                >
+                  zod (validations)
+                </a>
               </div>
             </main>
 
@@ -156,7 +172,7 @@ export default function Page() {
                 className='px-6 py-3 mb-1 mr-1 underline'
                 target='_blank'
                 rel='noreferrer'
-                href='https://github.com/saitodisse/nextjs-opinionated'
+                href='https://github.com/saitodisse/nextjs-opinionated-hasura'
               >
                 Github
               </a>
