@@ -1,15 +1,11 @@
-import * as React from 'react'
+import React from 'react'
+import { FiZap } from 'react-icons/fi'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import Image from 'next/image'
-import { FiZap } from 'react-icons/fi'
 import { Button } from '../components/Button/Button'
 import { Header } from '../components/Header'
-import { useRouter } from 'next/router'
 
-const Home: React.FunctionComponent = () => {
-  const router = useRouter()
-
+export default function Page() {
   return (
     <div className=''>
       {/* component */}
@@ -24,7 +20,7 @@ const Home: React.FunctionComponent = () => {
                   <FiZap size={60} className='mr-2 text-purple-500' />
                   Next.js
                 </h1>
-                <h2 className='mb-6 ml-6 text-2xl text-orange-500 uppercase sm:text-4xl sm:tracking-widest text-secondary'>
+                <h2 className='mb-6 ml-6 text-xl uppercase sm:text-3xl sm:tracking-widest'>
                   opinionated
                 </h2>
                 <p className='mb-12 leading-relaxed text-gray-600'>
@@ -40,14 +36,6 @@ const Home: React.FunctionComponent = () => {
                   target='_blank'
                   className='my-0.5 text-blue-700 underline'
                   rel='noreferrer'
-                  href='https://www.typescriptlang.org/'
-                >
-                  typescript
-                </a>
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
                   href='https://nextjs.org/'
                 >
                   next.js
@@ -57,9 +45,27 @@ const Home: React.FunctionComponent = () => {
                   target='_blank'
                   className='my-0.5 text-blue-700 underline'
                   rel='noreferrer'
+                  href='https://www.typescriptlang.org/'
+                >
+                  typescript
+                </a>
+
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
                   href='https://tailwindcss.com/'
                 >
                   tailwindcss
+                </a>
+
+                <a
+                  target='_blank'
+                  className='my-0.5 text-blue-700 underline'
+                  rel='noreferrer'
+                  href='https://daisyui.com/'
+                >
+                  daisyUI
                 </a>
 
                 <a
@@ -151,23 +157,22 @@ const Home: React.FunctionComponent = () => {
             </main>
 
             <div className='flex flex-wrap justify-center mx-2 my-4'>
-              <Button
-                outlined
-                className='mx-3'
-                label='Server Messages Page'
-                onClick={async () => {
-                  router.push('/messages')
-                }}
-              />
+              <a
+                className='px-6 py-3 mb-1 mr-1 underline'
+                target='_blank'
+                rel='noreferrer'
+                href='https://github.com/saitodisse/nextjs-opinionated'
+              >
+                Github
+              </a>
 
               <Button
-                outlined
                 className='mx-3'
                 onClick={async () => {
                   const myAlert = withReactContent(Swal)
                   await myAlert.fire({
                     title: 'Some Alert Title',
-                    html: <Image width={600} height={300} src='https://unsplash.it/600/300' />,
+                    html: <img src='https://unsplash.it/600/300' />,
                     imageAlt: 'Custom image',
                     confirmButtonText: 'ok button',
                   })
@@ -177,20 +182,20 @@ const Home: React.FunctionComponent = () => {
               </Button>
 
               <Button
-                outlined
                 className='mx-3'
-                label='Get Server Time'
                 onClick={async () => {
-                  const res = await fetch('/api/get-server-time')
+                  const res = await fetch('/api/say-hello-from-api')
                   const resultJSON = await res.json()
                   const myAlert = withReactContent(Swal)
                   await myAlert.fire({
-                    title: 'server time',
+                    title: 'from server',
                     html: resultJSON.message,
                     confirmButtonText: 'close',
                   })
                 }}
-              />
+              >
+                Call API
+              </Button>
             </div>
           </div>
         </div>
@@ -198,5 +203,3 @@ const Home: React.FunctionComponent = () => {
     </div>
   )
 }
-
-export default Home

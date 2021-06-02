@@ -1,6 +1,7 @@
-import React from 'react'
-import { AppProps } from 'next/app'
-import '../styles/index.css' // <- applied everywhere in the NextJS application scope
+import "../styles/tailwind.css"
 
-const MyApp = ({ Component, pageProps }: AppProps) => <Component {...pageProps} />
+function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />
+}
+
 export default MyApp
