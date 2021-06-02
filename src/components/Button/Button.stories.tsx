@@ -1,29 +1,16 @@
 import React from 'react'
-import { Meta } from '@storybook/react'
-import { Button } from './Button'
+import { Story, Meta } from '@storybook/react/types-6-0'
+import { Button, ButtonProps } from './Button'
 
 export default {
+  title: 'Component/Button',
   component: Button,
-  title: 'a Button',
-  argTypes: {
-    onClick: {
-      table: {
-        disable: true,
-      },
-    },
-  },
 } as Meta
 
-const Template = (args) => <Button {...args} />
+const Template: Story<ButtonProps> = (args) => <Button {...args} />
 
-export const Normal = Template.bind({})
-Normal.args = {
-  label: 'Normal Button',
-  outlined: false,
-}
-
-export const Outlined = Template.bind({})
-Outlined.args = {
-  label: 'Outlined Button',
-  outlined: true,
+// Default scenario
+export const DaisyButton = Template.bind({})
+DaisyButton.args = {
+  children: 'Simple Button',
 }

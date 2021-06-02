@@ -36,3 +36,4 @@ yarn-error.log*
 .vscode/settings.json
 .env.production.sh
 codegen.remote.yml
+src/tailwind.output.css

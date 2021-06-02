@@ -3,10 +3,11 @@
 This boilerplate has a very interesting advantage.
 Whenever you create or change a query in graphql you will have an automatically generated typescript code.
 
-- [typescript](https://www.typescriptlang.org/)
 - [next.js](https://nextjs.org/)
-- [tailwindcss](https://tailwindcss.com/)
 - [storybook](https://storybook.js.org/)
+- [typescript](https://www.typescriptlang.org/)
+- [tailwindcss](https://tailwindcss.com/)
+- [daisyui](https://daisyui.com/)
 - [jest](https://jestjs.io/)
 - [eslint](https://eslint.org/)
 - [prettifier](https://prettier.io/)
@@ -135,4 +136,4 @@ If everything is working, please make a pull request
 
 ---
 
-_based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-TS-boilerplate_
+_based on [https://github.com/elitizon/nextjs-tailwind-storybook](https://github.com/elitizon/nextjs-tailwind-storybook)_
