@@ -143,15 +143,7 @@ export default function Page() {
                   rel='noreferrer'
                   href='https://docs.docker.com/compose/'
                 >
-                  docker-compose
-                  <a
-                    target='_blank'
-                    className='my-0.5 text-blue-700 underline'
-                    rel='noreferrer'
-                    href='https://storybook.js.org/'
-                  >
-                    storybook
-                  </a>
+                  docker-compose (optional)
                 </a>
               </div>
             </main>
