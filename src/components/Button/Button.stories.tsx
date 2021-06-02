@@ -1,20 +1,16 @@
 import React from 'react'
-import { action } from '@storybook/addon-actions'
-import { Story, Meta } from '@storybook/react'
+import { Story, Meta } from '@storybook/react/types-6-0'
 import { Button, ButtonProps } from './Button'
 
 export default {
+  title: 'Component/Button',
   component: Button,
-  title: 'a Button',
-  argTypes: {
-    onClick: {
-      table: {
-        disable: true,
-      },
-    },
-  },
 } as Meta
 
-export const NormalButton: Story<ButtonProps> = ({ outlined, label, ...rest }) => {
-  return <Button outlined={outlined} label={label} {...rest} onClick={action('clicked')} />
+const Template: Story<ButtonProps> = (args) => <Button {...args} />
+
+// Default scenario
+export const DaisyButton = Template.bind({})
+DaisyButton.args = {
+  children: 'Simple Button',
 }

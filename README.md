@@ -1,16 +1,15 @@
 This Next.js's boilerplate includes:
 
-- [typescript](https://www.typescriptlang.org/)
 - [next.js](https://nextjs.org/)
-- [tailwindcss](https://tailwindcss.com/)
 - [storybook](https://storybook.js.org/)
+- [typescript](https://www.typescriptlang.org/)
+- [tailwindcss](https://tailwindcss.com/)
+- [daisyui](https://daisyui.com/)
 - [jest](https://jestjs.io/)
 - [eslint](https://eslint.org/)
 - [prettifier](https://prettier.io/)
 - [sweetalert2](https://sweetalert2.github.io/)
 - [react-icons](https://react-icons.github.io/react-icons/)
-
-_based on: https://github.com/LongJohnSilver1504/NextJS-Tailwind-Storybook-and-TS-boilerplate_
 
 ---
 
@@ -31,3 +30,7 @@ yarn build && yarn test && yarn storybook
 ```
 
 If everything is working, please make a pull request
+
+---
+
+_based on [https://github.com/elitizon/nextjs-tailwind-storybook](https://github.com/elitizon/nextjs-tailwind-storybook)_
