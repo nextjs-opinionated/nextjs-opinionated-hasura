@@ -184,7 +184,7 @@ export default function Page() {
               <Button
                 className='mx-3'
                 onClick={async () => {
-                  const res = await fetch('/api/say-hello-from-api')
+                  const res = await fetch('/api/get-server-time')
                   const resultJSON = await res.json()
                   const myAlert = withReactContent(Swal)
                   await myAlert.fire({
