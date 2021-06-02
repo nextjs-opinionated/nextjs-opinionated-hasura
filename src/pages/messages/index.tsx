@@ -3,11 +3,10 @@ import useSWRFetch from '../../utils/useSWRFetch'
 import { showErrorAlert } from '../../components/showErrorAlert'
 import { useEffect, useState } from 'react'
 import { MessagesQuery } from '../../graphql/generated'
-import { Button } from '../../components/Button/Button'
 import { mutate } from 'swr'
 import { Header } from '../../components/Header'
 import dayjs from 'dayjs'
-import { FiExternalLink } from 'react-icons/fi'
+import { FiEdit, FiExternalLink } from 'react-icons/fi'
 import { useRouter } from 'next/router'
 
 const Messages: React.FunctionComponent = () => {
@@ -34,15 +33,17 @@ const Messages: React.FunctionComponent = () => {
 
             <main className='flex flex-col pt-8 mx-8'>
               <div className='flex my-4'>
-                <Button
+                <button
+                  className='mx-2 btn btn-sm'
                   onClick={async () => {
                     router.push(`/messages/new`)
                   }}
                   disabled={isLoading}
                 >
-                  NEW
-                </Button>
-                <Button
+                  new item
+                </button>
+                <button
+                  className='mx-2 btn btn-sm'
                   onClick={async () => {
                     isLoadingSet(true)
                     await fetch('/api/messages/insert_messages_one_from_spaceflightnewsapi')
@@ -51,8 +52,8 @@ const Messages: React.FunctionComponent = () => {
                   }}
                   disabled={isLoading}
                 >
-                  GET RANDOM (from spaceflightnews api)
-                </Button>
+                  new random from spaceflightnews api
+                </button>
               </div>
 
               <p className='text-sm text-gray-700'>items below are persisted on server:</p>
@@ -64,7 +65,7 @@ const Messages: React.FunctionComponent = () => {
                   {data?.messages?.map((message) => (
                     <li
                       key={message.id}
-                      className='w-64 p-4 mx-3 my-3 border border-gray-300 cursor-pointer hover:bg-purple-50'
+                      className='w-64 p-4 mx-3 my-3 border border-gray-300 hover:bg-purple-50'
                     >
                       <div className='flex flex-col h-full'>
                         {message.imageUrl && (
@@ -102,14 +103,15 @@ const Messages: React.FunctionComponent = () => {
                         </div>
 
                         <div className='flex items-end justify-end flex-grow mt-3'>
-                          <Button
+                          <button
+                            className='text-gray-500 border-gray-500 btn btn-outline btn-square btn-sm'
                             onClick={async () => {
                               router.push(`/messages/${message.id}`)
                             }}
                             disabled={isLoading}
                           >
-                            edit
-                          </Button>
+                            <FiEdit />
+                          </button>
                         </div>
                       </div>
                     </li>

@@ -9,6 +9,7 @@ module.exports = {
     content: ['./src/**/*.html', './src/**/*.tsx', './src/**/*.jsx'],
   },
   darkMode: false, // or 'media' or 'class'
+  mode: 'jit',
   theme: {
     extend: {},
   },
