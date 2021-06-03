@@ -25,13 +25,19 @@ export default function Page() {
         <div className='pb-3'>
           <h1 className='py-2 text-2xl font-bold'>Next.js Opinionated</h1>
 
+          <p className='max-w-md my-2'>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eius odit soluta
+            porro libero amet quidem, iste nihil ipsam, aspernatur distinctio iure aperiam fugiat
+            quaerat sit architecto nemo tempora ratione.
+          </p>
+
           {/* buttons */}
-          <div className='flex flex-wrap'>
-            <div className='m-1'>
+          <div className='flex flex-wrap mt-8'>
+            <div className='mx-2'>
               <ChangeThemeDropDown />
             </div>
 
-            <div className='m-1'>
+            <div className='mx-2'>
               <button
                 className='btn btn-primary'
                 onClick={async () => {
@@ -47,7 +53,7 @@ export default function Page() {
                 Show Image
               </button>
             </div>
-            <div className='m-1'>
+            <div className='mx-2'>
               <button
                 className='btn btn-primary'
                 onClick={async () => {

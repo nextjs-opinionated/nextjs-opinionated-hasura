@@ -13,7 +13,7 @@ export default function Page() {
 
       <Layout title='Next.js Opinionated : Style Guide' menuItems={Object.values(LinksList)}>
         <div className='p-4'>
-          <div className='flex justify-end w-full pt-10 pb-10'>
+          <div className='flex justify-end w-full pb-10'>
             <ChangeThemeDropDown />
           </div>
           <div>
