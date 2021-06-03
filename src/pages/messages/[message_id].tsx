@@ -8,7 +8,6 @@ import classnames from 'classnames'
 import useSWRFetch from '../../utils/useSWRFetch'
 import queryString from 'query-string'
 import { useRouter } from 'next/router'
-import { Button } from '../../components/Button/Button'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import dayjs from 'dayjs'
@@ -322,9 +321,9 @@ const Page: React.FunctionComponent = () => {
                               RESET
                             </button>
 
-                            <Button type='submit' disabled={!formState.isValid}>
+                            <button type='submit' disabled={!formState.isValid}>
                               SAVE
-                            </Button>
+                            </button>
                           </div>
                         </div>
                       </div>

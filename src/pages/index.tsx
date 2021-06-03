@@ -1,184 +1,45 @@
+import Head from 'next/head'
 import React from 'react'
-import { FiZap } from 'react-icons/fi'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import { Button } from '../components/Button/Button'
-import { Header } from '../components/Header'
+import { Layout } from '../components/Layout/Layout'
+import { LinksList } from '../model/site/LinksList'
+import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 
 export default function Page() {
   return (
-    <div className=''>
-      {/* component */}
-      <div className='m-2'>
-        <div className='flex flex-col py-4 font-sans bg-white'>
-          <div className='container md:mx-auto'>
-            <Header />
+    <>
+      <Head>
+        <title>Next.js Opinionated</title>
+      </Head>
 
-            <main className='flex flex-col justify-between pt-8 mx-8 sm:flex-row'>
-              <div className='flex flex-col items-center text-center sm:w-2/5 sm:items-start sm:text-left'>
-                <h1 className='flex flex-col mb-2 text-6xl font-bold leading-none text-purple-900 sm:flex-row md:tracking-wide'>
-                  <FiZap size={60} className='mr-2 text-purple-500' />
-                  Next.js
-                </h1>
-                <h2 className='mb-6 ml-6 text-xl uppercase sm:text-3xl sm:tracking-widest'>
-                  opinionated
-                </h2>
-                <h2 className='mb-6 ml-6 text-xl uppercase sm:text-3xl sm:tracking-widest'>
-                  Hasura
-                </h2>
-                <p className='mb-12 leading-relaxed text-gray-600'>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at
-                  enim congue scelerisque. Sed suscipit metu non iaculis semper consectetur
-                  adipiscing elit.
-                </p>
-              </div>
+      <Layout title='Next.js Opinionated' menuItems={Object.values(LinksList)}>
+        {/* avatar */}
+        <div className='avatar'>
+          <div className='w-24 h-24 mb-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
+            <img src='http://daisyui.com/tailwind-css-component-profile-1@94w.png' />
+          </div>
+        </div>
 
-              <div className='flex flex-col items-end my-3 text-right md:ml-20'>
-                <div className='text-2xl font-bold text-purple-900'>Libs</div>
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://nextjs.org/'
-                >
-                  next.js
-                </a>
+        {/* text */}
+        <div className='pb-3'>
+          <h1 className='py-2 text-2xl font-bold'>Next.js Opinionated</h1>
 
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://www.typescriptlang.org/'
-                >
-                  typescript
-                </a>
+          <p className='max-w-md my-2'>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eius odit soluta
+            porro libero amet quidem, iste nihil ipsam, aspernatur distinctio iure aperiam fugiat
+            quaerat sit architecto nemo tempora ratione.
+          </p>
 
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://storybook.js.org/'
-                >
-                  storybook
-                </a>
+          {/* buttons */}
+          <div className='flex flex-wrap mt-8'>
+            <div className='mx-2'>
+              <ChangeThemeDropDown />
+            </div>
 
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://daisyui.com/'
-                >
-                  daisyUI
-                </a>
-
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://jestjs.io/'
-                >
-                  jest
-                </a>
-
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://eslint.org/'
-                >
-                  eslint
-                </a>
-
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://prettier.io/'
-                >
-                  prettier
-                </a>
-
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://sweetalert2.github.io/'
-                >
-                  sweetalert2
-                </a>
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://react-icons.github.io/react-icons/'
-                >
-                  react-icons
-                </a>
-
-                <div className='mt-3 text-2xl font-bold text-purple-900'>Extra Libs</div>
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://hasura.io/'
-                >
-                  hasura
-                </a>
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://github.com/prisma-labs/graphql-request'
-                >
-                  graphql-request
-                </a>
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://www.graphql-code-generator.com/'
-                >
-                  graphql-codegen
-                </a>
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://docs.docker.com/compose/'
-                >
-                  docker-compose (optional)
-                </a>
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://react-hook-form.com/'
-                >
-                  react-hook-form
-                </a>
-                <a
-                  target='_blank'
-                  className='my-0.5 text-blue-700 underline'
-                  rel='noreferrer'
-                  href='https://github.com/colinhacks/zod'
-                >
-                  zod (validations)
-                </a>
-              </div>
-            </main>
-
-            <div className='flex flex-wrap justify-center mx-2 my-4'>
-              <a
-                className='px-6 py-3 mb-1 mr-1 underline'
-                target='_blank'
-                rel='noreferrer'
-                href='https://github.com/saitodisse/nextjs-opinionated-hasura'
-              >
-                Github
-              </a>
-
-              <Button
-                className='mx-3'
+            <div className='mx-2'>
+              <button
+                className='btn btn-primary'
                 onClick={async () => {
                   const myAlert = withReactContent(Swal)
                   await myAlert.fire({
@@ -190,12 +51,13 @@ export default function Page() {
                 }}
               >
                 Show Image
-              </Button>
-
-              <Button
-                className='mx-3'
+              </button>
+            </div>
+            <div className='mx-2'>
+              <button
+                className='btn btn-primary'
                 onClick={async () => {
-                  const res = await fetch('/api/get-server-time')
+                  const res = await fetch('/api/say-hello-from-api')
                   const resultJSON = await res.json()
                   const myAlert = withReactContent(Swal)
                   await myAlert.fire({
@@ -206,11 +68,79 @@ export default function Page() {
                 }}
               >
                 Call API
-              </Button>
+              </button>
             </div>
           </div>
+
+          <p className='mt-10 text-sm'>
+            <a className='underline' target='_blank' rel='noreferrer' href='https://nextjs.org/'>
+              next.js
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://www.typescriptlang.org/'
+            >
+              typescript
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://tailwindcss.com/'
+            >
+              tailwindcss
+            </a>
+            ,{' '}
+            <a className='underline' target='_blank' rel='noreferrer' href='https://daisyui.com/'>
+              daisyUI
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://storybook.js.org/'
+            >
+              storybook
+            </a>
+            ,{' '}
+            <a className='underline' target='_blank' rel='noreferrer' href='https://jestjs.io/'>
+              jest
+            </a>
+            ,{' '}
+            <a className='underline' target='_blank' rel='noreferrer' href='https://eslint.org/'>
+              eslint
+            </a>
+            ,{' '}
+            <a className='underline' target='_blank' rel='noreferrer' href='https://prettier.io/'>
+              prettier
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://sweetalert2.github.io/'
+            >
+              sweetalert2
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://react-icons.github.io/react-icons/'
+            >
+              react-icons
+            </a>
+            ,{' '}
+          </p>
         </div>
-      </div>
-    </div>
+      </Layout>
+    </>
   )
 }

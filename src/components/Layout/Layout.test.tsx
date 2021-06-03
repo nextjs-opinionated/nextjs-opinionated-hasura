@@ -1,8 +1,8 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { Button } from './Button'
+import { Layout } from './Layout'
 
 test('renders correctly', () => {
-  const tree = renderer.create(<Button>Some Text</Button>).toJSON()
+  const tree = renderer.create(<Layout>Some Text</Layout>).toJSON()
   expect(tree).toMatchSnapshot()
 })
