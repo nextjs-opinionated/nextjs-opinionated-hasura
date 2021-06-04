@@ -5,9 +5,9 @@ const NEXT_PUBLIC_GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
 export default class MyDocument extends Document {
   render() {
-    const SITE_TITLE = 'Next.js Opinionated'
+    const SITE_TITLE = 'Next.js Opinionated Hasura'
     const IMAGE_URL = 'https://live.staticflickr.com/5812/30870250385_33729971da_q.jpg'
-    const DESCRIPTION = 'Next.js Opinionated'
+    const DESCRIPTION = 'Next.js Opinionated Hasura'
     return (
       <Html>
         <Head>
