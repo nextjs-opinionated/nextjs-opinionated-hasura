@@ -11,7 +11,15 @@ export default function Page() {
         <title>Next.js Opinionated : Style Guide</title>
       </Head>
 
-      <Layout title='Next.js Opinionated : Style Guide' menuItems={Object.values(LinksList)}>
+      <Layout
+        title={
+          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
+            <div className='text-base font-bold'>Style Guide</div>
+            <div className='text-sm'>Next.js Opinionated</div>
+          </div>
+        }
+        menuItems={Object.values(LinksList)}
+      >
         <div className='p-4'>
           <div className='flex justify-end w-full pb-10'>
             <ChangeThemeDropDown />

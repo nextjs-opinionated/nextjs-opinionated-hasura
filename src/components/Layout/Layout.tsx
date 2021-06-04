@@ -1,14 +1,17 @@
 import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import { LinkProps } from '../../model/site/LinksList'
+import { ThemeList } from '../../model/site/ThemeList'
+import { useTheme } from 'next-themes'
 
 export interface LayoutProps {
-  title?: string
+  title?: ReactNode
   menuItems?: LinkProps[]
   children?: ReactNode
 }
 
 export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) => {
+  const { theme, setTheme } = useTheme()
   return (
     <div className='h-screen bg-base-200 drawer text-base-content'>
       {/* put everything in a off-canvas drawer */}
@@ -35,10 +38,10 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
               </svg>
             </label>
           </div>
-          <div className='flex-1 px-2 mx-2 font-bold'>
-            {/* navbar title */}
-            <span>{title}</span>
-          </div>
+
+          {/* title */}
+          {title}
+
           <div className='flex-none'>
             {/* navbar is only visible for desktop */}
             <div className='hidden lg:inline-block'>
@@ -59,6 +62,24 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                     </div>
                   </li>
                 ))}
+                <li>
+                  <div className='z-30 m-1'>
+                    <select
+                      className='w-full max-w-xs select select-bordered'
+                      onChange={(ev) => {
+                        setTheme(ev.target.value)
+                      }}
+                      value={theme}
+                    >
+                      <option disabled>theme</option>
+                      {Object.values(ThemeList).map((t) => (
+                        <option key={t.id} value={t.id}>
+                          {t.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
