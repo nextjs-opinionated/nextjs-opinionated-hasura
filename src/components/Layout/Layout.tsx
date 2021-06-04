@@ -84,13 +84,11 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
             </div>
           </div>
         </div>
-
         {/* main content */}
         <div className=''>
           <div className='w-full p-4 md:container md:mx-auto'>{children}</div>
         </div>
       </div>
-
       {/* drawer sidebar for mobile */}
       <div className='drawer-side'>
         <label htmlFor='menu-drawer' className='drawer-overlay' />
