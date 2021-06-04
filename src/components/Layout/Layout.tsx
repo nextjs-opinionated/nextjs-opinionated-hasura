@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useRef, useState } from 'react'
 import Link from 'next/link'
 import { LinkProps } from '../../model/site/LinksList'
 import { ThemeList } from '../../model/site/ThemeList'
@@ -8,15 +8,17 @@ export interface LayoutProps {
   title?: ReactNode
   menuItems?: LinkProps[]
   children?: ReactNode
+  internal_theme?: string
 }
 
 export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) => {
   const { theme, setTheme } = useTheme()
+  const checkboxRef = useRef<HTMLInputElement>()
   return (
     <div className='h-screen bg-base-200 drawer text-base-content'>
       {/* put everything in a off-canvas drawer */}
       {/* this checkbox controls if drawer is open */}
-      <input id='menu-drawer' type='checkbox' className='drawer-toggle' />
+      <input id='menu-drawer' type='checkbox' className='drawer-toggle' ref={checkboxRef} />
       <div className='flex flex-col drawer-content'>
         {/* drawer content */}
         <div className='w-full navbar bg-base-300'>
@@ -85,9 +87,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
           </div>
         </div>
         {/* main content */}
-        <div className=''>
-          <div className='w-full p-4 md:container md:mx-auto'>{children}</div>
-        </div>
+        <div className='w-full p-4 md:px-6 md:container md:mx-auto'>{children}</div>
       </div>
       {/* drawer sidebar for mobile */}
       <div className='drawer-side'>
@@ -97,11 +97,24 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
             <li key={m.name}>
               {m.internalURL && (
                 <Link href={m.internalURL}>
-                  <a className='rounded-btn'>{m.name}</a>
+                  <a
+                    onClick={() => {
+                      checkboxRef.current.checked = false
+                    }}
+                    className='rounded-btn'
+                  >
+                    {m.name}
+                  </a>
                 </Link>
               )}
               {m.externalURL && (
-                <a href={m.externalURL} className='rounded-btn'>
+                <a
+                  onClick={() => {
+                    checkboxRef.current.checked = false
+                  }}
+                  href={m.externalURL}
+                  className='rounded-btn'
+                >
                   {m.name}
                 </a>
               )}
