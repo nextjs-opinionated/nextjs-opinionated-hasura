@@ -34,3 +34,4 @@ yarn-error.log*
 .vercel
 
 src/tailwind.output.css
+.env.production.sh
