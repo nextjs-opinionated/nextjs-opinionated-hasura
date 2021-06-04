@@ -24,14 +24,14 @@ export default function Page() {
       >
         {/* avatar */}
         <div className='avatar'>
-          <div className='w-24 h-24 mb-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
+          <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
             <img src='http://daisyui.com/tailwind-css-component-profile-1@94w.png' />
           </div>
         </div>
 
         {/* text */}
         <div className='pb-3'>
-          <h1 className='py-2 text-2xl font-bold'>Next.js Opinionated</h1>
+          <h1 className='py-2 text-3xl font-bold'>Next.js Opinionated</h1>
 
           <p className='max-w-md my-2'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eius odit soluta
@@ -40,7 +40,7 @@ export default function Page() {
           </p>
 
           {/* buttons */}
-          <div className='flex flex-wrap mt-8'>
+          <div className='flex flex-wrap my-16'>
             <div className='mx-2'>
               <ChangeThemeDropDown />
             </div>
@@ -80,7 +80,7 @@ export default function Page() {
             </div>
           </div>
 
-          <p className='mt-10 text-sm'>
+          <p className='max-w-md mt-10 text-sm italic'>
             <a className='underline' target='_blank' rel='noreferrer' href='https://nextjs.org/'>
               next.js
             </a>
@@ -146,6 +146,72 @@ export default function Page() {
               react-icons
             </a>
             ,{' '}
+            <a className='underline' target='_blank' rel='noreferrer' href='https://hasura.io/'>
+              hasura
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://github.com/prisma-labs/graphql-request'
+            >
+              graphql-request
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://www.graphql-code-generator.com/'
+            >
+              graphql-codegen
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://docs.docker.com/compose/'
+            >
+              docker-compose
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://swr.vercel.app/'
+            >
+              swr
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://react-hook-form.com/'
+            >
+              react-hook-form
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://github.com/tailwindlabs/tailwindcss-forms'
+            >
+              @tailwindcss/forms
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://github.com/colinhacks/zod'
+            >
+              zod (validations)
+            </a>
           </p>
         </div>
       </Layout>
