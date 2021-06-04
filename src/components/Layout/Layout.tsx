@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, useState } from 'react'
+import React, { ReactNode, useRef } from 'react'
 import Link from 'next/link'
 import { LinkProps } from '../../model/site/LinksList'
 import { ThemeList } from '../../model/site/ThemeList'
@@ -8,7 +8,6 @@ export interface LayoutProps {
   title?: ReactNode
   menuItems?: LinkProps[]
   children?: ReactNode
-  internal_theme?: string
 }
 
 export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) => {
