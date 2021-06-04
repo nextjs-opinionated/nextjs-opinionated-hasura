@@ -3,22 +3,22 @@ import React from 'react'
 
 const NEXT_PUBLIC_GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
-export const SITE_TITLE = 'Next.js Opinionated Hasura'
 export default class MyDocument extends Document {
   render() {
-    const NEXT_PUBLIC_SITE_IMAGE = process.env.NEXT_PUBLIC_SITE_IMAGE
-    const metaDescription = 'Next.js Opinionated Hasura'
+    const SITE_TITLE = 'Next.js Opinionated'
+    const IMAGE_URL = 'https://live.staticflickr.com/5812/30870250385_33729971da_q.jpg'
+    const DESCRIPTION = 'Next.js Opinionated'
     return (
       <Html>
         <Head>
           <link rel='icon' href='/favicon.ico' />
           <meta property='og:title' content={SITE_TITLE} />
           <meta property='twitter:title' content={SITE_TITLE} />
-          <meta property='og:description' content={metaDescription} />
-          <meta property='twitter:description' content={metaDescription} />
-          <meta property='og:image' content={NEXT_PUBLIC_SITE_IMAGE} />
+          <meta property='og:description' content={DESCRIPTION} />
+          <meta property='twitter:description' content={DESCRIPTION} />
+          <meta property='og:image' content={IMAGE_URL} />
           <meta property='twitter:card' content='summary_large_image' />
-          <meta property='twitter:image' content={NEXT_PUBLIC_SITE_IMAGE} />
+          <meta property='twitter:image' content={IMAGE_URL} />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {NEXT_PUBLIC_GA_ID?.length > 0 && (
             <>
