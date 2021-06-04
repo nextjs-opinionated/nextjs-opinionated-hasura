@@ -1,188 +1,192 @@
 // .storybook/preview.js
-import { themes } from "@storybook/theming"
+import { themes } from '@storybook/theming'
 
-import "../src/styles/tailwind.css"
+import '../src/styles/tailwind.css'
 
-import * as nextImage from "next/image"
+import * as nextImage from 'next/image'
+import { addDecorator } from '@storybook/react'
+import themeDecorator from './themeDecorator'
+
+addDecorator(themeDecorator)
 
 // or global addParameters
 export const parameters = {
   docs: {
-    theme: themes.normal
+    theme: themes.normal,
   },
-  actions: { argTypesRegex: "^on[A-Z].*" },
+  actions: { argTypesRegex: '^on[A-Z].*' },
   viewport: {
     viewports: {
       mobile1: {
-        name: "Small mobile",
+        name: 'Small mobile',
         styles: {
-          height: "568px",
-          width: "320px"
+          height: '568px',
+          width: '320px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       mobile2: {
-        name: "Large mobile",
+        name: 'Large mobile',
         styles: {
-          height: "896px",
-          width: "414px"
+          height: '896px',
+          width: '414px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       tablet: {
-        name: "Tablet",
+        name: 'Tablet',
         styles: {
-          height: "1112px",
-          width: "834px"
+          height: '1112px',
+          width: '834px',
         },
-        type: "tablet"
+        type: 'tablet',
       },
       iphone5: {
-        name: "iPhone 5",
+        name: 'iPhone 5',
         styles: {
-          height: "568px",
-          width: "320px"
+          height: '568px',
+          width: '320px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       iphone6: {
-        name: "iPhone 6",
+        name: 'iPhone 6',
         styles: {
-          height: "667px",
-          width: "375px"
+          height: '667px',
+          width: '375px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       iphone6p: {
-        name: "iPhone 6 Plus",
+        name: 'iPhone 6 Plus',
         styles: {
-          height: "736px",
-          width: "414px"
+          height: '736px',
+          width: '414px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       iphone8p: {
-        name: "iPhone 8 Plus",
+        name: 'iPhone 8 Plus',
         styles: {
-          height: "736px",
-          width: "414px"
+          height: '736px',
+          width: '414px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       iphonex: {
-        name: "iPhone X",
+        name: 'iPhone X',
         styles: {
-          height: "812px",
-          width: "375px"
+          height: '812px',
+          width: '375px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       iphonexr: {
-        name: "iPhone XR",
+        name: 'iPhone XR',
         styles: {
-          height: "896px",
-          width: "414px"
+          height: '896px',
+          width: '414px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       iphonexsmax: {
-        name: "iPhone XS Max",
+        name: 'iPhone XS Max',
         styles: {
-          height: "896px",
-          width: "414px"
+          height: '896px',
+          width: '414px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       ipad: {
-        name: "iPad",
+        name: 'iPad',
         styles: {
-          height: "1024px",
-          width: "768px"
+          height: '1024px',
+          width: '768px',
         },
-        type: "tablet"
+        type: 'tablet',
       },
       ipad10p: {
-        name: "iPad Pro 10.5-in",
+        name: 'iPad Pro 10.5-in',
         styles: {
-          height: "1112px",
-          width: "834px"
+          height: '1112px',
+          width: '834px',
         },
-        type: "tablet"
+        type: 'tablet',
       },
       ipad12p: {
-        name: "iPad Pro 12.9-in",
+        name: 'iPad Pro 12.9-in',
         styles: {
-          height: "1366px",
-          width: "1024px"
+          height: '1366px',
+          width: '1024px',
         },
-        type: "tablet"
+        type: 'tablet',
       },
       galaxys5: {
-        name: "Galaxy S5",
+        name: 'Galaxy S5',
         styles: {
-          height: "640px",
-          width: "360px"
+          height: '640px',
+          width: '360px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       galaxys9: {
-        name: "Galaxy S9",
+        name: 'Galaxy S9',
         styles: {
-          height: "740px",
-          width: "360px"
+          height: '740px',
+          width: '360px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       nexus5x: {
-        name: "Nexus 5X",
+        name: 'Nexus 5X',
         styles: {
-          height: "660px",
-          width: "412px"
+          height: '660px',
+          width: '412px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       nexus6p: {
-        name: "Nexus 6P",
+        name: 'Nexus 6P',
         styles: {
-          height: "732px",
-          width: "412px"
+          height: '732px',
+          width: '412px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       pixel: {
-        name: "Pixel",
+        name: 'Pixel',
         styles: {
-          height: "960px",
-          width: "540px"
+          height: '960px',
+          width: '540px',
         },
-        type: "mobile"
+        type: 'mobile',
       },
       pixelxl: {
-        name: "Pixel XL",
+        name: 'Pixel XL',
         styles: {
-          height: "1280px",
-          width: "720px"
+          height: '1280px',
+          width: '720px',
         },
-        type: "mobile"
-      }
-    }
-  }
+        type: 'mobile',
+      },
+    },
+  },
 }
 
 // Replace next/image for Storybook
-Object.defineProperty(nextImage, "default", {
+Object.defineProperty(nextImage, 'default', {
   configurable: true,
   value: (props) => {
     const { width, height, layout } = props
 
-    if (layout === "fill") {
+    if (layout === 'fill') {
       return (
         <img
           style={{
-            objectFit: "cover",
-            position: "absolute",
-            width: "100%",
-            height: "100%"
+            objectFit: 'cover',
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
           }}
           {...props}
         />
@@ -195,19 +199,19 @@ Object.defineProperty(nextImage, "default", {
       <div
         style={{
           paddingBottom: `${ratio}%`,
-          position: "relative"
+          position: 'relative',
         }}
       >
         <img
           style={{
-            objectFit: "cover",
-            position: "absolute",
-            width: "100%",
-            height: "100%"
+            objectFit: 'cover',
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
           }}
           {...props}
         />
       </div>
     )
-  }
+  },
 })
