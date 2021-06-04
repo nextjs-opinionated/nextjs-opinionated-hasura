@@ -1,13 +1,21 @@
 // .storybook/preview.js
+import '../src/styles/tailwind.css'
 import { themes } from '@storybook/theming'
 
-import '../src/styles/tailwind.css'
-
 import * as nextImage from 'next/image'
-import { addDecorator } from '@storybook/react'
-import themeDecorator from './themeDecorator'
+import { ThemeProvider, useTheme } from 'next-themes'
 
-addDecorator(themeDecorator)
+// global decorators
+export const decorators = [
+  (Story) => {
+    const { theme } = useTheme()
+    return (
+      <ThemeProvider theme={theme}>
+        <Story />
+      </ThemeProvider>
+    )
+  },
+]
 
 // or global addParameters
 export const parameters = {
