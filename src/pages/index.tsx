@@ -13,7 +13,15 @@ export default function Page() {
         <title>Next.js Opinionated</title>
       </Head>
 
-      <Layout title='Next.js Opinionated' menuItems={Object.values(LinksList)}>
+      <Layout
+        title={
+          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
+            <div className='text-base font-bold'>HOME</div>
+            <div className='text-sm'>Next.js Opinionated</div>
+          </div>
+        }
+        menuItems={Object.values(LinksList)}
+      >
         {/* avatar */}
         <div className='avatar'>
           <div className='w-24 h-24 mb-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
