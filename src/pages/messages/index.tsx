@@ -29,7 +29,7 @@ const Messages: React.FunctionComponent = () => {
   return (
     <>
       <Head>
-        <title>Next.js Opinionated</title>
+        <title>MESSAGES : Next.js Opinionated</title>
       </Head>
 
       <Layout
@@ -41,8 +41,8 @@ const Messages: React.FunctionComponent = () => {
         }
         menuItems={Object.values(LinksList)}
       >
-        <main className='mx-8'>
-          <div className='flex my-4'>
+        <main className='md:mx-8'>
+          <div className='flex flex-wrap my-4'>
             <button
               className='mx-2 btn btn-primary'
               onClick={async () => {
@@ -53,7 +53,7 @@ const Messages: React.FunctionComponent = () => {
               }}
               disabled={isLoading}
             >
-              new random from space-flight-news api
+              new random
             </button>
 
             <button
@@ -63,7 +63,7 @@ const Messages: React.FunctionComponent = () => {
               }}
               disabled={isLoading}
             >
-              new empty item
+              new empty
             </button>
           </div>
 

@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Messages_By_PkQuery, Messages_Insert_Input } from '../../graphql/generated'
-import { Header } from '../../components/Header'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { messageValidationSchema } from '../../model/messageValidationSchema'
@@ -11,6 +10,9 @@ import { useRouter } from 'next/router'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import dayjs from 'dayjs'
+import Head from 'next/head'
+import { Layout } from '../../components/Layout/Layout'
+import { LinksList } from '../../model/site/LinksList'
 
 type FormProps = Omit<Messages_Insert_Input, 'message_tags'> & {
   publishedAt_date: string
@@ -94,254 +96,230 @@ const Page: React.FunctionComponent = () => {
   // console.log(offset)
 
   return (
-    <div>
-      <div className='m-2'>
-        <div className='flex flex-col py-4 font-sans bg-white'>
-          <div className='container max-w-3xl md:mx-auto'>
-            <Header />
+    <>
+      <Head>
+        <title>EDIT MESSAGE : Next.js Opinionated</title>
+      </Head>
 
-            <main className='flex flex-col pt-8 mx-8'>
-              <form onSubmit={onSubmit}>
-                <div className='hidden sm:block' aria-hidden='true'>
-                  <div className='py-5'>
-                    <div className='border-t border-gray-200' />
-                  </div>
+      <Layout
+        title={
+          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
+            <div className='text-base font-bold'>EDIT MESSAGE</div>
+            <div className='text-sm'>Next.js Opinionated</div>
+          </div>
+        }
+        menuItems={Object.values(LinksList)}
+      >
+        <main className='flex justify-center mx-8'>
+          {!loadingMessages_by_pk && (
+            <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
+              <div className='hidden sm:block' aria-hidden='true'>
+                <div className='py-5'>
+                  <div className='border-t ' />
                 </div>
+              </div>
 
-                <div>
-                  <div className='md:grid md:grid-cols-3 md:gap-6'>
-                    <div className='md:col-span-1'>
-                      <div className='px-4 sm:px-0'>
-                        <h3 className='text-lg font-medium leading-6 text-gray-900'>Message</h3>
-                      </div>
+              <div>
+                <div className='md:grid md:grid-cols-3 md:gap-6'>
+                  <div className='md:col-span-1'>
+                    <div className='px-4 sm:px-0'>
+                      <h3 className='text-lg font-medium leading-6'>Message</h3>
                     </div>
-                    <div className='mt-5 md:mt-0 md:col-span-2'>
-                      <div className='shadow sm:rounded-md sm:overflow-hidden'>
-                        <div className='px-4 py-5 space-y-6 bg-white sm:p-6'>
-                          {/* title */}
-                          <div className='col-span-6 sm:col-span-4'>
-                            <label
-                              htmlFor='title'
-                              className='block text-sm font-medium text-gray-700'
-                            >
-                              Title:
-                              <input
-                                type='text'
-                                {...register('title')}
-                                defaultValue={dataMessages_by_pk?.messages_by_pk?.title}
-                                className={classnames(
-                                  'block w-full mt-1 border-gray-300 rounded-md shadow-sm sm:text-sm',
-                                  {
-                                    'focus:border-red-400 focus:ring-red-500 border-red-300':
-                                      validationErrors.title,
-                                    'focus:border-indigo-500 focus:ring-indigo-500 border-gray-300':
-                                      !validationErrors.title,
-                                  }
-                                )}
-                                placeholder='Title...'
-                              />
+                  </div>
+                  <div className='mt-5 md:mt-0 md:col-span-2'>
+                    <div className='shadow sm:rounded-md sm:overflow-hidden'>
+                      <div className='px-4 py-5 space-y-6 sm:p-6'>
+                        {/* title */}
+                        <div className='col-span-6 sm:col-span-4'>
+                          <div className='form-control'>
+                            <label className='label' htmlFor='title'>
+                              <span className='label-text'>title</span>
                             </label>
+                            <input
+                              type='text'
+                              defaultValue={dataMessages_by_pk?.messages_by_pk?.title}
+                              {...register('title')}
+                              placeholder='title...'
+                              className={classnames('input input-bordered', {
+                                'input-error': validationErrors.title,
+                              })}
+                            />
                             {validationErrors.title && (
-                              <p className='mt-1 text-sm text-red-600'>
-                                {validationErrors.title.message}
-                              </p>
+                              <label className='label'>
+                                <span className='label-text-alt'>
+                                  {validationErrors.title.message}
+                                </span>
+                              </label>
                             )}
                           </div>
+                        </div>
 
-                          {/* body */}
-                          <div className='col-span-6 sm:col-span-4'>
-                            <label
-                              htmlFor='body'
-                              className='block text-sm font-medium text-gray-700'
-                            >
-                              body:
-                              <input
-                                type='text'
-                                {...register('body')}
-                                defaultValue={dataMessages_by_pk?.messages_by_pk?.body}
-                                className={classnames(
-                                  'block w-full mt-1 border-gray-300 rounded-md shadow-sm sm:text-sm',
-                                  {
-                                    'focus:border-red-400 focus:ring-red-500 border-red-300':
-                                      validationErrors.body,
-                                    'focus:border-indigo-500 focus:ring-indigo-500 border-gray-300':
-                                      !validationErrors.body,
-                                  }
-                                )}
-                                placeholder='body...'
-                              />
+                        {/* body */}
+                        <div className='col-span-6 sm:col-span-4'>
+                          <div className='form-control'>
+                            <label className='label' htmlFor='body'>
+                              <span className='label-text'>body</span>
                             </label>
+                            <input
+                              type='text'
+                              defaultValue={dataMessages_by_pk?.messages_by_pk?.body}
+                              {...register('body')}
+                              placeholder='body...'
+                              className={classnames('input input-bordered', {
+                                'input-error': validationErrors.body,
+                              })}
+                            />
                             {validationErrors.body && (
-                              <p className='mt-1 text-sm text-red-600'>
-                                {validationErrors.body.message}
-                              </p>
+                              <label className='label'>
+                                <span className='label-text-alt'>
+                                  {validationErrors.body.message}
+                                </span>
+                              </label>
                             )}
                           </div>
+                        </div>
 
-                          {/* url */}
-                          <div className='col-span-6 sm:col-span-4'>
-                            <label
-                              htmlFor='url'
-                              className='block text-sm font-medium text-gray-700'
-                            >
-                              url:
-                              <input
-                                type='text'
-                                {...register('url')}
-                                defaultValue={dataMessages_by_pk?.messages_by_pk?.url}
-                                className={classnames(
-                                  'block w-full mt-1 border-gray-300 rounded-md shadow-sm sm:text-sm',
-                                  {
-                                    'focus:border-red-400 focus:ring-red-500 border-red-300':
-                                      validationErrors.url,
-                                    'focus:border-indigo-500 focus:ring-indigo-500 border-gray-300':
-                                      !validationErrors.url,
-                                  }
-                                )}
-                                placeholder='url...'
-                              />
+                        {/* url */}
+                        <div className='col-span-6 sm:col-span-4'>
+                          <div className='form-control'>
+                            <label className='label' htmlFor='url'>
+                              <span className='label-text'>url</span>
                             </label>
+                            <input
+                              type='text'
+                              defaultValue={dataMessages_by_pk?.messages_by_pk?.url}
+                              {...register('url')}
+                              placeholder='url...'
+                              className={classnames('input input-bordered', {
+                                'input-error': validationErrors.url,
+                              })}
+                            />
                             {validationErrors.url && (
-                              <p className='mt-1 text-sm text-red-600'>
-                                {validationErrors.url.message}
-                              </p>
+                              <label className='label'>
+                                <span className='label-text-alt'>
+                                  {validationErrors.url.message}
+                                </span>
+                              </label>
                             )}
                           </div>
+                        </div>
 
-                          {/* imageUrl */}
-                          <div className='col-span-6 sm:col-span-4'>
-                            <label
-                              htmlFor='imageUrl'
-                              className='block text-sm font-medium text-gray-700'
-                            >
-                              imageUrl:
-                              <input
-                                type='text'
-                                {...register('imageUrl')}
-                                defaultValue={dataMessages_by_pk?.messages_by_pk?.imageUrl}
-                                className={classnames(
-                                  'block w-full mt-1 border-gray-300 rounded-md shadow-sm sm:text-sm',
-                                  {
-                                    'focus:border-red-400 focus:ring-red-500 border-red-300':
-                                      validationErrors.imageUrl,
-                                    'focus:border-indigo-500 focus:ring-indigo-500 border-gray-300':
-                                      !validationErrors.imageUrl,
-                                  }
-                                )}
-                                placeholder='imageUrl...'
-                              />
+                        {/* imageUrl */}
+                        <div className='col-span-6 sm:col-span-4'>
+                          <div className='form-control'>
+                            <label className='label' htmlFor='imageUrl'>
+                              <span className='label-text'>imageUrl</span>
                             </label>
+                            <input
+                              type='text'
+                              defaultValue={dataMessages_by_pk?.messages_by_pk?.imageUrl}
+                              {...register('imageUrl')}
+                              placeholder='imageUrl...'
+                              className={classnames('input input-bordered', {
+                                'input-error': validationErrors.imageUrl,
+                              })}
+                            />
                             {validationErrors.imageUrl && (
-                              <p className='mt-1 text-sm text-red-600'>
-                                {validationErrors.imageUrl.message}
-                              </p>
+                              <label className='label'>
+                                <span className='label-text-alt'>
+                                  {validationErrors.imageUrl.message}
+                                </span>
+                              </label>
                             )}
                           </div>
+                        </div>
 
-                          {/* publishedAt_date DATE */}
-                          <div className='col-span-6 sm:col-span-4'>
-                            <label
-                              htmlFor='publishedAt_date'
-                              className='block text-sm font-medium text-gray-700'
-                            >
-                              published at:
-                              <input
-                                type='date'
-                                {...register('publishedAt_date')}
-                                defaultValue={dayjs(
-                                  dataMessages_by_pk?.messages_by_pk?.publishedAt
-                                ).format('YYYY-MM-DD')}
-                                className={classnames(
-                                  'block w-full mt-1 border-gray-300 rounded-md shadow-sm sm:text-sm',
-                                  {
-                                    'focus:border-red-400 focus:ring-red-500 border-red-300':
-                                      validationErrors.publishedAt_date,
-                                    'focus:border-indigo-500 focus:ring-indigo-500 border-gray-300':
-                                      !validationErrors.publishedAt_date,
-                                  }
-                                )}
-                                placeholder='publishedAt_date...'
-                              />
+                        {/* publishedAt_date DATE */}
+                        <div className='col-span-6 sm:col-span-4'>
+                          <div className='form-control'>
+                            <label className='label' htmlFor='publishedAt_date'>
+                              <span className='label-text'>publishedAt_date</span>
                             </label>
+                            <input
+                              type='date'
+                              defaultValue={dayjs(
+                                dataMessages_by_pk?.messages_by_pk?.publishedAt
+                              ).format('YYYY-MM-DD')}
+                              {...register('publishedAt_date')}
+                              placeholder='publishedAt_date...'
+                              className={classnames('input input-bordered', {
+                                'input-error': validationErrors.publishedAt_date,
+                              })}
+                            />
                             {validationErrors.publishedAt_date && (
-                              <p className='mt-1 text-sm text-red-600'>
-                                {validationErrors.publishedAt_date.message}
-                              </p>
+                              <label className='label'>
+                                <span className='label-text-alt'>
+                                  {validationErrors.publishedAt_date.message}
+                                </span>
+                              </label>
                             )}
                           </div>
+                        </div>
 
-                          {/* publishedAt_time TIME */}
-                          <div className='col-span-6 sm:col-span-4'>
-                            <label
-                              htmlFor='publishedAt_time'
-                              className='block text-sm font-medium text-gray-700'
-                            >
-                              published at:
-                              <input
-                                type='time'
-                                {...register('publishedAt_time')}
-                                defaultValue={dayjs(
-                                  dataMessages_by_pk?.messages_by_pk?.publishedAt
-                                ).format('HH:mm')}
-                                className={classnames(
-                                  'block w-full mt-1 border-gray-300 rounded-md shadow-sm sm:text-sm',
-                                  {
-                                    'focus:border-red-400 focus:ring-red-500 border-red-300':
-                                      validationErrors.publishedAt_time,
-                                    'focus:border-indigo-500 focus:ring-indigo-500 border-gray-300':
-                                      !validationErrors.publishedAt_time,
-                                  }
-                                )}
-                                placeholder='publishedAt_time...'
-                              />
+                        {/* publishedAt_time TIME */}
+                        <div className='col-span-6 sm:col-span-4'>
+                          <div className='form-control'>
+                            <label className='label' htmlFor='publishedAt_time'>
+                              <span className='label-text'>publishedAt_time</span>
                             </label>
+                            <input
+                              type='time'
+                              defaultValue={dayjs(
+                                dataMessages_by_pk?.messages_by_pk?.publishedAt
+                              ).format('HH:mm')}
+                              {...register('publishedAt_time')}
+                              placeholder='publishedAt_time...'
+                              className={classnames('input input-bordered', {
+                                'input-error': validationErrors.publishedAt_time,
+                              })}
+                            />
                             {validationErrors.publishedAt_time && (
-                              <p className='mt-1 text-sm text-red-600'>
-                                {validationErrors.publishedAt_time.message}
-                              </p>
+                              <label className='label'>
+                                <span className='label-text-alt'>
+                                  {validationErrors.publishedAt_time.message}
+                                </span>
+                              </label>
                             )}
                           </div>
+                        </div>
 
-                          <div className='flex justify-end'>
-                            <button
-                              type='button'
-                              onClick={() => {
-                                reset({
-                                  ...dataMessages_by_pk?.messages_by_pk,
-                                })
-                              }}
-                              className={classnames(
-                                'inline-flex justify-center px-4 py-2 mr-3 text-sm font-medium text-white border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2',
-                                {
-                                  'text-red-400 underline focus:ring-red-500': formState.isDirty,
-                                  'text-gray-400 focus:ring-gray-500': !formState.isDirty,
-                                }
-                              )}
-                            >
-                              RESET
-                            </button>
+                        <div className='flex justify-end'>
+                          <button
+                            type='button'
+                            onClick={() => {
+                              reset({
+                                ...dataMessages_by_pk?.messages_by_pk,
+                              })
+                            }}
+                            className='btn btn-secondary btn-link'
+                          >
+                            RESET
+                          </button>
 
-                            <button type='submit' disabled={!formState.isValid}>
-                              SAVE
-                            </button>
-                          </div>
+                          <button
+                            type='submit'
+                            className='btn btn-primary'
+                            disabled={!formState.isValid}
+                          >
+                            SAVE
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className='hidden sm:block' aria-hidden='true'>
-                  <div className='py-5'>
-                    <div className='border-t border-gray-200' />
-                  </div>
+              <div className='hidden sm:block' aria-hidden='true'>
+                <div className='py-5'>
+                  <div className='border-t ' />
                 </div>
-              </form>
-            </main>
-          </div>
-        </div>
-      </div>
-    </div>
+              </div>
+            </form>
+          )}
+        </main>
+      </Layout>
+    </>
   )
 }
 

@@ -40,7 +40,7 @@ export default function Page() {
           </p>
 
           {/* buttons */}
-          <div className='flex flex-wrap my-16'>
+          <div className='flex flex-wrap my-16 space-y-2'>
             <div className='mx-2'>
               <ChangeThemeDropDown />
             </div>

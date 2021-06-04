@@ -14,9 +14,9 @@ export const messageValidationSchema = z.object({
       message: 'id must be a valid integer',
     }
   ),
-  title: z.string().nonempty({ message: 'Title is required' }),
+  title: z.string().nonempty(),
   body: z.string().nullish(),
-  url: z.string().nullish(),
+  url: z.string().nonempty(),
   imageUrl: z.string().nullish(),
   publishedAt: z.string().nullish(),
   publishedAt_date: z.string().nullish(),
