@@ -186,6 +186,7 @@ const Page: React.FunctionComponent = () => {
 
                         <FormInput
                           label='Publish Date:'
+                          type='date'
                           name='publishedAt_date'
                           register={register}
                           defaultValue={dayjs(
@@ -197,6 +198,7 @@ const Page: React.FunctionComponent = () => {
 
                         <FormInput
                           label='Publish Time:'
+                          type='time'
                           name='publishedAt_time'
                           register={register}
                           defaultValue={dayjs(
