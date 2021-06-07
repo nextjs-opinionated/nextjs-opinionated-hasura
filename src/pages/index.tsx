@@ -5,6 +5,7 @@ import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
+import Link from 'next/link'
 
 export default function Page() {
   return (
@@ -39,45 +40,46 @@ export default function Page() {
             quaerat sit architecto nemo tempora ratione.
           </p>
 
-          {/* buttons */}
-          <div className='flex flex-wrap my-16 space-y-2'>
-            <div className='mx-2'>
-              <ChangeThemeDropDown />
-            </div>
+          <Link href='/messages'>
+            <a className='btn btn-primary btn-lg'>Messages (hasura)</a>
+          </Link>
 
-            <div className='mx-2'>
-              <button
-                className='btn btn-primary'
-                onClick={async () => {
-                  const myAlert = withReactContent(Swal)
-                  await myAlert.fire({
-                    title: 'Some Alert Title',
-                    html: <img src='https://unsplash.it/600/300' />,
-                    imageAlt: 'Custom image',
-                    confirmButtonText: 'ok button',
-                  })
-                }}
-              >
-                Show Image
-              </button>
-            </div>
-            <div className='mx-2'>
-              <button
-                className='btn btn-primary'
-                onClick={async () => {
-                  const res = await fetch('/api/say-hello-from-api')
-                  const resultJSON = await res.json()
-                  const myAlert = withReactContent(Swal)
-                  await myAlert.fire({
-                    title: 'from server',
-                    html: resultJSON.message,
-                    confirmButtonText: 'close',
-                  })
-                }}
-              >
-                Call API
-              </button>
-            </div>
+          <hr className='my-16 text-secondary-content' />
+
+          {/* buttons */}
+          <div className='flex flex-wrap items-center my-4 space-x-4 space-y-'>
+            <button
+              className='btn btn-primary'
+              onClick={async () => {
+                const myAlert = withReactContent(Swal)
+                await myAlert.fire({
+                  title: 'Some Alert Title',
+                  html: <img src='https://unsplash.it/600/300' />,
+                  imageAlt: 'Custom image',
+                  confirmButtonText: 'ok button',
+                })
+              }}
+            >
+              Show Image
+            </button>
+
+            <button
+              className='btn btn-primary'
+              onClick={async () => {
+                const res = await fetch('/api/get-server-time')
+                const resultJSON = await res.json()
+                const myAlert = withReactContent(Swal)
+                await myAlert.fire({
+                  title: 'from server',
+                  html: resultJSON.message,
+                  confirmButtonText: 'close',
+                })
+              }}
+            >
+              Call API
+            </button>
+
+            <ChangeThemeDropDown />
           </div>
 
           <p className='max-w-md mt-10 text-sm italic'>
