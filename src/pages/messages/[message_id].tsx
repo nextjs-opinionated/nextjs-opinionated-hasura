@@ -3,7 +3,6 @@ import { Messages_By_PkQuery, Messages_Insert_Input } from '../../graphql/genera
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { messageValidationSchema } from '../../model/messageValidationSchema'
-import classnames from 'classnames'
 import useSWRFetch from '../../utils/useSWRFetch'
 import queryString from 'query-string'
 import { useRouter } from 'next/router'
@@ -14,6 +13,7 @@ import Head from 'next/head'
 import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
 import { FormInput } from '../../components/FormInput/FormInput'
+import { useEffect } from 'react'
 
 type FormProps = Omit<Messages_Insert_Input, 'message_tags'> & {
   publishedAt_date: string
@@ -37,23 +37,33 @@ const Page: React.FunctionComponent = () => {
     formState: { errors: validationErrors },
     formState,
     reset,
+    setValue,
   } = useForm<FormProps>({
     mode: 'onChange',
     resolver: zodResolver(messageValidationSchema),
   })
 
-  if (loadingMessages_by_pk) {
-    return <p>Loading...</p>
-  }
-
-  if (errorMessages_by_pk) {
-    return <p>ERROR {errorMessages_by_pk}</p>
-  }
+  useEffect(() => {
+    if (!loadingMessages_by_pk && dataMessages_by_pk?.messages_by_pk) {
+      setValue('title', dataMessages_by_pk?.messages_by_pk?.title)
+      setValue('body', dataMessages_by_pk?.messages_by_pk?.body)
+      setValue('url', dataMessages_by_pk?.messages_by_pk?.url)
+      setValue('imageUrl', dataMessages_by_pk?.messages_by_pk?.imageUrl)
+      setValue(
+        'publishedAt_date',
+        dayjs(dataMessages_by_pk?.messages_by_pk?.publishedAt).format('YYYY-MM-DD')
+      )
+      setValue(
+        'publishedAt_time',
+        dayjs(dataMessages_by_pk?.messages_by_pk?.publishedAt).format('HH:mm')
+      )
+    }
+  }, [dataMessages_by_pk, loadingMessages_by_pk])
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
       const publishedAt = new Date(
-        `${submitProps.publishedAt_date}:${submitProps.publishedAt_time}`
+        `${submitProps.publishedAt_date}T${submitProps.publishedAt_time}`
       ) // format date to timestamps
 
       const headers = new Headers()
@@ -87,6 +97,26 @@ const Page: React.FunctionComponent = () => {
       console.log('--  submitErrors: ', submitErrors)
     }
   )
+
+  if (loadingMessages_by_pk) {
+    return (
+      <Layout
+        title={
+          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
+            <div className='text-base font-bold'>...</div>
+            <div className='text-sm'>Next.js Opinionated</div>
+          </div>
+        }
+        menuItems={Object.values(LinksList)}
+      >
+        <p>Loading...</p>
+      </Layout>
+    )
+  }
+
+  if (errorMessages_by_pk) {
+    return <p>ERROR {errorMessages_by_pk}</p>
+  }
 
   return (
     <>

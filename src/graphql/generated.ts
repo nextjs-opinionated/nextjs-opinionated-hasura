@@ -1485,7 +1485,7 @@ export const Insert_Messages_OneDocument = gql`
 `
 export const MessagesDocument = gql`
   query messages {
-    messages(limit: 8, order_by: { id: desc }) {
+    messages(limit: 6, order_by: { id: desc }) {
       id
       title
       body

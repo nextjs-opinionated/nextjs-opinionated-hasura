@@ -12,11 +12,11 @@ export interface ChangeThemeDropDownProps {
 export const ChangeThemeDropDown: React.FC<ChangeThemeDropDownProps> = ({ className }) => {
   const { theme, setTheme } = useTheme()
   return (
-    <Menu as='div' className={`z-10 inline-block dropdown ${className}`}>
+    <Menu as='div' className={`dropdown ${className}`}>
       {({ open }) => (
         <>
           <div>
-            <Menu.Button className='btn btn-primary'>change theme</Menu.Button>
+            <Menu.Button className='btn btn-secondary'>change theme</Menu.Button>
           </div>
           <Transition
             show={open}

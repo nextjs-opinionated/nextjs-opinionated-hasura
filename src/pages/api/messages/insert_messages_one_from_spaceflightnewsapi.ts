@@ -50,11 +50,11 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
         //   },
         // })
 
-        // lista all
-        const messagesLast8 = await new GqlSdkHelper().getSdk().messages()
+        // list all
+        const messagesLast6 = await new GqlSdkHelper().getSdk().messages()
 
         const messagesDeleted = await new GqlSdkHelper().getSdk().delete_messages({
-          message_id: _.last(messagesLast8.messages)?.id,
+          message_id: _.last(messagesLast6.messages)?.id,
         })
 
         res.json({ messageResponseData, messagesDeleted })
