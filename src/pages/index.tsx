@@ -47,7 +47,7 @@ export default function Page() {
           <hr className='my-16 text-secondary-content' />
 
           {/* buttons */}
-          <div className='flex flex-wrap items-center my-4 space-x-4 space-y-'>
+          <div className='flex flex-wrap items-center my-4 space-x-4'>
             <button
               className='btn btn-primary'
               onClick={async () => {
