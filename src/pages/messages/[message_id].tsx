@@ -13,6 +13,7 @@ import dayjs from 'dayjs'
 import Head from 'next/head'
 import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
+import { useEffect } from 'react'
 
 type FormProps = Omit<Messages_Insert_Input, 'message_tags'> & {
   publishedAt_date: string
@@ -36,23 +37,33 @@ const Page: React.FunctionComponent = () => {
     formState: { errors: validationErrors },
     formState,
     reset,
+    setValue,
   } = useForm<FormProps>({
     mode: 'onChange',
     resolver: zodResolver(messageValidationSchema),
   })
 
-  if (loadingMessages_by_pk) {
-    return <p>Loading...</p>
-  }
-
-  if (errorMessages_by_pk) {
-    return <p>ERROR {errorMessages_by_pk}</p>
-  }
+  useEffect(() => {
+    if (!loadingMessages_by_pk && dataMessages_by_pk?.messages_by_pk) {
+      setValue('title', dataMessages_by_pk?.messages_by_pk?.title)
+      setValue('body', dataMessages_by_pk?.messages_by_pk?.body)
+      setValue('url', dataMessages_by_pk?.messages_by_pk?.url)
+      setValue('imageUrl', dataMessages_by_pk?.messages_by_pk?.imageUrl)
+      setValue(
+        'publishedAt_date',
+        dayjs(dataMessages_by_pk?.messages_by_pk?.publishedAt).format('YYYY-MM-DD')
+      )
+      setValue(
+        'publishedAt_time',
+        dayjs(dataMessages_by_pk?.messages_by_pk?.publishedAt).format('HH:mm')
+      )
+    }
+  }, [dataMessages_by_pk, loadingMessages_by_pk])
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
       const publishedAt = new Date(
-        `${submitProps.publishedAt_date}:${submitProps.publishedAt_time}`
+        `${submitProps.publishedAt_date}T${submitProps.publishedAt_time}`
       ) // format date to timestamps
 
       const headers = new Headers()
@@ -87,13 +98,13 @@ const Page: React.FunctionComponent = () => {
     }
   )
 
-  console.log('--  validationErrors: ', validationErrors)
-  console.log(
-    '--  dataMessages_by_pk?.messages_by_pk?.publishedAt: ',
-    dataMessages_by_pk?.messages_by_pk?.publishedAt
-  )
-  // var offset = new Date().getTimezoneOffset()
-  // console.log(offset)
+  if (loadingMessages_by_pk) {
+    return <p>Loading...</p>
+  }
+
+  if (errorMessages_by_pk) {
+    return <p>ERROR {errorMessages_by_pk}</p>
+  }
 
   return (
     <>
