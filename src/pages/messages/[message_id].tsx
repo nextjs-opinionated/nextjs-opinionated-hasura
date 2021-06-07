@@ -13,6 +13,7 @@ import dayjs from 'dayjs'
 import Head from 'next/head'
 import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
+import { FormInput } from '../../components/FormInput/FormInput'
 
 type FormProps = Omit<Messages_Insert_Input, 'message_tags'> & {
   publishedAt_date: string
@@ -87,14 +88,6 @@ const Page: React.FunctionComponent = () => {
     }
   )
 
-  console.log('--  validationErrors: ', validationErrors)
-  console.log(
-    '--  dataMessages_by_pk?.messages_by_pk?.publishedAt: ',
-    dataMessages_by_pk?.messages_by_pk?.publishedAt
-  )
-  // var offset = new Date().getTimezoneOffset()
-  // console.log(offset)
-
   return (
     <>
       <Head>
@@ -129,159 +122,59 @@ const Page: React.FunctionComponent = () => {
                   <div className='mt-5 md:mt-0 md:col-span-2'>
                     <div className='shadow sm:rounded-md sm:overflow-hidden'>
                       <div className='px-4 py-5 space-y-6 sm:p-6'>
-                        {/* title */}
-                        <div className='col-span-6 sm:col-span-4'>
-                          <div className='form-control'>
-                            <label className='label' htmlFor='title'>
-                              <span className='label-text'>title</span>
-                            </label>
-                            <input
-                              type='text'
-                              defaultValue={dataMessages_by_pk?.messages_by_pk?.title}
-                              {...register('title')}
-                              placeholder='title...'
-                              className={classnames('input input-bordered', {
-                                'input-error': validationErrors.title,
-                              })}
-                            />
-                            {validationErrors.title && (
-                              <label className='label'>
-                                <span className='label-text-alt'>
-                                  {validationErrors.title.message}
-                                </span>
-                              </label>
-                            )}
-                          </div>
-                        </div>
+                        <FormInput
+                          label='Title:'
+                          name='title'
+                          register={register}
+                          defaultValue={dataMessages_by_pk?.messages_by_pk?.title}
+                          validationErrors={validationErrors}
+                        />
 
-                        {/* body */}
-                        <div className='col-span-6 sm:col-span-4'>
-                          <div className='form-control'>
-                            <label className='label' htmlFor='body'>
-                              <span className='label-text'>body</span>
-                            </label>
-                            <input
-                              type='text'
-                              defaultValue={dataMessages_by_pk?.messages_by_pk?.body}
-                              {...register('body')}
-                              placeholder='body...'
-                              className={classnames('input input-bordered', {
-                                'input-error': validationErrors.body,
-                              })}
-                            />
-                            {validationErrors.body && (
-                              <label className='label'>
-                                <span className='label-text-alt'>
-                                  {validationErrors.body.message}
-                                </span>
-                              </label>
-                            )}
-                          </div>
-                        </div>
+                        <FormInput
+                          label='Body:'
+                          name='body'
+                          register={register}
+                          defaultValue={dataMessages_by_pk?.messages_by_pk?.body}
+                          validationErrors={validationErrors}
+                        />
 
-                        {/* url */}
-                        <div className='col-span-6 sm:col-span-4'>
-                          <div className='form-control'>
-                            <label className='label' htmlFor='url'>
-                              <span className='label-text'>url</span>
-                            </label>
-                            <input
-                              type='text'
-                              defaultValue={dataMessages_by_pk?.messages_by_pk?.url}
-                              {...register('url')}
-                              placeholder='url...'
-                              className={classnames('input input-bordered', {
-                                'input-error': validationErrors.url,
-                              })}
-                            />
-                            {validationErrors.url && (
-                              <label className='label'>
-                                <span className='label-text-alt'>
-                                  {validationErrors.url.message}
-                                </span>
-                              </label>
-                            )}
-                          </div>
-                        </div>
+                        <FormInput
+                          label='URL:'
+                          name='url'
+                          register={register}
+                          defaultValue={dataMessages_by_pk?.messages_by_pk?.url}
+                          validationErrors={validationErrors}
+                        />
 
-                        {/* imageUrl */}
-                        <div className='col-span-6 sm:col-span-4'>
-                          <div className='form-control'>
-                            <label className='label' htmlFor='imageUrl'>
-                              <span className='label-text'>imageUrl</span>
-                            </label>
-                            <input
-                              type='text'
-                              defaultValue={dataMessages_by_pk?.messages_by_pk?.imageUrl}
-                              {...register('imageUrl')}
-                              placeholder='imageUrl...'
-                              className={classnames('input input-bordered', {
-                                'input-error': validationErrors.imageUrl,
-                              })}
-                            />
-                            {validationErrors.imageUrl && (
-                              <label className='label'>
-                                <span className='label-text-alt'>
-                                  {validationErrors.imageUrl.message}
-                                </span>
-                              </label>
-                            )}
-                          </div>
-                        </div>
+                        <FormInput
+                          label='Image URL:'
+                          name='imageUrl'
+                          register={register}
+                          defaultValue={dataMessages_by_pk?.messages_by_pk?.imageUrl}
+                          validationErrors={validationErrors}
+                        />
 
-                        {/* publishedAt_date DATE */}
-                        <div className='col-span-6 sm:col-span-4'>
-                          <div className='form-control'>
-                            <label className='label' htmlFor='publishedAt_date'>
-                              <span className='label-text'>publishedAt_date</span>
-                            </label>
-                            <input
-                              type='date'
-                              defaultValue={dayjs(
-                                dataMessages_by_pk?.messages_by_pk?.publishedAt
-                              ).format('YYYY-MM-DD')}
-                              {...register('publishedAt_date')}
-                              placeholder='publishedAt_date...'
-                              className={classnames('input input-bordered', {
-                                'input-error': validationErrors.publishedAt_date,
-                              })}
-                            />
-                            {validationErrors.publishedAt_date && (
-                              <label className='label'>
-                                <span className='label-text-alt'>
-                                  {validationErrors.publishedAt_date.message}
-                                </span>
-                              </label>
-                            )}
-                          </div>
-                        </div>
+                        <FormInput
+                          label='Publish Date:'
+                          name='publishedAt_date'
+                          register={register}
+                          defaultValue={dayjs(
+                            dataMessages_by_pk?.messages_by_pk?.publishedAt
+                          ).format('YYYY-MM-DD')}
+                          {...register('publishedAt_date')}
+                          validationErrors={validationErrors}
+                        />
 
-                        {/* publishedAt_time TIME */}
-                        <div className='col-span-6 sm:col-span-4'>
-                          <div className='form-control'>
-                            <label className='label' htmlFor='publishedAt_time'>
-                              <span className='label-text'>publishedAt_time</span>
-                            </label>
-                            <input
-                              type='time'
-                              defaultValue={dayjs(
-                                dataMessages_by_pk?.messages_by_pk?.publishedAt
-                              ).format('HH:mm')}
-                              {...register('publishedAt_time')}
-                              placeholder='publishedAt_time...'
-                              className={classnames('input input-bordered', {
-                                'input-error': validationErrors.publishedAt_time,
-                              })}
-                            />
-                            {validationErrors.publishedAt_time && (
-                              <label className='label'>
-                                <span className='label-text-alt'>
-                                  {validationErrors.publishedAt_time.message}
-                                </span>
-                              </label>
-                            )}
-                          </div>
-                        </div>
+                        <FormInput
+                          label='Publish Time:'
+                          name='publishedAt_time'
+                          register={register}
+                          defaultValue={dayjs(
+                            dataMessages_by_pk?.messages_by_pk?.publishedAt
+                          ).format('HH:mm')}
+                          {...register('publishedAt_time')}
+                          validationErrors={validationErrors}
+                        />
 
                         <div className='flex justify-end'>
                           <button
