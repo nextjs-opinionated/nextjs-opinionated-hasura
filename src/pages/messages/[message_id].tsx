@@ -13,7 +13,6 @@ import Head from 'next/head'
 import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
 import { FormInput } from '../../components/FormInput/FormInput'
-import { useEffect } from 'react'
 
 type FormProps = Omit<Messages_Insert_Input, 'message_tags'> & {
   publishedAt_date: string
@@ -26,6 +25,7 @@ const Page: React.FunctionComponent = () => {
     data: dataMessages_by_pk,
     loading: loadingMessages_by_pk,
     error: errorMessages_by_pk,
+    isValidating: isValidatingMessages_by_pk,
   } = useSWRFetch<Messages_By_PkQuery>(
     `/api/messages/messages_by_pk/?${queryString.stringify({
       message_id: router.query.message_id,
@@ -37,28 +37,10 @@ const Page: React.FunctionComponent = () => {
     formState: { errors: validationErrors },
     formState,
     reset,
-    setValue,
   } = useForm<FormProps>({
     mode: 'onChange',
     resolver: zodResolver(messageValidationSchema),
   })
-
-  useEffect(() => {
-    if (!loadingMessages_by_pk && dataMessages_by_pk?.messages_by_pk) {
-      setValue('title', dataMessages_by_pk?.messages_by_pk?.title)
-      setValue('body', dataMessages_by_pk?.messages_by_pk?.body)
-      setValue('url', dataMessages_by_pk?.messages_by_pk?.url)
-      setValue('imageUrl', dataMessages_by_pk?.messages_by_pk?.imageUrl)
-      setValue(
-        'publishedAt_date',
-        dayjs(dataMessages_by_pk?.messages_by_pk?.publishedAt).format('YYYY-MM-DD')
-      )
-      setValue(
-        'publishedAt_time',
-        dayjs(dataMessages_by_pk?.messages_by_pk?.publishedAt).format('HH:mm')
-      )
-    }
-  }, [dataMessages_by_pk, loadingMessages_by_pk])
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
@@ -134,7 +116,7 @@ const Page: React.FunctionComponent = () => {
         menuItems={Object.values(LinksList)}
       >
         <main className='flex justify-center mx-8'>
-          {!loadingMessages_by_pk && (
+          {!isValidatingMessages_by_pk && (
             <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
               <div className='hidden sm:block' aria-hidden='true'>
                 <div className='py-5'>
@@ -192,7 +174,6 @@ const Page: React.FunctionComponent = () => {
                           defaultValue={dayjs(
                             dataMessages_by_pk?.messages_by_pk?.publishedAt
                           ).format('YYYY-MM-DD')}
-                          {...register('publishedAt_date')}
                           validationErrors={validationErrors}
                         />
 
@@ -204,7 +185,6 @@ const Page: React.FunctionComponent = () => {
                           defaultValue={dayjs(
                             dataMessages_by_pk?.messages_by_pk?.publishedAt
                           ).format('HH:mm')}
-                          {...register('publishedAt_time')}
                           validationErrors={validationErrors}
                         />
 
@@ -212,9 +192,7 @@ const Page: React.FunctionComponent = () => {
                           <button
                             type='button'
                             onClick={() => {
-                              reset({
-                                ...dataMessages_by_pk?.messages_by_pk,
-                              })
+                              reset(dataMessages_by_pk?.messages_by_pk)
                             }}
                             className='btn btn-secondary btn-link'
                           >

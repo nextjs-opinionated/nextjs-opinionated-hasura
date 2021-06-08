@@ -4,13 +4,14 @@ export const fetcher = <T>(input: RequestInfo, init?: RequestInit | undefined): 
   fetch(input, init).then((res) => res.json())
 
 export default function useSWRFetch<T>(url: string) {
-  const { data, error } = useSWR<T>(url, fetcher)
+  const { data, error, isValidating } = useSWR<T>(url, fetcher)
 
   const serverError = error
 
   return {
     data,
     loading: !serverError && !data,
+    isValidating,
     error: serverError,
   }
 }
