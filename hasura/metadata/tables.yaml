@@ -1,5 +1,8 @@
 - table:
     schema: public
+    name: accounts
+- table:
+    schema: public
     name: message_tag
   object_relationships:
   - name: message
@@ -21,6 +24,9 @@
           name: message_tag
 - table:
     schema: public
+    name: sessions
+- table:
+    schema: public
     name: tags
   array_relationships:
   - name: message_tags
@@ -30,3 +36,9 @@
         table:
           schema: public
           name: message_tag
+- table:
+    schema: public
+    name: users
+- table:
+    schema: public
+    name: verification_requests
