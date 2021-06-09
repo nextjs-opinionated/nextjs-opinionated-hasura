@@ -12,6 +12,7 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <link rel='icon' href='/favicon.ico' />
+          <meta name='viewport' content='initial-scale=1.0, width=device-width' key='viewport' />
           <meta property='og:title' content={SITE_TITLE} />
           <meta property='twitter:title' content={SITE_TITLE} />
           <meta property='og:description' content={DESCRIPTION} />
