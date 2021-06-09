@@ -1,13 +1,28 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 import Link from 'next/link'
+import { signOut, useSession } from 'next-auth/client'
 
 export default function Page() {
+  const [session] = useSession()
+
+  useEffect(() => {
+    console.log({ session })
+  }, [])
+
+  const callApi = async () => {
+    const response = await fetch('/api/x/protected')
+
+    const response_json = await response.json()
+    console.log(response_json)
+    return response_json
+  }
+
   return (
     <>
       <Head>
@@ -24,10 +39,24 @@ export default function Page() {
         menuItems={Object.values(LinksList)}
       >
         {/* avatar */}
-        <div className='avatar'>
+        <div className='flex flex-col avatar'>
           <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
-            <img src='http://daisyui.com/tailwind-css-component-profile-1@94w.png' />
+            <img
+              onClick={() => callApi()}
+              src={
+                session?.user?.image ||
+                'http://daisyui.com/tailwind-css-component-profile-1@94w.png'
+              }
+            />
           </div>
+
+          {session?.user && (
+            <div>
+              <button className='btn btn-outline' onClick={() => signOut()}>
+                SignOut
+              </button>
+            </div>
+          )}
         </div>
 
         {/* text */}

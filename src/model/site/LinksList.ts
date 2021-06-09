@@ -1,4 +1,4 @@
-export type LinksListIds = 'home' | 'messages' | 'github' | 'styleGuide'
+export type LinksListIds = 'home' | 'messages' | 'github' | 'styleGuide' | 'authenticate'
 
 export type LinkProps = {
   id: LinksListIds
@@ -30,4 +30,9 @@ export const LinksList: {
     name: 'Github',
     externalURL: 'https://github.com/saitodisse/nextjs-opinionated',
   },
+  authenticate: {
+    id: 'authenticate',
+    name: 'Authenticate',
+    internalURL: '/api/auth/signin'
+  }
 }
