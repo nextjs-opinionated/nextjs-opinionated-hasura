@@ -41,7 +41,7 @@ export default function Page() {
 
           {/* buttons */}
           <div className='flex flex-wrap my-16 space-y-2'>
-            <div className='mx-2'>
+            <div className='mx-2 mt-2'>
               <ChangeThemeDropDown />
             </div>
 
