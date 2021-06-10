@@ -12,7 +12,7 @@ export default function Page() {
   const [session] = useSession()
 
   useEffect(() => {
-    console.log({ session })
+    console.log(session?.user)
   }, [])
 
   const callApi = async () => {
