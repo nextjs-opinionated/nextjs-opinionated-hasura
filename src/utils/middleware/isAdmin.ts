@@ -10,21 +10,21 @@ export interface NextApiRequestWithUser extends NextApiRequest {
   }
 }
 
-
 // HOC
 export const isAdmin = (handler: (req: NextApiRequestWithUser, res: NextApiResponse) => void) => {
   return async (req: NextApiRequestWithUser, res: NextApiResponse): Promise<void> => {
     const session = await getSession({ req })
 
-    if(!session?.user) {
-      return res.status(401).json({message: "you are not authenticated"})
+    if (!session?.user) {
+      console.log(session)
+      return res.status(401).json({ message: 'you are not authenticated' })
     }
 
-    if(session.user.role === "Admin") {
+    if (session.user.role === 'Admin') {
       req.user = session.user
       return handler(req, res)
     } else {
-      return res.status(401).json({ message: "unauthorized" })
+      return res.status(401).json({ message: 'unauthorized' })
     }
   }
 }
