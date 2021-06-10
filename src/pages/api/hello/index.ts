@@ -5,7 +5,7 @@ const handler = (req: NextApiRequestWithUser, res: NextApiResponse) => {
   const { method, user } = req
 
   if (method === 'GET') {
-    return res.status(200).json({ message: `Olá, ${user.name}! Você é um ${user.role}` })
+    return res.status(200).json({ message: `Olá, ${user.email}! Você é um ${user.role}` })
   }
 
   res.setHeader('Allow', ['GET'])

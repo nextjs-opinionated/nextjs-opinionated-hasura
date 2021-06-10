@@ -13,10 +13,10 @@ export default function Page() {
 
   useEffect(() => {
     console.log(session?.user)
-  }, [])
+  }, [session])
 
   const callApi = async () => {
-    const response = await fetch('/api/x/protected')
+    const response = await fetch('/api/hello')
 
     const response_json = await response.json()
     console.log(response_json)
@@ -51,7 +51,11 @@ export default function Page() {
           </div>
 
           {session?.user && (
-            <div>
+            <div className='flex flex-col'>
+              <p>
+                Bem vindo <span className='font-bold'>{session.user.email}</span> (
+                {session.user.role})
+              </p>
               <button className='btn btn-outline' onClick={() => signOut()}>
                 SignOut
               </button>

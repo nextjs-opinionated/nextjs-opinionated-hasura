@@ -7,7 +7,7 @@ export interface FormInputProps {
   placeholder?: string
   name: string
   register: any
-  defaultValue: any
+  defaultValue?: any
   validationErrors: any
 }
 

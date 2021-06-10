@@ -7,10 +7,6 @@ import Models from '../../../model/auth'
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
-interface Credentials {
-  email: string
-  password: string
-}
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
   providers: [
@@ -18,27 +14,16 @@ export default NextAuth({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
-    Providers.Credentials({
-      name: 'Credentials',
-      credentials: {
-        email: { label: 'Email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
+    Providers.Email({
+      server: {
+        host: process.env.EMAIL_SERVER,
+        port: Number(process.env.EMAIL_PORT),
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
       },
-      async authorize(credentials: Credentials, req) {
-        console.log('credentials', credentials)
-        console.log('req', req)
-        console.log(credentials.email)
-        const user = {
-          email: credentials.email,
-          password: credentials.password,
-        }
-        console.log('user', user)
-        if (user) {
-          return user
-        } else {
-          return null
-        }
-      },
+      from: "nextjs-opinionated <no-reply@semantix.com>",
     }),
   ],
   database: process.env.DB_URL,
@@ -57,6 +42,7 @@ export default NextAuth({
 
   session: {
     jwt: true,
+    maxAge: 24 * 60 * 60, // 24hr
   },
 
   // JSON Web tokens are only used for sessions if the `jwt: true` session
@@ -96,6 +82,7 @@ export default NextAuth({
     //   return true
     // },
     async redirect(_, baseUrl) {
+      console.log(baseUrl)
       return baseUrl
     },
     // async session(session, user) {
