@@ -53,12 +53,9 @@ export default function Page() {
           {session?.user && (
             <div className='flex flex-col'>
               <p>
-                Bem vindo <span className='font-bold'>{session.user.email}</span> (
-                {session.user.role})
+                Welcome <span className='font-bold'>{session.user.email}</span>{' '}
+                <span className='font-bold'>({session.user.role})</span>
               </p>
-              <button className='btn btn-outline' onClick={() => signOut()}>
-                SignOut
-              </button>
             </div>
           )}
         </div>
@@ -74,8 +71,18 @@ export default function Page() {
           </p>
 
           <Link href='/messages'>
-            <a className='btn btn-primary btn-lg'>Messages (hasura)</a>
+            <a className='btn btn-secondary btn-md'>Messages (hasura)</a>
           </Link>
+
+          {!session?.user && (
+            <Link href='/api/auth/signin'>
+              <a className='ml-5 btn btn-primary btn-md'>Login</a>
+            </Link>
+          )}
+
+          <button className='ml-5 btn btn-outline btn-md' onClick={() => signOut()}>
+            SignOut
+          </button>
 
           <hr className='my-16 text-secondary-content' />
 
