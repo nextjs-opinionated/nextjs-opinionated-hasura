@@ -1,11 +1,18 @@
-import { getProviders, ClientSafeProvider, getCsrfToken, signIn } from 'next-auth/client'
+import {
+  getProviders,
+  ClientSafeProvider,
+  getCsrfToken,
+  signIn,
+  useSession,
+} from 'next-auth/client'
 import { CustomButtonAuth } from '../../../components/CustomButtonAuth/CustomButtonAuth'
 import { FormInput } from '../../../components/FormInput/FormInput'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { authValidationSchema } from '../../../model/authValidationSchema'
 import { NextPageContext } from 'next'
-// import { LockClosedIcon } from '@heroicons/react/solid'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 enum KeyProvider {
   'github' = 'github',
@@ -47,11 +54,19 @@ export default function login({ providers, csrfToken }: Provider) {
     }
   )
 
+  const [session] = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (session?.user) {
+      router.push('/')
+    }
+  }, [session, router])
+
   return (
-    // TODO: change to daisyui
     <div className='flex items-center justify-center min-h-screen px-4 py-12 bg-gray-50 sm:px-6 lg:px-8'>
       <div className='w-full max-w-md space-y-8'>
-        <div>
+        <>
           <img
             className='w-auto h-12 mx-auto'
             src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
@@ -66,7 +81,7 @@ export default function login({ providers, csrfToken }: Provider) {
               welcome to next-opinionated
             </a>
           </p>
-        </div>
+        </>
         <form onSubmit={handleSubmit(onSubmit)} className='mt-8 space-y-6'>
           <input type='hidden' name='remember' defaultValue='true' />
           <input name='csrfToken' type='hidden' defaultValue={csrfToken} />
@@ -86,14 +101,14 @@ export default function login({ providers, csrfToken }: Provider) {
           </div>
         </form>
         <div>
-          <div>
+          <>
             <CustomButtonAuth
               keyProvider={providers?.github?.name}
               providerId={providers?.github?.id}
             >
               Sign in with {providers?.github?.name}
             </CustomButtonAuth>
-          </div>
+          </>
         </div>
       </div>
     </div>
