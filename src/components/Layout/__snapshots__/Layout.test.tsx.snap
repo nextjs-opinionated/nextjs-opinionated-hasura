@@ -1,0 +1,192 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="h-screen bg-base-200 drawer text-base-content"
+>
+  <input
+    className="drawer-toggle"
+    id="menu-drawer"
+    type="checkbox"
+  />
+  <div
+    className="flex flex-col drawer-content"
+  >
+    <div
+      className="w-full navbar bg-base-300"
+    >
+      <div
+        className="flex-none lg:hidden"
+      >
+        <label
+          className="btn btn-square btn-ghost"
+          htmlFor="menu-drawer"
+        >
+          <svg
+            className="inline-block w-6 h-6 stroke-current"
+            fill="none"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 6h16M4 12h16M4 18h16"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+            />
+          </svg>
+        </label>
+      </div>
+      <div
+        className="flex-none"
+      >
+        <div
+          className="hidden lg:inline-block"
+        >
+          <ul
+            className="mr-2 space-x-2 menu horizontal"
+          >
+            <li>
+              <div
+                className="z-30 m-1"
+              >
+                <select
+                  className="w-full max-w-xs select select-bordered"
+                  onChange={[Function]}
+                >
+                  <option
+                    disabled={true}
+                  >
+                    theme
+                  </option>
+                  <option
+                    value="light"
+                  >
+                    Light
+                  </option>
+                  <option
+                    value="dark"
+                  >
+                    Dark
+                  </option>
+                  <option
+                    value="cupcake"
+                  >
+                    Cup Cake
+                  </option>
+                  <option
+                    value="bumblebee"
+                  >
+                    Bumble Bee
+                  </option>
+                  <option
+                    value="emerald"
+                  >
+                    Emerald
+                  </option>
+                  <option
+                    value="corporate"
+                  >
+                    Corporate
+                  </option>
+                  <option
+                    value="synthwave"
+                  >
+                    Synth Wave
+                  </option>
+                  <option
+                    value="retro"
+                  >
+                    Retro
+                  </option>
+                  <option
+                    value="cyberpunk"
+                  >
+                    Cyber-Punk
+                  </option>
+                  <option
+                    value="valentine"
+                  >
+                    Valentine
+                  </option>
+                  <option
+                    value="halloween"
+                  >
+                    Halloween
+                  </option>
+                  <option
+                    value="garden"
+                  >
+                    Garden
+                  </option>
+                  <option
+                    value="forest"
+                  >
+                    Forest
+                  </option>
+                  <option
+                    value="aqua"
+                  >
+                    Aqua
+                  </option>
+                  <option
+                    value="lofi"
+                  >
+                    Lofi
+                  </option>
+                  <option
+                    value="pastel"
+                  >
+                    Pastel
+                  </option>
+                  <option
+                    value="fantasy"
+                  >
+                    Fantasy
+                  </option>
+                  <option
+                    value="wireframe"
+                  >
+                    Wire Frame
+                  </option>
+                  <option
+                    value="black"
+                  >
+                    Black
+                  </option>
+                  <option
+                    value="luxury"
+                  >
+                    Luxury
+                  </option>
+                  <option
+                    value="dracula"
+                  >
+                    Dracula
+                  </option>
+                </select>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div
+      className="w-full p-4 md:px-6 md:container md:mx-auto"
+    >
+      Some Text
+    </div>
+  </div>
+  <div
+    className="drawer-side"
+  >
+    <label
+      className="drawer-overlay"
+      htmlFor="menu-drawer"
+    />
+    <ul
+      className="p-4 overflow-y-auto menu w-80 bg-base-100"
+    />
+  </div>
+</div>
+`;

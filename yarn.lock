@@ -11914,11 +11914,6 @@ react-test-renderer@^17.0.2:
     react-shallow-renderer "^16.13.1"
     scheduler "^0.20.2"
 
-react-testing-library@^8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-8.0.1.tgz#b3dd43bce3fa88423cf0a23292fb819023c227cc"
-  integrity sha512-Gq4JC9r3prA4hYwo7afcbHHMFckO29+5Nrh2KblAEPuK/DWaU0bJE1vtpAgLhzhY9bBirmcgjjIHljHEwGAXKw==
-
 react-textarea-autosize@^8.3.0:
   version "8.3.3"
   resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-8.3.3.tgz#f70913945369da453fd554c168f6baacd1fa04d8"
