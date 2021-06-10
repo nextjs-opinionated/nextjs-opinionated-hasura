@@ -28,7 +28,7 @@
     "start": "next start",
     "export": "next export",
     "test": "jest --watch",
-    "test:ci": "jest --runInBand",
+    "test:ci": "jest --runInBand --no-cache",
     "storybook": "start-storybook --ci -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
