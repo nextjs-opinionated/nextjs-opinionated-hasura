@@ -80,9 +80,11 @@ export default function Page() {
             </Link>
           )}
 
-          <button className='ml-5 btn btn-outline btn-md' onClick={() => signOut()}>
-            SignOut
-          </button>
+          {session?.user && (
+            <button className='ml-5 btn btn-outline btn-md' onClick={() => signOut()}>
+              SignOut
+            </button>
+          )}
 
           <hr className='my-16 text-secondary-content' />
 
