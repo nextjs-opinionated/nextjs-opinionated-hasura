@@ -73,12 +73,7 @@ export default function login({ providers, csrfToken }: Provider) {
             alt='Workflow'
           />
           <h2 className='mt-6 text-3xl font-extrabold text-center'>Sign in to your account</h2>
-          <p className='mt-2 text-sm text-center text-gray-600'>
-            Or{' '}
-            <a href='#' className='via-info'>
-              welcome to next-opinionated
-            </a>
-          </p>
+          <p className='mt-2 text-sm text-center text-gray-600'>welcome to next-opinionated</p>
         </>
         <form onSubmit={handleSubmit(onSubmit)} className='mt-8 space-y-6'>
           <input type='hidden' name='remember' defaultValue='true' />
@@ -102,7 +97,7 @@ export default function login({ providers, csrfToken }: Provider) {
             <CustomButtonAuth
               keyProvider={providers?.github?.name}
               providerId={providers?.github?.id}
-              label={`Sign in with ${providers?.email?.name}`}
+              label={`Sign in with ${providers?.github.name}`}
             />
           </>
         </div>
