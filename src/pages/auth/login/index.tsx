@@ -18,7 +18,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 interface ClientSafeProviderProps extends ClientSafeProvider {
-  name: KeyProvider
+  id: KeyProvider
 }
 
 type Provider = {
