@@ -54,7 +54,7 @@ export default function Page() {
             <div className='flex flex-col'>
               <p>
                 Welcome <span className='font-bold'>{session.user.email}</span>{' '}
-                <span className='font-bold'>({session.user.role})</span>
+                <div className='badge'>{session.user.role}</div>
               </p>
             </div>
           )}
