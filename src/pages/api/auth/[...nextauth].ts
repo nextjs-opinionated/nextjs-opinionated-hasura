@@ -26,7 +26,10 @@ export default NextAuth({
       from: process.env.EMAIL_FROM,
     }),
   ],
-  database: process.env.DB_URL,
+  database: {
+    ssl: true,
+    url: process.env.DB_URL
+  },
   secret: process.env.JWT_SECRET,
 
   adapter: Adapters.TypeORM.Adapter(
