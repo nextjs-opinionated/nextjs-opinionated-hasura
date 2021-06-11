@@ -5,7 +5,10 @@ import {
   signIn,
   useSession,
 } from 'next-auth/client'
-import { CustomButtonAuth } from '../../../components/CustomButtonAuth/CustomButtonAuth'
+import {
+  CustomButtonAuth,
+  KeyProvider,
+} from '../../../components/CustomButtonAuth/CustomButtonAuth'
 import { FormInput } from '../../../components/FormInput/FormInput'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,11 +16,6 @@ import { authValidationSchema } from '../../../model/authValidationSchema'
 import { NextPageContext } from 'next'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-
-enum KeyProvider {
-  'github' = 'github',
-  'email' = 'email',
-}
 
 interface ClientSafeProviderProps extends ClientSafeProvider {
   name: KeyProvider
@@ -73,12 +71,7 @@ export default function login({ providers, csrfToken }: Provider) {
             alt='Workflow'
           />
           <h2 className='mt-6 text-3xl font-extrabold text-center'>Sign in to your account</h2>
-          <p className='mt-2 text-sm text-center text-gray-600'>
-            Or{' '}
-            <a href='#' className='via-info'>
-              welcome to next-opinionated
-            </a>
-          </p>
+          <p className='mt-2 text-sm text-center text-gray-600'>welcome to next-opinionated</p>
         </>
         <form onSubmit={handleSubmit(onSubmit)} className='mt-8 space-y-6'>
           <input type='hidden' name='remember' defaultValue='true' />
@@ -93,9 +86,8 @@ export default function login({ providers, csrfToken }: Provider) {
             <CustomButtonAuth
               keyProvider={providers?.email?.name}
               providerId={providers?.email?.id}
-            >
-              Sign in with {providers?.email?.name}
-            </CustomButtonAuth>
+              label={`Sign in with ${providers?.email?.name}`}
+            />
           </div>
         </form>
         <div>
@@ -103,9 +95,8 @@ export default function login({ providers, csrfToken }: Provider) {
             <CustomButtonAuth
               keyProvider={providers?.github?.name}
               providerId={providers?.github?.id}
-            >
-              Sign in with {providers?.github?.name}
-            </CustomButtonAuth>
+              label={`Sign in with ${providers?.github.name}`}
+            />
           </>
         </div>
       </div>

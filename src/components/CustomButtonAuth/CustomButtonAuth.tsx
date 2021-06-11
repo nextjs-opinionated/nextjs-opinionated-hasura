@@ -3,25 +3,24 @@ import { signIn } from 'next-auth/client'
 import { AiFillGithub, AiOutlineMail } from 'react-icons/ai'
 
 export enum KeyProvider {
-  'github' = 'GitHub',
-  'email' = 'Email',
+  'github' = 'github',
+  'email' = 'email',
 }
 
 export type CustomButtonAuthProps = {
   providerId: string
   keyProvider: KeyProvider
-  children: React.ReactNode
+  label: string
 }
 
-export const CustomButtonAuth = ({ providerId, keyProvider, children }: CustomButtonAuthProps) => {
-  console.log(providerId)
+export const CustomButtonAuth = ({ providerId, keyProvider, label }: CustomButtonAuthProps) => {
   const handleKeyProvider = useCallback(() => {
     switch (keyProvider) {
       case KeyProvider.github: {
         return (
           <button className='w-full btn btn-outline' onClick={() => signIn(providerId)}>
             <AiFillGithub className='mr-2' size={20} />
-            {children}
+            {label}
           </button>
         )
       }
@@ -29,15 +28,15 @@ export const CustomButtonAuth = ({ providerId, keyProvider, children }: CustomBu
         return (
           <button className='w-full btn btn-primary' type='submit'>
             <AiOutlineMail className='mr-2' size={20} />
-            {children}
+            {label}
           </button>
         )
       }
 
       default:
-        null
+        return null
     }
-  }, [keyProvider])
+  }, [keyProvider, label])
 
   return <>{handleKeyProvider()}</>
 }
