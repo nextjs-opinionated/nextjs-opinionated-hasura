@@ -23,7 +23,7 @@ export default NextAuth({
           pass: process.env.EMAIL_PASS,
         },
       },
-      from: 'nextjs-opinionated <no-reply@semantix.com>',
+      from: process.env.EMAIL_FROM,
     }),
   ],
   database: process.env.DB_URL,
