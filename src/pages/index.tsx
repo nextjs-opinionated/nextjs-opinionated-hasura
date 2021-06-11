@@ -1,13 +1,28 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 import Link from 'next/link'
+import { signIn, signOut, useSession } from 'next-auth/client'
 
 export default function Page() {
+  const [session] = useSession()
+
+  useEffect(() => {
+    console.log(session?.user)
+  }, [session])
+
+  const callApi = async () => {
+    const response = await fetch('/api/hello')
+
+    const response_json = await response.json()
+    console.log(response_json)
+    return response_json
+  }
+
   return (
     <>
       <Head>
@@ -24,10 +39,25 @@ export default function Page() {
         menuItems={Object.values(LinksList)}
       >
         {/* avatar */}
-        <div className='avatar'>
+        <div className='flex flex-col avatar'>
           <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
-            <img src='http://daisyui.com/tailwind-css-component-profile-1@94w.png' />
+            <img
+              onClick={() => callApi()}
+              src={
+                session?.user?.image ||
+                'http://daisyui.com/tailwind-css-component-profile-1@94w.png'
+              }
+            />
           </div>
+
+          {session?.user && (
+            <div className='flex flex-col'>
+              <p>
+                Welcome, <span className='font-bold'>{session.user.email}</span>{' '}
+                <div className='badge'>{session.user.role}</div>
+              </p>
+            </div>
+          )}
         </div>
 
         {/* text */}
@@ -41,8 +71,22 @@ export default function Page() {
           </p>
 
           <Link href='/messages'>
-            <a className='mx-2 my-4 btn btn-primary btn-lg'>Messages (hasura)</a>
+            <a className='mx-2 my-4 btn btn-primary btn-md'>Messages (hasura)</a>
           </Link>
+
+          {!session?.user && (
+            <button className='ml-5 btn btn-primary btn-md' onClick={() => signIn()}>
+              Login
+            </button>
+          )}
+
+          {session?.user && (
+            <button className='ml-5 btn btn-outline btn-md' onClick={() => signOut()}>
+              SignOut
+            </button>
+          )}
+
+          <hr className='my-16 text-secondary-content' />
 
           {/* buttons */}
           <div className='flex flex-wrap my-6 space-y-2'>

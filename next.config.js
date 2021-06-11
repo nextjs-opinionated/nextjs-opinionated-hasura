@@ -4,29 +4,29 @@ module.exports = {
     config.module.rules.push({
       test: /\.svg$/,
       issuer: {
-        test: /\.(js|ts)x?$/
+        test: /\.(js|ts)x?$/,
       },
       use: [
         {
-          loader: "@svgr/webpack"
+          loader: '@svgr/webpack',
           // https://react-svgr.com/docs/options/
-        }
-      ]
+        },
+      ],
     })
 
     config.module.rules.push({
       test: /\.po$/,
       use: [
         {
-          loader: "ignore-loader"
-        }
-      ]
+          loader: 'ignore-loader',
+        },
+      ],
     })
 
     // Fixes npm packages that depend on `fs` module
     if (!isServer) {
       config.node = {
-        fs: "empty"
+        fs: 'empty',
       }
     }
 
@@ -35,7 +35,7 @@ module.exports = {
     if (!isDevelopmentMode) {
       config.module.rules.push({
         test: /\.stories.(js|tsx?)/,
-        loader: "ignore-loader"
+        loader: 'ignore-loader',
       })
     }
 
@@ -43,6 +43,6 @@ module.exports = {
   },
   poweredByHeader: false,
   images: {
-    domains: ["unsplash.com"]
-  }
+    domains: ['unsplash.com'],
+  },
 }
