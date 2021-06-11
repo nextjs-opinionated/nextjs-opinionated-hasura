@@ -93,9 +93,8 @@ export default function login({ providers, csrfToken }: Provider) {
             <CustomButtonAuth
               keyProvider={providers?.email?.name}
               providerId={providers?.email?.id}
-            >
-              Sign in with {providers?.email?.name}
-            </CustomButtonAuth>
+              label={`Sign in with ${providers?.email?.name}`}
+            />
           </div>
         </form>
         <div>
@@ -103,9 +102,8 @@ export default function login({ providers, csrfToken }: Provider) {
             <CustomButtonAuth
               keyProvider={providers?.github?.name}
               providerId={providers?.github?.id}
-            >
-              Sign in with {providers?.github?.name}
-            </CustomButtonAuth>
+              label={`Sign in with ${providers?.email?.name}`}
+            />
           </>
         </div>
       </div>
