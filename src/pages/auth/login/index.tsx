@@ -64,7 +64,7 @@ export default function login({ providers, csrfToken }: Provider) {
   }, [session, router])
 
   return (
-    <div className='flex items-center justify-center min-h-screen px-4 py-12 bg-gray-50 sm:px-6 lg:px-8'>
+    <div className='flex items-center justify-center min-h-screen px-4 py-12 sm:px-6 lg:px-8'>
       <div className='w-full max-w-md space-y-8'>
         <>
           <img
@@ -72,9 +72,7 @@ export default function login({ providers, csrfToken }: Provider) {
             src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
             alt='Workflow'
           />
-          <h2 className='mt-6 text-3xl font-extrabold text-center text-gray-900'>
-            Sign in to your account
-          </h2>
+          <h2 className='mt-6 text-3xl font-extrabold text-center'>Sign in to your account</h2>
           <p className='mt-2 text-sm text-center text-gray-600'>
             Or{' '}
             <a href='#' className='via-info'>
