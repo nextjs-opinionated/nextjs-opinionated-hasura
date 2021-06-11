@@ -28,6 +28,6 @@ export const LinksList: {
   github: {
     id: 'github',
     name: 'Github',
-    externalURL: 'https://github.com/saitodisse/nextjs-opinionated',
+    externalURL: 'https://github.com/saitodisse/nextjs-opinionated-hasura',
   },
 }

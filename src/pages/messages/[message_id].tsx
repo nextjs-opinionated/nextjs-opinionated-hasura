@@ -86,7 +86,7 @@ const Page: React.FunctionComponent = () => {
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
             <div className='text-base font-bold'>...</div>
-            <div className='text-sm'>Next.js Opinionated</div>
+            <div className='text-sm'>Next.js Opinionated Hasura</div>
           </div>
         }
         menuItems={Object.values(LinksList)}
@@ -103,14 +103,14 @@ const Page: React.FunctionComponent = () => {
   return (
     <>
       <Head>
-        <title>EDIT MESSAGE : Next.js Opinionated</title>
+        <title>EDIT MESSAGE : Next.js Opinionated Hasura</title>
       </Head>
 
       <Layout
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
             <div className='text-base font-bold'>EDIT MESSAGE</div>
-            <div className='text-sm'>Next.js Opinionated</div>
+            <div className='text-sm'>Next.js Opinionated Hasura</div>
           </div>
         }
         menuItems={Object.values(LinksList)}

@@ -1,7 +1,10 @@
-# Next.js Opinionated with Hasura
+## [nextjs-opinionated-hasura](https://github.com/saitodisse/nextjs-opinionated-hasura)
 
-This boilerplate has a very interesting advantage.
-Whenever you create or change a query in graphql you will have an automatically generated typescript code.
+### [demo](https://nextjs-opinionated-hasura.vercel.app/)
+
+---
+
+### Includes
 
 - [next.js](https://nextjs.org/)
 - [storybook](https://storybook.js.org/)
@@ -14,7 +17,9 @@ Whenever you create or change a query in graphql you will have an automatically 
 - [sweetalert2](https://sweetalert2.github.io/)
 - [react-icons](https://react-icons.github.io/react-icons/)
 
-### Plus hasura and graphql-codegen
+_from [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated)_
+
+### And More
 
 - [hasura](https://hasura.io/)
 - [graphql-request](https://github.com/prisma-labs/graphql-request)
@@ -23,7 +28,7 @@ Whenever you create or change a query in graphql you will have an automatically 
 - [swr](https://swr.vercel.app/)
 - [react-hook-form](https://react-hook-form.com/)
 - [@tailwindcss/forms](https://github.com/tailwindlabs/tailwindcss-forms)
-- [zod (validations)](https://github.com/colinhacks/zod)
+- [zod](https://github.com/colinhacks/zod)
 
 ---
 
@@ -96,7 +101,28 @@ yarn dev
 
 ---
 
-### Always updated
+_For a simpler template, without Hasura and NextAuth.js see [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated) ([demo](https://nextjs-opinionated.vercel.app/))_
+
+---
+
+## how to use
+
+Just fork and run:
+
+```sh
+# npm install
+yarn install
+
+# nextjs site
+yarn dev
+
+# storybook site
+yarn storybook
+```
+
+---
+
+## always updated
 
 _I'm always updating all packages here_
 

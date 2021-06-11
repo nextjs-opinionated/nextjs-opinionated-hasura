@@ -8,14 +8,14 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>Next.js Opinionated : Style Guide</title>
+        <title>Next.js Opinionated Hasura : Style Guide</title>
       </Head>
 
       <Layout
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
             <div className='text-base font-bold'>Style Guide</div>
-            <div className='text-sm'>Next.js Opinionated</div>
+            <div className='text-sm'>Next.js Opinionated Hasura</div>
           </div>
         }
         menuItems={Object.values(LinksList)}

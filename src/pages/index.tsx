@@ -11,14 +11,14 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>Next.js Opinionated</title>
+        <title>Next.js Opinionated Hasura</title>
       </Head>
 
       <Layout
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
             <div className='text-base font-bold'>HOME</div>
-            <div className='text-sm'>Next.js Opinionated</div>
+            <div className='text-sm'>Next.js Opinionated Hasura</div>
           </div>
         }
         menuItems={Object.values(LinksList)}
@@ -32,7 +32,7 @@ export default function Page() {
 
         {/* text */}
         <div className='pb-3'>
-          <h1 className='py-2 text-3xl font-bold'>Next.js Opinionated</h1>
+          <h1 className='py-2 text-3xl font-bold'>Next.js Opinionated Hasura</h1>
 
           <p className='max-w-md my-2'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eius odit soluta
@@ -41,45 +41,48 @@ export default function Page() {
           </p>
 
           <Link href='/messages'>
-            <a className='btn btn-primary btn-lg'>Messages (hasura)</a>
+            <a className='mx-2 my-4 btn btn-primary btn-lg'>Messages (hasura)</a>
           </Link>
 
-          <hr className='my-16 text-secondary-content' />
-
           {/* buttons */}
-          <div className='flex flex-wrap items-center my-4 space-x-4'>
-            <button
-              className='btn btn-primary'
-              onClick={async () => {
-                const myAlert = withReactContent(Swal)
-                await myAlert.fire({
-                  title: 'Some Alert Title',
-                  html: <img src='https://unsplash.it/600/300' />,
-                  imageAlt: 'Custom image',
-                  confirmButtonText: 'ok button',
-                })
-              }}
-            >
-              Show Image
-            </button>
+          <div className='flex flex-wrap my-6 space-y-2'>
+            <div className='mx-2 mt-2'>
+              <ChangeThemeDropDown />
+            </div>
 
-            <button
-              className='btn btn-primary'
-              onClick={async () => {
-                const res = await fetch('/api/get-server-time')
-                const resultJSON = await res.json()
-                const myAlert = withReactContent(Swal)
-                await myAlert.fire({
-                  title: 'from server',
-                  html: resultJSON.message,
-                  confirmButtonText: 'close',
-                })
-              }}
-            >
-              Call API
-            </button>
-
-            <ChangeThemeDropDown />
+            <div className='mx-2'>
+              <button
+                className='btn btn-primary'
+                onClick={async () => {
+                  const myAlert = withReactContent(Swal)
+                  await myAlert.fire({
+                    title: 'Some Alert Title',
+                    html: <img src='https://unsplash.it/600/300' />,
+                    imageAlt: 'Custom image',
+                    confirmButtonText: 'ok button',
+                  })
+                }}
+              >
+                Show Image
+              </button>
+            </div>
+            <div className='mx-2'>
+              <button
+                className='btn btn-primary'
+                onClick={async () => {
+                  const res = await fetch('/api/say-hello-from-api')
+                  const resultJSON = await res.json()
+                  const myAlert = withReactContent(Swal)
+                  await myAlert.fire({
+                    title: 'from server',
+                    html: resultJSON.message,
+                    confirmButtonText: 'close',
+                  })
+                }}
+              >
+                Call API
+              </button>
+            </div>
           </div>
 
           <p className='max-w-md mt-10 text-sm italic'>

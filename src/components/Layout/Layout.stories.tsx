@@ -21,7 +21,7 @@ MainLayout.args = {
   title: (
     <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
       <div className='text-base font-bold'>HOME</div>
-      <div className='text-sm'>Next.js Opinionated</div>
+      <div className='text-sm'>Next.js Opinionated Hasura</div>
     </div>
   ),
   menuItems: Object.values(LinksList),
