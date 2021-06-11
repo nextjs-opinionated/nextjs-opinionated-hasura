@@ -6,7 +6,7 @@ import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 import Link from 'next/link'
-import { signOut, useSession } from 'next-auth/client'
+import { signIn, signOut, useSession } from 'next-auth/client'
 
 export default function Page() {
   const [session] = useSession()
@@ -75,9 +75,9 @@ export default function Page() {
           </Link>
 
           {!session?.user && (
-            <Link href='/api/auth/signin'>
-              <a className='ml-5 btn btn-primary btn-md'>Login</a>
-            </Link>
+            <button className='ml-5 btn btn-primary btn-md' onClick={() => signIn()}>
+              Login
+            </button>
           )}
 
           <button className='ml-5 btn btn-outline btn-md' onClick={() => signOut()}>
