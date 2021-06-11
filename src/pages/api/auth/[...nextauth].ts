@@ -28,7 +28,12 @@ export default NextAuth({
   ],
   database: {
     ssl: true,
-    url: process.env.DB_URL
+    url: process.env.DB_URL,
+    extra: {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
   },
   secret: process.env.JWT_SECRET,
 
