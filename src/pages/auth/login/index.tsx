@@ -5,7 +5,10 @@ import {
   signIn,
   useSession,
 } from 'next-auth/client'
-import { CustomButtonAuth } from '../../../components/CustomButtonAuth/CustomButtonAuth'
+import {
+  CustomButtonAuth,
+  KeyProvider,
+} from '../../../components/CustomButtonAuth/CustomButtonAuth'
 import { FormInput } from '../../../components/FormInput/FormInput'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,11 +16,6 @@ import { authValidationSchema } from '../../../model/authValidationSchema'
 import { NextPageContext } from 'next'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-
-enum KeyProvider {
-  'github' = 'github',
-  'email' = 'email',
-}
 
 interface ClientSafeProviderProps extends ClientSafeProvider {
   name: KeyProvider
