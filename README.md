@@ -124,6 +124,13 @@ yarn storybook
 
 ## always updated
 
+_I'm keeping in sync with nextjs-opinionated base template_
+
+```sh
+# merge
+git pull git@github.com:saitodisse/nextjs-opinionated.git main
+```
+
 _I'm always updating all packages here_
 
 ```sh
@@ -135,7 +142,7 @@ yarn
 _tests everything's still works:_
 
 ```sh
-yarn build && yarn test && yarn storybook
+yarn build && yarn test:ci && yarn storybook
 ```
 
 If everything is working, please make a pull request
