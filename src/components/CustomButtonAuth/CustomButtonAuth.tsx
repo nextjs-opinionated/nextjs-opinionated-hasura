@@ -19,7 +19,7 @@ export const CustomButtonAuth = ({ providerId, keyProvider, children }: CustomBu
     switch (keyProvider) {
       case KeyProvider.github: {
         return (
-          <button className='w-full btn btn-primary' onClick={() => signIn(providerId)}>
+          <button className='w-full btn btn-outline' onClick={() => signIn(providerId)}>
             <AiFillGithub className='mr-2' size={20} />
             {children}
           </button>
