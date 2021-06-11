@@ -9,7 +9,7 @@ services:
       - '5432:5432'
     environment:
       POSTGRES_PASSWORD: postgres_password_zzz
-      PGDATA: /var/lib/postgresql/data/pgdataInteraction
+      PGDATA: /var/lib/postgresql/data/pgdataInternal
 
   graphql-engine:
     image: hasura/graphql-engine:v1.3.3
