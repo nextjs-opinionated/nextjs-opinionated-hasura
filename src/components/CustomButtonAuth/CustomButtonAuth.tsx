@@ -3,8 +3,8 @@ import { signIn } from 'next-auth/client'
 import { AiFillGithub, AiOutlineMail } from 'react-icons/ai'
 
 export enum KeyProvider {
-  'github' = 'GitHub',
-  'email' = 'Email',
+  'github' = 'github',
+  'email' = 'email',
 }
 
 export type CustomButtonAuthProps = {
