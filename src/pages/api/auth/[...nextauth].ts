@@ -23,7 +23,7 @@ export default NextAuth({
           pass: process.env.EMAIL_PASS,
         },
       },
-      from: "nextjs-opinionated <no-reply@semantix.com>",
+      from: process.env.EMAIL_FROM,
     }),
   ],
   database: process.env.DB_URL,
@@ -81,9 +81,8 @@ export default NextAuth({
     //   // console.log({ user, account, profile })
     //   return true
     // },
-    async redirect(_, baseUrl) {
-      console.log(baseUrl)
-      return baseUrl
+    async redirect(url, baseUrl) {
+      return Promise.resolve(url)
     },
     // async session(session, user) {
     //   console.log({ user, session })
