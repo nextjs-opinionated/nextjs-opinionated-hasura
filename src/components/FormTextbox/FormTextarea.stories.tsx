@@ -3,8 +3,20 @@ import { Story, Meta } from '@storybook/react/types-6-0'
 import { FormTextarea, FormTextareaProps } from './FormTextarea'
 
 export default {
-  title: 'Component/FormTextarea',
+  title: 'Component/Forms/FormTextarea',
   component: FormTextarea,
+  argTypes: {
+    register: {
+      table: {
+        disable: true,
+      },
+    },
+    validationErrors: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 } as Meta
 
 const Template: Story<FormTextareaProps> = (args) => <FormTextarea {...args} />
@@ -42,4 +54,15 @@ Textarea_Error.args = {
       message: 'This is validation error!',
     },
   },
+}
+
+export const Textarea_CustomClassName = Template.bind({})
+Textarea_CustomClassName.args = {
+  name: 'text_area_name',
+  register: () => {
+    /* noop */
+  },
+  className: 'text-lg h-64',
+  defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
+  validationErrors: {},
 }

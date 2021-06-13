@@ -3,8 +3,20 @@ import { Story, Meta } from '@storybook/react/types-6-0'
 import { FormInput, FormInputProps } from './FormInput'
 
 export default {
-  title: 'Component/FormInput',
+  title: 'Component/Forms/FormInput',
   component: FormInput,
+  argTypes: {
+    register: {
+      table: {
+        disable: true,
+      },
+    },
+    validationErrors: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 } as Meta
 
 const Template: Story<FormInputProps> = (args) => <FormInput {...args} />
@@ -75,4 +87,16 @@ Time_Input.args = {
   },
   defaultValue: '12:30',
   validationErrors: null,
+}
+
+export const Text_Input_CustomClassName = Template.bind({})
+Text_Input_CustomClassName.args = {
+  label: 'Label:',
+  name: 'input_name',
+  register: () => {
+    /* noop */
+  },
+  defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at.',
+  validationErrors: {},
+  className: 'text-lg',
 }

@@ -89,7 +89,7 @@ export default NextAuth({
     //   // console.log({ user, account, profile })
     //   return true
     // },
-    async redirect(url, baseUrl) {
+    async redirect(url) {
       return Promise.resolve(url)
     },
     // async session(session, user) {

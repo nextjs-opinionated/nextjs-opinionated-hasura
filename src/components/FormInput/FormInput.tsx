@@ -9,6 +9,7 @@ export interface FormInputProps {
   register: any
   defaultValue?: any
   validationErrors: any
+  className?: string
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
@@ -19,6 +20,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   register,
   defaultValue,
   validationErrors,
+  className,
 }) => {
   return (
     <div className='col-span-6 sm:col-span-4'>
@@ -31,7 +33,7 @@ export const FormInput: React.FC<FormInputProps> = ({
           defaultValue={defaultValue}
           {...register(name)}
           placeholder={`${placeholder || label || name}...`}
-          className={classnames('input input-bordered', {
+          className={classnames(`input input-bordered ${className}`, {
             'input-error': validationErrors?.[name],
           })}
         />
