@@ -4,14 +4,14 @@ import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 
-export default function Page() {
-  const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
-  const description = 'Style Guide Description'
-
+export default function Page({
+  pageTitle = 'Style Guide',
+  description = 'Style Guide Description',
+}) {
   return (
     <>
       <Head>
-        <title>{pageTitle} - Style Guide</title>
+        <title>{pageTitle}</title>
         <meta name='description' content={description} />
         <meta name='og:description' content={description} />
 

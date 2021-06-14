@@ -8,11 +8,31 @@ import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThe
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
+  const pageUrl = process.env.NEXT_PUBLIC_SITE_URL
+  const imageUrl = process.env.NEXT_PUBLIC_SITE_IMAGE
+  const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
+  const keywords = process.env.KEYWORDS
 
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
+        <link rel='icon' href='/favicon.ico' />
+        <link rel='apple-touch-icon' href='/favicon.ico' />
+        <meta name='description' content={description} />
+        <meta name='keywords' content={keywords} />
+
+        {/* Open Graph */}
+        <meta name='og:title' content={pageTitle} key='ogtitle' />
+        <meta name='og:type' content='website' />
+        <meta name='og:url' content={pageUrl} />
+        <meta name='og:description' content={description} />
+        <meta name='og:image' content={imageUrl} />
+
+        {/* Twitter */}
+        <meta property='twitter:card' content='summary_large_image' key='twcard' />
+        <meta property='twitter:image' content={imageUrl} />
+        <meta name='twitter:creator' content='' key='twhandle' />
       </Head>
 
       <Layout
