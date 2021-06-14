@@ -1,30 +1,23 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Html, Main, Head, NextScript } from 'next/document'
 import React from 'react'
 
-const NEXT_PUBLIC_GA_ID = process.env.NEXT_PUBLIC_GA_ID
+const googleAnalytics = process.env.NEXT_PUBLIC_GA_ID
 
 export default class MyDocument extends Document {
   render() {
-    const SITE_TITLE = 'Next.js Opinionated'
-    const IMAGE_URL = 'https://live.staticflickr.com/5812/30870250385_33729971da_q.jpg'
-    const DESCRIPTION = 'Next.js Opinionated'
+    const keywords = process.env.KEYWORDS
+
     return (
-      <Html>
+      <Html lang='pt-br'>
         <Head>
-          <link rel='icon' href='/favicon.ico' />
-          <meta property='og:title' content={SITE_TITLE} />
-          <meta property='twitter:title' content={SITE_TITLE} />
-          <meta property='og:description' content={DESCRIPTION} />
-          <meta property='twitter:description' content={DESCRIPTION} />
-          <meta property='og:image' content={IMAGE_URL} />
-          <meta property='twitter:card' content='summary_large_image' />
-          <meta property='twitter:image' content={IMAGE_URL} />
+          <meta name='keywords' content={keywords} />
+
           {/* Global Site Tag (gtag.js) - Google Analytics */}
-          {NEXT_PUBLIC_GA_ID?.length > 0 && (
+          {googleAnalytics?.length > 0 && (
             <>
               <script
                 async
-                src={`https://www.googletagmanager.com/gtag/js?id=${NEXT_PUBLIC_GA_ID}`}
+                src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalytics}`}
               />
               <script
                 dangerouslySetInnerHTML={{
@@ -32,7 +25,7 @@ export default class MyDocument extends Document {
                       window.dataLayer = window.dataLayer || [];
                       function gtag(){dataLayer.push(arguments);}
                       gtag('js', new Date());
-                      gtag('config', '${NEXT_PUBLIC_GA_ID}', {
+                      gtag('config', '${googleAnalytics}', {
                         page_path: window.location.pathname,
                       });
                   `,
