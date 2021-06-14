@@ -9,13 +9,13 @@ import {
   CustomButtonAuth,
   KeyProvider,
 } from '../../../components/CustomButtonAuth/CustomButtonAuth'
-import { FormInput } from '../../../components/FormInput/FormInput'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { authValidationSchema } from '../../../model/authValidationSchema'
 import { NextPageContext } from 'next'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { FormInput } from '../../../components/forms/FormInput/FormInput'
 
 interface ClientSafeProviderProps extends ClientSafeProvider {
   id: KeyProvider

@@ -12,7 +12,7 @@ import dayjs from 'dayjs'
 import Head from 'next/head'
 import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
-import { FormInput } from '../../components/FormInput/FormInput'
+import { FormInput } from '../../components/forms/FormInput/FormInput'
 
 type FormProps = Omit<Messages_Insert_Input, 'message_tags'> & {
   publishedAt_date: string
