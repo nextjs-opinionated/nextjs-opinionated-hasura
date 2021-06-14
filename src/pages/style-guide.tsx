@@ -4,11 +4,20 @@ import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 
-export default function Page() {
+export default function Page({
+  pageTitle = 'Style Guide',
+  description = 'Style Guide Description',
+}) {
   return (
     <>
       <Head>
-        <title>Next.js Opinionated Hasura : Style Guide</title>
+        <title>{pageTitle}</title>
+        <meta name='description' content={description} />
+        <meta name='og:description' content={description} />
+
+        {/* Open Graph */}
+        <meta name='og:title' content={pageTitle} key='ogtitle' />
+        <meta name='og:description' content={description} />
       </Head>
 
       <Layout
