@@ -1,4 +1,4 @@
-export type LinksListIds = 'home' | 'github' | 'styleGuide'
+export type LinksListIds = 'home' | 'github' | 'styleGuide' | 'form-example'
 
 export type LinkProps = {
   id: LinksListIds
@@ -19,6 +19,11 @@ export const LinksList: {
     id: 'styleGuide',
     name: 'Style Guide',
     internalURL: '/style-guide',
+  },
+  'form-example': {
+    id: 'form-example',
+    name: 'Form Example',
+    internalURL: '/form-example',
   },
   github: {
     id: 'github',
