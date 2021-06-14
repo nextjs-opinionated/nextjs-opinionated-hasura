@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Html, Main, Head, NextScript } from 'next/document'
 import React from 'react'
 
 const googleAnalytics = process.env.NEXT_PUBLIC_GA_ID

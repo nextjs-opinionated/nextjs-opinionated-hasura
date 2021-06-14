@@ -7,10 +7,12 @@ import { LinksList } from '../model/site/LinksList'
 import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 
 export default function Page() {
+  const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
+
   return (
     <>
       <Head>
-        <title>Next.js Opinionated</title>
+        <title>{pageTitle}</title>
       </Head>
 
       <Layout

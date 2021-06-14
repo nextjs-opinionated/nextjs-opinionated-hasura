@@ -5,10 +5,19 @@ import { LinksList } from '../model/site/LinksList'
 import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 
 export default function Page() {
+  const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
+  const description = 'Style Guide Description'
+
   return (
     <>
       <Head>
-        <title>Next.js Opinionated : Style Guide</title>
+        <title>{pageTitle} - Style Guide</title>
+        <meta name='description' content={description} />
+        <meta name='og:description' content={description} />
+
+        {/* Open Graph */}
+        <meta name='og:title' content={pageTitle} key='ogtitle' />
+        <meta name='og:description' content={description} />
       </Head>
 
       <Layout
