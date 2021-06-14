@@ -15,6 +15,7 @@ export default class MyDocument extends Document {
       <Html lang='pt-br'>
         <Head>
           <link rel='icon' href='/favicon.ico' />
+          <link rel='apple-touch-icon' href='/favicon.ico' />
           <meta name='description' content={description} />
           <meta name='keywords' content={keywords} />
 
@@ -26,8 +27,9 @@ export default class MyDocument extends Document {
           <meta name='og:image' content={imageUrl} />
 
           {/* Twitter */}
-          <meta name='twitter:card' content='summary' key='twcard' />
-          <meta name='twitter:creator' content='twitterHandle' key='twhandle' />
+          <meta property='twitter:card' content='summary_large_image' key='twcard' />
+          <meta property='twitter:image' content={imageUrl} />
+          <meta name='twitter:creator' content='' key='twhandle' />
 
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {googleAnalytics?.length > 0 && (
