@@ -5,21 +5,29 @@ const NEXT_PUBLIC_GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
 export default class MyDocument extends Document {
   render() {
-    const SITE_TITLE = 'Next.js Opinionated'
-    const IMAGE_URL = 'https://live.staticflickr.com/5812/30870250385_33729971da_q.jpg'
-    const DESCRIPTION = 'Next.js Opinionated'
+    const NEXT_PUBLIC_SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME
+    const NEXT_PUBLIC_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
+    const NEXT_PUBLIC_SITE_IMAGE = process.env.NEXT_PUBLIC_SITE_IMAGE
+    const NEXT_PUBLIC_SITE_DESCRIPTION = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
+    const KEYWORDS = process.env.KEYWORDS
     return (
-      <Html>
+      <Html lang='pt-br'>
         <Head>
           <link rel='icon' href='/favicon.ico' />
-          <meta name='viewport' content='initial-scale=1.0, width=device-width' key='viewport' />
-          <meta property='og:title' content={SITE_TITLE} />
-          <meta property='twitter:title' content={SITE_TITLE} />
-          <meta property='og:description' content={DESCRIPTION} />
-          <meta property='twitter:description' content={DESCRIPTION} />
-          <meta property='og:image' content={IMAGE_URL} />
-          <meta property='twitter:card' content='summary_large_image' />
-          <meta property='twitter:image' content={IMAGE_URL} />
+          <meta name='description' content={NEXT_PUBLIC_SITE_DESCRIPTION} />
+          <meta name='keywords' content={KEYWORDS} />
+
+          {/* Open Graph */}
+          <meta name='og:title' content={NEXT_PUBLIC_SITE_NAME} key='ogtitle' />
+          <meta name='og:type' content='website' />
+          <meta name='og:url' content={NEXT_PUBLIC_SITE_URL} />
+          <meta name='og:description' content={NEXT_PUBLIC_SITE_DESCRIPTION} />
+          <meta name='og:image' content={NEXT_PUBLIC_SITE_IMAGE} />
+
+          {/* Twitter */}
+          <meta name='twitter:card' content='summary' key='twcard' />
+          <meta name='twitter:creator' content='twitterHandle' key='twhandle' />
+
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {NEXT_PUBLIC_GA_ID?.length > 0 && (
             <>
