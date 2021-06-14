@@ -1,12 +1,27 @@
+/* eslint-disable no-console */
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
+import { signIn, signOut, useSession } from 'next-auth/client'
 
 export default function Page() {
+  const [session] = useSession()
+
+  useEffect(() => {
+    console.log(session?.user)
+  }, [session])
+
+  const callApi = async () => {
+    const response = await fetch('/api/say-hello-from-api')
+
+    const response_json = await response.json()
+    console.log(response_json)
+  }
+
   return (
     <>
       <Head>
@@ -23,10 +38,24 @@ export default function Page() {
         menuItems={Object.values(LinksList)}
       >
         {/* avatar */}
-        <div className='avatar'>
+        <div className='flex flex-col avatar'>
           <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
-            <img src='http://daisyui.com/tailwind-css-component-profile-1@94w.png' />
+            <img
+              onClick={() => callApi()}
+              src={
+                session?.user?.image ||
+                'http://daisyui.com/tailwind-css-component-profile-1@94w.png'
+              }
+            />
           </div>
+
+          {session?.user && (
+            <div className='flex flex-col'>
+              <p>
+                Welcome, <span className='font-bold underline'>{session.user.name}</span>
+              </p>
+            </div>
+          )}
         </div>
 
         {/* text */}
@@ -77,6 +106,20 @@ export default function Page() {
               >
                 Call API
               </button>
+            </div>
+
+            <div className='mx-2'>
+              {!session?.user && (
+                <button className='btn btn-primary btn-md' onClick={() => signIn()}>
+                  Login
+                </button>
+              )}
+
+              {session?.user && (
+                <button className='btn btn-outline btn-md' onClick={() => signOut()}>
+                  SignOut
+                </button>
+              )}
             </div>
           </div>
 
