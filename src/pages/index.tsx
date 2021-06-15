@@ -14,7 +14,7 @@ export default function Page() {
   const pageUrl = process.env.NEXT_PUBLIC_SITE_URL
   const imageUrl = process.env.NEXT_PUBLIC_SITE_IMAGE
   const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
-  const keywords = process.env.KEYWORDS
+  const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
   const [session] = useSession()
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function Page() {
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
             <div className='text-base font-bold'>HOME</div>
-            <div className='text-sm'>Next.js Opinionated</div>
+            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
           </div>
         }
         menuItems={Object.values(LinksList)}
@@ -82,7 +82,7 @@ export default function Page() {
 
         {/* text */}
         <div className='pb-3'>
-          <h1 className='py-2 text-3xl font-bold'>Next.js Opinionated</h1>
+          <h1 className='py-2 text-3xl font-bold'>{process.env.NEXT_PUBLIC_SITE_NAME}</h1>
 
           <p className='max-w-md my-2'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eius odit soluta

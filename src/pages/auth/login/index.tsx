@@ -1,13 +1,19 @@
-import { getProviders, ClientSafeProvider, getCsrfToken, useSession } from 'next-auth/client'
+import { getProviders, ClientSafeProvider, useSession } from 'next-auth/client'
 import {
   CustomButtonAuth,
   KeyProvider,
 } from '../../../components/CustomButtonAuth/CustomButtonAuth'
-import { NextPageContext } from 'next'
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Layout } from '../../../components/Layout/Layout'
 import { LinksList } from '../../../model/site/LinksList'
+
+export async function getServerSideProps() {
+  const providers = await getProviders()
+  return {
+    props: { providers },
+  }
+}
 
 interface ClientSafeProviderProps extends ClientSafeProvider {
   id: KeyProvider
@@ -17,10 +23,9 @@ type Provider = {
   providers: {
     [key in KeyProvider]: ClientSafeProviderProps
   }
-  csrfToken: string
 }
 
-export default function login({ providers, csrfToken }: Provider) {
+export default function login({ providers }: Provider) {
   const [session] = useSession()
   const router = useRouter()
 
@@ -35,7 +40,7 @@ export default function login({ providers, csrfToken }: Provider) {
       title={
         <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
           <div className='text-base font-bold'>Login</div>
-          <div className='text-sm'>Next.js Opinionated</div>
+          <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
         </div>
       }
       menuItems={Object.values(LinksList)}
@@ -50,7 +55,9 @@ export default function login({ providers, csrfToken }: Provider) {
               alt='Workflow'
             />
             <h2 className='mt-6 text-3xl font-extrabold text-center'>Sign in to your account</h2>
-            <p className='mt-2 text-sm text-center text-primary'>welcome to next-opinionated</p>
+            <p className='mt-2 text-sm text-center text-primary'>
+              welcome to {process.env.NEXT_PUBLIC_SITE_NAME}
+            </p>
           </>
           {/* 
           <form onSubmit={handleSubmit(onSubmit)} className='mt-8 space-y-6'>
@@ -84,12 +91,4 @@ export default function login({ providers, csrfToken }: Provider) {
       </div>
     </Layout>
   )
-}
-
-export async function getServerSideProps(context: NextPageContext) {
-  const providers = await getProviders()
-  const csrfToken = await getCsrfToken(context)
-  return {
-    props: { providers, csrfToken },
-  }
 }

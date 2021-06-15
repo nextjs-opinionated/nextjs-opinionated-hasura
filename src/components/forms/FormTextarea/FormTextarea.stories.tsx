@@ -1,6 +1,7 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
-import { FormTextarea, FormTextareaProps } from './FormTextarea'
+import { FormTextarea } from './FormTextarea'
+import { FormBaseProps } from '../FormBaseProps'
 
 export default {
   title: 'Component/Forms/FormTextarea',
@@ -19,7 +20,7 @@ export default {
   },
 } as Meta
 
-const Template: Story<FormTextareaProps> = (args) => <FormTextarea {...args} />
+const Template: Story<FormBaseProps> = (args) => <FormTextarea {...args} />
 
 export const Textarea_Default_Title = Template.bind({})
 Textarea_Default_Title.args = {
@@ -34,6 +35,18 @@ Textarea_Default_Title.args = {
 export const Textarea_Label = Template.bind({})
 Textarea_Label.args = {
   label: 'Label:',
+  name: 'text-area-name',
+  register: () => {
+    /* noop */
+  },
+  defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
+  validationErrors: {},
+}
+
+export const Textarea_Label_Description = Template.bind({})
+Textarea_Label_Description.args = {
+  label: 'Label:',
+  labelDescription: 'this is a description',
   name: 'text-area-name',
   register: () => {
     /* noop */
