@@ -14,29 +14,7 @@ export default NextAuth({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
-    Providers.Email({
-      server: {
-        host: process.env.EMAIL_SERVER,
-        port: Number(process.env.EMAIL_PORT),
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS,
-        },
-      },
-      from: process.env.EMAIL_FROM,
-    }),
   ],
-
-  database: {
-    type: "postgres",
-    ssl: process.env.NODE_ENV === "production",
-    url: process.env.DB_URL,
-    extra: process.env.NODE_ENV === "production" && {
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    },
-  },
 
   secret: process.env.JWT_SECRET,
 
@@ -81,8 +59,8 @@ export default NextAuth({
     //   // console.log({ user, account, profile })
     //   return true
     // },
-    async redirect(url) {
-      return Promise.resolve(url)
+    async redirect(_, baseUrl) {
+      return Promise.resolve(baseUrl)
     },
     // async session(session, user) {
     //   console.log({ user, session })
@@ -112,9 +90,6 @@ export default NextAuth({
     async session(session, token) {
       if (token?.accessToken) {
         session.accessToken = token.accessToken
-      }
-      if (token?.role) {
-        session.user.role = token.role
       }
       return session
     },

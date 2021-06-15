@@ -24,7 +24,7 @@ export default function Page({
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
             <div className='text-base font-bold'>Style Guide</div>
-            <div className='text-sm'>Next.js Opinionated Hasura</div>
+            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
           </div>
         }
         menuItems={Object.values(LinksList)}

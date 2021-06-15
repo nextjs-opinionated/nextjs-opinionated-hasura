@@ -1,34 +1,27 @@
 import classnames from 'classnames'
-import React, { InputHTMLAttributes } from 'react'
+import React from 'react'
 import { FormBaseProps } from '../FormBaseProps'
 import { FormLabel } from '../FormLabel'
 
-export interface FormInputProps extends FormBaseProps {
-  type?: InputHTMLAttributes<HTMLInputElement>['type']
-}
-
-export const FormInput: React.FC<FormInputProps> = ({
-  label,
-  labelDescription,
-  type = 'text',
+export const FormTextarea: React.FC<FormBaseProps> = ({
+  label: label,
   name,
-  placeholder,
   register,
   defaultValue,
   validationErrors,
   className,
+  labelDescription,
 }) => {
   return (
     <div className='col-span-6 sm:col-span-4'>
       <div className='form-control'>
         <FormLabel name={name} label={label} labelDescription={labelDescription} />
-        <input
-          type={type}
+        <textarea
           defaultValue={defaultValue}
           {...register(name)}
-          placeholder={`${placeholder || label || name}...`}
-          className={classnames(`input input-bordered ${className}`, {
-            'input-error': validationErrors?.[name],
+          placeholder={`${name}...`}
+          className={classnames(`textarea textarea-bordered h-24 ${className}`, {
+            'textarea-error': validationErrors?.[name],
           })}
         />
         {validationErrors?.[name] && (
