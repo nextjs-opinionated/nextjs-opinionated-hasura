@@ -1,9 +1,9 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
+import { Roles_Enum } from '../../../graphql/generated'
 
-import Adapters from 'next-auth/adapters'
 
-import Models from '../../../model/auth'
+import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -26,27 +26,19 @@ export default NextAuth({
       from: process.env.EMAIL_FROM,
     }),
   ],
+
   database: {
-    ssl: true,
+    type: "postgres",
+    ssl: process.env.NODE_ENV === "production",
     url: process.env.DB_URL,
-    extra: {
+    extra: process.env.NODE_ENV === "production" && {
       ssl: {
         rejectUnauthorized: false,
       },
     },
   },
-  secret: process.env.JWT_SECRET,
 
-  adapter: Adapters.TypeORM.Adapter(
-    // TODO: decide to connect the hasura 'role' itself or we do that
-    process.env.DB_URL,
-    {
-      models: {
-        ...Adapters.TypeORM.Models,
-        User: Models.User,
-      },
-    }
-  ),
+  secret: process.env.JWT_SECRET,
 
   session: {
     jwt: true,
@@ -99,13 +91,22 @@ export default NextAuth({
     //   console.log({ token, user, account })
     //   return token
     // }
-    async jwt(token, user, account, _, __) {
+    async jwt(token, user, account, __, isNewUser) {
+      if(isNewUser) {
+        token.role = Roles_Enum.User
+      } 
+
+      if(user) {
+        const { users_by_pk } = await new GqlSdkHelper().getSdk().users_by_pk({ id: user?.id })
+        if (users_by_pk?.role) {
+          token.role = users_by_pk.role
+        }
+      }
+
       if (account?.accessToken) {
         token.accessToken = account.accessToken
       }
-      if (user?.role) {
-        token.role = user.role
-      }
+
       return token
     },
     async session(session, token) {
