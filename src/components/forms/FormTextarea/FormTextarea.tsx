@@ -1,29 +1,21 @@
 import classnames from 'classnames'
 import React from 'react'
+import { FormBaseProps } from '../FormBaseProps'
+import { FormLabel } from '../FormLabel'
 
-export interface FormTextareaProps {
-  label?: string
-  name: string
-  register: any
-  defaultValue: any
-  validationErrors: any
-  className?: string
-}
-
-export const FormTextarea: React.FC<FormTextareaProps> = ({
+export const FormTextarea: React.FC<FormBaseProps> = ({
   label: label,
   name,
   register,
   defaultValue,
   validationErrors,
   className,
+  labelDescription,
 }) => {
   return (
     <div className='col-span-6 sm:col-span-4'>
       <div className='form-control'>
-        <label className='label' htmlFor={name}>
-          <span className='font-bold label-text'>{label || name}</span>
-        </label>
+        <FormLabel name={name} label={label} labelDescription={labelDescription} />
         <textarea
           defaultValue={defaultValue}
           {...register(name)}

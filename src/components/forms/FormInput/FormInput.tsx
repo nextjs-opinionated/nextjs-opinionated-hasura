@@ -1,15 +1,9 @@
 import classnames from 'classnames'
 import React, { InputHTMLAttributes } from 'react'
+import { FormBaseProps } from '../FormBaseProps'
 
-export interface FormInputProps {
-  label?: string
+export interface FormInputProps extends FormBaseProps {
   type?: InputHTMLAttributes<HTMLInputElement>['type']
-  placeholder?: string
-  name: string
-  register: any
-  defaultValue?: any
-  validationErrors: any
-  className?: string
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
