@@ -1,6 +1,10 @@
 import type { NextApiResponse } from 'next';
 import { isAdmin, NextApiRequestWithUser } from '../../../utils/middleware/isAdmin';
 
+export interface HelloResponse {
+  message: string
+}
+
 const handler = (req: NextApiRequestWithUser, res: NextApiResponse) => {
   const { method, user } = req
 
