@@ -1,0 +1,7 @@
+fragment usersFragment on users {
+  id
+  name
+  email
+  image
+  role
+}
