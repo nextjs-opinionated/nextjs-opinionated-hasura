@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Head from 'next/head'
 import React, { useEffect } from 'react'
 import Swal from 'sweetalert2'
@@ -5,8 +6,8 @@ import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
-import Link from 'next/link'
 import { signIn, signOut, useSession } from 'next-auth/client'
+import Link from 'next/link'
 
 export default function Page() {
   const [session] = useSession()
@@ -15,17 +16,15 @@ export default function Page() {
     console.log(session?.user)
   }, [session])
 
-  const callApi = async () => {
-    const response = await fetch('/api/hello')
-
-    const response_json = await response.json()
-    return response_json
-  }
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
   const pageUrl = process.env.NEXT_PUBLIC_SITE_URL
   const imageUrl = process.env.NEXT_PUBLIC_SITE_IMAGE
   const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
-  const keywords = process.env.KEYWORDS
+  const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
+
+  useEffect(() => {
+    console.log(session?.user)
+  }, [session])
 
   return (
     <>
@@ -53,7 +52,7 @@ export default function Page() {
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
             <div className='text-base font-bold'>HOME</div>
-            <div className='text-sm'>Next.js Opinionated Hasura</div>
+            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
           </div>
         }
         menuItems={Object.values(LinksList)}
@@ -62,7 +61,6 @@ export default function Page() {
         <div className='flex flex-col avatar'>
           <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
             <img
-              onClick={() => callApi()}
               src={
                 session?.user?.image ||
                 'http://daisyui.com/tailwind-css-component-profile-1@94w.png'
@@ -82,7 +80,7 @@ export default function Page() {
 
         {/* text */}
         <div className='pb-3'>
-          <h1 className='py-2 text-3xl font-bold'>Next.js Opinionated Hasura</h1>
+          <h1 className='py-2 text-3xl font-bold'>{process.env.NEXT_PUBLIC_SITE_NAME}</h1>
 
           <p className='max-w-md my-2'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eius odit soluta
@@ -109,10 +107,31 @@ export default function Page() {
           <hr className='my-16 text-secondary-content' />
 
           {/* buttons */}
-          <div className='flex flex-wrap my-6 space-y-2'>
-            <div className='mx-2 mt-2'>
-              <ChangeThemeDropDown />
-            </div>
+          <div className='flex flex-wrap items-center my-16 space-x-2'>
+            <button
+              className='btn btn-primary'
+              onClick={async () => {
+                const res = await fetch('/api/get_server_time')
+                const resultJSON = await res.json()
+                const myAlert = withReactContent(Swal)
+                await myAlert.fire({
+                  title: 'from server',
+                  html: (
+                    <div>
+                      <img src='https://unsplash.it/600/300' />
+                      {resultJSON.message}
+                    </div>
+                  ),
+                  confirmButtonText: 'close',
+                })
+              }}
+            >
+              Call API
+            </button>
+
+            <Link href='/form-example'>
+              <a className='btn btn-primary'>Form Example</a>
+            </Link>
 
             <div className='mx-2'>
               <button
@@ -130,22 +149,21 @@ export default function Page() {
                 Show Image
               </button>
             </div>
+
+            <ChangeThemeDropDown />
+
             <div className='mx-2'>
-              <button
-                className='btn btn-primary'
-                onClick={async () => {
-                  const res = await fetch('/api/say-hello-from-api')
-                  const resultJSON = await res.json()
-                  const myAlert = withReactContent(Swal)
-                  await myAlert.fire({
-                    title: 'from server',
-                    html: resultJSON.message,
-                    confirmButtonText: 'close',
-                  })
-                }}
-              >
-                Call API
-              </button>
+              {!session?.user && (
+                <button className='btn btn-primary btn-md' onClick={() => signIn()}>
+                  Login
+                </button>
+              )}
+
+              {session?.user && (
+                <button className='btn btn-outline btn-md' onClick={() => signOut()}>
+                  SignOut
+                </button>
+              )}
             </div>
           </div>
 
@@ -215,37 +233,6 @@ export default function Page() {
               react-icons
             </a>
             ,{' '}
-            <a className='underline' target='_blank' rel='noreferrer' href='https://hasura.io/'>
-              hasura
-            </a>
-            ,{' '}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href='https://github.com/prisma-labs/graphql-request'
-            >
-              graphql-request
-            </a>
-            ,{' '}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href='https://www.graphql-code-generator.com/'
-            >
-              graphql-codegen
-            </a>
-            ,{' '}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href='https://docs.docker.com/compose/'
-            >
-              docker-compose
-            </a>
-            ,{' '}
             <a
               className='underline'
               target='_blank'
@@ -280,6 +267,37 @@ export default function Page() {
               href='https://github.com/colinhacks/zod'
             >
               zod (validations)
+            </a>
+            {/* HASURA TEMPLATE ONLY BELLOW */},{' '}
+            <a className='underline' target='_blank' rel='noreferrer' href='https://hasura.io/'>
+              hasura
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://github.com/prisma-labs/graphql-request'
+            >
+              graphql-request
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://www.graphql-code-generator.com/'
+            >
+              graphql-codegen
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://docs.docker.com/compose/'
+            >
+              docker-compose
             </a>
           </p>
         </div>

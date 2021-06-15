@@ -1,12 +1,6 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 
-import Adapters from 'next-auth/adapters'
-
-import Models from '../../../model/auth'
-
-// For more information on each option (and a full list of options) go to
-// https://next-auth.js.org/configuration/options
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
   providers: [
@@ -14,39 +8,9 @@ export default NextAuth({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
-    Providers.Email({
-      server: {
-        host: process.env.EMAIL_SERVER,
-        port: Number(process.env.EMAIL_PORT),
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS,
-        },
-      },
-      from: process.env.EMAIL_FROM,
-    }),
   ],
-  database: {
-    ssl: true,
-    url: process.env.DB_URL,
-    extra: {
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    },
-  },
-  secret: process.env.JWT_SECRET,
 
-  adapter: Adapters.TypeORM.Adapter(
-    // TODO: decide to connect the hasura 'role' itself or we do that
-    process.env.DB_URL,
-    {
-      models: {
-        ...Adapters.TypeORM.Models,
-        User: Models.User,
-      },
-    }
-  ),
+  secret: process.env.JWT_SECRET,
 
   session: {
     jwt: true,
@@ -89,31 +53,22 @@ export default NextAuth({
     //   // console.log({ user, account, profile })
     //   return true
     // },
-    async redirect(url) {
-      return Promise.resolve(url)
+    async redirect(_, baseUrl) {
+      return Promise.resolve(baseUrl)
     },
     // async session(session, user) {
     //   console.log({ user, session })
     //   return session },
-    // async jwt(token, user, account, profile, isNewUser) {
-    //   console.log({ token, user, account })
-    //   return token
-    // }
-    async jwt(token, user, account, _, __) {
+    async jwt(token, _, account) {
       if (account?.accessToken) {
         token.accessToken = account.accessToken
       }
-      if (user?.role) {
-        token.role = user.role
-      }
+
       return token
     },
     async session(session, token) {
       if (token?.accessToken) {
         session.accessToken = token.accessToken
-      }
-      if (token?.role) {
-        session.user.role = token.role
       }
       return session
     },

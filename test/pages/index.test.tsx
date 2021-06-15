@@ -6,8 +6,7 @@ import Page from '../../src/pages'
 describe('Home page', () => {
   it('should render', () => {
     const renderResult = TestingLib.render(<Page />)
-    const eleList = renderResult.getAllByText('Next.js Opinionated Hasura')
-    expect(eleList[0]).toBeInTheDocument()
-    expect(eleList[1]).toBeInTheDocument()
+    const eleList = renderResult.getByText('HOME')
+    expect(eleList).toBeInTheDocument()
   })
 })
