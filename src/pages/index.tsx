@@ -7,6 +7,7 @@ import { LinksList } from '../model/site/LinksList'
 import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 import Link from 'next/link'
 import { signIn, signOut, useSession } from 'next-auth/client'
+import { HelloResponse } from './api/hello'
 
 export default function Page() {
   const [session] = useSession()
@@ -18,8 +19,9 @@ export default function Page() {
   const callApi = async () => {
     const response = await fetch('/api/hello')
 
-    const response_json = await response.json()
-    return response_json
+    const response_json = (await response.json()) as HelloResponse
+
+    return window.alert(response_json.message)
   }
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
   const pageUrl = process.env.NEXT_PUBLIC_SITE_URL
