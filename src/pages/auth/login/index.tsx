@@ -11,7 +11,7 @@ import {
 } from '../../../components/CustomButtonAuth/CustomButtonAuth'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { authValidationSchema } from '../../../model/authValidationSchema'
+import { authValidationSchema } from '../../../model/schemas/authValidationSchema'
 import { NextPageContext } from 'next'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
