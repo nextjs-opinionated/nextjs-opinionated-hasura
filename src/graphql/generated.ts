@@ -1086,6 +1086,10 @@ export type Mutation_Root = {
   delete_messages?: Maybe<Messages_Mutation_Response>
   /** delete single row from the table: "messages" */
   delete_messages_by_pk?: Maybe<Messages>
+  /** delete data from the table: "roles" */
+  delete_roles?: Maybe<Roles_Mutation_Response>
+  /** delete single row from the table: "roles" */
+  delete_roles_by_pk?: Maybe<Roles>
   /** delete data from the table: "sessions" */
   delete_sessions?: Maybe<Sessions_Mutation_Response>
   /** delete single row from the table: "sessions" */
@@ -1114,6 +1118,10 @@ export type Mutation_Root = {
   insert_messages?: Maybe<Messages_Mutation_Response>
   /** insert a single row into the table: "messages" */
   insert_messages_one?: Maybe<Messages>
+  /** insert data into the table: "roles" */
+  insert_roles?: Maybe<Roles_Mutation_Response>
+  /** insert a single row into the table: "roles" */
+  insert_roles_one?: Maybe<Roles>
   /** insert data into the table: "sessions" */
   insert_sessions?: Maybe<Sessions_Mutation_Response>
   /** insert a single row into the table: "sessions" */
@@ -1142,6 +1150,10 @@ export type Mutation_Root = {
   update_messages?: Maybe<Messages_Mutation_Response>
   /** update single row of the table: "messages" */
   update_messages_by_pk?: Maybe<Messages>
+  /** update data of the table: "roles" */
+  update_roles?: Maybe<Roles_Mutation_Response>
+  /** update single row of the table: "roles" */
+  update_roles_by_pk?: Maybe<Roles>
   /** update data of the table: "sessions" */
   update_sessions?: Maybe<Sessions_Mutation_Response>
   /** update single row of the table: "sessions" */
@@ -1189,6 +1201,16 @@ export type Mutation_RootDelete_MessagesArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Messages_By_PkArgs = {
   id: Scalars['Int']
+}
+
+/** mutation root */
+export type Mutation_RootDelete_RolesArgs = {
+  where: Roles_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootDelete_Roles_By_PkArgs = {
+  name: Scalars['String']
 }
 
 /** mutation root */
@@ -1265,6 +1287,18 @@ export type Mutation_RootInsert_MessagesArgs = {
 export type Mutation_RootInsert_Messages_OneArgs = {
   object: Messages_Insert_Input
   on_conflict?: Maybe<Messages_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootInsert_RolesArgs = {
+  objects: Array<Roles_Insert_Input>
+  on_conflict?: Maybe<Roles_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootInsert_Roles_OneArgs = {
+  object: Roles_Insert_Input
+  on_conflict?: Maybe<Roles_On_Conflict>
 }
 
 /** mutation root */
@@ -1355,6 +1389,18 @@ export type Mutation_RootUpdate_Messages_By_PkArgs = {
   _inc?: Maybe<Messages_Inc_Input>
   _set?: Maybe<Messages_Set_Input>
   pk_columns: Messages_Pk_Columns_Input
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_RolesArgs = {
+  _set?: Maybe<Roles_Set_Input>
+  where: Roles_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_Roles_By_PkArgs = {
+  _set?: Maybe<Roles_Set_Input>
+  pk_columns: Roles_Pk_Columns_Input
 }
 
 /** mutation root */
@@ -1450,6 +1496,12 @@ export type Query_Root = {
   messages_aggregate: Messages_Aggregate
   /** fetch data from the table: "messages" using primary key columns */
   messages_by_pk?: Maybe<Messages>
+  /** fetch data from the table: "roles" */
+  roles: Array<Roles>
+  /** fetch aggregated fields from the table: "roles" */
+  roles_aggregate: Roles_Aggregate
+  /** fetch data from the table: "roles" using primary key columns */
+  roles_by_pk?: Maybe<Roles>
   /** fetch data from the table: "sessions" */
   sessions: Array<Sessions>
   /** fetch aggregated fields from the table: "sessions" */
@@ -1547,6 +1599,29 @@ export type Query_RootMessages_By_PkArgs = {
 }
 
 /** query root */
+export type Query_RootRolesArgs = {
+  distinct_on?: Maybe<Array<Roles_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Roles_Order_By>>
+  where?: Maybe<Roles_Bool_Exp>
+}
+
+/** query root */
+export type Query_RootRoles_AggregateArgs = {
+  distinct_on?: Maybe<Array<Roles_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Roles_Order_By>>
+  where?: Maybe<Roles_Bool_Exp>
+}
+
+/** query root */
+export type Query_RootRoles_By_PkArgs = {
+  name: Scalars['String']
+}
+
+/** query root */
 export type Query_RootSessionsArgs = {
   distinct_on?: Maybe<Array<Sessions_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1636,6 +1711,175 @@ export type Query_RootVerification_Requests_AggregateArgs = {
 /** query root */
 export type Query_RootVerification_Requests_By_PkArgs = {
   id: Scalars['Int']
+}
+
+/** columns and relationships of "roles" */
+export type Roles = {
+  __typename?: 'roles'
+  name: Scalars['String']
+  /** An array relationship */
+  users: Array<Users>
+  /** An aggregated array relationship */
+  users_aggregate: Users_Aggregate
+}
+
+/** columns and relationships of "roles" */
+export type RolesUsersArgs = {
+  distinct_on?: Maybe<Array<Users_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Users_Order_By>>
+  where?: Maybe<Users_Bool_Exp>
+}
+
+/** columns and relationships of "roles" */
+export type RolesUsers_AggregateArgs = {
+  distinct_on?: Maybe<Array<Users_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Users_Order_By>>
+  where?: Maybe<Users_Bool_Exp>
+}
+
+/** aggregated selection of "roles" */
+export type Roles_Aggregate = {
+  __typename?: 'roles_aggregate'
+  aggregate?: Maybe<Roles_Aggregate_Fields>
+  nodes: Array<Roles>
+}
+
+/** aggregate fields of "roles" */
+export type Roles_Aggregate_Fields = {
+  __typename?: 'roles_aggregate_fields'
+  count?: Maybe<Scalars['Int']>
+  max?: Maybe<Roles_Max_Fields>
+  min?: Maybe<Roles_Min_Fields>
+}
+
+/** aggregate fields of "roles" */
+export type Roles_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Roles_Select_Column>>
+  distinct?: Maybe<Scalars['Boolean']>
+}
+
+/** order by aggregate values of table "roles" */
+export type Roles_Aggregate_Order_By = {
+  count?: Maybe<Order_By>
+  max?: Maybe<Roles_Max_Order_By>
+  min?: Maybe<Roles_Min_Order_By>
+}
+
+/** input type for inserting array relation for remote table "roles" */
+export type Roles_Arr_Rel_Insert_Input = {
+  data: Array<Roles_Insert_Input>
+  on_conflict?: Maybe<Roles_On_Conflict>
+}
+
+/** Boolean expression to filter rows from the table "roles". All fields are combined with a logical 'AND'. */
+export type Roles_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Roles_Bool_Exp>>>
+  _not?: Maybe<Roles_Bool_Exp>
+  _or?: Maybe<Array<Maybe<Roles_Bool_Exp>>>
+  name?: Maybe<String_Comparison_Exp>
+  users?: Maybe<Users_Bool_Exp>
+}
+
+/** unique or primary key constraints on table "roles" */
+export enum Roles_Constraint {
+  /** unique or primary key constraint */
+  RolesPkey = 'roles_pkey',
+}
+
+export enum Roles_Enum {
+  Admin = 'admin',
+  User = 'user',
+}
+
+/** expression to compare columns of type roles_enum. All fields are combined with logical 'AND'. */
+export type Roles_Enum_Comparison_Exp = {
+  _eq?: Maybe<Roles_Enum>
+  _in?: Maybe<Array<Roles_Enum>>
+  _is_null?: Maybe<Scalars['Boolean']>
+  _neq?: Maybe<Roles_Enum>
+  _nin?: Maybe<Array<Roles_Enum>>
+}
+
+/** input type for inserting data into table "roles" */
+export type Roles_Insert_Input = {
+  name?: Maybe<Scalars['String']>
+  users?: Maybe<Users_Arr_Rel_Insert_Input>
+}
+
+/** aggregate max on columns */
+export type Roles_Max_Fields = {
+  __typename?: 'roles_max_fields'
+  name?: Maybe<Scalars['String']>
+}
+
+/** order by max() on columns of table "roles" */
+export type Roles_Max_Order_By = {
+  name?: Maybe<Order_By>
+}
+
+/** aggregate min on columns */
+export type Roles_Min_Fields = {
+  __typename?: 'roles_min_fields'
+  name?: Maybe<Scalars['String']>
+}
+
+/** order by min() on columns of table "roles" */
+export type Roles_Min_Order_By = {
+  name?: Maybe<Order_By>
+}
+
+/** response of any mutation on the table "roles" */
+export type Roles_Mutation_Response = {
+  __typename?: 'roles_mutation_response'
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int']
+  /** data of the affected rows by the mutation */
+  returning: Array<Roles>
+}
+
+/** input type for inserting object relation for remote table "roles" */
+export type Roles_Obj_Rel_Insert_Input = {
+  data: Roles_Insert_Input
+  on_conflict?: Maybe<Roles_On_Conflict>
+}
+
+/** on conflict condition type for table "roles" */
+export type Roles_On_Conflict = {
+  constraint: Roles_Constraint
+  update_columns: Array<Roles_Update_Column>
+  where?: Maybe<Roles_Bool_Exp>
+}
+
+/** ordering options when selecting data from "roles" */
+export type Roles_Order_By = {
+  name?: Maybe<Order_By>
+  users_aggregate?: Maybe<Users_Aggregate_Order_By>
+}
+
+/** primary key columns input for table: "roles" */
+export type Roles_Pk_Columns_Input = {
+  name: Scalars['String']
+}
+
+/** select columns of table "roles" */
+export enum Roles_Select_Column {
+  /** column name */
+  Name = 'name',
+}
+
+/** input type for updating data in table "roles" */
+export type Roles_Set_Input = {
+  name?: Maybe<Scalars['String']>
+}
+
+/** update columns of table "roles" */
+export enum Roles_Update_Column {
+  /** column name */
+  Name = 'name',
 }
 
 /** columns and relationships of "sessions" */
@@ -1997,6 +2241,12 @@ export type Subscription_Root = {
   messages_aggregate: Messages_Aggregate
   /** fetch data from the table: "messages" using primary key columns */
   messages_by_pk?: Maybe<Messages>
+  /** fetch data from the table: "roles" */
+  roles: Array<Roles>
+  /** fetch aggregated fields from the table: "roles" */
+  roles_aggregate: Roles_Aggregate
+  /** fetch data from the table: "roles" using primary key columns */
+  roles_by_pk?: Maybe<Roles>
   /** fetch data from the table: "sessions" */
   sessions: Array<Sessions>
   /** fetch aggregated fields from the table: "sessions" */
@@ -2091,6 +2341,29 @@ export type Subscription_RootMessages_AggregateArgs = {
 /** subscription root */
 export type Subscription_RootMessages_By_PkArgs = {
   id: Scalars['Int']
+}
+
+/** subscription root */
+export type Subscription_RootRolesArgs = {
+  distinct_on?: Maybe<Array<Roles_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Roles_Order_By>>
+  where?: Maybe<Roles_Bool_Exp>
+}
+
+/** subscription root */
+export type Subscription_RootRoles_AggregateArgs = {
+  distinct_on?: Maybe<Array<Roles_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Roles_Order_By>>
+  where?: Maybe<Roles_Bool_Exp>
+}
+
+/** subscription root */
+export type Subscription_RootRoles_By_PkArgs = {
+  name: Scalars['String']
 }
 
 /** subscription root */
@@ -2510,7 +2783,9 @@ export type Users = {
   id: Scalars['Int']
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
-  role?: Maybe<Scalars['String']>
+  role?: Maybe<Roles_Enum>
+  /** An object relationship */
+  roleByRole?: Maybe<Roles>
   updated_at: Scalars['timestamptz']
 }
 
@@ -2586,7 +2861,8 @@ export type Users_Bool_Exp = {
   id?: Maybe<Int_Comparison_Exp>
   image?: Maybe<String_Comparison_Exp>
   name?: Maybe<String_Comparison_Exp>
-  role?: Maybe<String_Comparison_Exp>
+  role?: Maybe<Roles_Enum_Comparison_Exp>
+  roleByRole?: Maybe<Roles_Bool_Exp>
   updated_at?: Maybe<Timestamptz_Comparison_Exp>
 }
 
@@ -2611,7 +2887,8 @@ export type Users_Insert_Input = {
   id?: Maybe<Scalars['Int']>
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
-  role?: Maybe<Scalars['String']>
+  role?: Maybe<Roles_Enum>
+  roleByRole?: Maybe<Roles_Obj_Rel_Insert_Input>
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
@@ -2624,7 +2901,6 @@ export type Users_Max_Fields = {
   id?: Maybe<Scalars['Int']>
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
-  role?: Maybe<Scalars['String']>
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
@@ -2636,7 +2912,6 @@ export type Users_Max_Order_By = {
   id?: Maybe<Order_By>
   image?: Maybe<Order_By>
   name?: Maybe<Order_By>
-  role?: Maybe<Order_By>
   updated_at?: Maybe<Order_By>
 }
 
@@ -2649,7 +2924,6 @@ export type Users_Min_Fields = {
   id?: Maybe<Scalars['Int']>
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
-  role?: Maybe<Scalars['String']>
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
@@ -2661,7 +2935,6 @@ export type Users_Min_Order_By = {
   id?: Maybe<Order_By>
   image?: Maybe<Order_By>
   name?: Maybe<Order_By>
-  role?: Maybe<Order_By>
   updated_at?: Maybe<Order_By>
 }
 
@@ -2696,6 +2969,7 @@ export type Users_Order_By = {
   image?: Maybe<Order_By>
   name?: Maybe<Order_By>
   role?: Maybe<Order_By>
+  roleByRole?: Maybe<Roles_Order_By>
   updated_at?: Maybe<Order_By>
 }
 
@@ -2732,7 +3006,7 @@ export type Users_Set_Input = {
   id?: Maybe<Scalars['Int']>
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
-  role?: Maybe<Scalars['String']>
+  role?: Maybe<Roles_Enum>
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
@@ -3221,6 +3495,33 @@ export type Messages_By_PkQuery = { __typename?: 'query_root' } & {
   >
 }
 
+export type Insert_Users_OneMutationVariables = Exact<{
+  user: Users_Insert_Input
+}>
+
+export type Insert_Users_OneMutation = { __typename?: 'mutation_root' } & {
+  insert_users_one?: Maybe<{ __typename?: 'users' } & Pick<Users, 'id'>>
+}
+
+export type UsersQueryVariables = Exact<{ [key: string]: never }>
+
+export type UsersQuery = { __typename?: 'query_root' } & {
+  users: Array<{ __typename?: 'users' } & UsersFragmentFragment>
+}
+
+export type UsersFragmentFragment = { __typename?: 'users' } & Pick<
+  Users,
+  'id' | 'name' | 'email' | 'image' | 'role'
+>
+
+export type Users_By_PkQueryVariables = Exact<{
+  id: Scalars['Int']
+}>
+
+export type Users_By_PkQuery = { __typename?: 'query_root' } & {
+  users_by_pk?: Maybe<{ __typename?: 'users' } & UsersFragmentFragment>
+}
+
 export const MessagesFragmentFragmentDoc = gql`
   fragment messagesFragment on messages {
     id
@@ -3234,6 +3535,15 @@ export const MessagesFragmentFragmentDoc = gql`
         name
       }
     }
+  }
+`
+export const UsersFragmentFragmentDoc = gql`
+  fragment usersFragment on users {
+    id
+    name
+    email
+    image
+    role
   }
 `
 export const Delete_MessagesDocument = gql`
@@ -3304,6 +3614,29 @@ export const Messages_By_PkDocument = gql`
       }
     }
   }
+`
+export const Insert_Users_OneDocument = gql`
+  mutation insert_users_one($user: users_insert_input!) {
+    insert_users_one(object: $user) {
+      id
+    }
+  }
+`
+export const UsersDocument = gql`
+  query users {
+    users {
+      ...usersFragment
+    }
+  }
+  ${UsersFragmentFragmentDoc}
+`
+export const Users_By_PkDocument = gql`
+  query users_by_pk($id: Int!) {
+    users_by_pk(id: $id) {
+      ...usersFragment
+    }
+  }
+  ${UsersFragmentFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -3379,6 +3712,45 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'messages_by_pk'
+      )
+    },
+    insert_users_one(
+      variables: Insert_Users_OneMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<Insert_Users_OneMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<Insert_Users_OneMutation>(Insert_Users_OneDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'insert_users_one'
+      )
+    },
+    users(
+      variables?: UsersQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<UsersQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UsersQuery>(UsersDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'users'
+      )
+    },
+    users_by_pk(
+      variables: Users_By_PkQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<Users_By_PkQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<Users_By_PkQuery>(Users_By_PkDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'users_by_pk'
       )
     },
   }

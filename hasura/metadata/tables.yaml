@@ -24,6 +24,18 @@
           name: message_tag
 - table:
     schema: public
+    name: roles
+  is_enum: true
+  array_relationships:
+  - name: users
+    using:
+      foreign_key_constraint_on:
+        column: role
+        table:
+          schema: public
+          name: users
+- table:
+    schema: public
     name: sessions
 - table:
     schema: public
@@ -39,6 +51,10 @@
 - table:
     schema: public
     name: users
+  object_relationships:
+  - name: roleByRole
+    using:
+      foreign_key_constraint_on: role
 - table:
     schema: public
     name: verification_requests
