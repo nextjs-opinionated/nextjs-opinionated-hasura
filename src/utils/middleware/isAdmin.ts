@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/client'
+import { Roles_Enum } from '../../graphql/generated'
+
 
 export interface NextApiRequestWithUser extends NextApiRequest {
   user: {
@@ -20,7 +22,7 @@ export const isAdmin = (handler: (req: NextApiRequestWithUser, res: NextApiRespo
       return res.status(401).json({ message: 'you are not authenticated' })
     }
 
-    if (session.user.role === 'Admin') {
+    if (session.user.role === Roles_Enum.Admin) {
       req.user = session.user
       return handler(req, res)
     } else {
