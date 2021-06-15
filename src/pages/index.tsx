@@ -5,6 +5,7 @@ import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
+import Link from 'next/link'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -62,44 +63,33 @@ export default function Page() {
           </p>
 
           {/* buttons */}
-          <div className='flex flex-wrap my-16 space-y-2'>
-            <div className='mx-2 mt-2'>
-              <ChangeThemeDropDown />
-            </div>
+          <div className='flex flex-wrap items-center my-16 space-x-2'>
+            <button
+              className='btn btn-primary'
+              onClick={async () => {
+                const res = await fetch('/api/get_server_time')
+                const resultJSON = await res.json()
+                const myAlert = withReactContent(Swal)
+                await myAlert.fire({
+                  title: 'from server',
+                  html: (
+                    <div>
+                      <img src='https://unsplash.it/600/300' />
+                      {resultJSON.message}
+                    </div>
+                  ),
+                  confirmButtonText: 'close',
+                })
+              }}
+            >
+              Call API
+            </button>
 
-            <div className='mx-2'>
-              <button
-                className='btn btn-primary'
-                onClick={async () => {
-                  const myAlert = withReactContent(Swal)
-                  await myAlert.fire({
-                    title: 'Some Alert Title',
-                    html: <img src='https://unsplash.it/600/300' />,
-                    imageAlt: 'Custom image',
-                    confirmButtonText: 'ok button',
-                  })
-                }}
-              >
-                Show Image
-              </button>
-            </div>
-            <div className='mx-2'>
-              <button
-                className='btn btn-primary'
-                onClick={async () => {
-                  const res = await fetch('/api/say-hello-from-api')
-                  const resultJSON = await res.json()
-                  const myAlert = withReactContent(Swal)
-                  await myAlert.fire({
-                    title: 'from server',
-                    html: resultJSON.message,
-                    confirmButtonText: 'close',
-                  })
-                }}
-              >
-                Call API
-              </button>
-            </div>
+            <Link href='/form-example'>
+              <a className='btn btn-primary'>Form Example</a>
+            </Link>
+
+            <ChangeThemeDropDown />
           </div>
 
           <p className='max-w-md mt-10 text-sm italic'>
@@ -166,6 +156,33 @@ export default function Page() {
               href='https://react-icons.github.io/react-icons/'
             >
               react-icons
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://react-hook-form.com/'
+            >
+              react-hook-form
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://github.com/tailwindlabs/tailwindcss-forms'
+            >
+              @tailwindcss/forms
+            </a>
+            ,{' '}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href='https://github.com/colinhacks/zod'
+            >
+              zod (validations)
             </a>
           </p>
         </div>
