@@ -9,6 +9,7 @@ import Swal from 'sweetalert2'
 import { FormExampleValidationSchema } from '../model/FormExampleValidationSchema'
 import { FormInput } from '../components/forms/FormInput/FormInput'
 import { checkFetchJsonResult } from '../utils/checkFetchResult'
+import { FormToggle } from '../components/forms/FormToggle/FormToggle'
 
 type FormProps = {
   email: string
@@ -75,7 +76,7 @@ const Page: React.FunctionComponent = () => {
           <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
             <div className='hidden sm:block' aria-hidden='true'>
               <div className='py-5'>
-                <div className='border-t ' />
+                <div className='border-t' />
               </div>
             </div>
 
@@ -97,6 +98,14 @@ const Page: React.FunctionComponent = () => {
                         name='email'
                         register={register}
                         defaultValue=''
+                        validationErrors={validationErrors}
+                      />
+
+                      <FormToggle
+                        label='Toggle'
+                        name='ToggleSwitch'
+                        register={register}
+                        disabled={!formState.isValid}
                         validationErrors={validationErrors}
                       />
 
