@@ -8,19 +8,8 @@ export default NextAuth({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
-    Providers.Email({
-      server: {
-        host: process.env.EMAIL_SERVER,
-        port: Number(process.env.EMAIL_PORT),
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS,
-        },
-      },
-      from: process.env.EMAIL_FROM,
-    }),
   ],
-  
+
   secret: process.env.JWT_SECRET,
 
   session: {
@@ -70,11 +59,11 @@ export default NextAuth({
     // async session(session, user) {
     //   console.log({ user, session })
     //   return session },
-    async jwt(token, _, account,) {
+    async jwt(token, _, account) {
       if (account?.accessToken) {
         token.accessToken = account.accessToken
       }
-      
+
       return token
     },
     async session(session, token) {
