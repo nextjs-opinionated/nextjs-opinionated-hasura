@@ -59,25 +59,7 @@ export default function login({ providers }: Provider) {
               welcome to {process.env.NEXT_PUBLIC_SITE_NAME}
             </p>
           </>
-          {/* 
-          <form onSubmit={handleSubmit(onSubmit)} className='mt-8 space-y-6'>
-            <input type='hidden' name='remember' defaultValue='true' />
-            <input name='csrfToken' type='hidden' defaultValue={csrfToken} />
-            <FormInput
-              name='email'
-              label='email'
-              validationErrors={validationErrors}
-              register={register}
-            />
-            <div>
-              <CustomButtonAuth
-                keyProvider={providers?.email?.id}
-                providerId={providers?.email?.id}
-                label={`Sign in with ${providers?.email?.name}`}
-              />
-            </div>
-          </form>
-          */}
+
           <div>
             <>
               <CustomButtonAuth
