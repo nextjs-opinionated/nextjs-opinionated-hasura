@@ -105,7 +105,6 @@ const Page: React.FunctionComponent = () => {
                         label='Toggle'
                         name='ToggleSwitch'
                         register={register}
-                        disabled={!formState.isValid}
                         validationErrors={validationErrors}
                       />
 
