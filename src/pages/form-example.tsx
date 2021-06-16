@@ -101,14 +101,6 @@ const Page: React.FunctionComponent = () => {
                         validationErrors={validationErrors}
                       />
 
-                      <FormInputColor
-                        label='Color:'
-                        name='color'
-                        register={register}
-                        defaultValue=''
-                        validationErrors={validationErrors}
-                      />
-
                       <div className='flex flex-wrap justify-end'>
                         <button
                           type='submit'
@@ -148,6 +140,17 @@ const Page: React.FunctionComponent = () => {
                           Validate on server only
                         </button>
                       </div>
+                    </div>
+                  </div>
+                  <div className='mt-5 shadow sm:rounded-md sm:overflow-hidden'>
+                    <div className='px-4 py-5 space-y-6 sm:p-6'>
+                      <FormInputColor
+                        label='Color:'
+                        name='color'
+                        register={register}
+                        defaultValue=''
+                        validationErrors={validationErrors}
+                      />
                     </div>
                   </div>
                 </div>

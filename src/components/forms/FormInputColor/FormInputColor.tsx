@@ -32,8 +32,10 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
           />
           <span className='ml-5 text-sm font-bold'>{color}</span>
         </div>
+      </div>
 
-        <div className='mt-5'>
+      <div className='mt-5'>
+        <div className='form-control'>
           <p className='my-3 text-base font-bold'>Another color picker:</p>
           <FormLabel name={name} label={label} labelDescription={labelDescription} />
           <div className='flex items-center my-2'>
