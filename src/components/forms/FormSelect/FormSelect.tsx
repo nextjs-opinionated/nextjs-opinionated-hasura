@@ -19,6 +19,7 @@ export const FormSelect: React.FC<SelectProps> = ({
   placeholder,
   validationErrors,
   emptyMessage = null,
+  disabled,
 }) => {
   const [isEmpty, isEmptySet] = useState(true)
   useEffect(() => {
@@ -35,6 +36,7 @@ export const FormSelect: React.FC<SelectProps> = ({
           {...register(name)}
           defaultValue={defaultValue || '__EMPTY_VALUE__'}
           data-testid={name}
+          disabled={disabled}
           className={classnames(`font-normal select select-bordered w-full ${className}`, {
             'select-error': validationErrors?.[name],
             'text-neutral': isEmpty,
