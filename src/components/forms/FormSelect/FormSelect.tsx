@@ -27,7 +27,7 @@ export const FormSelect: React.FC<SelectProps > = ({
        </option>
       {Object.values(options).map((value) => (
        
-        <option selected={defaultValue && defaultValue==value.id} key={value.id} value={value.value}>
+        <option defaultValue={defaultValue} key={value.id} value={value.id}>
           {value.value}
         </option>
       ))}

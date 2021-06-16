@@ -40,7 +40,7 @@ export const Select_DefaultValue = Template.bind({})
 Select_DefaultValue.args = {
   title: 'Title',
   name: 'select_name',
-  defaultValue: 1,
+  defaultValue: 'it1',
 
   register: () => {
     /* noop */
