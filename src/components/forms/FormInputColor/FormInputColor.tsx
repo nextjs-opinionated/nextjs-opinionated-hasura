@@ -29,9 +29,7 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
             onChange={(e) => setColor(e.target.value)}
             className='border-0 outline-none appearance-none h-30 w-30'
           />
-          <span className='ml-5 text-sm font-bold' defaultValue={defaultValue}>
-            {color}
-          </span>
+          <span className='ml-5 text-sm font-bold'>{color}</span>
         </div>
       </div>
     </div>
