@@ -14,7 +14,6 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
   defaultValue,
 }) => {
   const [color, setColor] = useState('#000')
-  console.log('colorPicker', color)
 
   return (
     <div className='col-span-6 sm:col-span-4'>
