@@ -2,7 +2,6 @@ import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 import { Roles_Enum } from '../../../graphql/generated'
 
-
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 
 // For more information on each option (and a full list of options) go to
@@ -28,14 +27,7 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/options#jwt
   jwt: {
     secret: process.env.JWT_SECRET,
-    // A secret to use for key generation (you should set this explicitly)
-    // secret: 'INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw',
-    // Set to true to use encryption (default: false)
-    // encryption: true,
-    // You can define your own encode/decode functions for signing and encryption
-    // if you want to override the default behaviour.
-    // encode: async ({ secret, token, maxAge }) => {},
-    // decode: async ({ secret, token, maxAge }) => {},
+    encryption: true
   },
 
   // You can define custom pages to override the built-in ones. These will be regular Next.js pages
@@ -62,22 +54,23 @@ export default NextAuth({
     async redirect(_, baseUrl) {
       return Promise.resolve(baseUrl)
     },
-    // async session(session, user) {
-    //   console.log({ user, session })
-    //   return session },
-    // async jwt(token, user, account, profile, isNewUser) {
-    //   console.log({ token, user, account })
-    //   return token
-    // }
-    async jwt(token, user, account, __, isNewUser) {
-      if(isNewUser) {
-        token.role = Roles_Enum.User
-      } 
-
-      if(user) {
-        const { users_by_pk } = await new GqlSdkHelper().getSdk().users_by_pk({ id: user?.id })
-        if (users_by_pk?.role) {
-          token.role = users_by_pk.role
+    async jwt(token, user, account) {
+      if (user) {
+        const { users } = await new GqlSdkHelper().getSdk().users_by_oauth_id({ oauth_id: String(user.id) })
+        if (users.length > 0) {
+          token.role = users[0].role
+          token.email = users[0].email
+        } else {
+          // new user
+          const userInput = {
+            name: user?.name,
+            email: user?.email,
+            image: user?.image,
+            role: Roles_Enum.User,
+            oauth_id: String(user?.id)
+          }
+          await new GqlSdkHelper().getSdk().insert_users_one({ user: userInput })
+          token.role = Roles_Enum.User // default user
         }
       }
 
@@ -91,6 +84,15 @@ export default NextAuth({
       if (token?.accessToken) {
         session.accessToken = token.accessToken
       }
+
+      if (token?.email) {
+        session.user.email = token.email
+      }
+
+      if (token?.role) {
+        session.user.role = token.role
+      }
+
       return session
     },
   },
