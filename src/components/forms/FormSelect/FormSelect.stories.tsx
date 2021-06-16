@@ -70,11 +70,12 @@ Select_Label.args = {
 
 export const Select_Error = Template.bind({})
 Select_Error.args = {
+  label:'Label',
   name: 'text_with_error',
   register: () => {
     /* noop */
   },
-  defaultValue: 'this is a title',
+  placeholder:'Select an Item',
   validationErrors: {
     text_with_error: {
       message: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
