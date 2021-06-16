@@ -13,9 +13,11 @@ import Link from 'next/link'
 export default function Page() {
   const [session] = useSession()
 
-  useEffect(() => {
-    console.log(session?.user)
-  }, [session])
+  const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
+  const pageUrl = process.env.NEXT_PUBLIC_SITE_URL
+  const imageUrl = process.env.NEXT_PUBLIC_SITE_IMAGE
+  const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
+  const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
 
   const callApi = async () => {
     const response = await fetch('/api/hello')
@@ -24,14 +26,9 @@ export default function Page() {
 
     return window.alert(response_json.message)
   }
-  const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
-  const pageUrl = process.env.NEXT_PUBLIC_SITE_URL
-  const imageUrl = process.env.NEXT_PUBLIC_SITE_IMAGE
-  const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
-  const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
 
   useEffect(() => {
-    console.log(session?.user)
+    console.log({ session })
   }, [session])
 
   return (

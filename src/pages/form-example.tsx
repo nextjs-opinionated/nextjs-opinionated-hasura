@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
-import { FormExampleValidationSchema } from '../model/FormExampleValidationSchema'
+import { FormExampleValidationSchema } from '../model/schemas/FormExampleValidationSchema'
 import { FormInput } from '../components/forms/FormInput/FormInput'
 import { checkFetchJsonResult } from '../utils/checkFetchResult'
 

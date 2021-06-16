@@ -1,4 +1,4 @@
-import { FormExampleValidationSchema } from '../../model/FormExampleValidationSchema'
+import { FormExampleValidationSchema } from '../../model/schemas/FormExampleValidationSchema'
 
 export default function formExample_api(req, res) {
   try {
