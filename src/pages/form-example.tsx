@@ -10,9 +10,13 @@ import { FormExampleValidationSchema } from '../model/FormExampleValidationSchem
 import { FormInput } from '../components/forms/FormInput/FormInput'
 import { checkFetchJsonResult } from '../utils/checkFetchResult'
 import { FormInputColor } from '../components/forms/FormInputColor/FormInputColor'
+import { FormToggle } from '../components/forms/FormToggle/FormToggle'
+import { FormSelect } from '../components/forms/FormSelect/FormSelect'
 
 type FormProps = {
   email: string
+  color_select: string
+  toggle: boolean
 }
 
 const Page: React.FunctionComponent = () => {
@@ -35,19 +39,27 @@ const Page: React.FunctionComponent = () => {
       const fetchResponse = await fetch('/api/formExample_api', {
         method: 'POST',
         headers,
-        body: JSON.stringify({
-          email: submitProps.email,
-        }),
+        body: JSON.stringify(submitProps),
       })
 
       /* check for server errors (VALIDATIONS) */
       const isValid = await checkFetchJsonResult(fetchResponse)
       if (isValid) {
-        const resultJSON = await fetchResponse.json()
+        // const resultJSON = await fetchResponse.json()
         const myAlert = withReactContent(Swal)
         await myAlert.fire({
-          title: 'submited email',
-          html: resultJSON.message,
+          title: 'submited',
+          html: (
+            <div className='mockup-code'>
+              {JSON.stringify(submitProps, null, 2)
+                .split('\n')
+                .map((line, i) => (
+                  <pre key={`line_${i}`} className='text-left'>
+                    <code>{line}</code>
+                  </pre>
+                ))}
+            </div>
+          ),
           confirmButtonText: 'close',
         })
       }
@@ -76,7 +88,7 @@ const Page: React.FunctionComponent = () => {
           <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
             <div className='hidden sm:block' aria-hidden='true'>
               <div className='py-5'>
-                <div className='border-t ' />
+                <div className='border-t' />
               </div>
             </div>
 
@@ -97,8 +109,27 @@ const Page: React.FunctionComponent = () => {
                         label='Email:'
                         name='email'
                         register={register}
-                        defaultValue=''
                         validationErrors={validationErrors}
+                      />
+
+                      <FormToggle
+                        label='Toggle:'
+                        name='toggle'
+                        register={register}
+                        validationErrors={validationErrors}
+                      />
+
+                      <FormSelect
+                        label='Options:'
+                        name='color_select'
+                        register={register}
+                        validationErrors={validationErrors}
+                        options={[
+                          { value: 'white', label: 'White' },
+                          { value: 'red', label: 'Red' },
+                          { value: 'green', label: 'Green' },
+                          { value: 'yellow', label: 'Yellow' },
+                        ]}
                       />
 
                       <div className='flex flex-wrap justify-end'>
@@ -116,12 +147,17 @@ const Page: React.FunctionComponent = () => {
                           onClick={async () => {
                             const headers = new Headers()
                             headers.append('Content-Type', 'application/json')
+
+                            const allValues = {
+                              email: getValues('email'),
+                              toggle: getValues('toggle'),
+                              color_select: getValues('color_select'),
+                            }
+
                             const fetchResponse = await fetch('/api/formExample_api', {
                               method: 'POST',
                               headers,
-                              body: JSON.stringify({
-                                email: getValues('email'),
-                              }),
+                              body: JSON.stringify(allValues),
                             })
 
                             /* check for server errors (VALIDATIONS) */
