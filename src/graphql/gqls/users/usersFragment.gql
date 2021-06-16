@@ -4,4 +4,5 @@ fragment usersFragment on users {
   email
   image
   role
+  created_at
 }

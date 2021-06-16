@@ -1,5 +1,9 @@
 mutation insert_users_one($user: users_insert_input!) {
-  insert_users_one(object: $user) {
+  insert_users_one(
+    object: $user
+    on_conflict: { constraint: users_pkey, update_columns: [name, email, role] }
+  ) {
     id
+    email
   }
 }

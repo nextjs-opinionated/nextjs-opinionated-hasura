@@ -1,0 +1,5 @@
+query users_by_oauth_id($oauth_id: String!) {
+  users(where: { oauth_id: { _eq: $oauth_id } }) {
+    ...usersFragment
+  }
+}

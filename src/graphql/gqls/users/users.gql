@@ -1,5 +1,5 @@
-query users {
-  users {
+query users($limit: Int) {
+  users(limit: $limit) {
     ...usersFragment
   }
 }

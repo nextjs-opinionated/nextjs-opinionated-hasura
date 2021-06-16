@@ -1,0 +1,5 @@
+mutation delete_users_by_pk($id: Int!) {
+  delete_users_by_pk(id: $id) {
+    id
+  }
+}
