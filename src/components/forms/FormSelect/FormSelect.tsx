@@ -4,13 +4,13 @@ import { FormBaseProps } from '../FormBaseProps'
 import { FormLabel } from '../FormLabel'
 
 export interface SelectProps extends FormBaseProps {
-  options:string[]
+  options: { id: string; value: string }[]
 }
 
   
 
 export const FormSelect: React.FC<SelectProps > = ({
-   register, options, name,className,label,labelDescription,   defaultValue,
+   register, options, name,className,label,labelDescription,   defaultValue,placeholder,
    validationErrors,
 }) => {
  
@@ -18,13 +18,17 @@ export const FormSelect: React.FC<SelectProps > = ({
     <div className='col-span-6 sm:col-span-4'>
       <div className='form-control'>
         <FormLabel name={name} label={label} labelDescription={labelDescription} />
-        <select {...register(name)}    defaultValue={defaultValue}
+        <select title="select" {...register(name)}    defaultValue={defaultValue}
           className={classnames(`select select-bordered w-full ${className}`, {
             'input-error': validationErrors?.[name],
           })}>
-      {options.map((value,index) => (
-        <option selected={defaultValue && defaultValue==index} key={index} value={index}>
-          {value}
+        <option>
+         {`${placeholder || label || name}`}
+       </option>
+      {Object.values(options).map((value) => (
+       
+        <option selected={defaultValue && defaultValue==value.id} key={value.id} value={value.value}>
+          {value.value}
         </option>
       ))}
     </select>

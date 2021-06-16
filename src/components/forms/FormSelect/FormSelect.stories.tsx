@@ -21,20 +21,25 @@ export default {
 
 const Template: Story<SelectProps> = (args) => <FormSelect {...args} />
 
+
+
 export const Select_OK = Template.bind({})
 Select_OK.args = {
-  name: 'input_name',
+  name: 'select_name',
   register: () => {
     /* noop */
   },
   validationErrors: {},
-  options:['item1','item2']
+  options: [
+    { id: 'it1', value: 'item 1' },
+    { id: 'it2', value: 'item 2' },
+  ],
 }
 
 export const Select_DefaultValue = Template.bind({})
 Select_DefaultValue.args = {
   title: 'Title',
-  name: 'input_name',
+  name: 'select_name',
   defaultValue: 1,
 
   register: () => {
@@ -42,21 +47,25 @@ Select_DefaultValue.args = {
   },
 
   validationErrors: {},
-  options:['item1','item2']
-
+  options: [
+    { id: 'it1', value: 'item 1' },
+    { id: 'it2', value: 'item 2' },
+  ],
 
 }
 
 export const Select_Label = Template.bind({})
 Select_Label.args = {
   label: 'Label:',
-  name: 'input_name',
+  name: 'select_name',
   register: () => {
     /* noop */
   },
   validationErrors: {},
-  options:['item1','item2']
-
+  options: [
+    { id: 'it1', value: 'item 1' },
+    { id: 'it2', value: 'item 2' },
+  ],
 }
 
 export const Select_Error = Template.bind({})
@@ -71,21 +80,27 @@ Select_Error.args = {
       message: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
     },
   },
-  options:['item1','item2']
-
+  options: [
+    { id: 'it1', value: 'item 1' },
+    { id: 'it2', value: 'item 2' },
+  ],
 }
+
 
 
 
 export const Select_CustomClassName = Template.bind({})
 Select_CustomClassName.args = {
   label: 'Label:',
-  name: 'input_name',
+  name: 'select_name',
   register: () => {
     /* noop */
   },
   validationErrors: {},
   className: 'text-lg select-accent',
-  options:['item1','item2']
-
+  options: [
+    { id: 'it1', value: 'item 1' },
+    { id: 'it2', value: 'item 2' },
+  ],
 }
+
