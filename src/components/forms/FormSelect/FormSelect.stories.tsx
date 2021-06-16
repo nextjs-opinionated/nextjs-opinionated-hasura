@@ -25,7 +25,8 @@ const Template: Story<SelectProps> = (args) => <FormSelect {...args} />
 
 export const Select_OK = Template.bind({})
 Select_OK.args = {
-  name: 'select_name',
+  name: 'select_item',
+  placeholder:'Select an Item',
   register: () => {
     /* noop */
   },
@@ -39,9 +40,9 @@ Select_OK.args = {
 export const Select_DefaultValue = Template.bind({})
 Select_DefaultValue.args = {
   title: 'Title',
-  name: 'select_name',
+  name: 'select_defaultValue',
+  placeholder:'Select an Item',
   defaultValue: 'it1',
-
   register: () => {
     /* noop */
   },
@@ -56,7 +57,8 @@ Select_DefaultValue.args = {
 
 export const Select_Label = Template.bind({})
 Select_Label.args = {
-  label: 'Label:',
+  label: 'Label',
+  placeholder:'Select an Item',
   name: 'select_name',
   register: () => {
     /* noop */
@@ -70,7 +72,6 @@ Select_Label.args = {
 
 export const Select_Error = Template.bind({})
 Select_Error.args = {
-  label:'Label',
   name: 'text_with_error',
   register: () => {
     /* noop */
@@ -92,8 +93,8 @@ Select_Error.args = {
 
 export const Select_CustomClassName = Template.bind({})
 Select_CustomClassName.args = {
-  label: 'Label:',
-  name: 'select_name',
+  name: 'select_CustomClassName',
+  placeholder:'Select an Item',
   register: () => {
     /* noop */
   },
