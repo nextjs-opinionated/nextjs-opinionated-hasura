@@ -13,7 +13,7 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
   register,
   defaultValue,
 }) => {
-  const [color, setColor] = useState(null)
+  const [color, setColor] = useState('#000')
   console.log('colorPicker', color)
 
   return (
