@@ -15,7 +15,6 @@ export const FormToggle: React.FC<FormToggleProps> = ({
 
   function toggle() {
     setChecked(checked === false ? true : false)
-    console.log(checked)
   }
 
   return (

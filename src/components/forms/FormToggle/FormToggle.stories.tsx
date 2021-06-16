@@ -13,5 +13,4 @@ export const Toggle_Default = Template.bind({})
 Toggle_Default.args = {
   label: 'Label:',
   disabled: false,
-  // defaultValue: false,
 }
