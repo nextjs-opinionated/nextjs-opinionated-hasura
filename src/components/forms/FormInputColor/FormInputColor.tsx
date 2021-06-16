@@ -9,7 +9,6 @@ export interface FormInputColorProps extends FormBaseProps {
 export const FormInputColor: React.FC<FormInputColorProps> = ({
   label,
   labelDescription,
-  type = 'color',
   name,
   register,
   defaultValue,
@@ -23,7 +22,7 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
         <FormLabel name={name} label={label} labelDescription={labelDescription} />
         <div className='flex'>
           <input
-            type={type}
+            type='color'
             defaultValue={defaultValue}
             {...register(name)}
             onChange={(e) => setColor(e.target.value)}
