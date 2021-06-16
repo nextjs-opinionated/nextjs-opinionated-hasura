@@ -9,6 +9,7 @@ import Swal from 'sweetalert2'
 import { FormExampleValidationSchema } from '../model/FormExampleValidationSchema'
 import { FormInput } from '../components/forms/FormInput/FormInput'
 import { checkFetchJsonResult } from '../utils/checkFetchResult'
+import { FormInputColor } from '../components/forms/FormInputColor/FormInputColor'
 
 type FormProps = {
   email: string
@@ -95,6 +96,14 @@ const Page: React.FunctionComponent = () => {
                       <FormInput
                         label='Email:'
                         name='email'
+                        register={register}
+                        defaultValue=''
+                        validationErrors={validationErrors}
+                      />
+
+                      <FormInputColor
+                        label='Color:'
+                        name='color'
                         register={register}
                         defaultValue=''
                         validationErrors={validationErrors}
