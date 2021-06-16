@@ -7,7 +7,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   switch (method) {
     case 'GET':
       try {
-        const { users } = await new GqlSdkHelper().getSdk().users()
+        const limit = Number(req.query.limit)
+
+        const { users } = await new GqlSdkHelper().getSdk().users({ limit })
         res.json(users)
       } catch (e) {
         res.statusCode = 500
