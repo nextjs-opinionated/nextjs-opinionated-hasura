@@ -1,15 +1,9 @@
-import { GetStaticProps } from 'next'
 import { Layout } from '../../components/Layout/Layout'
 import { Roles_Enum, Users } from '../../graphql/generated'
-import GqlSdkHelper from '../../utils/GqlSdkHelper'
 import dayjs from 'dayjs'
-
-type Props = {
-  users: Users[]
-}
-
-const DEFAULT_IMG =
-  'https://images.unsplash.com/photo-1522196772883-393d879eb14d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=891&q=80'
+import Link from 'next/link'
+import { getInitialNameAvatar } from '../../utils/getInitialNameAvatar'
+import useSWRFetch from '../../utils/useSWRFetch'
 
 const handleBadgeRole = (role: Roles_Enum) => {
   switch (role) {
@@ -25,7 +19,17 @@ const handleBadgeRole = (role: Roles_Enum) => {
   }
 }
 
-export default function Page({ users }: Props) {
+export default function Page() {
+  const { data: users, loading: userLoading, error: userError } = useSWRFetch<Users[]>('/api/users')
+
+  if (userError) {
+    return <p>ERROR {userError}</p>
+  }
+
+  if (userLoading) {
+    return <button className='btn btn-sm btn-ghost loading'>loading</button>
+  }
+
   return (
     <Layout>
       <div className='overflow-x-auto'>
@@ -46,7 +50,7 @@ export default function Page({ users }: Props) {
                       <div className='avatar'>
                         <div className='w-12 h-12 mask mask-squircle'>
                           <img
-                            src={user.image ? user.image : DEFAULT_IMG}
+                            src={user.image ? user.image : getInitialNameAvatar(user.name)}
                             alt='Avatar Tailwind CSS Component'
                           />
                         </div>
@@ -62,7 +66,9 @@ export default function Page({ users }: Props) {
                   <td>{user.email}</td>
                   <td>{handleBadgeRole(user.role)}</td>
                   <th>
-                    <button className='btn btn-ghost btn-xs'>details</button>
+                    <Link href={`/users/${user.id}`}>
+                      <button className='btn btn-ghost btn-xs'>details</button>
+                    </Link>
                   </th>
                 </tr>
               </tbody>
@@ -71,10 +77,4 @@ export default function Page({ users }: Props) {
       </div>
     </Layout>
   )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const { users } = await new GqlSdkHelper().getSdk().users()
-
-  return { props: { users }, revalidate: 60 }
 }

@@ -1,0 +1,238 @@
+import { GetStaticPaths, GetStaticProps } from 'next'
+import GqlSdkHelper from '../../utils/GqlSdkHelper'
+import _ from 'lodash'
+import { Roles_Enum, Users } from '../../graphql/generated'
+import { Layout } from '../../components/Layout/Layout'
+import { useRouter } from 'next/router'
+import { RoleList } from '../../model/site/RoleList'
+import { useSession } from 'next-auth/client'
+import { DeepMap, FieldError, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { userValidationSchema } from '../../model/schemas/userValidationSchema'
+import { FormInput } from '../../components/forms/FormInput/FormInput'
+import { checkFetchJsonResult } from '../../utils/checkFetchResult'
+import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2'
+import { getInitialNameAvatar } from '../../utils/getInitialNameAvatar'
+import queryString from 'query-string'
+
+type User = Pick<Users, 'id' | 'name' | 'email' | 'image' | 'role'>
+
+type UserProps = {
+  user: User
+}
+
+type FormProps = User
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { users } = await new GqlSdkHelper().getSdk().users({ limit: 3 }) // load only 3 in build time
+
+  const userIds = users.map((user) => ({
+    params: { userId: String(user.id) },
+  }))
+
+  return { paths: userIds, fallback: true }
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { userId } = context.params
+  const { users_by_pk } = await new GqlSdkHelper().getSdk().users_by_pk({ id: _.toNumber(userId) })
+
+  if (users_by_pk) {
+    return {
+      props: {
+        user: users_by_pk,
+      },
+      revalidate: 60,
+    }
+  } else {
+    return { notFound: true }
+  }
+}
+
+export default function User({ user }: UserProps) {
+  const { isFallback, push } = useRouter()
+  const [session] = useSession()
+  const {
+    handleSubmit,
+    register,
+    formState: { errors: validationErrors },
+    reset,
+  } = useForm<FormProps>({
+    mode: 'onChange',
+    resolver: zodResolver(userValidationSchema),
+  })
+  const SwalReactAlert = withReactContent(Swal)
+
+  const IS_ADMIN = session?.user?.role === Roles_Enum.Admin
+
+  const onUpdateUser = async (submitProps: FormProps) => {
+    const fetchResponse = await fetch('/api/users/insert_users_one', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...submitProps,
+        id: user.id,
+      }),
+    })
+
+    const isValid = await checkFetchJsonResult(fetchResponse)
+    if (isValid) {
+      const myAlert = withReactContent(Swal)
+      const swalResult = await myAlert.fire({
+        title: 'updated user',
+        confirmButtonText: 'close',
+      })
+      if (swalResult.isConfirmed) {
+        push('/users')
+      }
+    }
+  }
+  const onError = (error: DeepMap<FormProps, FieldError>) => {
+    console.log('--  submitErrors: ', error)
+  }
+
+  const onDeleteUser = async () => {
+    const swalConfirmDelete = await SwalReactAlert.fire({
+      html: (
+        <p>
+          Do you want to delete the user: <strong>{user.name}</strong>
+        </p>
+      ),
+      showCloseButton: true,
+      showDenyButton: true,
+      denyButtonText: 'No',
+      confirmButtonText: 'Yes',
+      icon: 'question',
+    })
+
+    if (swalConfirmDelete.isConfirmed) {
+      const deleteResponse = await fetch(
+        `/api/users/delete_users_by_pk?${queryString.stringify({
+          user_id: user.id,
+        })}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+
+      const isValid = await checkFetchJsonResult(deleteResponse)
+      if (isValid) {
+        const swalResult = await SwalReactAlert.fire({
+          title: 'deleted user',
+          confirmButtonText: 'close',
+        })
+        if (swalResult.isConfirmed) {
+          push('/users')
+        }
+      }
+    }
+  }
+
+  return (
+    <Layout>
+      {isFallback ? (
+        <button className='btn btn-sm btn-ghost loading'>loading</button>
+      ) : (
+        <main className='flex justify-center mx-8'>
+          <form onSubmit={handleSubmit(onUpdateUser, onError)} className='max-w-4xl md:w-full'>
+            <div className='hidden sm:block' aria-hidden='true'>
+              <div className='py-5'>
+                <div className='border-t ' />
+              </div>
+            </div>
+
+            <div>
+              <div className='md:grid md:grid-cols-3 md:gap-6'>
+                <div className='md:col-span-1'>
+                  <div className='px-4 sm:px-0'>
+                    <h3 className='text-lg font-medium leading-6 text-left'>Users</h3>
+                    <div className='w-40 h-40 m-auto mt-8 mb-4 rounded-btn ring ring-primary ring-offset-base-100 ring-offset-2'>
+                      <img
+                        className='w-full h-full'
+                        src={user.image || getInitialNameAvatar(user.name)}
+                      />
+                    </div>
+                    <button
+                      type='button'
+                      onClick={() => onDeleteUser()}
+                      className='w-full mt-4 btn btn-error'
+                    >
+                      Delete user
+                    </button>
+                  </div>
+                </div>
+                <div className='mt-5 md:mt-0 md:col-span-2'>
+                  <div className='shadow sm:rounded-md sm:overflow-hidden'>
+                    <div className='px-4 py-5 space-y-6 sm:p-6'>
+                      <FormInput
+                        label='Nome:'
+                        name='name'
+                        register={register}
+                        disabled={!IS_ADMIN}
+                        defaultValue={user.name}
+                        validationErrors={validationErrors}
+                      />
+
+                      <FormInput
+                        label='email:'
+                        name='email'
+                        type='email'
+                        disabled={!IS_ADMIN}
+                        register={register}
+                        defaultValue={user.email}
+                        validationErrors={validationErrors}
+                      />
+
+                      {/* TODO: change to select component */}
+                      <select
+                        name='role'
+                        {...register('role')}
+                        defaultValue={user.role}
+                        disabled={!IS_ADMIN}
+                        className='w-full mt-10 select select-bordered'
+                      >
+                        {Object.entries(RoleList).map(([key, value]) => (
+                          <option disabled={!IS_ADMIN} key={key} value={key}>
+                            {value.name}
+                          </option>
+                        ))}
+                      </select>
+
+                      <div className='flex justify-end'>
+                        <button
+                          type='button'
+                          onClick={() => {
+                            reset(user)
+                          }}
+                          className='btn btn-secondary btn-link'
+                        >
+                          RESET
+                        </button>
+
+                        <button type='submit' className='btn btn-primary' disabled={!IS_ADMIN}>
+                          SAVE
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className='hidden sm:block' aria-hidden='true'>
+              <div className='py-5'>
+                <div className='border-t ' />
+              </div>
+            </div>
+          </form>
+        </main>
+      )}
+    </Layout>
+  )
+}
