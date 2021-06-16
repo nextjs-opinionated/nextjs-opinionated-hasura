@@ -33,28 +33,30 @@ const Page: React.FunctionComponent = () => {
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
-      console.log('--  submitProps: ', submitProps)
       const headers = new Headers()
       headers.append('Content-Type', 'application/json')
       const fetchResponse = await fetch('/api/formExample_api', {
         method: 'POST',
         headers,
-        body: JSON.stringify({
-          email: submitProps.email,
-        }),
+        body: JSON.stringify(submitProps),
       })
 
       /* check for server errors (VALIDATIONS) */
       const isValid = await checkFetchJsonResult(fetchResponse)
       if (isValid) {
-        const resultJSON = await fetchResponse.json()
+        // const resultJSON = await fetchResponse.json()
         const myAlert = withReactContent(Swal)
         await myAlert.fire({
           title: 'submited',
           html: (
-            <div>
-              <div>{resultJSON.message}</div>
-              <pre className='whitespace-pre'>{JSON.stringify(submitProps, null, 2)}</pre>
+            <div className='mockup-code'>
+              {JSON.stringify(submitProps, null, 2)
+                .split('\n')
+                .map((line, i) => (
+                  <pre key={`line_${i}`} className='text-left'>
+                    <code>{line}</code>
+                  </pre>
+                ))}
             </div>
           ),
           confirmButtonText: 'close',
@@ -106,12 +108,11 @@ const Page: React.FunctionComponent = () => {
                         label='Email:'
                         name='email'
                         register={register}
-                        defaultValue=''
                         validationErrors={validationErrors}
                       />
 
                       <FormToggle
-                        label='Toggle'
+                        label='Toggle:'
                         name='toggle'
                         register={register}
                         validationErrors={validationErrors}
@@ -121,7 +122,6 @@ const Page: React.FunctionComponent = () => {
                         label='Options:'
                         name='color_select'
                         register={register}
-                        defaultValue=''
                         validationErrors={validationErrors}
                         options={[
                           { value: 'white', label: 'White' },
@@ -146,12 +146,17 @@ const Page: React.FunctionComponent = () => {
                           onClick={async () => {
                             const headers = new Headers()
                             headers.append('Content-Type', 'application/json')
+
+                            const allValues = {
+                              email: getValues('email'),
+                              toggle: getValues('toggle'),
+                              color_select: getValues('color_select'),
+                            }
+
                             const fetchResponse = await fetch('/api/formExample_api', {
                               method: 'POST',
                               headers,
-                              body: JSON.stringify({
-                                email: getValues('email'),
-                              }),
+                              body: JSON.stringify(allValues),
                             })
 
                             /* check for server errors (VALIDATIONS) */

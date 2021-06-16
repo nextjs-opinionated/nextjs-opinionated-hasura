@@ -11,6 +11,7 @@ export const FormTextarea: React.FC<FormBaseProps> = ({
   validationErrors,
   className,
   labelDescription,
+  disabled,
 }) => {
   return (
     <div className='col-span-6 sm:col-span-4'>
@@ -20,6 +21,7 @@ export const FormTextarea: React.FC<FormBaseProps> = ({
           defaultValue={defaultValue}
           {...register(name)}
           placeholder={`${name}...`}
+          disabled={disabled}
           className={classnames(`textarea textarea-bordered h-24 ${className}`, {
             'textarea-error': validationErrors?.[name],
           })}
