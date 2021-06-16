@@ -9,9 +9,11 @@ import Swal from 'sweetalert2'
 import { FormExampleValidationSchema } from '../model/FormExampleValidationSchema'
 import { FormInput } from '../components/forms/FormInput/FormInput'
 import { checkFetchJsonResult } from '../utils/checkFetchResult'
+import { FormSelect } from '../components/forms/FormSelect/FormSelect'
 
 type FormProps = {
   email: string
+  color: string
 }
 
 const Page: React.FunctionComponent = () => {
@@ -98,6 +100,20 @@ const Page: React.FunctionComponent = () => {
                         register={register}
                         defaultValue=''
                         validationErrors={validationErrors}
+                      />
+
+                      <FormSelect
+                        label='Options:'
+                        name='color'
+                        register={register}
+                        defaultValue=''
+                        validationErrors={validationErrors}
+                        options={[
+                          { value: 'white', label: 'White' },
+                          { value: 'red', label: 'Red' },
+                          { value: 'green', label: 'Green' },
+                          { value: 'yellow', label: 'Yellow' },
+                        ]}
                       />
 
                       <div className='flex flex-wrap justify-end'>

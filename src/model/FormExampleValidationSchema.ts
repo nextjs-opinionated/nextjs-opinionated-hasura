@@ -8,4 +8,5 @@ export const FormExampleValidationSchema = z.object({
     .refine((value) => isEmail(value), {
       message: 'invalid email',
     }),
+  color: z.string(),
 })

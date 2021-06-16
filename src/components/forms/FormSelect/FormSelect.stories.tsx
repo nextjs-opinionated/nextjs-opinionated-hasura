@@ -21,27 +21,47 @@ export default {
 
 const Template: Story<SelectProps> = (args) => <FormSelect {...args} />
 
-
-
 export const Select_OK = Template.bind({})
 Select_OK.args = {
   name: 'select_item',
-  placeholder:'Select an Item',
+  placeholder: 'Select an Item',
   register: () => {
     /* noop */
   },
   validationErrors: {},
   options: [
-    { id: 'it1', value: 'item 1' },
-    { id: 'it2', value: 'item 2' },
+    { value: 'it1', label: 'item 1' },
+    { value: 'it2', label: 'item 2' },
   ],
+}
+
+export const Select_Empty = Template.bind({})
+Select_Empty.args = {
+  name: 'select_item',
+  register: () => {
+    /* noop */
+  },
+  validationErrors: {},
+  options: [],
+}
+
+export const Select_Empty_With_EmptyMessage = Template.bind({})
+Select_Empty_With_EmptyMessage.args = {
+  name: 'select_item',
+  placeholder: 'Select an Item',
+  register: () => {
+    /* noop */
+  },
+  validationErrors: {},
+  options: [],
+  emptyMessage: 'no items',
 }
 
 export const Select_DefaultValue = Template.bind({})
 Select_DefaultValue.args = {
   title: 'Title',
   name: 'select_defaultValue',
-  placeholder:'Select an Item',
+  placeholder: 'Select an Item',
   defaultValue: 'it1',
   register: () => {
     /* noop */
@@ -49,24 +69,23 @@ Select_DefaultValue.args = {
 
   validationErrors: {},
   options: [
-    { id: 'it1', value: 'item 1' },
-    { id: 'it2', value: 'item 2' },
+    { value: 'it1', label: 'item 1' },
+    { value: 'it2', label: 'item 2' },
   ],
-
 }
 
 export const Select_Label = Template.bind({})
 Select_Label.args = {
   label: 'Label',
-  placeholder:'Select an Item',
+  placeholder: 'Select an Item',
   name: 'select_name',
   register: () => {
     /* noop */
   },
   validationErrors: {},
   options: [
-    { id: 'it1', value: 'item 1' },
-    { id: 'it2', value: 'item 2' },
+    { value: 'it1', label: 'item 1' },
+    { value: 'it2', label: 'item 2' },
   ],
 }
 
@@ -76,33 +95,29 @@ Select_Error.args = {
   register: () => {
     /* noop */
   },
-  placeholder:'Select an Item',
+  placeholder: 'Select an Item',
   validationErrors: {
     text_with_error: {
       message: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
     },
   },
   options: [
-    { id: 'it1', value: 'item 1' },
-    { id: 'it2', value: 'item 2' },
+    { value: 'it1', label: 'item 1' },
+    { value: 'it2', label: 'item 2' },
   ],
 }
-
-
-
 
 export const Select_CustomClassName = Template.bind({})
 Select_CustomClassName.args = {
   name: 'select_CustomClassName',
-  placeholder:'Select an Item',
+  placeholder: 'Select an Item',
   register: () => {
     /* noop */
   },
   validationErrors: {},
   className: 'text-lg select-accent',
   options: [
-    { id: 'it1', value: 'item 1' },
-    { id: 'it2', value: 'item 2' },
+    { value: 'it1', label: 'item 1' },
+    { value: 'it2', label: 'item 2' },
   ],
 }
-
