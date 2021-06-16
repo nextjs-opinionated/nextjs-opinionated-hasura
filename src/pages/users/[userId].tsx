@@ -158,13 +158,15 @@ export default function User({ user }: UserProps) {
                         src={user.image || getInitialNameAvatar(user.name)}
                       />
                     </div>
-                    <button
-                      type='button'
-                      onClick={() => onDeleteUser()}
-                      className='w-full mt-4 btn btn-error'
-                    >
-                      Delete user
-                    </button>
+                    {IS_ADMIN && (
+                      <button
+                        type='button'
+                        onClick={() => onDeleteUser()}
+                        className='w-full mt-4 btn btn-error'
+                      >
+                        Delete user
+                      </button>
+                    )}
                   </div>
                 </div>
                 <div className='mt-5 md:mt-0 md:col-span-2'>
