@@ -1,6 +1,7 @@
 import classnames from 'classnames'
 import React, { InputHTMLAttributes } from 'react'
 import { FormBaseProps } from '../FormBaseProps'
+import { FormLabel } from '../FormLabel'
 
 export interface FormInputProps extends FormBaseProps {
   type?: InputHTMLAttributes<HTMLInputElement>['type']
@@ -8,6 +9,7 @@ export interface FormInputProps extends FormBaseProps {
 
 export const FormInput: React.FC<FormInputProps> = ({
   label,
+  labelDescription,
   type = 'text',
   name,
   placeholder,
@@ -19,9 +21,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   return (
     <div className='col-span-6 sm:col-span-4'>
       <div className='form-control'>
-        <label className='label' htmlFor={name}>
-          <span className='font-bold label-text'>{label || name}</span>
-        </label>
+        <FormLabel name={name} label={label} labelDescription={labelDescription} />
         <input
           type={type}
           defaultValue={defaultValue}

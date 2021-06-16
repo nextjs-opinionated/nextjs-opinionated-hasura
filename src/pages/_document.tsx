@@ -5,7 +5,7 @@ const googleAnalytics = process.env.NEXT_PUBLIC_GA_ID
 
 export default class MyDocument extends Document {
   render() {
-    const keywords = process.env.KEYWORDS
+    const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
 
     return (
       <Html lang='pt-br'>
