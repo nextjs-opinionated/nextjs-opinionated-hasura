@@ -145,7 +145,7 @@ const Page: React.FunctionComponent = () => {
                   <div className='mt-5 shadow sm:rounded-md sm:overflow-hidden'>
                     <div className='px-4 py-5 space-y-6 sm:p-6'>
                       <FormInputColor
-                        label='Color:'
+                        label='select a color:'
                         name='color'
                         register={register}
                         defaultValue=''
