@@ -10,9 +10,12 @@ import { FormExampleValidationSchema } from '../model/FormExampleValidationSchem
 import { FormInput } from '../components/forms/FormInput/FormInput'
 import { checkFetchJsonResult } from '../utils/checkFetchResult'
 import { FormToggle } from '../components/forms/FormToggle/FormToggle'
+import { FormSelect } from '../components/forms/FormSelect/FormSelect'
 
 type FormProps = {
   email: string
+  color_select: string
+  toggle: boolean
 }
 
 const Page: React.FunctionComponent = () => {
@@ -30,6 +33,7 @@ const Page: React.FunctionComponent = () => {
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
+      console.log('--  submitProps: ', submitProps)
       const headers = new Headers()
       headers.append('Content-Type', 'application/json')
       const fetchResponse = await fetch('/api/formExample_api', {
@@ -46,8 +50,13 @@ const Page: React.FunctionComponent = () => {
         const resultJSON = await fetchResponse.json()
         const myAlert = withReactContent(Swal)
         await myAlert.fire({
-          title: 'submited email',
-          html: resultJSON.message,
+          title: 'submited',
+          html: (
+            <div>
+              <div>{resultJSON.message}</div>
+              <pre className='whitespace-pre'>{JSON.stringify(submitProps, null, 2)}</pre>
+            </div>
+          ),
           confirmButtonText: 'close',
         })
       }
@@ -103,9 +112,23 @@ const Page: React.FunctionComponent = () => {
 
                       <FormToggle
                         label='Toggle'
-                        name='ToggleSwitch'
+                        name='toggle'
                         register={register}
                         validationErrors={validationErrors}
+                      />
+
+                      <FormSelect
+                        label='Options:'
+                        name='color_select'
+                        register={register}
+                        defaultValue=''
+                        validationErrors={validationErrors}
+                        options={[
+                          { value: 'white', label: 'White' },
+                          { value: 'red', label: 'Red' },
+                          { value: 'green', label: 'Green' },
+                          { value: 'yellow', label: 'Yellow' },
+                        ]}
                       />
 
                       <div className='flex flex-wrap justify-end'>
