@@ -42,6 +42,7 @@
     "next-themes": "^0.0.14",
     "query-string": "^7.0.0",
     "react": "17.0.2",
+    "react-colorful": "^5.2.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.7.1",
     "react-icons": "^4.2.0",
