@@ -157,15 +157,6 @@ const Page: React.FunctionComponent = () => {
                         validationErrors={validationErrors}
                       />
 
-                      <FormImage
-                        type='file'
-                        register={register}
-                        label='Image'
-                        placeholder='Select an Image'
-                        name='image'
-                        validationErrors={validationErrors}
-                      />
-
                       <FormSelect
                         label='Colors:'
                         placeholder='Please, select a color...'
@@ -179,6 +170,15 @@ const Page: React.FunctionComponent = () => {
                           { value: 'green', label: 'Green' },
                           { value: 'yellow', label: 'Yellow' },
                         ]}
+                      />
+
+                      <FormImage
+                        type='file'
+                        register={register}
+                        label='Image: '
+                        placeholder='Select an Image'
+                        name='image'
+                        validationErrors={validationErrors}
                       />
 
                       <div className='flex flex-wrap justify-end'>
