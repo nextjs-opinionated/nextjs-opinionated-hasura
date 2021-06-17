@@ -109,9 +109,7 @@ const Page: React.FunctionComponent = () => {
           </div>
           <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
             <div className='hidden sm:block' aria-hidden='true'>
-              <div className='py-5'>
-                <div className='border-t' />
-              </div>
+              <div className='py-5'></div>
             </div>
             <div>
               <div className='md:grid md:grid-cols-3 md:gap-6'>
@@ -209,7 +207,7 @@ const Page: React.FunctionComponent = () => {
 
             <div className='hidden sm:block' aria-hidden='true'>
               <div className='py-5'>
-                <div className='border-t ' />
+                <div className='border-t' />
               </div>
             </div>
           </form>
