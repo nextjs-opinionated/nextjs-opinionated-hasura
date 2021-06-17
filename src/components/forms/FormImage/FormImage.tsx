@@ -44,7 +44,7 @@ export const FormImage: React.FC<FormImageProps> = ({
         <FormLabel name={name} label={label} labelDescription={labelDescription} />
         <div className='relative flex flex-col '>
           <div
-            className={classnames(`  mb-6 ${className}`, {
+            className={classnames(` avatar mb-6 ${className}`, {
               'rounded-btn border-2 border-error': validationErrors?.[name],
             })}
           >
