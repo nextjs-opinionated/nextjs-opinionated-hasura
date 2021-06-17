@@ -11,9 +11,9 @@ import { FormInput } from '../components/forms/FormInput/FormInput'
 import { checkFetchJsonResult } from '../utils/checkFetchResult'
 import { FormImage } from '../components/forms/FormImage/FormImage'
 
- type FormProps = {
-  email: string,
-  image:FileList
+type FormProps = {
+  email: string
+  image: File
 }
 
 const Page: React.FunctionComponent = () => {
@@ -23,15 +23,21 @@ const Page: React.FunctionComponent = () => {
     formState: { errors: validationErrors },
     formState,
     getValues,
-    setValue,
     // reset,
   } = useForm<FormProps>({
     mode: 'onChange',
     resolver: zodResolver(FormExampleValidationSchema),
   })
 
+  const handleUpload = (file: File) => {
+    if (!file[0]) return null
+    const { name, type } = file[0]
+    return { name, type }
+  }
+
   const onSubmit = handleSubmit(
     async (submitProps) => {
+      const image = handleUpload(submitProps.image)
 
       const headers = new Headers()
       headers.append('Content-Type', 'application/json')
@@ -40,11 +46,13 @@ const Page: React.FunctionComponent = () => {
         headers,
         body: JSON.stringify({
           email: submitProps.email,
+          image: image,
         }),
       })
 
       /* check for server errors (VALIDATIONS) */
       const isValid = await checkFetchJsonResult(fetchResponse)
+
       if (isValid) {
         const resultJSON = await fetchResponse.json()
         const myAlert = withReactContent(Swal)
@@ -59,7 +67,6 @@ const Page: React.FunctionComponent = () => {
       console.error('--  submitErrors: ', submitErrors)
     }
   )
-
 
   return (
     <>
@@ -105,16 +112,14 @@ const Page: React.FunctionComponent = () => {
                         validationErrors={validationErrors}
                       />
 
-                      <FormImage 
-    setValue={setValue}
-
+                      <FormImage
+                        type='file'
                         register={register}
                         label='Image'
                         placeholder='Select an Image'
-                        name='image'  
-                        validationErrors={validationErrors}                        
+                        name='image'
+                        validationErrors={validationErrors}
                       />
-
 
                       <div className='flex flex-wrap justify-end'>
                         <button
