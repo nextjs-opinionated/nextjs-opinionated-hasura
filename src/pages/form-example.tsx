@@ -57,7 +57,6 @@ const Page: React.FunctionComponent = () => {
           toggle: submitProps.toggle,
         }),
       })
-
       /* check for server errors (VALIDATIONS) */
       const isValid = await checkFetchJsonResult(fetchResponse)
 
@@ -180,6 +179,8 @@ const Page: React.FunctionComponent = () => {
                         label='Image: '
                         placeholder='Select an Image'
                         name='image'
+                        width='300px'
+                        height='420px'
                         validationErrors={validationErrors}
                       />
 

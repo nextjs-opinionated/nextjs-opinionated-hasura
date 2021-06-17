@@ -8,6 +8,8 @@ import { FiCamera } from 'react-icons/fi'
 
 export interface FormImageProps extends FormBaseProps {
   type?: InputHTMLAttributes<HTMLInputElement>['type']
+  width?: string
+  height?: string
 }
 
 export const FormImage: React.FC<FormImageProps> = ({
@@ -15,6 +17,8 @@ export const FormImage: React.FC<FormImageProps> = ({
   labelDescription,
   type = 'file',
   name,
+  width = '8rem',
+  height = '8rem',
   placeholder,
   register,
   defaultValue,
@@ -36,16 +40,24 @@ export const FormImage: React.FC<FormImageProps> = ({
 
   return (
     <div className='col-span-6 pb-20 sm:col-span-4'>
-      <div className='w-32 h-32 form-control'>
+      <div style={{ width: width, height: height }} className='form-control'>
         <FormLabel name={name} label={label} labelDescription={labelDescription} />
         <div className='relative flex flex-col '>
           <div
-            className={classnames(` avatar mb-6 ${className}`, {
+            className={classnames(`  mb-6 ${className}`, {
               'rounded-btn border-2 border-error': validationErrors?.[name],
             })}
           >
-            <div className='w-full h-32 rounded-btn'>
-              {image ? <img src={image} /> : <div className='w-32 h-32 bg-gray-300'></div>}
+            <div className='w-full h-full rounded-btn'>
+              {image ? (
+                <img
+                  src={image}
+                  style={{ width: width, height: height }}
+                  className='object-fill '
+                />
+              ) : (
+                <div style={{ width: width, height: height }} className='bg-gray-300 '></div>
+              )}
             </div>
           </div>
           <label
