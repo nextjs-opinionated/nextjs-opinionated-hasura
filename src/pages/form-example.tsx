@@ -9,9 +9,11 @@ import Swal from 'sweetalert2'
 import { FormExampleValidationSchema } from '../model/FormExampleValidationSchema'
 import { FormInput } from '../components/forms/FormInput/FormInput'
 import { checkFetchJsonResult } from '../utils/checkFetchResult'
+import { FormImage } from '../components/forms/FormImage/FormImage'
 
-type FormProps = {
-  email: string
+ type FormProps = {
+  email: string,
+  image:FileList
 }
 
 const Page: React.FunctionComponent = () => {
@@ -21,6 +23,7 @@ const Page: React.FunctionComponent = () => {
     formState: { errors: validationErrors },
     formState,
     getValues,
+    setValue,
     // reset,
   } = useForm<FormProps>({
     mode: 'onChange',
@@ -29,6 +32,7 @@ const Page: React.FunctionComponent = () => {
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
+
       const headers = new Headers()
       headers.append('Content-Type', 'application/json')
       const fetchResponse = await fetch('/api/formExample_api', {
@@ -55,6 +59,7 @@ const Page: React.FunctionComponent = () => {
       console.error('--  submitErrors: ', submitErrors)
     }
   )
+
 
   return (
     <>
@@ -99,6 +104,17 @@ const Page: React.FunctionComponent = () => {
                         defaultValue=''
                         validationErrors={validationErrors}
                       />
+
+                      <FormImage 
+    setValue={setValue}
+
+                        register={register}
+                        label='Image'
+                        placeholder='Select an Image'
+                        name='image'  
+                        validationErrors={validationErrors}                        
+                      />
+
 
                       <div className='flex flex-wrap justify-end'>
                         <button
