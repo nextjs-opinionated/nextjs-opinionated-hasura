@@ -8,4 +8,14 @@ export const FormExampleValidationSchema = z.object({
     .refine((value) => isEmail(value), {
       message: 'invalid email',
     }),
+  image:
+    typeof window === 'undefined'
+      ? z.any()
+      : z.instanceof(FileList).refine((fileValue) => {
+          if (fileValue.length > 0) {
+            return true
+          } else {
+            return false
+          }
+        }),
 })
