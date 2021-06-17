@@ -53,6 +53,8 @@ const Page: React.FunctionComponent = () => {
         body: JSON.stringify({
           email: submitProps.email,
           image: image,
+          color_select: submitProps.color_select,
+          toggle: submitProps.toggle,
         }),
       })
 
