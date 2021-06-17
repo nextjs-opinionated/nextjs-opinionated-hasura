@@ -11,17 +11,23 @@ import { FormInput } from '../components/forms/FormInput/FormInput'
 import { checkFetchJsonResult } from '../utils/checkFetchResult'
 import { FormImage } from '../components/forms/FormImage/FormImage'
 
+import { FormToggle } from '../components/forms/FormToggle/FormToggle'
+import { FormSelect } from '../components/forms/FormSelect/FormSelect'
+import { useRouter } from 'next/router'
+
 type FormProps = {
   email: string
+  color_select: string
+  toggle: boolean
   image: File
 }
 
 const Page: React.FunctionComponent = () => {
+  const router = useRouter()
   const {
     handleSubmit,
     register,
     formState: { errors: validationErrors },
-    formState,
     getValues,
     // reset,
   } = useForm<FormProps>({
@@ -54,11 +60,21 @@ const Page: React.FunctionComponent = () => {
       const isValid = await checkFetchJsonResult(fetchResponse)
 
       if (isValid) {
-        const resultJSON = await fetchResponse.json()
+        // const resultJSON = await fetchResponse.json()
         const myAlert = withReactContent(Swal)
         await myAlert.fire({
-          title: 'submited email',
-          html: resultJSON.message,
+          title: 'submited',
+          html: (
+            <div className='mockup-code'>
+              {JSON.stringify(submitProps, null, 2)
+                .split('\n')
+                .map((line, i) => (
+                  <pre key={`line_${i}`} className='text-left'>
+                    <code>{line}</code>
+                  </pre>
+                ))}
+            </div>
+          ),
           confirmButtonText: 'close',
         })
       }
@@ -83,14 +99,35 @@ const Page: React.FunctionComponent = () => {
         }
         menuItems={Object.values(LinksList)}
       >
-        <main className='flex justify-center mx-8'>
+        <main className='flex flex-col items-center mx-8'>
+          <div className='flex justify-end'>
+            <button
+              type='button'
+              onClick={() => {
+                router.replace('/form-example/')
+              }}
+              className='mx-3 btn btn-secondary'
+            >
+              empty form
+            </button>
+            <button
+              type='button'
+              onClick={() => {
+                router.replace(
+                  '/form-example/?email=some_email@gmail.com&color_select=red&toggle=true'
+                )
+              }}
+              className='mx-3 btn btn-secondary'
+            >
+              initial values form
+            </button>
+          </div>
           <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
             <div className='hidden sm:block' aria-hidden='true'>
               <div className='py-5'>
-                <div className='border-t ' />
+                <div className='border-t' />
               </div>
             </div>
-
             <div>
               <div className='md:grid md:grid-cols-3 md:gap-6'>
                 <div className='md:col-span-1'>
@@ -108,7 +145,15 @@ const Page: React.FunctionComponent = () => {
                         label='Email:'
                         name='email'
                         register={register}
-                        defaultValue=''
+                        defaultValue={router.query.email}
+                        validationErrors={validationErrors}
+                      />
+
+                      <FormToggle
+                        label='Toggle:'
+                        name='toggle'
+                        defaultValue={router.query.toggle}
+                        register={register}
                         validationErrors={validationErrors}
                       />
 
@@ -121,13 +166,28 @@ const Page: React.FunctionComponent = () => {
                         validationErrors={validationErrors}
                       />
 
+                      <FormSelect
+                        label='Colors:'
+                        placeholder='Please, select a color...'
+                        name='color_select'
+                        register={register}
+                        defaultValue={router.query.color_select}
+                        validationErrors={validationErrors}
+                        options={[
+                          { value: 'white', label: 'White' },
+                          { value: 'red', label: 'Red' },
+                          { value: 'green', label: 'Green' },
+                          { value: 'yellow', label: 'Yellow' },
+                        ]}
+                      />
+
                       <div className='flex flex-wrap justify-end'>
-                        <button
-                          type='submit'
-                          className='mx-3 btn btn-primary'
-                          disabled={!formState.isValid}
-                        >
+                        <button type='submit' className='mx-3 btn btn-primary'>
                           Validate on client and on server
+                        </button>
+
+                        <button type='reset' className='mx-3 btn btn-secondary'>
+                          RESET
                         </button>
 
                         <button
@@ -136,12 +196,17 @@ const Page: React.FunctionComponent = () => {
                           onClick={async () => {
                             const headers = new Headers()
                             headers.append('Content-Type', 'application/json')
+
+                            const allValues = {
+                              email: getValues('email'),
+                              toggle: getValues('toggle'),
+                              color_select: getValues('color_select'),
+                            }
+
                             const fetchResponse = await fetch('/api/formExample_api', {
                               method: 'POST',
                               headers,
-                              body: JSON.stringify({
-                                email: getValues('email'),
-                              }),
+                              body: JSON.stringify(allValues),
                             })
 
                             /* check for server errors (VALIDATIONS) */

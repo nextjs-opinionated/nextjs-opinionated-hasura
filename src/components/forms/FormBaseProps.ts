@@ -7,4 +7,5 @@ export interface FormBaseProps {
   defaultValue?: any
   validationErrors: any
   className?: string
+  disabled?: boolean
 }
