@@ -12,13 +12,16 @@ export const FormExampleValidationSchema = z.object({
   image:
     typeof window === 'undefined'
       ? z.any()
-      : z.instanceof(FileList).refine((fileValue) => {
-          if (fileValue.length > 0) {
-            return true
-          } else {
-            return false
-          }
-        }),
+      : z.instanceof(FileList).refine(
+          (fileValue) => {
+            if (fileValue.length > 0) {
+              return true
+            } else {
+              return false
+            }
+          },
+          { message: 'please, select an image' }
+        ),
   color_select: z.string().refine((value) => value !== EMPTY_VALUE, {
     message: 'please, select an item',
   }),
