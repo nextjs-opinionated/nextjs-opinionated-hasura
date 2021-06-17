@@ -1,7 +1,7 @@
 import React, { OptionHTMLAttributes } from 'react'
 import * as TestingLib from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { FormSelect } from './FormSelect'
+import { EMPTY_VALUE, FormSelect } from './FormSelect'
 import { fireEvent } from '@testing-library/react'
 
 describe('Select Component', () => {
@@ -45,7 +45,7 @@ describe('Select Component', () => {
 
     const allOptions = render.getAllByRole('option') as OptionHTMLAttributes<HTMLOptionElement>
 
-    expect(allOptions[0].value).toEqual('__EMPTY_VALUE__')
+    expect(allOptions[0].value).toEqual(EMPTY_VALUE)
     expect(allOptions[1].value).toEqual('it1')
     expect(allOptions[2].value).toEqual('it2')
   })

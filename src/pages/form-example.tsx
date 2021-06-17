@@ -11,6 +11,7 @@ import { FormInput } from '../components/forms/FormInput/FormInput'
 import { checkFetchJsonResult } from '../utils/checkFetchResult'
 import { FormToggle } from '../components/forms/FormToggle/FormToggle'
 import { FormSelect } from '../components/forms/FormSelect/FormSelect'
+import { useRouter } from 'next/router'
 
 type FormProps = {
   email: string
@@ -19,11 +20,11 @@ type FormProps = {
 }
 
 const Page: React.FunctionComponent = () => {
+  const router = useRouter()
   const {
     handleSubmit,
     register,
     formState: { errors: validationErrors },
-    formState,
     getValues,
     // reset,
   } = useForm<FormProps>({
@@ -83,14 +84,35 @@ const Page: React.FunctionComponent = () => {
         }
         menuItems={Object.values(LinksList)}
       >
-        <main className='flex justify-center mx-8'>
+        <main className='flex flex-col items-center mx-8'>
+          <div className='flex justify-end'>
+            <button
+              type='button'
+              onClick={() => {
+                router.replace('/form-example/')
+              }}
+              className='mx-3 btn btn-secondary'
+            >
+              empty form
+            </button>
+            <button
+              type='button'
+              onClick={() => {
+                router.replace(
+                  '/form-example/?email=some_email@gmail.com&color_select=red&toggle=true'
+                )
+              }}
+              className='mx-3 btn btn-secondary'
+            >
+              initial values form
+            </button>
+          </div>
           <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
             <div className='hidden sm:block' aria-hidden='true'>
               <div className='py-5'>
                 <div className='border-t' />
               </div>
             </div>
-
             <div>
               <div className='md:grid md:grid-cols-3 md:gap-6'>
                 <div className='md:col-span-1'>
@@ -108,20 +130,24 @@ const Page: React.FunctionComponent = () => {
                         label='Email:'
                         name='email'
                         register={register}
+                        defaultValue={router.query.email}
                         validationErrors={validationErrors}
                       />
 
                       <FormToggle
                         label='Toggle:'
                         name='toggle'
+                        defaultValue={router.query.toggle}
                         register={register}
                         validationErrors={validationErrors}
                       />
 
                       <FormSelect
-                        label='Options:'
+                        label='Colors:'
+                        placeholder='Please, select a color...'
                         name='color_select'
                         register={register}
+                        defaultValue={router.query.color_select}
                         validationErrors={validationErrors}
                         options={[
                           { value: 'white', label: 'White' },
@@ -132,12 +158,12 @@ const Page: React.FunctionComponent = () => {
                       />
 
                       <div className='flex flex-wrap justify-end'>
-                        <button
-                          type='submit'
-                          className='mx-3 btn btn-primary'
-                          disabled={!formState.isValid}
-                        >
+                        <button type='submit' className='mx-3 btn btn-primary'>
                           Validate on client and on server
+                        </button>
+
+                        <button type='reset' className='mx-3 btn btn-secondary'>
+                          RESET
                         </button>
 
                         <button
