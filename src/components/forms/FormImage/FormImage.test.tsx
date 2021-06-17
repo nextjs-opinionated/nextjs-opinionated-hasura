@@ -11,9 +11,7 @@ describe('Image Component', () => {
         label='Name'
         placeholder='Select an Image'
         name='image_name'
-        setValue={() => {
-            /* noop */
-          }}
+        
         register={() => {
           /* noop */
         }}
@@ -30,9 +28,7 @@ describe('Image Component', () => {
       <FormImage
         label='Label'
         name='Select an Image'
-        setValue={() => {
-        /* noop */
-        }}
+       
         defaultValue='http://daisyui.com/tailwind-css-component-profile-1@94w.png'
         register={() => {
           /* noop */
@@ -52,9 +48,7 @@ describe('Image Component', () => {
     const render = TestingLib.render(
       <FormImage
         label='Label'
-        setValue={() => {
-            /* noop */
-          }}
+        
         placeholder='Select an Image'
         name='image_name'
         register={() => {
@@ -75,9 +69,7 @@ describe('Image Component', () => {
     const render = TestingLib.render(
       <FormImage
         label='Label'
-        setValue={() => {
-            /* noop */
-          }}
+        
         placeholder='Select an Image'
         name='text_with_error'
         register={() => {
