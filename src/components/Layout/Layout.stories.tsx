@@ -5,7 +5,7 @@ import { LinksList } from '../../model/site/LinksList'
 import { ThemeList } from '../../model/site/ThemeList'
 
 export default {
-  title: 'Component/Layout',
+  title: 'Component/Pages/Layout',
   component: Layout,
   argTypes: {
     internal_theme: {
