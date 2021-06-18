@@ -61,7 +61,7 @@ export const FormImage: React.FC<FormImageProps> = ({
             title={placeholder}
             htmlFor={name}
             className={classnames(
-              `mt-2 tracking-wide uppercase bg-base border border-current rounded-lg shadow-lg cursor-pointer hover:bg-primary hover:text-base self-center px-4 py-2 flex flex-col items-center transition duration-300 ease-in-out text-primary`,
+              `mt-2 tracking-wide uppercase bg-base border border-current rounded-lg shadow-lg cursor-pointer hover:bg-primary hover:text-primary-content self-center px-4 py-2 flex flex-col items-center transition duration-300 ease-in-out text-primary`,
               {
                 'text-error': validationErrors?.[name],
               }
