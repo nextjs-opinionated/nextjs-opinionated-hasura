@@ -1,6 +1,6 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
-import { FormSelect, SelectProps } from './FormSelect'
+import { EMPTY_SELECT_OPTION_VALUE, FormSelect, SelectProps } from './FormSelect'
 
 export default {
   title: 'Component/Forms/FormSelect',
@@ -21,18 +21,35 @@ export default {
 
 const Template: Story<SelectProps> = (args) => <FormSelect {...args} />
 
-export const Select_OK = Template.bind({})
-Select_OK.args = {
+const FIVE_OPTIONS = [
+  { value: 'it0', label: 'item 0' },
+  { value: 'it1', label: 'item 1' },
+  { value: 'it2', label: 'item 2' },
+  { value: 'it3', label: 'item 3' },
+  { value: 'it4', label: 'item 4' },
+]
+
+export const Select_Without_Label = Template.bind({})
+Select_Without_Label.args = {
   name: 'select_item',
   placeholder: 'Select an Item',
   register: () => {
     /* noop */
   },
   validationErrors: {},
-  options: [
-    { value: 'it1', label: 'item 1' },
-    { value: 'it2', label: 'item 2' },
-  ],
+  options: FIVE_OPTIONS,
+}
+
+export const Select_With_Label = Template.bind({})
+Select_With_Label.args = {
+  label: 'Label',
+  placeholder: 'Select an Item',
+  name: 'select_name',
+  register: () => {
+    /* noop */
+  },
+  validationErrors: {},
+  options: FIVE_OPTIONS,
 }
 
 export const Select_Empty = Template.bind({})
@@ -57,36 +74,46 @@ Select_Empty_With_EmptyMessage.args = {
   emptyMessage: 'no items',
 }
 
-export const Select_DefaultValue = Template.bind({})
-Select_DefaultValue.args = {
-  title: 'Title',
+export const Select_DefaultValue_ItemEmpty = Template.bind({})
+Select_DefaultValue_ItemEmpty.args = {
+  label: 'Title',
   name: 'select_defaultValue',
   placeholder: 'Select an Item',
-  defaultValue: 'it1',
+  defaultValue: EMPTY_SELECT_OPTION_VALUE,
   register: () => {
     /* noop */
   },
 
   validationErrors: {},
-  options: [
-    { value: 'it1', label: 'item 1' },
-    { value: 'it2', label: 'item 2' },
-  ],
+  options: FIVE_OPTIONS,
 }
 
-export const Select_Label = Template.bind({})
-Select_Label.args = {
-  label: 'Label',
+export const Select_DefaultValue_Item0 = Template.bind({})
+Select_DefaultValue_Item0.args = {
+  label: 'Title',
+  name: 'select_defaultValue',
   placeholder: 'Select an Item',
-  name: 'select_name',
+  defaultValue: FIVE_OPTIONS[0].value,
   register: () => {
     /* noop */
   },
+
   validationErrors: {},
-  options: [
-    { value: 'it1', label: 'item 1' },
-    { value: 'it2', label: 'item 2' },
-  ],
+  options: FIVE_OPTIONS,
+}
+
+export const Select_DefaultValue_Item1 = Template.bind({})
+Select_DefaultValue_Item1.args = {
+  label: 'Title',
+  name: 'select_defaultValue',
+  placeholder: 'Select an Item',
+  defaultValue: FIVE_OPTIONS[1].value,
+  register: () => {
+    /* noop */
+  },
+
+  validationErrors: {},
+  options: FIVE_OPTIONS,
 }
 
 export const Select_Error = Template.bind({})
@@ -101,10 +128,7 @@ Select_Error.args = {
       message: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
     },
   },
-  options: [
-    { value: 'it1', label: 'item 1' },
-    { value: 'it2', label: 'item 2' },
-  ],
+  options: FIVE_OPTIONS,
 }
 
 export const Select_CustomClassName = Template.bind({})
@@ -116,8 +140,5 @@ Select_CustomClassName.args = {
   },
   validationErrors: {},
   className: 'text-lg select-accent',
-  options: [
-    { value: 'it1', label: 'item 1' },
-    { value: 'it2', label: 'item 2' },
-  ],
+  options: FIVE_OPTIONS,
 }

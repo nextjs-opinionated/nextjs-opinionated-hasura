@@ -32,7 +32,8 @@ export const FormImage: React.FC<FormImageProps> = ({
 
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files.length !== 0) {
-      imageSet({ url: URL.createObjectURL(e.target.files[0]), name: e.target.files[0].name })
+      const imageObj = { url: URL.createObjectURL(e.target.files[0]), name: e.target.files[0].name }
+      imageSet(imageObj)
     }
   }
 
@@ -60,7 +61,7 @@ export const FormImage: React.FC<FormImageProps> = ({
             title={placeholder}
             htmlFor={name}
             className={classnames(
-              `mt-2 tracking-wide uppercase bg-white border border-current rounded-lg shadow-lg cursor-pointer hover:bg-primary hover:text-white self-center px-4 py-2 flex flex-col items-center transition duration-300 ease-in-out text-primary`,
+              `mt-2 tracking-wide uppercase bg-base border border-current rounded-lg shadow-lg cursor-pointer hover:bg-primary hover:text-base self-center px-4 py-2 flex flex-col items-center transition duration-300 ease-in-out text-primary`,
               {
                 'text-error': validationErrors?.[name],
               }
