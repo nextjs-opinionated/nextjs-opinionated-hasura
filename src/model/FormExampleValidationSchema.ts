@@ -9,8 +9,22 @@ export const FormExampleValidationSchema = z.object({
     .refine((value) => isEmail(value), {
       message: 'invalid email',
     }),
+  image:
+    typeof window === 'undefined'
+      ? z.any()
+      : z.instanceof(FileList).refine(
+          (fileValue) => {
+            if (fileValue.length > 0) {
+              return true
+            } else {
+              return false
+            }
+          },
+          { message: 'please, select an image' }
+        ),
   color_select: z.string().refine((value) => value !== EMPTY_SELECT_OPTION_VALUE, {
-    message: 'please, select an item',
+    message: 'please, select an option',
   }),
   toggle: z.boolean(),
 })
+// .refine() // TODO: validate image_url to ignore image validation if there is already an image on server

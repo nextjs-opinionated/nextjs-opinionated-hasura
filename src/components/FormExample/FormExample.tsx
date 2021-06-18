@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,12 +10,15 @@ import { FormInput } from '../forms/FormInput/FormInput'
 import { FormSelect } from '../forms/FormSelect/FormSelect'
 import { FormToggle } from '../forms/FormToggle/FormToggle'
 import { useMemo } from 'react'
+import { FormImage } from '../forms/FormImage/FormImage'
 
 export type FormExampleProps = {
   initialFormData?: {
     email: string
     color_select: string
     toggle: boolean
+    image?: File
+    image_url: string
   }
 }
 
@@ -27,22 +31,33 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
     formState: { errors: validationErrors },
     getValues,
     // reset,
-  } = useForm<FormExampleProps>({
+  } = useForm<FormExampleProps['initialFormData']>({
     mode: 'onChange',
     resolver: zodResolver(FormExampleValidationSchema),
     defaultValues: useMemo(() => {
-      return { initialFormData }
+      return initialFormData
     }, [initialFormData]),
   })
 
+  const handleUpload = (file: File) => {
+    if (!file[0]) return null
+    const { name, type } = file[0]
+    return { name, type }
+  }
+
   const onSubmit = handleSubmit(
     async (submitProps) => {
+      const image = handleUpload(submitProps.image)
+
       const headers = new Headers()
       headers.append('Content-Type', 'application/json')
       const fetchResponse = await fetch('/api/formExample_api', {
         method: 'POST',
         headers,
-        body: JSON.stringify(submitProps),
+        body: JSON.stringify({
+          ...submitProps,
+          image,
+        }),
       })
 
       /* check for server errors (VALIDATIONS) */
@@ -123,6 +138,17 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                   ]}
                 />
 
+                <FormImage
+                  register={register}
+                  label='Image:'
+                  placeholder='Select an Image'
+                  name='image'
+                  width={120}
+                  height={120}
+                  defaultValue={initialFormData.image_url}
+                  validationErrors={validationErrors}
+                />
+
                 <div className='flex flex-col'>
                   <div className='flex justify-end'>
                     <button type='reset' className='mx-3 btn btn-secondary'>
@@ -142,15 +168,18 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                         const headers = new Headers()
                         headers.append('Content-Type', 'application/json')
 
-                        const allValues = getValues('initialFormData')
-
                         const fetchResponse = await fetch('/api/formExample_api', {
                           method: 'POST',
                           headers,
-                          body: JSON.stringify(allValues),
+                          body: JSON.stringify({
+                            email: getValues('email'),
+                            color_select: getValues('color_select'),
+                            toggle: getValues('toggle'),
+                            image: getValues('image'),
+                            image_url: getValues('image_url'),
+                          }),
                         })
 
-                        /* check for server errors (VALIDATIONS) */
                         const isValid = await checkFetchJsonResult(fetchResponse)
                         if (isValid) {
                           const resultJSON = await fetchResponse.json()

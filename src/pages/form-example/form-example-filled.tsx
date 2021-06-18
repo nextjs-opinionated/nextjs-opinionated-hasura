@@ -26,6 +26,7 @@ const Page: React.FunctionComponent = () => {
               email: 'some_email@gmail.com',
               color_select: 'red',
               toggle: true,
+              image_url: 'https://via.placeholder.com/1080x1920.png?text=Image+Placeholder',
             }}
           />
         </main>
