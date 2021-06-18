@@ -69,13 +69,46 @@ Textarea_Error.args = {
   },
 }
 
-export const Textarea_CustomClassName = Template.bind({})
-Textarea_CustomClassName.args = {
+export const Textarea_CustomClassName_Large = Template.bind({})
+Textarea_CustomClassName_Large.args = {
   name: 'text_area_name',
   register: () => {
     /* noop */
   },
   className: 'text-lg h-64',
+  defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
+  validationErrors: {},
+}
+
+export const Textarea_CustomClassName_Normal = Template.bind({})
+Textarea_CustomClassName_Normal.args = {
+  name: 'text_area_name',
+  register: () => {
+    /* noop */
+  },
+  className: 'text-base',
+  defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
+  validationErrors: {},
+}
+
+export const Textarea_CustomClassName_Small = Template.bind({})
+Textarea_CustomClassName_Small.args = {
+  name: 'text_area_name',
+  register: () => {
+    /* noop */
+  },
+  className: 'text-sm h-20',
+  defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
+  validationErrors: {},
+}
+
+export const Textarea_CustomClassName_Tiny = Template.bind({})
+Textarea_CustomClassName_Tiny.args = {
+  name: 'text_area_name',
+  register: () => {
+    /* noop */
+  },
+  className: 'h-24 input-xs',
   defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
   validationErrors: {},
 }
