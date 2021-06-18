@@ -179,8 +179,8 @@ const Page: React.FunctionComponent = () => {
                         label='Image: '
                         placeholder='Select an Image'
                         name='image'
-                        width='300px'
-                        height='420px'
+                        width={300}
+                        height={420}
                         validationErrors={validationErrors}
                       />
 

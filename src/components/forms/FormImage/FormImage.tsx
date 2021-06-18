@@ -8,8 +8,8 @@ import { FiCamera } from 'react-icons/fi'
 
 export interface FormImageProps extends FormBaseProps {
   type?: InputHTMLAttributes<HTMLInputElement>['type']
-  width?: string
-  height?: string
+  width?: number
+  height?: number
 }
 
 export const FormImage: React.FC<FormImageProps> = ({
@@ -17,8 +17,8 @@ export const FormImage: React.FC<FormImageProps> = ({
   labelDescription,
   type = 'file',
   name,
-  width = '8rem',
-  height = '8rem',
+  width = 188,
+  height = 188,
   placeholder,
   register,
   defaultValue,
@@ -50,7 +50,7 @@ export const FormImage: React.FC<FormImageProps> = ({
           >
             <div className='w-full h-full rounded-btn'>
               {image ? (
-                <img src={image} style={{ width: width, height: height }} className='object-fill' />
+                <img src={image} style={{ width: width, height: height }} />
               ) : (
                 <div style={{ width: width, height: height }} className='bg-gray-300'></div>
               )}
@@ -59,15 +59,16 @@ export const FormImage: React.FC<FormImageProps> = ({
           <label
             title={placeholder}
             htmlFor={name}
+            style={{ width: width / 2 }}
             className={classnames(
-              `tracking-wide uppercase bg-white border border-current rounded-lg shadow-lg cursor-pointer hover:bg-primary hover:text-white self-center absolute bottom-0 w-60 px-4 py-2 flex flex-col items-center transition duration-300 ease-in-out`,
+              `tracking-wide uppercase bg-white border border-current rounded-lg shadow-lg cursor-pointer hover:bg-primary hover:text-white self-center absolute bottom-0 px-4 py-2 flex flex-col items-center  transition duration-300 ease-in-out`,
               {
                 'text-error': validationErrors?.[name],
               }
             )}
           >
             <FiCamera size={20} />
-            <span className='mt-1 text-base font-medium'>Select an image</span>
+            <span className='mt-1 text-base font-medium text-center'>{placeholder}</span>
             <input
               className='hidden'
               onChangeCapture={handleImage}
