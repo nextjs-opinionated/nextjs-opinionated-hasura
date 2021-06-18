@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import React, { ChangeEvent, InputHTMLAttributes } from 'react'
+import React, { ChangeEvent } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { FormBaseProps } from '../FormBaseProps'
