@@ -42,9 +42,10 @@ export const FormImage: React.FC<FormImageProps> = ({
     <div className='col-span-6 pb-20 sm:col-span-4'>
       <div style={{ width: width, height: height }} className='form-control'>
         <FormLabel name={name} label={label} labelDescription={labelDescription} />
-        <div className='relative flex flex-col '>
+        <div className='relative flex flex-col'>
+          <div className='text-xs text-gray-400'>{image.name}</div>
           <div
-            className={classnames(` avatar mb-6 ${className}`, {
+            className={classnames(`avatar mb-6 ${className}`, {
               'rounded-btn border-2 border-error': validationErrors?.[name],
             })}
           >
@@ -59,9 +60,9 @@ export const FormImage: React.FC<FormImageProps> = ({
           <label
             title={placeholder}
             htmlFor={name}
-            style={{ width: width / 1.5, height: height / 4 }}
+            style={{ width: width / 2 }}
             className={classnames(
-              `tracking-wide uppercase  bg-white border border-current rounded-lg shadow-lg cursor-pointer hover:bg-primary  hover:text-white self-center absolute bottom-0 px-4 py-2 flex flex-col items-center  transition duration-300 ease-in-out`,
+              `tracking-wide uppercase bg-white border border-current rounded-lg shadow-lg cursor-pointer hover:bg-primary hover:text-white self-center absolute bottom-0 px-4 py-2 flex flex-col items-center  transition duration-300 ease-in-out`,
               {
                 'text-error': validationErrors?.[name],
               }
@@ -69,7 +70,6 @@ export const FormImage: React.FC<FormImageProps> = ({
           >
             <FiCamera size={20} />
             <span className='mt-1 text-base font-medium text-center'>{placeholder}</span>
-            <p className='text-xs text-gray-400 '>{image.name}</p>
             <input
               className='hidden'
               onChangeCapture={handleImage}
