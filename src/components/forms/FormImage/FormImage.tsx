@@ -62,14 +62,14 @@ export const FormImage: React.FC<FormImageProps> = ({
             htmlFor={name}
             style={{ width: width / 2 }}
             className={classnames(
-              `tracking-wide uppercase bg-white border border-current rounded-lg shadow-lg cursor-pointer hover:bg-primary hover:text-white self-center absolute bottom-0 px-4 py-2 flex flex-col items-center  transition duration-300 ease-in-out`,
+              `tracking-wide uppercase bg-white border border-current rounded-lg shadow-lg cursor-pointer hover:bg-primary hover:text-white self-center absolute bottom-0 px-4 py-2 flex flex-col items-center transition duration-300 ease-in-out text-primary`,
               {
                 'text-error': validationErrors?.[name],
               }
             )}
           >
             <FiCamera size={20} />
-            <span className='mt-1 text-base font-medium text-center'>{placeholder}</span>
+            <span className='mt-1 text-sm font-medium text-center'>{placeholder}</span>
             <input
               className='hidden'
               onChangeCapture={handleImage}
