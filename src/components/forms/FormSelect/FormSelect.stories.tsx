@@ -1,6 +1,6 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
-import { EMPTY_VALUE, FormSelect, SelectProps } from './FormSelect'
+import { EMPTY_SELECT_OPTION_VALUE, FormSelect, SelectProps } from './FormSelect'
 
 export default {
   title: 'Component/Forms/FormSelect',
@@ -79,7 +79,7 @@ Select_DefaultValue_ItemEmpty.args = {
   label: 'Title',
   name: 'select_defaultValue',
   placeholder: 'Select an Item',
-  defaultValue: EMPTY_VALUE,
+  defaultValue: EMPTY_SELECT_OPTION_VALUE,
   register: () => {
     /* noop */
   },

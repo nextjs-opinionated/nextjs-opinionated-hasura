@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { FormExample } from '../components/FormExample/FormExample'
-import { EMPTY_VALUE } from '../components/forms/FormSelect/FormSelect'
+import { EMPTY_SELECT_OPTION_VALUE } from '../components/forms/FormSelect/FormSelect'
 import { useState } from 'react'
 
 const Page: React.FunctionComponent = () => {
@@ -49,7 +49,7 @@ const Page: React.FunctionComponent = () => {
               onClick={() => {
                 formValuesSet({
                   email: '',
-                  color_select: EMPTY_VALUE,
+                  color_select: EMPTY_SELECT_OPTION_VALUE,
                   toggle: false,
                 })
               }}

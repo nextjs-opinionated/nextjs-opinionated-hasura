@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { FormBaseProps } from '../FormBaseProps'
 import { FormLabel } from '../FormLabel'
 
-export const EMPTY_VALUE = '__EMPTY_VALUE__'
+export const EMPTY_SELECT_OPTION_VALUE = '__EMPTY_SELECT_OPTION_VALUE__'
 
 export interface SelectProps extends FormBaseProps {
   options: { value: string; label: string }[]
@@ -36,7 +36,7 @@ export const FormSelect: React.FC<SelectProps> = ({
         <FormLabel name={name} label={label} labelDescription={labelDescription} />
         <select
           {...register(name)}
-          defaultValue={defaultValue || EMPTY_VALUE}
+          defaultValue={defaultValue || EMPTY_SELECT_OPTION_VALUE}
           data-testid={name}
           disabled={disabled}
           className={classnames(`font-normal select select-bordered w-full ${className}`, {
@@ -44,7 +44,7 @@ export const FormSelect: React.FC<SelectProps> = ({
             'text-neutral': isEmpty,
           })}
         >
-          <option value={EMPTY_VALUE} disabled>{`${
+          <option value={EMPTY_SELECT_OPTION_VALUE} disabled>{`${
             isEmpty ? emptyMessage || '' : placeholder || label || name
           }`}</option>
           {Object.values(options).map((item) => (
