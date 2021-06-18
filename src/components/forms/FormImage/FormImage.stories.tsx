@@ -24,6 +24,7 @@ const Template: Story<FormImageProps> = (args) => <FormImage {...args} />
 export const Image_OK = Template.bind({})
 Image_OK.args = {
   name: 'image_name',
+  placeholder: 'Select an Image',
   register: () => {
     /* noop */
   },
@@ -34,7 +35,8 @@ export const Image_DefaultValue = Template.bind({})
 Image_DefaultValue.args = {
   title: 'Title',
   name: 'image_name',
-  defaultValue:'http://daisyui.com/tailwind-css-component-profile-1@94w.png',
+  placeholder: 'Select an Image',
+  defaultValue: 'https://via.placeholder.com/1080x1920.png?text=Image+Placeholder',
   register: () => {
     /* noop */
   },
@@ -46,6 +48,7 @@ export const Image_Label = Template.bind({})
 Image_Label.args = {
   label: 'Label:',
   name: 'image_name',
+  placeholder: 'Select an Image',
   register: () => {
     /* noop */
   },
@@ -55,6 +58,7 @@ Image_Label.args = {
 export const Image_Error = Template.bind({})
 Image_Error.args = {
   name: 'text_with_error',
+  placeholder: 'Select an Image',
   register: () => {
     /* noop */
   },
@@ -69,6 +73,7 @@ export const Image_CustomClassName = Template.bind({})
 Image_CustomClassName.args = {
   label: 'Label:',
   name: 'image_name',
+  placeholder: 'Select an Image',
   register: () => {
     /* noop */
   },
