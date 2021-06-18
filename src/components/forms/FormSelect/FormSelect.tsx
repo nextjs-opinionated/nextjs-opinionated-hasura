@@ -28,7 +28,7 @@ export const FormSelect: React.FC<SelectProps> = ({
     if (options?.length > 0) {
       isEmptySet(false)
     }
-  }, [options])
+  }, [options?.length])
 
   return (
     <div className='col-span-6 sm:col-span-4'>
@@ -44,22 +44,14 @@ export const FormSelect: React.FC<SelectProps> = ({
             'text-neutral': isEmpty,
           })}
         >
-          {isEmpty ? (
-            <>
-              <option value={EMPTY_VALUE} disabled hidden className='text-base-300'>
-                {emptyMessage}
-              </option>
-            </>
-          ) : (
-            <>
-              <option value={EMPTY_VALUE} disabled>{`${placeholder || label || name}`}</option>
-              {Object.values(options).map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.label}
-                </option>
-              ))}
-            </>
-          )}
+          <option value={EMPTY_VALUE} disabled>{`${
+            isEmpty ? emptyMessage || '' : placeholder || label || name
+          }`}</option>
+          {Object.values(options).map((item) => (
+            <option key={item.value} value={item.value}>
+              {item.label}
+            </option>
+          ))}
         </select>
         {validationErrors?.[name] && (
           <label className='label'>
