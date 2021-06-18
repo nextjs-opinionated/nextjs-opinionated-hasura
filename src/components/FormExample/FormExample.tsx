@@ -11,7 +11,7 @@ import { FormToggle } from '../forms/FormToggle/FormToggle'
 import { useMemo } from 'react'
 
 export type FormExampleProps = {
-  initialFormData: {
+  initialFormData?: {
     email: string
     color_select: string
     toggle: boolean
