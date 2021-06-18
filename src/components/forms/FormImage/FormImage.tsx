@@ -50,7 +50,7 @@ export const FormImage: React.FC<FormImageProps> = ({
             })}
           >
             <div className='w-full h-full rounded-btn'>
-              {image ? (
+              {image?.url ? (
                 <img src={image.url} style={{ width: width, height: height }} />
               ) : (
                 <div style={{ width: width, height: height }} className='bg-gray-300'></div>
