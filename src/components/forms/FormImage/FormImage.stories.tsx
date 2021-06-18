@@ -21,21 +21,39 @@ export default {
 
 const Template: Story<FormImageProps> = (args) => <FormImage {...args} />
 
-export const Image_OK = Template.bind({})
-Image_OK.args = {
+export const Image_Clean = Template.bind({})
+Image_Clean.args = {
   name: 'image_name',
-  placeholder: 'Select an Image',
   register: () => {
     /* noop */
   },
   validationErrors: {},
 }
 
+export const Image_Height = Template.bind({})
+Image_Height.args = {
+  name: 'image_name',
+  register: () => {
+    /* noop */
+  },
+  validationErrors: {},
+  height: 400,
+}
+
+export const Image_Small = Template.bind({})
+Image_Small.args = {
+  name: 'image_name',
+  register: () => {
+    /* noop */
+  },
+  validationErrors: {},
+  width: 100,
+  height: 100,
+}
+
 export const Image_DefaultValue = Template.bind({})
 Image_DefaultValue.args = {
-  title: 'Title',
   name: 'image_name',
-  placeholder: 'Select an Image',
   defaultValue: 'https://via.placeholder.com/1080x1920.png?text=Image+Placeholder',
   register: () => {
     /* noop */
@@ -44,14 +62,15 @@ Image_DefaultValue.args = {
   validationErrors: {},
 }
 
-export const Image_Label = Template.bind({})
-Image_Label.args = {
-  label: 'Label:',
+export const Image_Placeholder_changes_Button_Label = Template.bind({})
+Image_Placeholder_changes_Button_Label.args = {
   name: 'image_name',
   placeholder: 'Select an Image',
+  defaultValue: 'https://via.placeholder.com/1080x1920.png?text=Image+Placeholder',
   register: () => {
     /* noop */
   },
+
   validationErrors: {},
 }
 
@@ -69,8 +88,8 @@ Image_Error.args = {
   },
 }
 
-export const Image_CustomClassName = Template.bind({})
-Image_CustomClassName.args = {
+export const Image_CustomClassName_add_border = Template.bind({})
+Image_CustomClassName_add_border.args = {
   label: 'Label:',
   name: 'image_name',
   placeholder: 'Select an Image',
@@ -78,5 +97,5 @@ Image_CustomClassName.args = {
     /* noop */
   },
   validationErrors: {},
-  className: 'text-lg',
+  className: 'border-4',
 }

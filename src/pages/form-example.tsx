@@ -174,13 +174,12 @@ const Page: React.FunctionComponent = () => {
                       />
 
                       <FormImage
-                        type='file'
                         register={register}
                         label='Image: '
                         placeholder='Select an Image'
                         name='image'
-                        width={300}
-                        height={420}
+                        width={120}
+                        height={120}
                         validationErrors={validationErrors}
                       />
 

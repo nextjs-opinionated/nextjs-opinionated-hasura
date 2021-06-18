@@ -7,23 +7,21 @@ import { FormLabel } from '../FormLabel'
 import { FiCamera } from 'react-icons/fi'
 
 export interface FormImageProps extends FormBaseProps {
-  type?: InputHTMLAttributes<HTMLInputElement>['type']
-  width?: number
-  height?: number
+  width?: string | number
+  height?: string | number
 }
 
 export const FormImage: React.FC<FormImageProps> = ({
   label,
   labelDescription,
-  type = 'file',
   name,
-  width = 296,
-  height = 420,
+  width = '100%',
+  height = 200,
   placeholder,
   register,
   defaultValue,
   validationErrors,
-  className,
+  className = '',
 }) => {
   const [image, imageSet] = useState({ url: null, name: null })
   useEffect(() => {
@@ -40,29 +38,29 @@ export const FormImage: React.FC<FormImageProps> = ({
 
   return (
     <div className='col-span-6 pb-20 sm:col-span-4'>
-      <div style={{ width: width, height: height }} className='form-control'>
+      <div className='form-control'>
         <FormLabel name={name} label={label} labelDescription={labelDescription} />
-        <div className='relative flex flex-col'>
-          <div className='text-xs text-gray-400'>{image.name}</div>
+        <div style={{ width }} className='relative flex flex-col'>
+          <div className='text-xs text-neutral'>{image.name}</div>
           <div
-            className={classnames(`avatar mb-6 ${className}`, {
-              'rounded-btn border-2 border-error': validationErrors?.[name],
+            style={{ width }}
+            className={classnames(`border-2 rounded-btn ${className}`, {
+              'border-error': validationErrors?.[name],
             })}
           >
-            <div className='w-full h-full rounded-btn'>
+            <div className='flex justify-center'>
               {image?.url ? (
-                <img src={image.url} style={{ width: width, height: height }} />
+                <img src={image.url} style={{ height }} className='object-scale-down rounded-btn' />
               ) : (
-                <div style={{ width: width, height: height }} className='bg-gray-300'></div>
+                <div style={{ height }} className='w-full bg-base-300 rounded-btn'></div>
               )}
             </div>
           </div>
           <label
             title={placeholder}
             htmlFor={name}
-            style={{ width: width / 2 }}
             className={classnames(
-              `tracking-wide uppercase bg-white border border-current rounded-lg shadow-lg cursor-pointer hover:bg-primary hover:text-white self-center absolute bottom-0 px-4 py-2 flex flex-col items-center transition duration-300 ease-in-out text-primary`,
+              `mt-2 tracking-wide uppercase bg-white border border-current rounded-lg shadow-lg cursor-pointer hover:bg-primary hover:text-white self-center px-4 py-2 flex flex-col items-center transition duration-300 ease-in-out text-primary`,
               {
                 'text-error': validationErrors?.[name],
               }
@@ -73,7 +71,7 @@ export const FormImage: React.FC<FormImageProps> = ({
             <input
               className='hidden'
               onChangeCapture={handleImage}
-              type={type}
+              type='file'
               accept='image/*'
               {...register(name)}
               id={name}
