@@ -26,7 +26,7 @@ describe('Image Component', () => {
       <FormImage
         label='Label'
         name='Select an Image'
-        defaultValue='https://via.placeholder.com/1080x1920.png?text=Image+Palceholder'
+        defaultValue='https://via.placeholder.com/1080x1920.png?text=Image+Placeholder'
         register={() => {
           /* noop */
         }}
@@ -37,7 +37,7 @@ describe('Image Component', () => {
     const allOptions = render.getByRole('img') as HTMLImageElement
     expect(allOptions).toHaveAttribute('src')
     expect(allOptions.src).toEqual(
-      'https://via.placeholder.com/1080x1920.png?text=Image+Palceholder'
+      'https://via.placeholder.com/1080x1920.png?text=Image+Placeholder'
     )
   })
 
@@ -55,11 +55,11 @@ describe('Image Component', () => {
     )
 
     fireEvent.click(render.getByTitle('Select an Image'), {
-      target: { src: 'https://via.placeholder.com/1080x1920.png?text=Image+Palceholder' },
+      target: { src: 'https://via.placeholder.com/1080x1920.png?text=Image+Placeholder' },
     })
 
     const select = render.getByTitle('Select an Image') as HTMLImageElement
-    expect(select.src).toEqual('https://via.placeholder.com/1080x1920.png?text=Image+Palceholder')
+    expect(select.src).toEqual('https://via.placeholder.com/1080x1920.png?text=Image+Placeholder')
   })
 
   it('should render component with error message', async () => {

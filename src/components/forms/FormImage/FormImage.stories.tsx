@@ -36,7 +36,7 @@ Image_DefaultValue.args = {
   title: 'Title',
   name: 'image_name',
   placeholder: 'Select an Image',
-  defaultValue: 'https://via.placeholder.com/1080x1920.png?text=Image+Palceholder',
+  defaultValue: 'https://via.placeholder.com/1080x1920.png?text=Image+Placeholder',
   register: () => {
     /* noop */
   },
