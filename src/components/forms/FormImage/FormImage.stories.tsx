@@ -36,7 +36,7 @@ Image_DefaultValue.args = {
   title: 'Title',
   name: 'image_name',
   placeholder: 'Select an Image',
-  defaultValue: 'http://daisyui.com/tailwind-css-component-profile-1@94w.png',
+  defaultValue: 'https://via.placeholder.com/1080x1920.png?text=Image+Palceholder',
   register: () => {
     /* noop */
   },

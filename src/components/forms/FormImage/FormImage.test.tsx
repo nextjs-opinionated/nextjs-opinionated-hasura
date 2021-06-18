@@ -11,13 +11,11 @@ describe('Image Component', () => {
         label='Name'
         placeholder='Select an Image'
         name='image_name'
-        
         register={() => {
           /* noop */
         }}
         validationErrors={''}
         className='text-lg select-accent'
-        
       />
     )
     expect(render.getByTitle('Select an Image')).toBeInTheDocument()
@@ -28,48 +26,46 @@ describe('Image Component', () => {
       <FormImage
         label='Label'
         name='Select an Image'
-       
-        defaultValue='http://daisyui.com/tailwind-css-component-profile-1@94w.png'
+        defaultValue='https://via.placeholder.com/1080x1920.png?text=Image+Palceholder'
         register={() => {
           /* noop */
         }}
-        validationErrors={''}        
+        validationErrors={''}
       />
     )
 
     const allOptions = render.getByRole('img') as HTMLImageElement
     expect(allOptions).toHaveAttribute('src')
-    expect(allOptions.src).toEqual('http://daisyui.com/tailwind-css-component-profile-1@94w.png')
-
-   
+    expect(allOptions.src).toEqual(
+      'https://via.placeholder.com/1080x1920.png?text=Image+Palceholder'
+    )
   })
 
   it('should click and change the selected image', async () => {
     const render = TestingLib.render(
       <FormImage
         label='Label'
-        
         placeholder='Select an Image'
         name='image_name'
         register={() => {
           /* noop */
         }}
         validationErrors={''}
-        
       />
     )
 
-    fireEvent.click(render.getByTitle('Select an Image'), { target: { src: 'http://daisyui.com/tailwind-css-component-profile-1@94w.png' } })
+    fireEvent.click(render.getByTitle('Select an Image'), {
+      target: { src: 'https://via.placeholder.com/1080x1920.png?text=Image+Palceholder' },
+    })
 
     const select = render.getByTitle('Select an Image') as HTMLImageElement
-    expect(select.src).toEqual('http://daisyui.com/tailwind-css-component-profile-1@94w.png')
+    expect(select.src).toEqual('https://via.placeholder.com/1080x1920.png?text=Image+Palceholder')
   })
 
   it('should render component with error message', async () => {
     const render = TestingLib.render(
       <FormImage
         label='Label'
-        
         placeholder='Select an Image'
         name='text_with_error'
         register={() => {
@@ -80,12 +76,9 @@ describe('Image Component', () => {
             message: 'Error Message',
           },
         }}
-
-        
       />
     )
     expect(render.getByText('Error Message')).toHaveClass('text-error')
     expect(render.getByTitle('Select an Image')).toHaveClass('text-error')
-
   })
 })
