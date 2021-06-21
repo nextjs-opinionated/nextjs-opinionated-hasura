@@ -33,8 +33,6 @@ export const FormInputColor_Form: React.FunctionComponent<FormInputColor_FormPro
     }, [initialFormData]),
   })
 
-  console.log("--  watch('color_input'): ", watch('color_input'))
-
   const onSubmit = handleSubmit(
     async (submitProps) => {
       // const resultJSON = await fetchResponse.json()
@@ -71,10 +69,8 @@ export const FormInputColor_Form: React.FunctionComponent<FormInputColor_FormPro
         <div className='md:grid md:grid-cols-3 md:gap-6'>
           <div className='md:col-span-1'>
             <div className='px-4 sm:px-0'>
-              <h3 className='text-lg font-medium leading-6'>Form Fields</h3>
-              <h3 className='my-2 text-sm font-medium leading-4'>
-                same validation is applied on client and on server with zod
-              </h3>
+              <h3 className='text-lg font-medium leading-6'>Form Example</h3>
+              <h3 className='my-2 text-sm font-medium leading-4'>color_input</h3>
             </div>
           </div>
           <div className='mt-5 md:mt-0 md:col-span-2'>
@@ -82,12 +78,12 @@ export const FormInputColor_Form: React.FunctionComponent<FormInputColor_FormPro
               <div className='px-4 py-5 space-y-6 sm:p-6'>
                 <FormInputColor
                   label='select a color:'
+                  placeholder='#000000'
                   name='color_input'
                   register={register}
                   defaultValue=''
                   watch={watch}
                   setValue={setValue}
-                  // control={control}
                   validationErrors={validationErrors}
                 />
 

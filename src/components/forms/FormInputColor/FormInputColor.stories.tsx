@@ -21,12 +21,5 @@ export default {
 
 const Template: Story<FormInputColor_FormProps> = (args) => <FormInputColor_Form {...args} />
 
-export const Text_Input_Color_Default = Template.bind({})
-Text_Input_Color_Default.args = {
-  name: 'input_name',
-  register: () => {
-    /* noop */
-  },
-  defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at.',
-  validationErrors: {},
-}
+export const Text_Input_Color_Form = Template.bind({})
+Text_Input_Color_Form.args = {}

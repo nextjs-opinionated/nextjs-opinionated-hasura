@@ -1,6 +1,7 @@
 // .storybook/preview.js
 import '../src/styles/tailwind.css'
 import { themes } from '@storybook/theming'
+import { StrictMode } from 'react'
 
 import * as nextImage from 'next/image'
 import { ThemeProvider, useTheme } from 'next-themes'
@@ -11,7 +12,9 @@ export const decorators = [
     const { theme } = useTheme()
     return (
       <ThemeProvider theme={theme}>
-        <Story />
+        <StrictMode>
+          <Story />
+        </StrictMode>
       </ThemeProvider>
     )
   },
