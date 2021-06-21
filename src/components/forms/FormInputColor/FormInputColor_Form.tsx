@@ -10,15 +10,7 @@ import isHexColor from 'validator/lib/isHexColor'
 import { useTheme } from 'next-themes'
 import { ThemeList } from '../../../model/site/ThemeList'
 
-export const FormInputColor_Form: React.FC<FormInputColorProps> = ({
-  label,
-  labelDescription,
-  name,
-  placeholder,
-  defaultValue,
-  className,
-  disabled,
-}) => {
+export const FormInputColor_Form: React.FC<FormInputColorProps> = (formProps) => {
   const { theme, setTheme } = useTheme()
   const {
     handleSubmit,
@@ -32,7 +24,6 @@ export const FormInputColor_Form: React.FC<FormInputColorProps> = ({
       z.object({
         color_input: z
           .string()
-          .nonempty()
           .min(7)
           .refine((value) => isHexColor(value), {
             message: 'invalid color',
@@ -91,17 +82,11 @@ export const FormInputColor_Form: React.FC<FormInputColorProps> = ({
             <div className='shadow sm:rounded-md sm:overflow-hidden'>
               <div className='px-4 py-5 space-y-6 sm:p-6'>
                 <FormInputColor
+                  {...formProps}
                   register={register}
                   watch={watch}
                   setValue={setValue}
                   validationErrors={validationErrors}
-                  label={label}
-                  labelDescription={labelDescription}
-                  name={name}
-                  placeholder={placeholder}
-                  defaultValue={defaultValue}
-                  className={className}
-                  disabled={disabled}
                 />
 
                 <div className='flex flex-col'>
