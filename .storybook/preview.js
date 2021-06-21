@@ -22,6 +22,7 @@ export const parameters = {
   docs: {
     theme: themes.normal,
   },
+  layout: 'centered',
   actions: { argTypesRegex: '^on[A-Z].*' },
   viewport: {
     viewports: {
