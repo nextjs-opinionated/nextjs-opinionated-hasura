@@ -20,6 +20,7 @@ export type FormExampleProps = {
     toggle: boolean
     image?: File
     image_url: string
+    color_input: string
   }
 }
 
@@ -31,7 +32,8 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
     register,
     formState: { errors: validationErrors },
     getValues,
-    // reset,
+    watch,
+    setValue,
   } = useForm<FormExampleProps['initialFormData']>({
     mode: 'onChange',
     resolver: zodResolver(FormExampleValidationSchema),
@@ -150,17 +152,15 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                   validationErrors={validationErrors}
                 />
 
-                <div className='mt-5 shadow sm:rounded-md sm:overflow-hidden'>
-                  <div className='px-4 py-5 space-y-6 sm:p-6'>
-                    <FormInputColor
-                      label='select a color:'
-                      name='color'
-                      register={register}
-                      defaultValue=''
-                      validationErrors={validationErrors}
-                    />
-                  </div>
-                </div>
+                <FormInputColor
+                  label='select a color:'
+                  name='color_input'
+                  register={register}
+                  defaultValue=''
+                  watch={watch}
+                  setValue={setValue}
+                  validationErrors={validationErrors}
+                />
 
                 <div className='flex flex-col'>
                   <div className='flex justify-end'>
