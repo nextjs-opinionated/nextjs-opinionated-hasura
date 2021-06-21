@@ -30,9 +30,9 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
       <div className='form-control'>
         <FormLabel name={name} label={label} labelDescription={labelDescription} />
 
-        <div className='border collapse rounded-box border-base-300'>
+        <div className='border w-60 collapse rounded-box border-base-300'>
           <input type='checkbox' checked={opened} />
-          <div className='text-xl font-medium collapse-title'>
+          <div className='pl-0 text-xl font-medium collapse-title'>
             <div className='flex items-center'>
               <input
                 type='color'
@@ -58,15 +58,17 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
                   }
                 )}
               />
-              <button type='button' onClick={() => openedSet((v) => !v)}>
+              <button
+                type='button'
+                onClick={() => openedSet((v) => !v)}
+                className='outline-none appearance-none ml-14'
+              >
                 {opened ? <FaCaretUp /> : <FaCaretDown />}
               </button>
             </div>
           </div>
-          <div className='collapse-content'>
-            <p>
-              <HexColorPicker color={watch(name)} onChange={(color) => setValue(name, color)} />
-            </p>
+          <div className='pl-0 collapse-content'>
+            <HexColorPicker color={watch(name)} onChange={(color) => setValue(name, color)} />
           </div>
         </div>
 
