@@ -13,9 +13,7 @@ export const decorators = [
     return (
       <ThemeProvider theme={theme}>
         <StrictMode>
-          <div className='bg-base-200'>
-            <Story />
-          </div>
+          <Story />
         </StrictMode>
       </ThemeProvider>
     )
@@ -24,11 +22,9 @@ export const decorators = [
 
 // or global addParameters
 export const parameters = {
-  docs: {
-    theme: themes.normal,
-  },
-  layout: 'centered',
+  layout: 'padded',
   actions: { argTypesRegex: '^on[A-Z].*' },
+  backgrounds: { disable: true },
   viewport: {
     viewports: {
       mobile1: {

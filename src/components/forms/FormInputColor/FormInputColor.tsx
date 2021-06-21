@@ -35,7 +35,6 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
             <div className='flex items-center'>
               <input
                 type='color'
-                defaultValue={defaultValue}
                 disabled={disabled}
                 value={watch(name) || defaultValue}
                 onChange={(ev) => setValue(name, ev.target.value)}
@@ -47,6 +46,7 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
               <input
                 type='text'
                 disabled={disabled}
+                defaultValue={defaultValue}
                 maxLength={7}
                 {...register(name)}
                 placeholder={`${placeholder || label || name}`}
@@ -57,13 +57,17 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
                   }
                 )}
               />
-              <button className='btn btn-sm' type='button' onClick={() => openedSet((v) => !v)}>
+              <button
+                className='btn btn-sm btn-ghost'
+                type='button'
+                onClick={() => openedSet((v) => !v)}
+              >
                 {opened ? <FaCaretUp /> : <FaCaretDown />}
               </button>
             </div>
           </div>
           <div
-            className={classnames('block mt-1', {
+            className={classnames('mt-1', {
               hidden: !opened,
             })}
           >

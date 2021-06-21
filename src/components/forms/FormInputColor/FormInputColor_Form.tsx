@@ -7,6 +7,8 @@ import { FormInputColor, FormInputColorProps } from './FormInputColor'
 import * as z from 'zod'
 import { CodeBlock } from '../CodeBlock/CodeBlock'
 import isHexColor from 'validator/lib/isHexColor'
+import { useTheme } from 'next-themes'
+import { ThemeList } from '../../../model/site/ThemeList'
 
 export const FormInputColor_Form: React.FC<FormInputColorProps> = ({
   label,
@@ -17,6 +19,7 @@ export const FormInputColor_Form: React.FC<FormInputColorProps> = ({
   className,
   disabled,
 }) => {
+  const { theme, setTheme } = useTheme()
   const {
     handleSubmit,
     register,
@@ -55,6 +58,20 @@ export const FormInputColor_Form: React.FC<FormInputColorProps> = ({
 
   return (
     <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
+      <select
+        className='w-full select select-bordered'
+        onChange={(ev) => {
+          setTheme(ev.target.value)
+        }}
+        value={theme}
+      >
+        <option disabled>theme</option>
+        {Object.values(ThemeList).map((t) => (
+          <option key={t.id} value={t.id}>
+            {t.name}
+          </option>
+        ))}
+      </select>
       <div className='hidden sm:block' aria-hidden='true'>
         <div className='py-5'>
           <div className='border-t' />
@@ -101,7 +118,6 @@ export const FormInputColor_Form: React.FC<FormInputColorProps> = ({
           </div>
         </div>
       </div>
-
       <div className='hidden sm:block' aria-hidden='true'>
         <div className='py-5'>
           <div className='border-t ' />
