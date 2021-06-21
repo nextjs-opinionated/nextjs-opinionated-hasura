@@ -12,6 +12,7 @@ import { FormToggle } from '../forms/FormToggle/FormToggle'
 import { useMemo } from 'react'
 import { FormImage } from '../forms/FormImage/FormImage'
 import { CodeBlock } from '../forms/CodeBlock/CodeBlock'
+import { useEffect } from 'react'
 
 export type FormExampleProps = {
   initialFormData?: {
@@ -31,6 +32,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
     register,
     formState: { errors: validationErrors },
     getValues,
+    setValue,
     // reset,
   } = useForm<FormExampleProps['initialFormData']>({
     mode: 'onChange',
@@ -43,12 +45,22 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
   const handleUpload = (file: File) => {
     if (!file[0]) return null
     const { name, type } = file[0]
-    return { name, type }
+    return [{ name, type }]
   }
+
+  useEffect(() => {
+    if (initialFormData?.image_url) {
+      setValue('image_url', initialFormData.image_url)
+    }
+  }, [])
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
-      const image = handleUpload(submitProps.image)
+      let image
+      if (submitProps?.image) {
+        image = handleUpload(submitProps.image)
+        submitProps.image = image
+      }
 
       const headers = new Headers()
       headers.append('Content-Type', 'application/json')
@@ -60,7 +72,6 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
           image,
         }),
       })
-      submitProps.image = submitProps.image[0].name
       /* check for server errors (VALIDATIONS) */
       const isValid = await checkFetchJsonResult(fetchResponse)
       if (isValid) {
