@@ -61,7 +61,7 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
               <button
                 type='button'
                 onClick={() => openedSet((v) => !v)}
-                className='outline-none appearance-none ml-14'
+                className='appearance-none focus:outline-none ml-14'
               >
                 {opened ? <FaCaretUp /> : <FaCaretDown />}
               </button>
