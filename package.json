@@ -28,7 +28,8 @@
     "test": "jest --watch",
     "test:ci": "jest --runInBand --no-cache",
     "storybook": "start-storybook --ci -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "chromatic": "npx chromatic"
   },
   "dependencies": {
     "@headlessui/react": "^1.2.0",
@@ -80,6 +81,7 @@
     "babel-jest": "^27.0.2",
     "chokidar": "^3.5.2",
     "chokidar-cli": "^2.1.0",
+    "chromatic": "^5.9.2",
     "cross-env": "^7.0.3",
     "eslint": "^7.28.0",
     "eslint-config-next": "^11.0.0",
