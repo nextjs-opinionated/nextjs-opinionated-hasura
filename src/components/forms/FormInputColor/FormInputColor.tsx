@@ -32,7 +32,7 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
 
         <div className='border w-60 collapse rounded-box border-base-300'>
           <input type='checkbox' checked={opened} />
-          <div className='pl-0 text-xl font-medium collapse-title'>
+          <div className='text-xl font-medium collapse-title'>
             <div className='flex items-center'>
               <input
                 type='color'
@@ -67,7 +67,7 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
               </button>
             </div>
           </div>
-          <div className='pl-0 collapse-content'>
+          <div className='collapse-content'>
             <HexColorPicker color={watch(name)} onChange={(color) => setValue(name, color)} />
           </div>
         </div>
