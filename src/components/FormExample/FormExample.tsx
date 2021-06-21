@@ -60,7 +60,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
           image,
         }),
       })
-
+      submitProps.image = submitProps.image[0].name
       /* check for server errors (VALIDATIONS) */
       const isValid = await checkFetchJsonResult(fetchResponse)
       if (isValid) {
