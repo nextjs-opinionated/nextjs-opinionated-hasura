@@ -15,8 +15,27 @@ describe('Code_block Component', () => {
             image_url: '',
           },
         }}
+        className='bg-primary'
+        dataPrefix='>'
+        textType='text-warning'
       />
     )
     expect(render.getByTestId('code-block')).toHaveClass('mockup-code')
+  })
+  it('should render a component with className background', async () => {
+    const render = TestingLib.render(
+      <CodeBlock
+        content={{
+          initialFormData: {
+            email: 'email@hotmail.com',
+            color_select: '#000',
+            toggle: true,
+            image_url: '',
+          },
+        }}
+        className='bg-primary'
+      />
+    )
+    expect(render.getByTestId('code-block')).toHaveClass('bg-primary')
   })
 })
