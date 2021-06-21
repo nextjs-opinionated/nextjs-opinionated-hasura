@@ -58,20 +58,22 @@ export const FormInputColor_Form: React.FC<FormInputColorProps> = ({
 
   return (
     <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
-      <select
-        className='w-full select select-bordered'
-        onChange={(ev) => {
-          setTheme(ev.target.value)
-        }}
-        value={theme}
-      >
-        <option disabled>theme</option>
-        {Object.values(ThemeList).map((t) => (
-          <option key={t.id} value={t.id}>
-            {t.name}
-          </option>
-        ))}
-      </select>
+      <div className='flex justify-end'>
+        <select
+          className='mb-4 select select-bordered'
+          onChange={(ev) => {
+            setTheme(ev.target.value)
+          }}
+          value={theme}
+        >
+          <option disabled>theme</option>
+          {Object.values(ThemeList).map((t) => (
+            <option key={t.id} value={t.id}>
+              {t.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className='hidden sm:block' aria-hidden='true'>
         <div className='py-5'>
           <div className='border-t' />
