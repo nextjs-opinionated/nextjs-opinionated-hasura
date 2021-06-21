@@ -12,6 +12,7 @@ import { FormToggle } from '../forms/FormToggle/FormToggle'
 import { useMemo } from 'react'
 import { FormImage } from '../forms/FormImage/FormImage'
 import { FormInputColor } from '../forms/FormInputColor/FormInputColor'
+import { CodeBlock } from '../forms/CodeBlock/CodeBlock'
 
 export type FormExampleProps = {
   initialFormData?: {
@@ -70,17 +71,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
         const myAlert = withReactContent(Swal)
         await myAlert.fire({
           title: 'submited',
-          html: (
-            <div className='mockup-code'>
-              {JSON.stringify(submitProps, null, 2)
-                .split('\n')
-                .map((line, i) => (
-                  <pre key={`line_${i}`} className='text-left'>
-                    <code>{line}</code>
-                  </pre>
-                ))}
-            </div>
-          ),
+          html: <CodeBlock content={submitProps} />,
           confirmButtonText: 'close',
         })
       }

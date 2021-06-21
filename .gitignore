@@ -35,3 +35,4 @@ yarn-error.log*
 
 src/tailwind.output.css
 .env.production.sh
+*.log

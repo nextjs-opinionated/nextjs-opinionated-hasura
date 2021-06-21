@@ -1,6 +1,8 @@
 ## [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated)
 
-### [demo](https://nextjs-opinionated.vercel.app/)
+### - [demo](https://nextjs-opinionated.vercel.app/)
+
+### - [storybook](https://main--60d0b5d829870700396e0a3b.chromatic.com)
 
 ---
 
