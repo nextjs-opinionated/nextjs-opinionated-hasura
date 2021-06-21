@@ -16,7 +16,7 @@ export default {
 } as Meta
 
 const Template: Story<LayoutProps> = (args) => (
-  <div data-theme={args.internal_theme}>
+  <div>
     <Layout {...args} />
   </div>
 )
@@ -24,7 +24,6 @@ const Template: Story<LayoutProps> = (args) => (
 // Default scenario
 export const MainLayout = Template.bind({})
 MainLayout.args = {
-  internal_theme: 'light',
   title: (
     <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
       <div className='text-base font-bold'>HOME</div>

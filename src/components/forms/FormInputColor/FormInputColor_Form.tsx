@@ -3,17 +3,19 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
-import { FormInputColor } from './FormInputColor'
+import { FormInputColor, FormInputColorProps } from './FormInputColor'
 import * as z from 'zod'
+import { CodeBlock } from '../CodeBlock/CodeBlock'
+import isHexColor from 'validator/lib/isHexColor'
 
-export type FormInputColor_FormProps = {
-  initialFormData?: {
-    color_input: string
-  }
-}
-
-export const FormInputColor_Form: React.FunctionComponent<FormInputColor_FormProps> = ({
-  initialFormData = {},
+export const FormInputColor_Form: React.FC<FormInputColorProps> = ({
+  label,
+  labelDescription,
+  name,
+  placeholder,
+  defaultValue,
+  className,
+  disabled,
 }) => {
   const {
     handleSubmit,
@@ -21,16 +23,19 @@ export const FormInputColor_Form: React.FunctionComponent<FormInputColor_FormPro
     formState: { errors: validationErrors },
     watch,
     setValue,
-  } = useForm<FormInputColor_FormProps['initialFormData']>({
+  } = useForm<FormInputColorProps>({
     mode: 'onChange',
     resolver: zodResolver(
       z.object({
-        color_input: z.string().nonempty().min(7),
+        color_input: z
+          .string()
+          .nonempty()
+          .min(7)
+          .refine((value) => isHexColor(value), {
+            message: 'invalid color',
+          }),
       })
     ),
-    defaultValues: React.useMemo(() => {
-      return initialFormData
-    }, [initialFormData]),
   })
 
   const onSubmit = handleSubmit(
@@ -39,17 +44,7 @@ export const FormInputColor_Form: React.FunctionComponent<FormInputColor_FormPro
       const myAlert = withReactContent(Swal)
       await myAlert.fire({
         title: 'submited',
-        html: (
-          <div className='mockup-code'>
-            {JSON.stringify(submitProps, null, 2)
-              .split('\n')
-              .map((line, i) => (
-                <pre key={`line_${i}`} className='text-left'>
-                  <code>{line}</code>
-                </pre>
-              ))}
-          </div>
-        ),
+        html: <CodeBlock content={submitProps} />,
         confirmButtonText: 'close',
       })
     },
@@ -69,22 +64,25 @@ export const FormInputColor_Form: React.FunctionComponent<FormInputColor_FormPro
         <div className='md:grid md:grid-cols-3 md:gap-6'>
           <div className='md:col-span-1'>
             <div className='px-4 sm:px-0'>
-              <h3 className='text-lg font-medium leading-6'>Form Example</h3>
-              <h3 className='my-2 text-sm font-medium leading-4'>color_input</h3>
+              <h3 className='text-lg font-medium leading-6 text-primary'>Form Example</h3>
+              <h3 className='my-2 text-sm font-medium leading-4 text-secondary'>color_input</h3>
             </div>
           </div>
           <div className='mt-5 md:mt-0 md:col-span-2'>
             <div className='shadow sm:rounded-md sm:overflow-hidden'>
               <div className='px-4 py-5 space-y-6 sm:p-6'>
                 <FormInputColor
-                  label='select a color:'
-                  placeholder='#000000'
-                  name='color_input'
                   register={register}
-                  defaultValue=''
                   watch={watch}
                   setValue={setValue}
                   validationErrors={validationErrors}
+                  label={label}
+                  labelDescription={labelDescription}
+                  name={name}
+                  placeholder={placeholder}
+                  defaultValue={defaultValue}
+                  className={className}
+                  disabled={disabled}
                 />
 
                 <div className='flex flex-col'>

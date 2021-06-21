@@ -30,15 +30,15 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
       <div className='form-control'>
         <FormLabel name={name} label={label} labelDescription={labelDescription} />
 
-        <div className='border w-60 collapse rounded-box border-base-300'>
-          <input type='checkbox' checked={opened} />
-          <div className='text-xl font-medium collapse-title'>
+        <div>
+          <div className='font-medium'>
             <div className='flex items-center'>
               <input
                 type='color'
                 defaultValue={defaultValue}
                 disabled={disabled}
-                {...register(name)}
+                value={watch(name) || defaultValue}
+                onChange={(ev) => setValue(name, ev.target.value)}
                 placeholder={`${placeholder || label || name}`}
                 className={classnames(`w-7 h-7 ${className}`, {
                   'input-error': validationErrors?.[name],
@@ -47,27 +47,26 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
               <input
                 type='text'
                 disabled={disabled}
-                value={watch(name)}
                 maxLength={7}
-                onChange={(ev) => setValue(name, ev.target.value)}
+                {...register(name)}
                 placeholder={`${placeholder || label || name}`}
                 className={classnames(
-                  `input input-bordered input-sm ml-1 w-[5.4rem] font-mono ${className}`,
+                  `input input-bordered input-sm ml-1 mr-1 w-[7.6rem] font-mono ${className}`,
                   {
                     'input-error': validationErrors?.[name],
                   }
                 )}
               />
-              <button
-                type='button'
-                onClick={() => openedSet((v) => !v)}
-                className='appearance-none focus:outline-none ml-14'
-              >
+              <button className='btn btn-sm' type='button' onClick={() => openedSet((v) => !v)}>
                 {opened ? <FaCaretUp /> : <FaCaretDown />}
               </button>
             </div>
           </div>
-          <div className='collapse-content'>
+          <div
+            className={classnames('block mt-1', {
+              hidden: !opened,
+            })}
+          >
             <HexColorPicker color={watch(name)} onChange={(color) => setValue(name, color)} />
           </div>
         </div>

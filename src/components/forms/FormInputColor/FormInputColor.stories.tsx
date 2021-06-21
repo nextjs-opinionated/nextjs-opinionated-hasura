@@ -1,6 +1,7 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
-import { FormInputColor_Form, FormInputColor_FormProps } from './FormInputColor_Form'
+import { FormInputColor_Form } from './FormInputColor_Form'
+import { FormInputColorProps } from './FormInputColor'
 
 export default {
   title: 'Component/Forms/FormInputColor_Form',
@@ -19,7 +20,22 @@ export default {
   },
 } as Meta
 
-const Template: Story<FormInputColor_FormProps> = (args) => <FormInputColor_Form {...args} />
+const Template: Story<FormInputColorProps> = (args) => <FormInputColor_Form {...args} />
 
-export const Text_Input_Color_Form = Template.bind({})
-Text_Input_Color_Form.args = {}
+export const Color_null = Template.bind({})
+Color_null.args = {
+  label: 'Color:',
+  name: 'color_input',
+  placeholder: 'color...',
+  defaultValue: null,
+  className: '',
+}
+
+export const Color_Red = Template.bind({})
+Color_Red.args = {
+  label: 'Color Red:',
+  name: 'color_input',
+  placeholder: 'color...',
+  defaultValue: '#ff0000',
+  className: '',
+}

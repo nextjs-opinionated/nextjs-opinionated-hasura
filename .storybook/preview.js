@@ -13,7 +13,9 @@ export const decorators = [
     return (
       <ThemeProvider theme={theme}>
         <StrictMode>
-          <Story />
+          <div className='bg-base-200'>
+            <Story />
+          </div>
         </StrictMode>
       </ThemeProvider>
     )
