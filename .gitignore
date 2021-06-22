@@ -38,3 +38,4 @@ yarn-error.log*
 codegen.remote.yml
 src/tailwind.output.css
 .env.production.sh
+*.log

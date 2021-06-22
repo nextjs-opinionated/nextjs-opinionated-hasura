@@ -4,6 +4,9 @@ import { CustomButtonAuth, CustomButtonAuthProps, KeyProvider } from './CustomBu
 export default {
   title: 'Component/CustomButtonAuth',
   component: CustomButtonAuth,
+  parameters: {
+    layout: 'centered',
+  },
 } as Meta
 
 const Template: Story<CustomButtonAuthProps> = (args) => (

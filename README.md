@@ -1,6 +1,7 @@
 ## [nextjs-opinionated-hasura](https://github.com/saitodisse/nextjs-opinionated-hasura)
 
-### [demo](https://nextjs-opinionated-hasura.vercel.app/)
+### - [demo](https://nextjs-opinionated-hasura.vercel.app/)
+<!-- ### - [storybook](https://main--60d0b5d829870700396e0a3b.chromatic.com) -->
 
 ---
 
