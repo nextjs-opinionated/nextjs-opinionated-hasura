@@ -15,7 +15,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
   const { theme, setTheme } = useTheme()
   const checkboxRef = useRef<HTMLInputElement>()
   return (
-    <div className='h-screen bg-base-200 drawer text-base-content'>
+    <div className='h-screen bg-base-100 drawer text-base-content'>
       {/* put everything in a off-canvas drawer */}
       {/* this checkbox controls if drawer is open */}
       <input id='menu-drawer' type='checkbox' className='drawer-toggle' ref={checkboxRef} />
