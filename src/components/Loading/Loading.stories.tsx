@@ -5,6 +5,9 @@ import Loading from './Loading'
 export default {
   title: 'Component/Loading',
   component: Loading,
+  parameters: {
+    layout: 'centered',
+  },
 } as Meta
 
 const Template = (args) => (

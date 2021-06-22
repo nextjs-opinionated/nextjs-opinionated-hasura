@@ -38,7 +38,7 @@ export const FormImage: React.FC<FormImageProps> = ({
   }
 
   return (
-    <div className='col-span-6 pb-20 sm:col-span-4'>
+    <div className='col-span-6 sm:col-span-4'>
       <div className='form-control'>
         <FormLabel name={name} label={label} labelDescription={labelDescription} />
         <div style={{ width }} className='relative flex flex-col'>

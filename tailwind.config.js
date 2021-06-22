@@ -7,6 +7,9 @@ module.exports = {
   mode: 'jit',
   theme: {
     extend: {},
+    borderWidth: {
+      20: '20px',
+    },
   },
   variants: {
     extend: {},

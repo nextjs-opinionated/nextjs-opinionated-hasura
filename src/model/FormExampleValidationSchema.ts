@@ -25,6 +25,7 @@ export const FormExampleValidationSchema = z
     color_select: z.string().refine((value) => value !== EMPTY_SELECT_OPTION_VALUE, {
       message: 'please, select an option',
     }),
+    color_input: z.string().nonempty(),
     toggle: z.boolean(),
   })
   .and(ImageFormExample)

@@ -11,7 +11,7 @@ export interface CodeBlockProps {
 export const CodeBlock: React.FC<CodeBlockProps> = ({
   content,
   className = '',
-  dataPrefix = '$',
+  dataPrefix = '',
   textType = '',
 }) => {
   return (
