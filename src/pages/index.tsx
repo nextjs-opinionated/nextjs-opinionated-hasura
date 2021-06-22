@@ -150,21 +150,6 @@ export default function Page() {
               </button>
             </div>
 
-            <ChangeThemeDropDown />
-
-            <div className='mx-2'>
-              {!session?.user && (
-                <button className='btn btn-primary btn-md' onClick={() => signIn()}>
-                  Login
-                </button>
-              )}
-
-              {session?.user && (
-                <button className='btn btn-outline btn-md' onClick={() => signOut()}>
-                  SignOut
-                </button>
-              )}
-            </div>
           </div>
 
           <p className='max-w-md mt-10 text-sm italic'>
