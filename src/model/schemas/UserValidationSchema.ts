@@ -3,7 +3,7 @@ import * as z from 'zod'
 import { Roles_Enum } from '../../graphql/generated'
 import _ from "lodash"
 
-export const userValidationSchema = z.object({
+export const UserValidationSchema = z.object({
   id: z.any().refine(
     (value) => {
       // optional if is on insert mode

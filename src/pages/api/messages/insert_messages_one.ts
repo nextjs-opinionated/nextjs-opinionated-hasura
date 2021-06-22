@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Messages_Update_Column } from '../../../graphql/generated'
-import { MessageValidationSchema } from '../../../model/MessageValidationSchema'
+import { MessageValidationSchema } from '../../../model/schemas/MessageValidationSchema'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 
 export default async function API(req: NextApiRequest, res: NextApiResponse) {

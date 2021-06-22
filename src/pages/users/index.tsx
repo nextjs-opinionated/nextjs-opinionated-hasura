@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import Link from 'next/link'
 import { getInitialNameAvatar } from '../../utils/getInitialNameAvatar'
 import useSWRFetch from '../../utils/useSWRFetch'
+import { LinksList } from '../../model/site/LinksList'
 
 const handleBadgeRole = (role: Roles_Enum) => {
   switch (role) {
@@ -31,7 +32,15 @@ export default function Page() {
   }
 
   return (
-    <Layout>
+    <Layout
+        title={
+          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
+            <div className='text-base font-bold'>Users</div>
+            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+          </div>
+        }
+        menuItems={Object.values(LinksList)}
+      >
       <div className='overflow-x-auto'>
         <table className='table w-full'>
           <thead>

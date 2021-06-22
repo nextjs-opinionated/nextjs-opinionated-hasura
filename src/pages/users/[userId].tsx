@@ -8,13 +8,14 @@ import { RoleList } from '../../model/site/RoleList'
 import { useSession } from 'next-auth/client'
 import { DeepMap, FieldError, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { userValidationSchema } from '../../model/schemas/userValidationSchema'
+import { UserValidationSchema } from '../../model/schemas/UserValidationSchema'
 import { FormInput } from '../../components/forms/FormInput/FormInput'
 import { checkFetchJsonResult } from '../../utils/checkFetchResult'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import { getInitialNameAvatar } from '../../utils/getInitialNameAvatar'
 import queryString from 'query-string'
+import { LinksList } from '../../model/site/LinksList'
 
 type User = Pick<Users, 'id' | 'name' | 'email' | 'image' | 'role'>
 
@@ -60,7 +61,7 @@ export default function User({ user }: UserProps) {
     reset,
   } = useForm<FormProps>({
     mode: 'onChange',
-    resolver: zodResolver(userValidationSchema),
+    resolver: zodResolver(UserValidationSchema),
   })
   const SwalReactAlert = withReactContent(Swal)
 
@@ -135,7 +136,15 @@ export default function User({ user }: UserProps) {
   }
 
   return (
-    <Layout>
+    <Layout
+        title={
+          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
+            <div className='text-base font-bold'>Edit user</div>
+            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+          </div>
+        }
+        menuItems={Object.values(LinksList)}
+      >
       {isFallback ? (
         <button className='btn btn-sm btn-ghost loading'>loading</button>
       ) : (
