@@ -10,10 +10,10 @@ export const RoleList: {
 } = {
   user: {
     id: Roles_Enum.User,
-    name: 'Usuário',
+    name: 'User',
   },
   admin: {
     id: Roles_Enum.Admin,
-    name: "Administrador"
+    name: "Administrator"
   }
 }

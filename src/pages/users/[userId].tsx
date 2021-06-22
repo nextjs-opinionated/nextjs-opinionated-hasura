@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       props: {
         user: users_by_pk,
       },
-      revalidate: 60,
+      revalidate: 1,
     }
   } else {
     return { notFound: true }
