@@ -89,8 +89,8 @@ Time_Input.args = {
   validationErrors: null,
 }
 
-export const Text_Input_CustomClassName = Template.bind({})
-Text_Input_CustomClassName.args = {
+export const Text_Input_CustomClassName_Large = Template.bind({})
+Text_Input_CustomClassName_Large.args = {
   label: 'Label:',
   name: 'input_name',
   register: () => {
@@ -98,5 +98,41 @@ Text_Input_CustomClassName.args = {
   },
   defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at.',
   validationErrors: {},
-  className: 'text-lg',
+  className: 'input-lg',
+}
+
+export const Text_Input_CustomClassName_Normal = Template.bind({})
+Text_Input_CustomClassName_Normal.args = {
+  label: 'Label:',
+  name: 'input_name',
+  register: () => {
+    /* noop */
+  },
+  defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at.',
+  validationErrors: {},
+  className: 'input',
+}
+
+export const Text_Input_CustomClassName_Small = Template.bind({})
+Text_Input_CustomClassName_Small.args = {
+  label: 'Label:',
+  name: 'input_name',
+  register: () => {
+    /* noop */
+  },
+  defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at.',
+  validationErrors: {},
+  className: 'input-sm',
+}
+
+export const Text_Input_CustomClassName_Tiny = Template.bind({})
+Text_Input_CustomClassName_Tiny.args = {
+  label: 'Label:',
+  name: 'input_name',
+  register: () => {
+    /* noop */
+  },
+  defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at.',
+  validationErrors: {},
+  className: 'input-xs',
 }

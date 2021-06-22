@@ -10,5 +10,7 @@ export default {
 const Template: Story<ChangeThemeDropDownProps> = (args) => <ChangeThemeDropDown {...args} />
 
 // Default scenario
-export const HeadlessUI_ChangeThemeDropDown = Template.bind({})
-HeadlessUI_ChangeThemeDropDown.args = {}
+export const ChangeTheme_DropDown = Template.bind({})
+ChangeTheme_DropDown.args = {
+  label: 'select a theme',
+}

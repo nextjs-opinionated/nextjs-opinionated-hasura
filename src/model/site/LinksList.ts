@@ -35,14 +35,14 @@ export const LinksList: {
     name: 'Form Example',
     internalURL: '/form-example',
   },
-  login: {
-    id: 'login',
-    name: 'Login',
-    internalURL: '/auth/login',
-  },
   github: {
     id: 'github',
     name: 'Github',
     externalURL: 'https://github.com/saitodisse/nextjs-opinionated-hasura',
+  },
+  login: {
+    id: 'login',
+    name: 'Login',
+    internalURL: '/auth/login',
   },
 }

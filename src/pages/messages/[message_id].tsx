@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Messages_By_PkQuery, Messages_Insert_Input } from '../../graphql/generated'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { messageValidationSchema } from '../../model/schemas/messageValidationSchema'
+import { MessageValidationSchema } from '../../model/MessageValidationSchema'
 import useSWRFetch from '../../utils/useSWRFetch'
 import queryString from 'query-string'
 import { useRouter } from 'next/router'
@@ -39,7 +39,7 @@ const Page: React.FunctionComponent = () => {
     reset,
   } = useForm<FormProps>({
     mode: 'onChange',
-    resolver: zodResolver(messageValidationSchema),
+    resolver: zodResolver(MessageValidationSchema),
   })
 
   const onSubmit = handleSubmit(

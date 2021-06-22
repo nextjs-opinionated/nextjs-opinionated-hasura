@@ -28,7 +28,7 @@ export const FormInput: React.FC<FormInputProps> = ({
           defaultValue={defaultValue}
           disabled={disabled}
           {...register(name)}
-          placeholder={`${placeholder || label || name}...`}
+          placeholder={`${placeholder || label || name}`}
           className={classnames(`input input-bordered ${className}`, {
             'input-error': validationErrors?.[name],
           })}

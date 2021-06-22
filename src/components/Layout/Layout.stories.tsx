@@ -4,7 +4,7 @@ import { Layout, LayoutProps } from './Layout'
 import { LinksList } from '../../model/site/LinksList'
 
 export default {
-  title: 'Component/Layout',
+  title: 'Component/Pages/Layout',
   component: Layout,
   argTypes: {},
 } as Meta

@@ -5,7 +5,6 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
-import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import { HelloResponse } from './api/hello'
 import Link from 'next/link'
@@ -156,21 +155,6 @@ export default function Page() {
               </button>
             </div>
 
-            <ChangeThemeDropDown />
-
-            <div className='mx-2'>
-              {!session?.user && (
-                <button className='btn btn-primary btn-md' onClick={() => signIn()}>
-                  Login
-                </button>
-              )}
-
-              {session?.user && (
-                <button className='btn btn-outline btn-md' onClick={() => signOut()}>
-                  SignOut
-                </button>
-              )}
-            </div>
           </div>
 
           <p className='max-w-md mt-10 text-sm italic'>

@@ -17,9 +17,10 @@ export default function formExample_api(req, res) {
 
     const dataObj = {
       email: req.body.email,
+      image: req.body.email,
     }
 
-    res.json({ email: dataObj, server_time: new Date().toLocaleTimeString() })
+    res.json({ dataObj, server_time: new Date().toLocaleTimeString() })
   } catch (e) {
     console.error('Request error', e)
     res.statusCode = 500
