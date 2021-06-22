@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import * as z from 'zod'
 
-export const messageValidationSchema = z.object({
+export const MessageValidationSchema = z.object({
   id: z.any().refine(
     (value) => {
       // optional if is on insert mode

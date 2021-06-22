@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Messages_Update_Column } from '../../../graphql/generated'
-import { messageValidationSchema } from '../../../model/messageValidationSchema'
+import { MessageValidationSchema } from '../../../model/MessageValidationSchema'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 
 export default async function API(req: NextApiRequest, res: NextApiResponse) {
@@ -11,7 +11,7 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
       try {
         try {
           // server validations
-          messageValidationSchema.parse(req.body)
+          MessageValidationSchema.parse(req.body)
         } catch (error) {
           console.log('--  error: ', error)
           if (error?.errors) {
