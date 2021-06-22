@@ -29,14 +29,14 @@ const Messages: React.FunctionComponent = () => {
   return (
     <>
       <Head>
-        <title>MESSAGES : Next.js Opinionated Hasura</title>
+        <title>MESSAGES : {process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
 
       <Layout
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
             <div className='text-base font-bold'>MESSAGES</div>
-            <div className='text-sm'>Next.js Opinionated Hasura</div>
+            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
           </div>
         }
         menuItems={Object.values(LinksList)}

@@ -13,6 +13,7 @@ import Head from 'next/head'
 import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
 import { FormInput } from '../../components/forms/FormInput/FormInput'
+import Loading from '../../components/Loading/Loading'
 
 type FormProps = Omit<Messages_Insert_Input, 'message_tags'> & {
   publishedAt_date: string
@@ -82,17 +83,25 @@ const Page: React.FunctionComponent = () => {
 
   if (loadingMessages_by_pk) {
     return (
-      <Layout
-        title={
-          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
-            <div className='text-base font-bold'>...</div>
-            <div className='text-sm'>Next.js Opinionated Hasura</div>
+      <>
+        <Head>
+          <title>EDIT MESSAGE : {process.env.NEXT_PUBLIC_SITE_NAME}</title>
+        </Head>
+
+        <Layout
+          title={
+            <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
+              <div className='text-base font-bold'>EDIT MESSAGE</div>
+              <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+            </div>
+          }
+          menuItems={Object.values(LinksList)}
+        >
+          <div className="flex items-center justify-center">
+            <Loading title='Loading...' className='w-10 h-10' />
           </div>
-        }
-        menuItems={Object.values(LinksList)}
-      >
-        <p>Loading...</p>
-      </Layout>
+        </Layout>
+      </>
     )
   }
 
@@ -103,14 +112,14 @@ const Page: React.FunctionComponent = () => {
   return (
     <>
       <Head>
-        <title>EDIT MESSAGE : Next.js Opinionated Hasura</title>
+        <title>EDIT MESSAGE : {process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
 
       <Layout
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
             <div className='text-base font-bold'>EDIT MESSAGE</div>
-            <div className='text-sm'>Next.js Opinionated Hasura</div>
+            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
           </div>
         }
         menuItems={Object.values(LinksList)}
