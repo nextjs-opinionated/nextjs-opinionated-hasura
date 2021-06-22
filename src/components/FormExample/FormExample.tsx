@@ -12,9 +12,9 @@ import { FormToggle } from '../forms/FormToggle/FormToggle'
 import { useMemo } from 'react'
 import { FormImage } from '../forms/FormImage/FormImage'
 import { FormInputColor } from '../forms/FormInputColor/FormInputColor'
-import { CodeBlock } from '../forms/CodeBlock/CodeBlock'
 
 export type FormExampleProps = {
+  onSubmitConfirm: (submitProps: any) => void
   initialFormData?: {
     email: string
     color_select: string
@@ -26,6 +26,7 @@ export type FormExampleProps = {
 }
 
 export const FormExample: React.FunctionComponent<FormExampleProps> = ({
+  onSubmitConfirm,
   initialFormData = {},
 }) => {
   const {
@@ -43,38 +44,15 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
     }, [initialFormData]),
   })
 
-  const handleUpload = (file: File) => {
-    if (!file[0]) return null
-    const { name, type } = file[0]
-    return { name, type }
-  }
+  // const handleUpload = (file: File) => {
+  //   if (!file[0]) return null
+  //   const { name, type } = file[0]
+  //   return { name, type }
+  // }
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
-      const image = handleUpload(submitProps.image)
-
-      const headers = new Headers()
-      headers.append('Content-Type', 'application/json')
-      const fetchResponse = await fetch('/api/formExample_api', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          ...submitProps,
-          image,
-        }),
-      })
-
-      /* check for server errors (VALIDATIONS) */
-      const isValid = await checkFetchJsonResult(fetchResponse)
-      if (isValid) {
-        // const resultJSON = await fetchResponse.json()
-        const myAlert = withReactContent(Swal)
-        await myAlert.fire({
-          title: 'submited',
-          html: <CodeBlock content={submitProps} />,
-          confirmButtonText: 'close',
-        })
-      }
+      return onSubmitConfirm(submitProps)
     },
     (submitErrors) => {
       console.error('--  submitErrors: ', submitErrors)
@@ -181,6 +159,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                             toggle: getValues('toggle'),
                             image: getValues('image'),
                             image_url: getValues('image_url'),
+                            color_input: getValues('color_input'),
                           }),
                         })
 
@@ -189,7 +168,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                           const resultJSON = await fetchResponse.json()
                           const myAlert = withReactContent(Swal)
                           await myAlert.fire({
-                            title: 'email is valid',
+                            title: 'server message',
                             html: resultJSON.message,
                             confirmButtonText: 'close',
                           })

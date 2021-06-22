@@ -82,6 +82,7 @@ export const FormInputColor: React.FC<FormInputColorProps> = ({
                 <button
                   className={classnames('btn btn-sm', {
                     'btn-ghost': !opened,
+                    'btn-active': opened,
                   })}
                   type='button'
                   onClick={() => openedSet((v) => !v)}
