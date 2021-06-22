@@ -1,6 +1,6 @@
 import * as z from 'zod'
 import isEmail from 'validator/lib/isEmail'
-import { EMPTY_SELECT_OPTION_VALUE } from '../components/forms/FormSelect/FormSelect'
+import { EMPTY_SELECT_OPTION_VALUE } from '../../components/forms/FormSelect/FormSelect'
 
 export const ImageFormExample = z
   .object({
