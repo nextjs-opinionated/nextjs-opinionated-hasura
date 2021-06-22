@@ -11,6 +11,7 @@ import { FormSelect } from '../forms/FormSelect/FormSelect'
 import { FormToggle } from '../forms/FormToggle/FormToggle'
 import { useMemo } from 'react'
 import { FormImage } from '../forms/FormImage/FormImage'
+import { useEffect } from 'react'
 import { FormInputColor } from '../forms/FormInputColor/FormInputColor'
 
 export type FormExampleProps = {
@@ -47,8 +48,14 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
   // const handleUpload = (file: File) => {
   //   if (!file[0]) return null
   //   const { name, type } = file[0]
-  //   return { name, type }
+  //   return [{ name, type }]
   // }
+
+  useEffect(() => {
+    if (initialFormData?.image_url) {
+      setValue('image_url', initialFormData.image_url)
+    }
+  }, [])
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
