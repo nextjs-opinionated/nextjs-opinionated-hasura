@@ -1,4 +1,4 @@
-// This file configures the intialization of Sentry on the browser.
+// This file configures the initialization of Sentry on the browser.
 // The config you add here will be used whenever a page is visited.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
@@ -13,5 +13,5 @@ Sentry.init({
   // `release` value here - use the environment variable `SENTRY_RELEASE`, so
   // that it will also get attached to your source maps
   integrations: [new Integrations.BrowserTracing()],
-  tracesSampleRate: 0.2,
+  tracesSampleRate: 1.0,
 })
