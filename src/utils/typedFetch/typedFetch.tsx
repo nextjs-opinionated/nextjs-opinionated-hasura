@@ -12,6 +12,14 @@ export type TypedFetchResult<P> = {
   data?: P
 }
 
+export type TypedFetchParams<INPUT_TYPE> = {
+  url: string
+  method?: HTTP_METHODS
+  data?: INPUT_TYPE
+  headers?: Headers
+  responseType?: RESPONSE_TYPE
+}
+
 export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
   url,
   method = 'get',
@@ -21,13 +29,7 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
     'Content-Type': 'application/json',
   }),
   data,
-}: {
-  url: string
-  method?: HTTP_METHODS
-  data?: INPUT_TYPE
-  headers?: Headers
-  responseType?: RESPONSE_TYPE
-}): Promise<TypedFetchResult<OUTPUT_TYPE>> {
+}: TypedFetchParams<INPUT_TYPE>): Promise<TypedFetchResult<OUTPUT_TYPE>> {
   const fetchOptions: {
     headers: Headers
     method: string

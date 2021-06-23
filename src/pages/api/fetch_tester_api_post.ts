@@ -21,7 +21,7 @@ export const fetch_tester_api_post_Config: ApiConfig = {
 }
 
 // api
-export default function fetch_tester_api_post(req: NextApiRequest, res: NextApiResponse) {
+export default async function fetch_tester_api_post(req: NextApiRequest, res: NextApiResponse) {
   // input data
   const inputData = req.body as Fetch_tester_api_post['input']
 
@@ -34,6 +34,10 @@ export default function fetch_tester_api_post(req: NextApiRequest, res: NextApiR
     // process
     const result = 10 / inputData.divide_by
     const finalMessage = `Your string <${inputData.some_string}> has ${inputData.some_string.length} letters`
+
+    await new Promise(function (resolve) {
+      setTimeout(resolve, 1000)
+    })
 
     // output data
     const output: Fetch_tester_api_post['output'] = {

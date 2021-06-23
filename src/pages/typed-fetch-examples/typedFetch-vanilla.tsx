@@ -3,12 +3,12 @@ import _ from 'lodash'
 import { useSession } from 'next-auth/client'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
-import { CodeBlock } from '../components/CodeBlock/CodeBlock'
-import { Layout } from '../components/Layout/Layout'
-import { LinksList } from '../model/site/LinksList'
-import typedFetch from '../utils/typedFetch/typedFetch'
-import { Fetch_tester_api_get, fetch_tester_api_get_Config } from './api/fetch_tester_api_get'
-import { Fetch_tester_api_post, fetch_tester_api_post_Config } from './api/fetch_tester_api_post'
+import { CodeBlock } from '../../components/CodeBlock/CodeBlock'
+import { Layout } from '../../components/Layout/Layout'
+import { LinksList } from '../../model/site/LinksList'
+import typedFetch from '../../utils/typedFetch/typedFetch'
+import { Fetch_tester_api_get, fetch_tester_api_get_Config } from '../api/fetch_tester_api_get'
+import { Fetch_tester_api_post, fetch_tester_api_post_Config } from '../api/fetch_tester_api_post'
 
 export default function Page() {
   const [session] = useSession()
@@ -21,13 +21,13 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>Fetch Tester</title>
+        <title>TypedFetch Examples Vanilla</title>
       </Head>
 
       <Layout
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
-            <div className='text-base font-bold'>Fetch Tester</div>
+            <div className='text-base font-bold'>TypedFetch Examples Vanilla</div>
             <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
           </div>
         }
@@ -35,7 +35,7 @@ export default function Page() {
       >
         {/* text */}
         <div className='pb-3'>
-          <h1 className='py-2 text-3xl font-bold'>Fetch Tester</h1>
+          <h1 className='py-2 text-3xl font-bold'>TypedFetch Examples Vanilla</h1>
 
           {/* buttons */}
           <div className='flex flex-wrap items-center my-6'>
