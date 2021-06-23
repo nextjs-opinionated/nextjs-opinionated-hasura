@@ -17,6 +17,10 @@ export default function Page() {
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
   const [session] = useSession()
 
+  const throwKnownError = () => {
+    throw new Error('Error from sentry!!!')
+  }
+
   return (
     <>
       <Head>
@@ -56,6 +60,8 @@ export default function Page() {
                 session?.user?.image ||
                 'http://daisyui.com/tailwind-css-component-profile-1@94w.png'
               }
+              // Example
+              onClick={throwKnownError}
             />
           </div>
 
