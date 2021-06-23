@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { FormExampleValidationSchema } from '../../model/schemas/FormExampleValidationSchema'
+import { HttpStatusCode } from '../../utils/HttpStatusCode'
 
 export type Fetch_formExample_api_Input_Post = {
   email: string
@@ -28,19 +29,29 @@ export default function fetch_formExample_api_post(req: NextApiRequest, res: Nex
   try {
     // process
 
-    FormExampleValidationSchema.parse(inputData)
+    try {
+      // server validation (VALIDATIONS)
+      FormExampleValidationSchema.parse(req.body)
+    } catch (error) {
+      console.error({ msg: 'validation:', error })
+      res.status(HttpStatusCode.BAD_REQUEST_400).json({
+        message: error.message,
+        stack: error.stack,
+        validationError: error?.errors,
+      })
+    }
 
     // output data
     const output: Fetch_formExample_api_Output_Post = {
       ...inputData,
       server_time: new Date().toLocaleTimeString(),
     }
-    res.status(200).json(output)
+    res.status(HttpStatusCode.OK_200).json(output)
   } catch (error) {
     // TODO: log on log service
     console.error(error)
 
-    res.status(500).json({
+    res.status(HttpStatusCode.INTERNAL_SERVER_ERROR_500).json({
       message: error.message,
       stack: error.stack,
     })

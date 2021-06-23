@@ -55,7 +55,7 @@ const Page: React.FunctionComponent = () => {
                 const myAlert = withReactContent(Swal)
                 await myAlert.fire({
                   title: 'submited',
-                  html: <CodeBlock content={submitProps} />,
+                  html: <CodeBlock content={typedFetchResult.data} />,
                   confirmButtonText: 'close',
                 })
               }
