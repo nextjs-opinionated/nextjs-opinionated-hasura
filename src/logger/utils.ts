@@ -1,4 +1,6 @@
-const prepObjectKeys = (headers) => {
+import { IncomingHttpHeaders } from "http"
+
+export const prepObjectKeys = (headers: IncomingHttpHeaders) => {
   const keyValues = {}
   Object.keys(headers).map((key) => {
     const newKey = key.replace(/-/g, '_')
@@ -7,5 +9,3 @@ const prepObjectKeys = (headers) => {
 
   return keyValues
 }
-
-export { prepObjectKeys }
