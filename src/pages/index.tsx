@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import Head from 'next/head'
-import React, { useEffect } from 'react'
+import React from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
@@ -16,17 +16,6 @@ export default function Page() {
   const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
   const [session] = useSession()
-
-  useEffect(() => {
-    console.log(session?.user)
-  }, [session])
-
-  const callApi = async () => {
-    const response = await fetch('/api/say-hello-from-api')
-
-    const response_json = await response.json()
-    console.log(response_json)
-  }
 
   return (
     <>
@@ -63,7 +52,6 @@ export default function Page() {
         <div className='flex flex-col avatar'>
           <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
             <img
-              onClick={() => callApi()}
               src={
                 session?.user?.image ||
                 'http://daisyui.com/tailwind-css-component-profile-1@94w.png'

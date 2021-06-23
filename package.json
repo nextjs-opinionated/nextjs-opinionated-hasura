@@ -21,7 +21,7 @@
     "zod"
   ],
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev | pino-pretty",
     "build": "cross-env NODE_ENV=production next build",
     "start": "next start",
     "export": "next export",
@@ -40,7 +40,11 @@
     "dayjs": "^1.10.5",
     "next": "11.0.0",
     "next-auth": "^3.27.0",
+    "next-logger": "^2.0.0",
     "next-themes": "^0.0.14",
+    "pino": "^6.11.3",
+    "pino-logflare": "^0.3.8",
+    "pino-pretty": "^5.0.2",
     "query-string": "^7.0.1",
     "react": "17.0.2",
     "react-colorful": "^5.2.2",
