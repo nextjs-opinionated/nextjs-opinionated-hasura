@@ -82,7 +82,9 @@ export default function Page() {
 
         {/* text */}
         <div className='pb-3'>
-          <h1 className='py-2 text-3xl font-bold'>{process.env.NEXT_PUBLIC_SITE_NAME}</h1>
+          <h1 className='py-2 text-3xl font-bold'>
+            {process.env.NEXT_PUBLIC_SITE_NAME} - {process.env.NODE_ENV}
+          </h1>
 
           <p className='max-w-md my-2'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eius odit soluta
