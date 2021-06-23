@@ -6,7 +6,17 @@ import { LinksList } from '../model/site/LinksList'
 import { useSession } from 'next-auth/client'
 import { CodeBlock } from '../components/CodeBlock/CodeBlock'
 import typedFetch from '../utils/typedFetch'
-import { Fetch_tester_api_Input, Fetch_tester_api_Output } from './api/fetch_tester_api'
+import {
+  FETCH_TESTER_API_GET_URL,
+  Fetch_tester_api_Input_Get,
+  Fetch_tester_api_Output_Get,
+} from './api/fetch_tester_api_get'
+import {
+  Fetch_tester_api_Input_Post,
+  Fetch_tester_api_Output_Post,
+  FETCH_TESTER_API_POST_URL,
+} from './api/fetch_tester_api_post'
+import _ from 'lodash'
 
 export default function Page() {
   const [session] = useSession()
@@ -36,23 +46,24 @@ export default function Page() {
           <h1 className='py-2 text-3xl font-bold'>Fetch Tester</h1>
 
           {/* buttons */}
-          <div className='flex flex-wrap items-center my-6 space-x-2'>
+          <div className='flex flex-wrap items-center my-6'>
             <button
-              className='m-3 btn btn-primary'
+              className='m-2 btn btn-primary'
               title={`{
   some_string: 'Ueba!',
   divide_by: 2,
 }`}
               onClick={async () => {
                 const typedFetchResult = await typedFetch<
-                  Fetch_tester_api_Input,
-                  Fetch_tester_api_Output
+                  Fetch_tester_api_Input_Get,
+                  Fetch_tester_api_Output_Get
                 >({
-                  url: '/api/fetch_tester_api',
+                  url: FETCH_TESTER_API_GET_URL,
                   method: 'get',
                   data: {
                     some_string: 'Ueba!',
-                    divide_by: 2,
+                    divide_by: _.toString(2),
+                    force_error: _.toString(false),
                   },
                   responseType: 'json',
                 })
@@ -63,21 +74,22 @@ export default function Page() {
             </button>
 
             <button
-              className='m-3 btn btn-primary'
+              className='m-2 btn btn-primary'
               title={`{
   some_string: 'Post Text',
   divide_by: 5,
 }`}
               onClick={async () => {
                 const typedFetchResult = await typedFetch<
-                  Fetch_tester_api_Input,
-                  Fetch_tester_api_Output
+                  Fetch_tester_api_Input_Post,
+                  Fetch_tester_api_Output_Post
                 >({
-                  url: '/api/fetch_tester_api',
+                  url: FETCH_TESTER_API_POST_URL,
                   method: 'post',
                   data: {
                     some_string: 'Post Text',
                     divide_by: 5,
+                    force_error: false,
                   },
                   responseType: 'json',
                 })
@@ -88,7 +100,7 @@ export default function Page() {
             </button>
 
             <button
-              className='m-3 btn btn-primary'
+              className='m-2 btn btn-secondary'
               title={`{
   some_string: 'Post Text',
   divide_by: 0,
@@ -96,10 +108,37 @@ export default function Page() {
 }`}
               onClick={async () => {
                 const typedFetchResult = await typedFetch<
-                  Fetch_tester_api_Input,
-                  Fetch_tester_api_Output
+                  Fetch_tester_api_Input_Get,
+                  Fetch_tester_api_Output_Get
                 >({
-                  url: '/api/fetch_tester_api',
+                  url: FETCH_TESTER_API_GET_URL,
+                  method: 'get',
+                  data: {
+                    some_string: 'Get Text',
+                    divide_by: _.toString(10),
+                    force_error: _.toString(true),
+                  },
+                  responseType: 'json',
+                })
+                fetchResultJSONSet(typedFetchResult)
+              }}
+            >
+              Get (500)
+            </button>
+
+            <button
+              className='m-2 btn btn-secondary'
+              title={`{
+  some_string: 'Post Text',
+  divide_by: 0,
+  force_error: true,
+}`}
+              onClick={async () => {
+                const typedFetchResult = await typedFetch<
+                  Fetch_tester_api_Input_Post,
+                  Fetch_tester_api_Output_Post
+                >({
+                  url: FETCH_TESTER_API_POST_URL,
                   method: 'post',
                   data: {
                     some_string: 'Post Text',
