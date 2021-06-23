@@ -1,21 +1,29 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { ApiConfig } from '../../utils/typedFetch/ApiConfig'
 
-export type Fetch_tester_api_Input_Post = {
-  some_string: string
-  divide_by: number
-  force_error: boolean
+// types
+export interface Fetch_tester_api_post {
+  input: {
+    some_string: string
+    divide_by: number
+    force_error: boolean
+  }
+  output: {
+    message: string
+    division_result: number
+  }
 }
 
-export type Fetch_tester_api_Output_Post = {
-  message: string
-  division_result: number
+export const fetch_tester_api_post_Config: ApiConfig = {
+  url: '/api/fetch_tester_api_post',
+  method: 'post',
+  responseType: 'json',
 }
 
-export const FETCH_TESTER_API_POST_URL = '/api/fetch_tester_api_post'
-
+// api
 export default function fetch_tester_api_post(req: NextApiRequest, res: NextApiResponse) {
   // input data
-  const inputData = req.body as Fetch_tester_api_Input_Post
+  const inputData = req.body as Fetch_tester_api_post['input']
 
   try {
     // force_error
@@ -28,7 +36,7 @@ export default function fetch_tester_api_post(req: NextApiRequest, res: NextApiR
     const finalMessage = `Your string <${inputData.some_string}> has ${inputData.some_string.length} letters`
 
     // output data
-    const output: Fetch_tester_api_Output_Post = {
+    const output: Fetch_tester_api_post['output'] = {
       message: finalMessage,
       division_result: result,
     }

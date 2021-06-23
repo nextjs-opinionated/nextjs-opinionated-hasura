@@ -2,6 +2,8 @@ import queryString from 'query-string'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import _ from 'lodash'
+import { HTTP_METHODS } from './HTTP_METHODS'
+import { RESPONSE_TYPE } from './RESPONSE_TYPE'
 
 export type TypedFetchResult<P> = {
   status: number
@@ -21,10 +23,10 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
   data,
 }: {
   url: string
-  method?: 'get' | 'post' | 'put' | 'delete'
+  method?: HTTP_METHODS
   data?: INPUT_TYPE
   headers?: Headers
-  responseType?: 'json' | 'text'
+  responseType?: RESPONSE_TYPE
 }): Promise<TypedFetchResult<OUTPUT_TYPE>> {
   const fetchOptions: {
     headers: Headers

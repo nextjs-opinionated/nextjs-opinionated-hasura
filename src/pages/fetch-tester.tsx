@@ -1,22 +1,14 @@
 /* eslint-disable no-console */
+import _ from 'lodash'
+import { useSession } from 'next-auth/client'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
+import { CodeBlock } from '../components/CodeBlock/CodeBlock'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
-import { useSession } from 'next-auth/client'
-import { CodeBlock } from '../components/CodeBlock/CodeBlock'
-import typedFetch from '../utils/typedFetch'
-import {
-  FETCH_TESTER_API_GET_URL,
-  Fetch_tester_api_Input_Get,
-  Fetch_tester_api_Output_Get,
-} from './api/fetch_tester_api_get'
-import {
-  Fetch_tester_api_Input_Post,
-  Fetch_tester_api_Output_Post,
-  FETCH_TESTER_API_POST_URL,
-} from './api/fetch_tester_api_post'
-import _ from 'lodash'
+import typedFetch from '../utils/typedFetch/typedFetch'
+import { Fetch_tester_api_get, fetch_tester_api_get_Config } from './api/fetch_tester_api_get'
+import { Fetch_tester_api_post, fetch_tester_api_post_Config } from './api/fetch_tester_api_post'
 
 export default function Page() {
   const [session] = useSession()
@@ -55,17 +47,15 @@ export default function Page() {
 }`}
               onClick={async () => {
                 const typedFetchResult = await typedFetch<
-                  Fetch_tester_api_Input_Get,
-                  Fetch_tester_api_Output_Get
+                  Fetch_tester_api_get['input'],
+                  Fetch_tester_api_get['output']
                 >({
-                  url: FETCH_TESTER_API_GET_URL,
-                  method: 'get',
+                  ...fetch_tester_api_get_Config,
                   data: {
                     some_string: 'Ueba!',
                     divide_by: _.toString(2),
                     force_error: _.toString(false),
                   },
-                  responseType: 'json',
                 })
                 fetchResultJSONSet(typedFetchResult)
               }}
@@ -81,17 +71,15 @@ export default function Page() {
 }`}
               onClick={async () => {
                 const typedFetchResult = await typedFetch<
-                  Fetch_tester_api_Input_Post,
-                  Fetch_tester_api_Output_Post
+                  Fetch_tester_api_post['input'],
+                  Fetch_tester_api_post['output']
                 >({
-                  url: FETCH_TESTER_API_POST_URL,
-                  method: 'post',
+                  ...fetch_tester_api_post_Config,
                   data: {
                     some_string: 'Post Text',
                     divide_by: 5,
                     force_error: false,
                   },
-                  responseType: 'json',
                 })
                 fetchResultJSONSet(typedFetchResult)
               }}
@@ -108,17 +96,15 @@ export default function Page() {
 }`}
               onClick={async () => {
                 const typedFetchResult = await typedFetch<
-                  Fetch_tester_api_Input_Get,
-                  Fetch_tester_api_Output_Get
+                  Fetch_tester_api_get['input'],
+                  Fetch_tester_api_get['output']
                 >({
-                  url: FETCH_TESTER_API_GET_URL,
-                  method: 'get',
+                  ...fetch_tester_api_get_Config,
                   data: {
                     some_string: 'Get Text',
                     divide_by: _.toString(10),
                     force_error: _.toString(true),
                   },
-                  responseType: 'json',
                 })
                 fetchResultJSONSet(typedFetchResult)
               }}
@@ -135,17 +121,15 @@ export default function Page() {
 }`}
               onClick={async () => {
                 const typedFetchResult = await typedFetch<
-                  Fetch_tester_api_Input_Post,
-                  Fetch_tester_api_Output_Post
+                  Fetch_tester_api_post['input'],
+                  Fetch_tester_api_post['output']
                 >({
-                  url: FETCH_TESTER_API_POST_URL,
-                  method: 'post',
+                  ...fetch_tester_api_post_Config,
                   data: {
                     some_string: 'Post Text',
                     divide_by: 10,
                     force_error: true,
                   },
-                  responseType: 'json',
                 })
                 fetchResultJSONSet(typedFetchResult)
               }}
