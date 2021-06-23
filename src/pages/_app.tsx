@@ -1,24 +1,12 @@
 import '../styles/tailwind.css'
 import { StrictMode } from 'react'
 import { ThemeProvider } from 'next-themes'
-import * as Sentry from '@sentry/react'
-import { Integrations } from '@sentry/tracing'
 
-Sentry.init({
-  dsn: 'https://afda10ad7e6e47ef99c2ed248abef638@o878762.ingest.sentry.io/5830876',
-  integrations: [new Integrations.BrowserTracing()],
-
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
-})
-
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, err }) {
   return (
     <ThemeProvider>
       <StrictMode>
-        <Component {...pageProps} />
+        <Component {...pageProps} err={err} />
       </StrictMode>
     </ThemeProvider>
   )
