@@ -21,11 +21,8 @@ export default function Page() {
     console.log(session?.user)
   }, [session])
 
-  const callApi = async () => {
-    const response = await fetch('/api/say-hello-from-api')
-
-    const response_json = await response.json()
-    console.log(response_json)
+  const throwKnownError = () => {
+    throw new Error('Error from sentry!!!')
   }
 
   return (
@@ -63,7 +60,8 @@ export default function Page() {
         <div className='flex flex-col avatar'>
           <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
             <img
-              onClick={() => callApi()}
+              // Example
+              onClick={throwKnownError}
               src={
                 session?.user?.image ||
                 'http://daisyui.com/tailwind-css-component-profile-1@94w.png'
