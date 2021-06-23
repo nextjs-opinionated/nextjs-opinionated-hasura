@@ -1,12 +1,8 @@
 import Head from 'next/head'
 import * as React from 'react'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
 import { FormExample } from '../../components/FormExample/FormExample'
-import { CodeBlock } from '../../components/CodeBlock/CodeBlock'
 import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
-import { checkFetchJsonResult } from '../../utils/checkFetchResult'
 
 const Page: React.FunctionComponent = () => {
   return (
@@ -34,25 +30,25 @@ const Page: React.FunctionComponent = () => {
               color_input: '#ff0000',
             }}
             onSubmitConfirm={async (submitProps) => {
-              const headers = new Headers()
-              headers.append('Content-Type', 'application/json')
-              const fetchResponse = await fetch('/api/formExample_api', {
-                method: 'POST',
-                headers,
-                body: JSON.stringify(submitProps),
-              })
-
+              // FIXME: call with typedFetch
+              // const headers = new Headers()
+              // headers.append('Content-Type', 'application/json')
+              // const fetchResponse = await fetch('/api/formExample_api', {
+              //   method: 'POST',
+              //   headers,
+              //   body: JSON.stringify(submitProps),
+              // })
               /* check for server errors (VALIDATIONS) */
-              const isValid = await checkFetchJsonResult(fetchResponse)
-              if (isValid) {
-                // const resultJSON = await fetchResponse.json()
-                const myAlert = withReactContent(Swal)
-                await myAlert.fire({
-                  title: 'submited',
-                  html: <CodeBlock content={submitProps} />,
-                  confirmButtonText: 'close',
-                })
-              }
+              // const isValid = await checkFetchJsonResult(fetchResponse)
+              // if (isValid) {
+              //   // const resultJSON = await fetchResponse.json()
+              //   const myAlert = withReactContent(Swal)
+              //   await myAlert.fire({
+              //     title: 'submited',
+              //     html: <CodeBlock content={submitProps} />,
+              //     confirmButtonText: 'close',
+              //   })
+              // }
             }}
           />
         </main>

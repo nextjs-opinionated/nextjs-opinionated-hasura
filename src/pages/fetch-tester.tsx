@@ -5,12 +5,12 @@ import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { useSession } from 'next-auth/client'
 import { CodeBlock } from '../components/CodeBlock/CodeBlock'
+import typedFetch from '../utils/typedFetch'
+import { Fetch_tester_api_Input, Fetch_tester_api_Output } from './api/fetch_tester_api'
 
 export default function Page() {
   const [session] = useSession()
   const [fetchResultJSON, fetchResultJSONSet] = useState({})
-  const [responseStatus, responseStatusSet] = useState<number>(null)
-  const [responseStatusText, responseStatusTextSet] = useState<string>(null)
 
   useEffect(() => {
     console.log(session?.user)
@@ -36,42 +36,84 @@ export default function Page() {
           <h1 className='py-2 text-3xl font-bold'>Fetch Tester</h1>
 
           {/* buttons */}
-          <div className='flex flex-wrap items-center my-16 space-x-2'>
+          <div className='flex flex-wrap items-center my-6 space-x-2'>
             <button
-              className='btn btn-primary'
+              className='m-3 btn btn-primary'
+              title={`{
+  some_string: 'Ueba!',
+  divide_by: 2,
+}`}
               onClick={async () => {
-                const res = await fetch('/api/get_server_time')
-                responseStatusSet(res.status)
-                responseStatusTextSet(res.statusText)
-                const resultJSON = await res.json()
-                fetchResultJSONSet(resultJSON)
+                const typedFetchResult = await typedFetch<
+                  Fetch_tester_api_Input,
+                  Fetch_tester_api_Output
+                >({
+                  url: '/api/fetch_tester_api',
+                  method: 'get',
+                  data: {
+                    some_string: 'Ueba!',
+                    divide_by: 2,
+                  },
+                  responseType: 'json',
+                })
+                fetchResultJSONSet(typedFetchResult)
               }}
             >
-              Call API (200)
+              Get (200)
             </button>
 
             <button
-              className='btn btn-primary'
+              className='m-3 btn btn-primary'
+              title={`{
+  some_string: 'Post Text',
+  divide_by: 5,
+}`}
               onClick={async () => {
-                const res = await fetch('/api/get_server_error')
-                responseStatusSet(res.status)
-                responseStatusTextSet(res.statusText)
-                const resultJSON = await res.json()
-                fetchResultJSONSet(resultJSON)
+                const typedFetchResult = await typedFetch<
+                  Fetch_tester_api_Input,
+                  Fetch_tester_api_Output
+                >({
+                  url: '/api/fetch_tester_api',
+                  method: 'post',
+                  data: {
+                    some_string: 'Post Text',
+                    divide_by: 5,
+                  },
+                  responseType: 'json',
+                })
+                fetchResultJSONSet(typedFetchResult)
               }}
             >
-              Call API (200)
+              Post (200)
             </button>
 
-            {/* get */}
-            {/* post */}
-            {/* error on json() */}
+            <button
+              className='m-3 btn btn-primary'
+              title={`{
+  some_string: 'Post Text',
+  divide_by: 0,
+  force_error: true,
+}`}
+              onClick={async () => {
+                const typedFetchResult = await typedFetch<
+                  Fetch_tester_api_Input,
+                  Fetch_tester_api_Output
+                >({
+                  url: '/api/fetch_tester_api',
+                  method: 'post',
+                  data: {
+                    some_string: 'Post Text',
+                    divide_by: 10,
+                    force_error: true,
+                  },
+                  responseType: 'json',
+                })
+                fetchResultJSONSet(typedFetchResult)
+              }}
+            >
+              Post (500)
+            </button>
           </div>
-
-          <CodeBlock
-            className='my-2'
-            content={{ status: responseStatus, statusText: responseStatusText }}
-          />
 
           <CodeBlock content={fetchResultJSON} />
         </div>

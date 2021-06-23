@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import { FormExampleValidationSchema } from '../../model/schemas/FormExampleValidationSchema'
-import { checkFetchJsonResult } from '../../utils/checkFetchResult'
 import { FormInput } from '../forms/FormInput/FormInput'
 import { FormSelect } from '../forms/FormSelect/FormSelect'
 import { FormToggle } from '../forms/FormToggle/FormToggle'
@@ -154,32 +153,31 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                       type='button'
                       className='m-3 btn btn-ghost btn-link'
                       onClick={async () => {
-                        const headers = new Headers()
-                        headers.append('Content-Type', 'application/json')
-
-                        const fetchResponse = await fetch('/api/formExample_api', {
-                          method: 'POST',
-                          headers,
-                          body: JSON.stringify({
-                            email: getValues('email'),
-                            color_select: getValues('color_select'),
-                            toggle: getValues('toggle'),
-                            image: getValues('image'),
-                            image_url: getValues('image_url'),
-                            color_input: getValues('color_input'),
-                          }),
-                        })
-
-                        const isValid = await checkFetchJsonResult(fetchResponse)
-                        if (isValid) {
-                          const resultJSON = await fetchResponse.json()
-                          const myAlert = withReactContent(Swal)
-                          await myAlert.fire({
-                            title: 'server message',
-                            html: resultJSON.message,
-                            confirmButtonText: 'close',
-                          })
-                        }
+                        // FIXME: call with typedFetch
+                        // const headers = new Headers()
+                        // headers.append('Content-Type', 'application/json')
+                        // const fetchResponse = await fetch('/api/formExample_api', {
+                        //   method: 'POST',
+                        //   headers,
+                        //   body: JSON.stringify({
+                        //     email: getValues('email'),
+                        //     color_select: getValues('color_select'),
+                        //     toggle: getValues('toggle'),
+                        //     image: getValues('image'),
+                        //     image_url: getValues('image_url'),
+                        //     color_input: getValues('color_input'),
+                        //   }),
+                        // })
+                        // const isValid = await checkFetchJsonResult(fetchResponse)
+                        // if (isValid) {
+                        //   const resultJSON = await fetchResponse.json()
+                        //   const myAlert = withReactContent(Swal)
+                        //   await myAlert.fire({
+                        //     title: 'server message',
+                        //     html: resultJSON.message,
+                        //     confirmButtonText: 'close',
+                        //   })
+                        // }
                       }}
                     >
                       Validate on server only

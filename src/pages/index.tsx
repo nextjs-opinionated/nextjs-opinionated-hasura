@@ -92,26 +92,9 @@ export default function Page() {
 
           {/* buttons */}
           <div className='flex flex-wrap items-center my-16 space-x-2'>
-            <button
-              className='btn btn-primary'
-              onClick={async () => {
-                const res = await fetch('/api/get_server_time')
-                const resultJSON = await res.json()
-                const myAlert = withReactContent(Swal)
-                await myAlert.fire({
-                  title: 'from server',
-                  html: (
-                    <div>
-                      <img src='https://unsplash.it/600/300' />
-                      {resultJSON.message}
-                    </div>
-                  ),
-                  confirmButtonText: 'close',
-                })
-              }}
-            >
-              Call API
-            </button>
+            <Link href='/fetch-tester'>
+              <a className='btn btn-primary'>Typed Fetch Test</a>
+            </Link>
 
             <Link href='/form-example'>
               <a className='btn btn-primary'>Form Example</a>
