@@ -17,7 +17,6 @@ import typedFetch from '../../utils/typedFetch/typedFetch'
 import { ValidationError } from '../ValidationError/ValidationError'
 import { ValidationErrorType } from '../ValidationError/ValidationErrorType'
 import _ from 'lodash'
-import { getElementError } from '@testing-library/dom'
 
 export type FormExampleProps = {
   onSubmitConfirm: (submitProps: any) => void
