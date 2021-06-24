@@ -2,11 +2,15 @@ import Head from 'next/head'
 import * as React from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import { FormExample } from '../../components/FormExample/FormExample'
 import { CodeBlock } from '../../components/CodeBlock/CodeBlock'
+import { FormExample } from '../../components/FormExample/FormExample'
 import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
-import { checkFetchJsonResult } from '../../utils/checkFetchResult'
+import typedFetch from '../../utils/typedFetch/typedFetch'
+import {
+  Fetch_formExample_api_post,
+  fetch_formExample_api_post_Config,
+} from '../api/formExample_api_post'
 
 const Page: React.FunctionComponent = () => {
   return (
@@ -27,22 +31,21 @@ const Page: React.FunctionComponent = () => {
         <main className='flex flex-col items-center mx-8'>
           <FormExample
             onSubmitConfirm={async (submitProps) => {
-              const headers = new Headers()
-              headers.append('Content-Type', 'application/json')
-              const fetchResponse = await fetch('/api/formExample_api', {
-                method: 'POST',
-                headers,
-                body: JSON.stringify(submitProps),
+              const fetch_result = await typedFetch<
+                Fetch_formExample_api_post['input'],
+                Fetch_formExample_api_post['output']
+              >({
+                ...fetch_formExample_api_post_Config,
+                data: {
+                  ...submitProps,
+                },
               })
 
-              /* check for server errors (VALIDATIONS) */
-              const isValid = await checkFetchJsonResult(fetchResponse)
-              if (isValid) {
-                // const resultJSON = await fetchResponse.json()
+              if (fetch_result.error === null) {
                 const myAlert = withReactContent(Swal)
                 await myAlert.fire({
                   title: 'submited',
-                  html: <CodeBlock content={submitProps} />,
+                  html: <CodeBlock content={fetch_result.data} />,
                   confirmButtonText: 'close',
                 })
               }

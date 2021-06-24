@@ -1,34 +1,20 @@
 /* eslint-disable no-console */
 import Head from 'next/head'
-import React, { useEffect } from 'react'
+import React from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { signIn, signOut, useSession } from 'next-auth/client'
-import { HelloResponse } from './api/hello'
 import Link from 'next/link'
 
 export default function Page() {
-  const [session] = useSession()
-
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
   const pageUrl = process.env.NEXT_PUBLIC_SITE_URL
   const imageUrl = process.env.NEXT_PUBLIC_SITE_IMAGE
   const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
-
-  const callApi = async () => {
-    const response = await fetch('/api/hello')
-
-    const response_json = (await response.json()) as HelloResponse
-
-    return window.alert(response_json.message)
-  }
-
-  useEffect(() => {
-    console.log({ session })
-  }, [session])
+  const [session] = useSession()
 
   return (
     <>
@@ -65,7 +51,6 @@ export default function Page() {
         <div className='flex flex-col avatar'>
           <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
             <img
-              onClick={() => callApi()}
               src={
                 session?.user?.image ||
                 'http://daisyui.com/tailwind-css-component-profile-1@94w.png'
@@ -85,7 +70,9 @@ export default function Page() {
 
         {/* text */}
         <div className='pb-3'>
-          <h1 className='py-2 text-3xl font-bold'>{process.env.NEXT_PUBLIC_SITE_NAME}</h1>
+          <h1 className='py-2 text-3xl font-bold'>
+            {process.env.NEXT_PUBLIC_SITE_NAME} - {process.env.NODE_ENV}
+          </h1>
 
           <p className='max-w-md my-2'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eius odit soluta
@@ -113,26 +100,9 @@ export default function Page() {
 
           {/* buttons */}
           <div className='flex flex-wrap items-center my-16 space-x-2'>
-            <button
-              className='btn btn-primary'
-              onClick={async () => {
-                const res = await fetch('/api/get_server_time')
-                const resultJSON = await res.json()
-                const myAlert = withReactContent(Swal)
-                await myAlert.fire({
-                  title: 'from server',
-                  html: (
-                    <div>
-                      <img src='https://unsplash.it/600/300' />
-                      {resultJSON.message}
-                    </div>
-                  ),
-                  confirmButtonText: 'close',
-                })
-              }}
-            >
-              Call API
-            </button>
+            <Link href='/typed-fetch-examples'>
+              <a className='btn btn-primary'>TypedFetch Examples</a>
+            </Link>
 
             <Link href='/form-example'>
               <a className='btn btn-primary'>Form Example</a>
@@ -154,7 +124,6 @@ export default function Page() {
                 Show Image
               </button>
             </div>
-
           </div>
 
           <p className='max-w-md mt-10 text-sm italic'>

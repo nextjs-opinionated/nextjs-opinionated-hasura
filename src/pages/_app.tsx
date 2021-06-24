@@ -1,18 +1,34 @@
-import { Provider } from 'next-auth/client'
 import '../styles/tailwind.css'
-import 'dayjs/locale/pt-br'
+import { ThemeProvider } from 'next-themes'
+import * as Sentry from '@sentry/react'
+import { Integrations } from '@sentry/tracing'
+import React, { StrictMode } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Provider } from 'next-auth/client'
+import type { AppProps } from 'next/app'
+
+// dayjs
 import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
-import { ThemeProvider } from 'next-themes'
-import { StrictMode } from 'react'
-import type { AppProps } from 'next/app'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault('America/Sao_Paulo')
 
 function MyApp({ Component, pageProps }: AppProps) {
+  Sentry.init({
+    dsn: 'https://afda10ad7e6e47ef99c2ed248abef638@o878762.ingest.sentry.io/5830876',
+    integrations: [new Integrations.BrowserTracing()],
+
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+  })
+
+  const queryClient = new QueryClient()
   return (
     <Provider
       // Provider options are not required but can be useful in situations where
@@ -36,7 +52,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     >
       <ThemeProvider>
         <StrictMode>
-          <Component {...pageProps} />
+          <QueryClientProvider client={queryClient}>
+            <Component {...pageProps} />
+          </QueryClientProvider>
         </StrictMode>
       </ThemeProvider>
     </Provider>
