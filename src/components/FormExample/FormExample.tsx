@@ -6,18 +6,17 @@ import { FormExampleValidationSchema } from '../../model/schemas/FormExampleVali
 import { FormInput } from '../forms/FormInput/FormInput'
 import { FormSelect } from '../forms/FormSelect/FormSelect'
 import { FormToggle } from '../forms/FormToggle/FormToggle'
-import { useMemo } from 'react'
+import { useMemo, useEffect, useState } from 'react'
 import { FormImage } from '../forms/FormImage/FormImage'
-import { useEffect } from 'react'
 import { FormInputColor } from '../forms/FormInputColor/FormInputColor'
-import { CodeBlock } from '../CodeBlock/CodeBlock'
 import {
   Fetch_formExample_api_post,
   fetch_formExample_api_post_Config,
 } from '../../pages/api/formExample_api_post'
-import withReactContent from 'sweetalert2-react-content'
-import Swal from 'sweetalert2'
 import typedFetch from '../../utils/typedFetch/typedFetch'
+import { ValidationError } from '../ValidationError/ValidationError'
+import { ValidationErrorType } from '../ValidationError/ValidationErrorType'
+import _ from 'lodash'
 
 export type FormExampleProps = {
   onSubmitConfirm: (submitProps: any) => void
@@ -50,6 +49,9 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
     }, [initialFormData]),
   })
 
+  const [showModal, showModalSet] = useState(false)
+  const [validationError, validationErrorSet] = useState<ValidationErrorType[]>([])
+
   // const handleUpload = (file: File) => {
   //   if (!file[0]) return null
   //   const { name, type } = file[0]
@@ -72,133 +74,144 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
   )
 
   return (
-    <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
-      <div className='hidden sm:block' aria-hidden='true'>
-        <div className='py-5'>
-          <div className='border-t' />
+    <>
+      {showModal && !_.isEmpty(validationError) && (
+        <div className='absolute '>
+          <ValidationError
+            ShowModal={showModalSet}
+            content={validationError}
+            className='z-20 top-40'
+          />
         </div>
-      </div>
-      <div>
-        <div className='md:grid md:grid-cols-3 md:gap-6'>
-          <div className='md:col-span-1'>
-            <div className='px-4 sm:px-0'>
-              <h3 className='text-lg font-medium leading-6'>Form Fields</h3>
-              <h3 className='my-2 text-sm font-medium leading-4'>
-                same validation is applied on client and on server with zod
-              </h3>
-            </div>
+      )}
+      <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
+        <div className='hidden sm:block' aria-hidden='true'>
+          <div className='py-5'>
+            <div className='border-t' />
           </div>
-          <div className='mt-5 md:mt-0 md:col-span-2'>
-            <div className='shadow sm:rounded-md sm:overflow-hidden'>
-              <div className='px-4 py-5 space-y-6 sm:p-6'>
-                <FormInput
-                  label='Email:'
-                  name='email'
-                  register={register}
-                  defaultValue={initialFormData.email}
-                  validationErrors={validationErrors}
-                />
+        </div>
+        <div>
+          <div className='md:grid md:grid-cols-3 md:gap-6'>
+            <div className='md:col-span-1'>
+              <div className='px-4 sm:px-0'>
+                <h3 className='text-lg font-medium leading-6'>Form Fields</h3>
+                <h3 className='my-2 text-sm font-medium leading-4'>
+                  same validation is applied on client and on server with zod
+                </h3>
+              </div>
+            </div>
+            <div className='mt-5 md:mt-0 md:col-span-2'>
+              <div className='shadow sm:rounded-md sm:overflow-hidden'>
+                <div className='px-4 py-5 space-y-6 sm:p-6'>
+                  <FormInput
+                    label='Email:'
+                    name='email'
+                    register={register}
+                    defaultValue={initialFormData.email}
+                    validationErrors={validationErrors}
+                  />
 
-                <FormToggle
-                  label='Toggle:'
-                  name='toggle'
-                  defaultValue={initialFormData.toggle}
-                  register={register}
-                  validationErrors={validationErrors}
-                />
+                  <FormToggle
+                    label='Toggle:'
+                    name='toggle'
+                    defaultValue={initialFormData.toggle}
+                    register={register}
+                    validationErrors={validationErrors}
+                  />
 
-                <FormSelect
-                  label='Colors:'
-                  placeholder='Please, select a color...'
-                  name='color_select'
-                  register={register}
-                  defaultValue={initialFormData.color_select}
-                  validationErrors={validationErrors}
-                  options={[
-                    { value: 'white', label: 'White' },
-                    { value: 'red', label: 'Red' },
-                    { value: 'green', label: 'Green' },
-                    { value: 'yellow', label: 'Yellow' },
-                  ]}
-                />
+                  <FormSelect
+                    label='Colors:'
+                    placeholder='Please, select a color...'
+                    name='color_select'
+                    register={register}
+                    defaultValue={initialFormData.color_select}
+                    validationErrors={validationErrors}
+                    options={[
+                      { value: 'white', label: 'White' },
+                      { value: 'red', label: 'Red' },
+                      { value: 'green', label: 'Green' },
+                      { value: 'yellow', label: 'Yellow' },
+                    ]}
+                  />
 
-                <FormImage
-                  register={register}
-                  label='Image:'
-                  placeholder='Select an Image'
-                  name='image'
-                  width={120}
-                  height={120}
-                  defaultValue={initialFormData.image_url}
-                  validationErrors={validationErrors}
-                />
+                  <FormImage
+                    register={register}
+                    label='Image:'
+                    placeholder='Select an Image'
+                    name='image'
+                    width={120}
+                    height={120}
+                    defaultValue={initialFormData.image_url}
+                    validationErrors={validationErrors}
+                  />
 
-                <FormInputColor
-                  label='select a color:'
-                  name='color_input'
-                  register={register}
-                  defaultValue=''
-                  watch={watch}
-                  setValue={setValue}
-                  validationErrors={validationErrors}
-                />
+                  <FormInputColor
+                    label='select a color:'
+                    name='color_input'
+                    register={register}
+                    defaultValue=''
+                    watch={watch}
+                    setValue={setValue}
+                    validationErrors={validationErrors}
+                  />
 
-                <div className='flex flex-col'>
-                  <div className='flex justify-end'>
-                    <button type='reset' className='mx-3 btn btn-secondary'>
-                      RESET
-                    </button>
+                  <div className='flex flex-col'>
+                    <div className='flex justify-end'>
+                      <button type='reset' className='mx-3 btn btn-secondary'>
+                        RESET
+                      </button>
 
-                    <button type='submit' className='mx-3 btn btn-primary'>
-                      SEND
-                    </button>
-                  </div>
+                      <button type='submit' className='mx-3 btn btn-primary'>
+                        SEND
+                      </button>
+                    </div>
 
-                  <div className='flex justify-end'>
-                    <button
-                      type='button'
-                      className='m-3 btn btn-ghost btn-link'
-                      onClick={async () => {
-                        const Fetch_formExample_apiResult = await typedFetch<
-                          Fetch_formExample_api_post['input'],
-                          Fetch_formExample_api_post['output']
-                        >({
-                          ...fetch_formExample_api_post_Config,
-                          data: {
-                            email: getValues('email'),
-                            color_select: getValues('color_select'),
-                            toggle: getValues('toggle'),
-                            image: getValues('image'),
-                            image_url: getValues('image_url'),
-                            color_input: getValues('color_input'),
-                          },
-                        })
-                        console.log(Fetch_formExample_apiResult)
-                        if (Fetch_formExample_apiResult) {
-                          const myAlert = withReactContent(Swal)
-                          await myAlert.fire({
-                            title: 'submited',
-                            html: <CodeBlock content={Fetch_formExample_apiResult} />,
-                            confirmButtonText: 'close',
+                    <div className='flex justify-end'>
+                      <button
+                        type='button'
+                        className='m-3 btn btn-ghost btn-link'
+                        onClick={async () => {
+                          const Fetch_formExample_apiResult = await typedFetch<
+                            Fetch_formExample_api_post['input'],
+                            Fetch_formExample_api_post['output']
+                          >({
+                            ...fetch_formExample_api_post_Config,
+                            data: {
+                              email: getValues('email'),
+                              color_select: getValues('color_select'),
+                              toggle: getValues('toggle'),
+                              image: getValues('image'),
+                              image_url: getValues('image_url'),
+                              color_input: getValues('color_input'),
+                            },
                           })
-                        }
-                      }}
-                    >
-                      Validate on server only
-                    </button>
+                          console.log(Fetch_formExample_apiResult.error)
+                          if (
+                            Fetch_formExample_apiResult.status === 400 &&
+                            Fetch_formExample_apiResult.error
+                          ) {
+                            validationErrorSet(Fetch_formExample_apiResult.error.validationError)
+
+                            showModalSet(true)
+                          }
+                        }}
+                      >
+                        Validate on server only
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className='hidden sm:block' aria-hidden='true'>
-        <div className='py-5'>
-          <div className='border-t ' />
+        <div className='hidden sm:block' aria-hidden='true'>
+          <div className='py-5'>
+            <div className='border-t ' />
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </>
   )
 }
