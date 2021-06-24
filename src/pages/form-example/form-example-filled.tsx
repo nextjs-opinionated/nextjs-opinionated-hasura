@@ -48,7 +48,7 @@ const Page: React.FunctionComponent = () => {
                 },
               })
 
-              if (fetch_result.error === null) {
+              if (fetch_result.error === null && fetch_result.status === 200) {
                 const myAlert = withReactContent(Swal)
                 await myAlert.fire({
                   title: 'submited',

@@ -13,10 +13,13 @@ import {
   Fetch_formExample_api_post,
   fetch_formExample_api_post_Config,
 } from '../../pages/api/formExample_api_post'
+import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2'
 import typedFetch from '../../utils/typedFetch/typedFetch'
 import { ValidationError } from '../ValidationError/ValidationError'
 import { ValidationErrorType } from '../ValidationError/ValidationErrorType'
 import _ from 'lodash'
+import { CodeBlock } from '../CodeBlock/CodeBlock'
 
 export type FormExampleProps = {
   onSubmitConfirm: (submitProps: any) => void
@@ -75,10 +78,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
   return (
     <>
       {showModal && !_.isEmpty(validationError) && (
-        <div
-          id='modal-v'
-          className={`absolute z-20 flex items-center  justify-self-center h-screen `}
-        >
+        <div className={`absolute z-20 flex items-center justify-self-center h-screen`}>
           <ValidationError ShowModal={showModalSet} content={validationError} className='' />
         </div>
       )}
@@ -191,6 +191,16 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                             validationErrorSet(Fetch_formExample_apiResult.error.validationError)
 
                             showModalSet(true)
+                          } else if (
+                            Fetch_formExample_apiResult.error === null &&
+                            Fetch_formExample_apiResult.status === 200
+                          ) {
+                            const myAlert = withReactContent(Swal)
+                            await myAlert.fire({
+                              title: 'submited',
+                              html: <CodeBlock content={Fetch_formExample_apiResult.data} />,
+                              confirmButtonText: 'close',
+                            })
                           }
                         }}
                       >
