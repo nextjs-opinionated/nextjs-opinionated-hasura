@@ -22,9 +22,6 @@ describe('Code_block Component', () => {
             path: ['color_select'],
           },
         ]}
-        ShowModal={() => {
-          //
-        }}
       />
     )
     expect(render.getByTestId('validation-validation')).toHaveClass('card')
@@ -48,9 +45,6 @@ describe('Code_block Component', () => {
           },
         ]}
         className='bg-primary'
-        ShowModal={() => {
-          //
-        }}
       />
     )
     expect(render.getByTestId('validation-validation')).toHaveClass('bg-primary')
@@ -74,9 +68,6 @@ describe('Code_block Component', () => {
           },
         ]}
         title='Erro de validação!'
-        ShowModal={() => {
-          //
-        }}
       />
     )
     expect(render.getByText('Erro de validação!')).toBeInTheDocument()
