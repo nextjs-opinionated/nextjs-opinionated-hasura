@@ -17,6 +17,7 @@
 - [prettifier](https://prettier.io/)
 - [sweetalert2](https://sweetalert2.github.io/)
 - [react-icons](https://react-icons.github.io/react-icons/)
+- [react-query](https://react-query.tanstack.com/)
 
 _from [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated)_
 
