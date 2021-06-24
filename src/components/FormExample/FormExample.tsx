@@ -2,10 +2,7 @@
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import withReactContent from 'sweetalert2-react-content'
-import Swal from 'sweetalert2'
 import { FormExampleValidationSchema } from '../../model/schemas/FormExampleValidationSchema'
-import { checkFetchJsonResult } from '../../utils/checkFetchResult'
 import { FormInput } from '../forms/FormInput/FormInput'
 import { FormSelect } from '../forms/FormSelect/FormSelect'
 import { FormToggle } from '../forms/FormToggle/FormToggle'
@@ -13,6 +10,14 @@ import { useMemo } from 'react'
 import { FormImage } from '../forms/FormImage/FormImage'
 import { useEffect } from 'react'
 import { FormInputColor } from '../forms/FormInputColor/FormInputColor'
+import { CodeBlock } from '../CodeBlock/CodeBlock'
+import {
+  Fetch_formExample_api_post,
+  fetch_formExample_api_post_Config,
+} from '../../pages/api/formExample_api_post'
+import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2'
+import typedFetch from '../../utils/typedFetch/typedFetch'
 
 export type FormExampleProps = {
   onSubmitConfirm: (submitProps: any) => void
@@ -154,29 +159,26 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                       type='button'
                       className='m-3 btn btn-ghost btn-link'
                       onClick={async () => {
-                        const headers = new Headers()
-                        headers.append('Content-Type', 'application/json')
-
-                        const fetchResponse = await fetch('/api/formExample_api', {
-                          method: 'POST',
-                          headers,
-                          body: JSON.stringify({
+                        const Fetch_formExample_apiResult = await typedFetch<
+                          Fetch_formExample_api_post['input'],
+                          Fetch_formExample_api_post['output']
+                        >({
+                          ...fetch_formExample_api_post_Config,
+                          data: {
                             email: getValues('email'),
                             color_select: getValues('color_select'),
                             toggle: getValues('toggle'),
                             image: getValues('image'),
                             image_url: getValues('image_url'),
                             color_input: getValues('color_input'),
-                          }),
+                          },
                         })
-
-                        const isValid = await checkFetchJsonResult(fetchResponse)
-                        if (isValid) {
-                          const resultJSON = await fetchResponse.json()
+                        console.log(Fetch_formExample_apiResult)
+                        if (Fetch_formExample_apiResult) {
                           const myAlert = withReactContent(Swal)
                           await myAlert.fire({
-                            title: 'server message',
-                            html: resultJSON.message,
+                            title: 'submited',
+                            html: <CodeBlock content={Fetch_formExample_apiResult} />,
                             confirmButtonText: 'close',
                           })
                         }
