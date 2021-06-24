@@ -17,6 +17,7 @@ import typedFetch from '../../utils/typedFetch/typedFetch'
 import { ValidationError } from '../ValidationError/ValidationError'
 import { ValidationErrorType } from '../ValidationError/ValidationErrorType'
 import _ from 'lodash'
+import { getElementError } from '@testing-library/dom'
 
 export type FormExampleProps = {
   onSubmitConfirm: (submitProps: any) => void
@@ -72,16 +73,14 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
       console.error('--  submitErrors: ', submitErrors)
     }
   )
-
   return (
     <>
       {showModal && !_.isEmpty(validationError) && (
-        <div className='absolute '>
-          <ValidationError
-            ShowModal={showModalSet}
-            content={validationError}
-            className='z-20 top-40'
-          />
+        <div
+          id='modal-v'
+          className={`absolute z-20 flex items-center  justify-self-center h-screen `}
+        >
+          <ValidationError ShowModal={showModalSet} content={validationError} className='' />
         </div>
       )}
       <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
