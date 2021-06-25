@@ -189,6 +189,16 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                             title: 'submited',
                             html: <CodeBlock content={Fetch_formExample_apiResult.data} />,
                             confirmButtonText: 'close',
+                            customClass: {
+                              confirmButton: 'btn btn-primary',
+                              actions: 'bg-base-300 sweetalert-action rounded-b-lg',
+                              title: 'bg-base-300  rounded-t-lg',
+                              htmlContainer: 'bg-base-300',
+                            },
+                            buttonsStyling: false,
+                            showConfirmButton: true,
+                            background: 'transparent',
+                            width: 'auto',
                           })
                         }
                       }}

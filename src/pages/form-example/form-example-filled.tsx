@@ -54,6 +54,16 @@ const Page: React.FunctionComponent = () => {
                   title: 'submited',
                   html: <CodeBlock content={fetch_result.data} />,
                   confirmButtonText: 'close',
+                  customClass: {
+                    confirmButton: 'btn btn-primary',
+                    actions: 'bg-base-300 sweetalert-action rounded-b-lg',
+                    title: 'bg-base-300  rounded-t-lg',
+                    htmlContainer: 'bg-base-300',
+                  },
+                  buttonsStyling: false,
+                  showConfirmButton: true,
+                  background: 'transparent',
+                  width: 'auto',
                 })
               }
             }}
