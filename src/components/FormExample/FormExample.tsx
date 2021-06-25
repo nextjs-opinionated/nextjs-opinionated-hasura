@@ -50,12 +50,6 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
     }, [initialFormData]),
   })
 
-  // const handleUpload = (file: File) => {
-  //   if (!file[0]) return null
-  //   const { name, type } = file[0]
-  //   return [{ name, type }]
-  // }
-
   useEffect(() => {
     if (initialFormData?.image_url) {
       setValue('image_url', initialFormData.image_url)
@@ -172,7 +166,6 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                             color_input: getValues('color_input'),
                           },
                         })
-                        console.log(Fetch_formExample_apiResult.error)
                         if (
                           Fetch_formExample_apiResult.status === 400 &&
                           Fetch_formExample_apiResult.error
