@@ -25,7 +25,7 @@ type Provider = {
   }
 }
 
-export default function login({ providers }: Provider) {
+export default function Login({ providers }: Provider) {
   const [session] = useSession()
   const router = useRouter()
 
