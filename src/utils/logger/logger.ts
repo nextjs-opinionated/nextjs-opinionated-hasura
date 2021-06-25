@@ -1,11 +1,10 @@
 import pino from 'pino'
 
 // create pino loggger
-const logger = pino({
+export const logger = pino({
   level: 'debug',
   prettyPrint: { colorize: true, timestampKey: "time" },
 })
 
-// const log = (msg) => logger.info(msg)
+export const log = (msg: unknown) => logger.info({ data: msg })
 
-export default logger
