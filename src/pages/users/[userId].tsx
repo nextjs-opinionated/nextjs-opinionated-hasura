@@ -75,19 +75,32 @@ export default function User({ user }: UserProps) {
   const IS_ADMIN = session?.user?.role === Roles_Enum.Admin
 
   const onUpdateUser = async (submitProps: FormProps) => {
-    await typedFetch<Insert_users_one_api_post['input'], Insert_users_one_api_post['output']>({
+    const result = await typedFetch<
+      Insert_users_one_api_post['input'],
+      Insert_users_one_api_post['output']
+    >({
       ...insert_users_one_api_post_Config,
       data: {
         ...submitProps,
         id: user.id,
       },
     })
-    const myAlert = withReactContent(Swal)
-    await myAlert.fire({
-      title: 'updated user',
-      confirmButtonText: 'close',
-    })
-    await router.push('/users')
+
+    if (!result.error) {
+      const myAlert = withReactContent(Swal)
+      await myAlert.fire({
+        title: 'updated user',
+        confirmButtonText: 'close',
+      })
+      await router.push('/users')
+    } else {
+      const myAlert = withReactContent(Swal)
+      await myAlert.fire({
+        title: 'error',
+        html: <p>{JSON.stringify(result.error)}</p>,
+        confirmButtonText: 'close',
+      })
+    }
   }
   const onError = (error: DeepMap<FormProps, FieldError>) => {
     console.log('--  submitErrors: ', error)
@@ -132,7 +145,6 @@ export default function User({ user }: UserProps) {
           html: <p>{JSON.stringify(result.error)}</p>,
           confirmButtonText: 'close',
         })
-        await router.push('/users')
       }
     }
   }

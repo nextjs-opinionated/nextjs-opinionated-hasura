@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { Messages_Update_Column } from '../../../graphql/generated'
 import { MessageValidationSchema } from '../../../model/schemas/MessageValidationSchema'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
+import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 
 export default async function API(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req
