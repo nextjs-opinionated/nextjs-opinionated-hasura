@@ -1,26 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { ApiConfig } from '../../utils/typedFetch/ApiConfig'
+import { Fetch_tester_api_post } from '../../../model/api-models/typed-fetch-examples/Fetch_tester_api_post'
 
-// types
-export interface Fetch_tester_api_post {
-  input: {
-    some_string: string
-    divide_by: number
-    force_error: boolean
-  }
-  output: {
-    message: string
-    division_result: number
-  }
-}
-
-export const fetch_tester_api_post_Config: ApiConfig = {
-  url: '/api/fetch_tester_api_post',
-  method: 'post',
-  responseType: 'json',
-}
-
-// api
 export default async function fetch_tester_api_post(req: NextApiRequest, res: NextApiResponse) {
   // input data
   const inputData = req.body as Fetch_tester_api_post['input']

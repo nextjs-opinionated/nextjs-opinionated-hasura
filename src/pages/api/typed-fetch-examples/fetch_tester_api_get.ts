@@ -1,27 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import _ from 'lodash'
-import { ApiConfig } from '../../utils/typedFetch/ApiConfig'
+import { Fetch_tester_api_get } from '../../../model/api-models/typed-fetch-examples/Fetch_tester_api_get'
 
-// types
-export interface Fetch_tester_api_get {
-  input: {
-    some_string: string
-    divide_by: string
-    force_error: string
-  }
-  output: {
-    message: string
-    division_result: number
-  }
-}
-
-export const fetch_tester_api_get_Config: ApiConfig = {
-  url: '/api/fetch_tester_api_get',
-  method: 'get',
-  responseType: 'json',
-}
-
-// api
 export default async function fetch_tester_api_get(req: NextApiRequest, res: NextApiResponse) {
   // input data
   const inputData = req.query as Fetch_tester_api_get['input']

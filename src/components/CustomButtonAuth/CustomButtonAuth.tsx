@@ -36,7 +36,7 @@ export const CustomButtonAuth = ({ providerId, keyProvider, label }: CustomButto
       default:
         return null
     }
-  }, [keyProvider, label])
+  }, [keyProvider, label, providerId])
 
   return <>{handleKeyProvider()}</>
 }
