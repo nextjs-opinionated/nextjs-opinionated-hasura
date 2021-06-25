@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import _ from 'lodash'
 import { Fetch_tester_api_get } from '../../../model/api-models/typed-fetch-examples/Fetch_tester_api_get'
+import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 
 export default async function fetch_tester_api_get(req: NextApiRequest, res: NextApiResponse) {
   // input data
