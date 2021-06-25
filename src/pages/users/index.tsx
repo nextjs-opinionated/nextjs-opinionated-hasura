@@ -1,10 +1,12 @@
 import { Layout } from '../../components/Layout/Layout'
-import { Roles_Enum, Users } from '../../graphql/generated'
+import { Roles_Enum } from '../../graphql/generated'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 import { getInitialNameAvatar } from '../../utils/getInitialNameAvatar'
-import useSWRFetch from '../../utils/useSWRFetch'
 import { LinksList } from '../../model/site/LinksList'
+import { useQuery } from 'react-query'
+import { Users_api_get, users_api_get_Config } from '../../model/api-models/users/Users_api_get'
+import typedFetch from '../../utils/typedFetch/typedFetch'
 
 const handleBadgeRole = (role: Roles_Enum) => {
   switch (role) {
@@ -21,26 +23,31 @@ const handleBadgeRole = (role: Roles_Enum) => {
 }
 
 export default function Page() {
-  const { data: users, loading: userLoading, error: userError } = useSWRFetch<Users[]>('/api/users')
+  const { data, isLoading, error } = useQuery('users_api_get', async () => {
+    const resultObj = await typedFetch<Users_api_get['input'], Users_api_get['output']>({
+      ...users_api_get_Config,
+    })
+    return resultObj.data
+  })
 
-  if (userError) {
-    return <p>ERROR {userError}</p>
+  if (error) {
+    return <p>ERROR {error}</p>
   }
 
-  if (userLoading) {
+  if (isLoading) {
     return <button className='btn btn-sm btn-ghost loading'>loading</button>
   }
 
   return (
     <Layout
-        title={
-          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
-            <div className='text-base font-bold'>Users</div>
-            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
-          </div>
-        }
-        menuItems={Object.values(LinksList)}
-      >
+      title={
+        <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
+          <div className='text-base font-bold'>Users</div>
+          <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+        </div>
+      }
+      menuItems={Object.values(LinksList)}
+    >
       <div className='overflow-x-auto'>
         <table className='table w-full'>
           <thead>
@@ -50,8 +57,8 @@ export default function Page() {
               <th>Função</th>
             </tr>
           </thead>
-          {users.length > 0 &&
-            users.map((user) => (
+          {data.users.length > 0 &&
+            data.users.map((user) => (
               <tbody key={user.id}>
                 <tr>
                   <td>

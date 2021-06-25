@@ -1,6 +1,7 @@
 ## [nextjs-opinionated-hasura](https://github.com/saitodisse/nextjs-opinionated-hasura)
 
 ### - [demo](https://nextjs-opinionated-hasura.vercel.app/)
+
 <!-- ### - [storybook](https://main--60d0b5d829870700396e0a3b.chromatic.com) -->
 
 ---
@@ -27,7 +28,6 @@ _from [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated)_
 - [graphql-request](https://github.com/prisma-labs/graphql-request)
 - [graphql-codegen](https://www.graphql-code-generator.com/)
 - [docker-compose](https://docs.docker.com/compose/)
-- [swr](https://swr.vercel.app/)
 - [react-hook-form](https://react-hook-form.com/)
 - [@tailwindcss/forms](https://github.com/tailwindlabs/tailwindcss-forms)
 - [zod](https://github.com/colinhacks/zod)

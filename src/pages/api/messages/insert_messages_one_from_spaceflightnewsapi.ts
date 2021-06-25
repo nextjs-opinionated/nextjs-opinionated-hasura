@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Messages_Update_Column } from '../../../graphql/generated'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
+import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 
 interface SpaceFlightNewsApiType {
   id: string
@@ -68,6 +69,6 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
       break
     default:
       res.setHeader('Allow', ['GET'])
-      res.status(405).end(`Method ${method} Not Allowed`)
+      res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${method} Not Allowed`)
   }
 }

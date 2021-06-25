@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 import { Messages_api_get } from '../../../model/api-models/messages/Messages_api_get'
+import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 
 export default async function API(req: NextApiRequest, res: NextApiResponse) {
   // check method
   if (req.method !== 'GET') {
     res.setHeader('Allow', ['GET'])
-    res.status(405).end(`Method ${req.method} Not Allowed`)
+    res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
   }
 
   // input data
@@ -14,15 +15,15 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     // process
-    const data = await new GqlSdkHelper().getSdk().messages(inputData)
+    const data: Messages_api_get['output'] = await new GqlSdkHelper().getSdk().messages(inputData)
 
     // output data
-    res.status(200).json(data)
+    res.status(HttpStatusCode.OK_200).json(data)
   } catch (error) {
     // TODO: log on log service
     console.error(error)
 
-    res.status(500).json({
+    res.status(HttpStatusCode.INTERNAL_SERVER_ERROR_500).json({
       message: error.message,
       stack: error.stack,
     })

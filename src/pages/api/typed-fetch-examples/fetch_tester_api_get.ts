@@ -25,12 +25,12 @@ export default async function fetch_tester_api_get(req: NextApiRequest, res: Nex
       message: finalMessage,
       division_result: result,
     }
-    res.status(200).json(output)
+    res.status(HttpStatusCode.OK_200).json(output)
   } catch (error) {
     // TODO: log on log service
     console.error(error)
 
-    res.status(500).json({
+    res.status(HttpStatusCode.INTERNAL_SERVER_ERROR_500).json({
       message: error.message,
       stack: error.stack,
     })

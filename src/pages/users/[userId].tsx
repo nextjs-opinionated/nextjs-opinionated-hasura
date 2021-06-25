@@ -15,6 +15,16 @@ import Swal from 'sweetalert2'
 import { getInitialNameAvatar } from '../../utils/getInitialNameAvatar'
 import queryString from 'query-string'
 import { LinksList } from '../../model/site/LinksList'
+import {
+  Insert_users_one_api_post,
+  insert_users_one_api_post_Config,
+} from '../../model/api-models/users/Insert_users_one_api_post'
+import { users_api_get_Config } from '../../model/api-models/users/Users_api_get'
+import typedFetch from '../../utils/typedFetch/typedFetch'
+import {
+  Delete_users_by_pk_api_delete,
+  delete_users_by_pk_api_delete_Config,
+} from '../../model/api-models/users/Delete_users_by_pk_api_delete'
 
 type User = Pick<Users, 'id' | 'name' | 'email' | 'image' | 'role'>
 
@@ -51,7 +61,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export default function User({ user }: UserProps) {
-  const { isFallback, push } = useRouter()
+  const router = useRouter()
   const [session] = useSession()
   const {
     handleSubmit,
@@ -67,29 +77,19 @@ export default function User({ user }: UserProps) {
   const IS_ADMIN = session?.user?.role === Roles_Enum.Admin
 
   const onUpdateUser = async (submitProps: FormProps) => {
-    // FIXME: convert to typedFetch
-    /* const fetchResponse = */ await fetch('/api/users/insert_users_one', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    await typedFetch<Insert_users_one_api_post['input'], Insert_users_one_api_post['output']>({
+      ...insert_users_one_api_post_Config,
+      data: {
         ...submitProps,
         id: user.id,
-      }),
+      },
     })
-
-    // const isValid = await checkFetchJsonResult(fetchResponse)
-    // if (isValid) {
-    //   const myAlert = withReactContent(Swal)
-    //   const swalResult = await myAlert.fire({
-    //     title: 'updated user',
-    //     confirmButtonText: 'close',
-    //   })
-    //   if (swalResult.isConfirmed) {
-    //     push('/users')
-    //   }
-    // }
+    const myAlert = withReactContent(Swal)
+    await myAlert.fire({
+      title: 'updated user',
+      confirmButtonText: 'close',
+    })
+    await router.push('/users')
   }
   const onError = (error: DeepMap<FormProps, FieldError>) => {
     console.log('--  submitErrors: ', error)
@@ -110,27 +110,31 @@ export default function User({ user }: UserProps) {
     })
 
     if (swalConfirmDelete.isConfirmed) {
-      const deleteResponse = await fetch(
-        `/api/users/delete_users_by_pk?${queryString.stringify({
-          user_id: user.id,
-        })}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      const result = await typedFetch<
+        Delete_users_by_pk_api_delete['input'],
+        Delete_users_by_pk_api_delete['output']
+      >({
+        ...delete_users_by_pk_api_delete_Config,
+        data: {
+          id: user.id.toString(),
+        },
+      })
 
-      const isValid = await checkFetchJsonResult(deleteResponse)
-      if (isValid) {
-        const swalResult = await SwalReactAlert.fire({
+      if (!result.error) {
+        const myAlert = withReactContent(Swal)
+        await myAlert.fire({
           title: 'deleted user',
           confirmButtonText: 'close',
         })
-        if (swalResult.isConfirmed) {
-          push('/users')
-        }
+        await router.push('/users')
+      } else {
+        const myAlert = withReactContent(Swal)
+        await myAlert.fire({
+          title: 'error',
+          html: <p>{JSON.stringify(result.error)}</p>,
+          confirmButtonText: 'close',
+        })
+        await router.push('/users')
       }
     }
   }
@@ -145,7 +149,7 @@ export default function User({ user }: UserProps) {
       }
       menuItems={Object.values(LinksList)}
     >
-      {isFallback ? (
+      {router.isFallback ? (
         <button className='btn btn-sm btn-ghost loading'>loading</button>
       ) : (
         <main className='flex justify-center mx-8'>

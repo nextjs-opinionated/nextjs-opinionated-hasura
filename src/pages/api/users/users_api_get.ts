@@ -1,10 +1,10 @@
-import _ from 'lodash'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Messages_by_pk_api_get } from '../../../model/api-models/messages/Messages_by_pk_api_get'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
+import { Users_api_get } from '../../../model/api-models/users/Users_api_get'
+import _ from 'lodash'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 
-export default async function API(req: NextApiRequest, res: NextApiResponse) {
+export default async function users_api_get(req: NextApiRequest, res: NextApiResponse) {
   // check method
   if (req.method !== 'GET') {
     res.setHeader('Allow', ['GET'])
@@ -12,15 +12,13 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
   }
 
   // input data
-  const inputData = req.query as Messages_by_pk_api_get['input']
+  const inputData = req.query as Users_api_get['input']
 
   try {
     // process
-    const data: Messages_by_pk_api_get['output'] = await new GqlSdkHelper()
+    const data: Users_api_get['output'] = await new GqlSdkHelper()
       .getSdk()
-      .messages_by_pk({
-        id: _.toNumber(inputData.message_id),
-      })
+      .users({ limit: _.toNumber(inputData.limit) })
 
     // output data
     res.status(HttpStatusCode.OK_200).json(data)

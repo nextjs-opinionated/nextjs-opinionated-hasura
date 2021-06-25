@@ -1,26 +1,27 @@
-import _ from 'lodash'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Messages_by_pk_api_get } from '../../../model/api-models/messages/Messages_by_pk_api_get'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
+import { isAdmin } from '../../../utils/middleware/isAdmin'
+import { Insert_users_one_api_post } from '../../../model/api-models/users/Insert_users_one_api_post'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 
-export default async function API(req: NextApiRequest, res: NextApiResponse) {
+export default isAdmin(async function insert_users_one_api_post(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   // check method
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', ['GET'])
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', ['POST'])
     res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
   }
 
   // input data
-  const inputData = req.query as Messages_by_pk_api_get['input']
+  const inputData = req.body as Insert_users_one_api_post['input']
 
   try {
     // process
-    const data: Messages_by_pk_api_get['output'] = await new GqlSdkHelper()
+    const data: Insert_users_one_api_post['output'] = await new GqlSdkHelper()
       .getSdk()
-      .messages_by_pk({
-        id: _.toNumber(inputData.message_id),
-      })
+      .insert_users_one({ user: inputData })
 
     // output data
     res.status(HttpStatusCode.OK_200).json(data)
@@ -33,4 +34,4 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
       stack: error.stack,
     })
   }
-}
+})

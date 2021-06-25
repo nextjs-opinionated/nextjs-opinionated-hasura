@@ -3517,7 +3517,7 @@ export type Delete_Users_By_PkMutationVariables = Exact<{
 }>
 
 export type Delete_Users_By_PkMutation = { __typename?: 'mutation_root' } & {
-  delete_users_by_pk?: Maybe<{ __typename?: 'users' } & Pick<Users, 'id'>>
+  delete_users_by_pk?: Maybe<{ __typename?: 'users' } & UsersFragmentFragment>
 }
 
 export type Insert_Users_OneMutationVariables = Exact<{
@@ -3525,7 +3525,7 @@ export type Insert_Users_OneMutationVariables = Exact<{
 }>
 
 export type Insert_Users_OneMutation = { __typename?: 'mutation_root' } & {
-  insert_users_one?: Maybe<{ __typename?: 'users' } & Pick<Users, 'id' | 'email'>>
+  insert_users_one?: Maybe<{ __typename?: 'users' } & UsersFragmentFragment>
 }
 
 export type UsersQueryVariables = Exact<{
@@ -3654,9 +3654,10 @@ export const Messages_By_PkDocument = gql`
 export const Delete_Users_By_PkDocument = gql`
   mutation delete_users_by_pk($id: Int!) {
     delete_users_by_pk(id: $id) {
-      id
+      ...usersFragment
     }
   }
+  ${UsersFragmentFragmentDoc}
 `
 export const Insert_Users_OneDocument = gql`
   mutation insert_users_one($user: users_insert_input!) {
@@ -3664,10 +3665,10 @@ export const Insert_Users_OneDocument = gql`
       object: $user
       on_conflict: { constraint: users_pkey, update_columns: [name, email, role] }
     ) {
-      id
-      email
+      ...usersFragment
     }
   }
+  ${UsersFragmentFragmentDoc}
 `
 export const UsersDocument = gql`
   query users($limit: Int) {

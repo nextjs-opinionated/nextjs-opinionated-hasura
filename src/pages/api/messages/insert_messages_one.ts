@@ -15,10 +15,10 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
         } catch (error) {
           console.log('--  error: ', error)
           if (error?.errors) {
-            res.status(500).json(error.errors)
+            res.status(HttpStatusCode.INTERNAL_SERVER_ERROR_500).json(error.errors)
             return
           }
-          res.status(500).json(error)
+          res.status(HttpStatusCode.INTERNAL_SERVER_ERROR_500).json(error)
           return
         }
 
@@ -45,6 +45,6 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
       break
     default:
       res.setHeader('Allow', ['POST'])
-      res.status(405).end(`Method ${method} Not Allowed`)
+      res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${method} Not Allowed`)
   }
 }
