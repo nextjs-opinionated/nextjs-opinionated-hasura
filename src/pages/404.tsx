@@ -32,9 +32,6 @@ export default function NotFound({
         <div className='flex items-center justify-center w-full h-screen p-4 h-100 md:container md:mx-auto md:px-6'>
           <div className='block text-center'>
             <h1 className='pb-4 text-xl font-bold'>404 - Page Not Found</h1>
-            {/* <p>
-              The route <strong>{router.asPath}</strong> does not exist.
-            </p> */}
             <Link href='/'>
               <button className='btn btn-outline btn-accent'>Go back home</button>
             </Link>
