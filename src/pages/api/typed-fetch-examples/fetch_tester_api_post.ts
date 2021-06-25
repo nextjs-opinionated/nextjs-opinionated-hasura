@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Fetch_tester_api_post } from '../../../model/api-models/typed-fetch-examples/Fetch_tester_api_post'
+import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 
 export default async function fetch_tester_api_post(req: NextApiRequest, res: NextApiResponse) {
   // input data
@@ -24,12 +25,12 @@ export default async function fetch_tester_api_post(req: NextApiRequest, res: Ne
       message: finalMessage,
       division_result: result,
     }
-    res.status(200).json(output)
+    res.status(HttpStatusCode.OK_200).json(output)
   } catch (error) {
     // TODO: log on log service
     console.error(error)
 
-    res.status(500).json({
+    res.status(HttpStatusCode.INTERNAL_SERVER_ERROR_500).json({
       message: error.message,
       stack: error.stack,
     })
