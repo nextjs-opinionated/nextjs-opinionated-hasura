@@ -178,7 +178,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                               />
                             ),
                             customClass: {
-                              htmlContainer: 'bg-base-200',
+                              htmlContainer: 'bg-base-200  rounded-lg',
                             },
                             showConfirmButton: false,
                             showCancelButton: false,
