@@ -14,11 +14,13 @@ export default function fetch_formExample_api_post(req: NextApiRequest, res: Nex
       FormExampleValidationSchema.parse(req.body)
     } catch (error) {
       console.error({ msg: 'validation:', error })
-      res.status(HttpStatusCode.BAD_REQUEST_400).json({
-        message: error.message,
-        stack: error.stack,
-        validationError: error?.errors,
-      })
+      if (error?.errors) {
+        res.status(HttpStatusCode.BAD_REQUEST_400).json({
+          message: error.message,
+          stack: error.stack,
+          validationError: error?.errors,
+        })
+      }
     }
 
     // output data

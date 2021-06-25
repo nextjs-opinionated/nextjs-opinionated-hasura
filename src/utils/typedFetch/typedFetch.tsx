@@ -43,7 +43,7 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
   if (method === 'post' || method === 'put') {
     // TODO: Add a way to send normal post, without json
     fetchOptions.body = JSON.stringify(data)
-  } else if (method === 'get') {
+  } else {
     qs = `?${queryString.stringify(data)}`
   }
 

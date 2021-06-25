@@ -60,10 +60,7 @@ export default function Page() {
 
           {session?.user && (
             <div className='flex flex-col'>
-              <p>
-                Welcome, <span className='font-bold'>{session.user.email}</span>{' '}
-                <div className='badge'>{session.user.role}</div>
-              </p>
+              Welcome, <span className='font-bold underline'>{session.user.name}</span>
             </div>
           )}
         </div>
