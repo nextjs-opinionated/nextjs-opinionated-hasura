@@ -14,7 +14,7 @@ import { CodeBlock } from '../CodeBlock/CodeBlock'
 import {
   Fetch_formExample_api_post,
   fetch_formExample_api_post_Config,
-} from '../../pages/api/formExample_api_post'
+} from '../../model/api-models/form-example/Fetch_formExample_api_post'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import typedFetch from '../../utils/typedFetch/typedFetch'

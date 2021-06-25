@@ -10,7 +10,7 @@ import typedFetch from '../../utils/typedFetch/typedFetch'
 import {
   Fetch_formExample_api_post,
   fetch_formExample_api_post_Config,
-} from '../api/formExample_api_post'
+} from '../../model/api-models/form-example/Fetch_formExample_api_post'
 
 const Page: React.FunctionComponent = () => {
   return (

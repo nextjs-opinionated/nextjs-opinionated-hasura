@@ -100,12 +100,12 @@ export default function Page() {
 
           {/* buttons */}
           <div className='flex flex-wrap items-center my-16 space-x-2'>
-            <Link href='/typed-fetch-examples'>
-              <a className='btn btn-primary'>TypedFetch Examples</a>
+            <Link href='/form-example'>
+              <a className='btn btn-primary'>React Form Example</a>
             </Link>
 
-            <Link href='/form-example'>
-              <a className='btn btn-primary'>Form Example</a>
+            <Link href='/typed-fetch-examples'>
+              <a className='btn btn-primary'>Typed-Fetch</a>
             </Link>
 
             <div className='mx-2'>

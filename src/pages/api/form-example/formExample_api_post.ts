@@ -1,36 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { FormExampleValidationSchema } from '../../model/schemas/FormExampleValidationSchema'
-import { ApiConfig } from '../../utils/typedFetch/ApiConfig'
-import { HttpStatusCode } from '../../utils/typedFetch/HttpStatusCode'
+import { FormExampleValidationSchema } from '../../../model/schemas/FormExampleValidationSchema'
+import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
+import { Fetch_formExample_api_post } from '../../../model/api-models/form-example/Fetch_formExample_api_post'
 
-// types
-export interface Fetch_formExample_api_post {
-  input: {
-    email: string
-    color_select: string
-    toggle: boolean
-    image?: File
-    image_url: string
-    color_input: string
-  }
-  output: {
-    server_time: string
-    email: string
-    color_select: string
-    toggle: boolean
-    image?: File
-    image_url: string
-    color_input: string
-  }
-}
-
-export const fetch_formExample_api_post_Config: ApiConfig = {
-  url: '/api/formExample_api_post',
-  method: 'post',
-  responseType: 'json',
-}
-
-// api
 export default function fetch_formExample_api_post(req: NextApiRequest, res: NextApiResponse) {
   // input data
   const inputData = req.body as Fetch_formExample_api_post['input']
