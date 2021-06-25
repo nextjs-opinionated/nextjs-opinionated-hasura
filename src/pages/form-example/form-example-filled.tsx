@@ -56,8 +56,8 @@ const Page: React.FunctionComponent = () => {
                   confirmButtonText: 'close',
                   customClass: {
                     confirmButton: 'btn btn-primary btn-md',
-                    actions: 'bg-base-200 sweetalert-action rounded-b-lg',
-                    title: 'bg-base-200 rounded-t-lg',
+                    actions: 'bg-base-200 sweetalert-action',
+                    title: 'bg-base-200',
                     htmlContainer: 'bg-base-200',
                   },
                   buttonsStyling: false,

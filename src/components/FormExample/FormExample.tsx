@@ -195,8 +195,8 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                             confirmButtonText: 'close',
                             customClass: {
                               confirmButton: 'btn btn-primary btn-md',
-                              actions: 'bg-base-200 sweetalert-action rounded-b-lg',
-                              title: 'bg-base-200 rounded-t-lg text-base-content',
+                              actions: 'bg-base-200 sweetalert-action',
+                              title: 'bg-base-200 text-base-content',
                               htmlContainer: 'bg-base-200',
                             },
                             buttonsStyling: false,
