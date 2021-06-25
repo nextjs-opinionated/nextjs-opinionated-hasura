@@ -2,6 +2,7 @@ import classnames from 'classnames'
 import React from 'react'
 import { ValidationErrorType } from './ValidationErrorType'
 import { VscError } from 'react-icons/vsc'
+import Swal from 'sweetalert2'
 
 export interface ValidationErrorProps {
   content: ValidationErrorType[]
@@ -10,16 +11,16 @@ export interface ValidationErrorProps {
 }
 
 export const ValidationError: React.FC<ValidationErrorProps> = ({
-  content,
+  content = [],
   className = '',
   title = 'Ocorreu um erro de validação',
 }) => {
   return (
     <div
       data-testid='validation-validation'
-      className={classnames(`shadow-2xl card lg:card-side bordered ${className}`)}
+      className={classnames(`s lg:card-side  rounded-lg card  ${className}`)}
     >
-      <div className='flex flex-col items-center card-body'>
+      <div className='flex flex-col items-center card-body '>
         <VscError size={50} color='red' />
 
         <h2 className='card-title'>{title}</h2>
@@ -27,7 +28,14 @@ export const ValidationError: React.FC<ValidationErrorProps> = ({
           return <p key={index}>{`${error?.path} : ${error?.message} `}</p>
         })}
         <div className='card-actions'>
-          <button className='btn btn-primary'>Ok</button>
+          <button
+            className='swal2-confirm btn btn-primary'
+            onClick={() => {
+              Swal.close()
+            }}
+          >
+            Ok
+          </button>
         </div>
       </div>
     </div>
