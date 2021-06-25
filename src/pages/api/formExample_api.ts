@@ -1,6 +1,9 @@
 import { FormExampleValidationSchema } from '../../model/schemas/FormExampleValidationSchema'
+import { logMiddleware } from '../../utils/middleware/log'
 
-export default function formExample_api(req, res) {
+
+
+export default logMiddleware(function formExample_api(req, res) {
   try {
     try {
       // server validation (VALIDATIONS)
@@ -28,4 +31,4 @@ export default function formExample_api(req, res) {
       error: e.message,
     })
   }
-}
+})
