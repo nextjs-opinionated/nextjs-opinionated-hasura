@@ -5,8 +5,8 @@ import { Integrations } from '@sentry/tracing'
 import React, { StrictMode } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider as NextAuthProvider } from 'next-auth/client'
-import type { AppProps } from 'next/app'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import type { AppProps } from 'next/app'
 
 // dayjs
 import dayjs from 'dayjs'
