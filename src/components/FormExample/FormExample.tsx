@@ -178,7 +178,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                               />
                             ),
                             customClass: {
-                              htmlContainer: 'bg-base-300 ',
+                              htmlContainer: 'bg-base-200',
                             },
                             showConfirmButton: false,
                             showCancelButton: false,
@@ -194,10 +194,10 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                             html: <CodeBlock content={Fetch_formExample_apiResult.data} />,
                             confirmButtonText: 'close',
                             customClass: {
-                              confirmButton: 'btn btn-primary',
-                              actions: 'bg-base-300 sweetalert-action rounded-b-lg',
-                              title: 'bg-base-300  rounded-t-lg',
-                              htmlContainer: 'bg-base-300',
+                              confirmButton: 'btn btn-primary btn-md',
+                              actions: 'bg-base-200 sweetalert-action rounded-b-lg',
+                              title: 'bg-base-200 rounded-t-lg text-base-content',
+                              htmlContainer: 'bg-base-200',
                             },
                             buttonsStyling: false,
                             showConfirmButton: true,
@@ -219,7 +219,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
 
       <div className='hidden sm:block' aria-hidden='true'>
         <div className='py-5'>
-          <div className='border-t ' />
+          <div className='border-t' />
         </div>
       </div>
     </form>
