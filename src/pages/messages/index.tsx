@@ -1,30 +1,34 @@
 import * as React from 'react'
-import useSWRFetch from '../../utils/useSWRFetch'
 import { showErrorAlert } from '../../components/showErrorAlert'
-import { useEffect, useState } from 'react'
-import { MessagesQuery } from '../../graphql/generated'
-import { mutate } from 'swr'
+import { useEffect } from 'react'
 import dayjs from 'dayjs'
 import { FiEdit } from 'react-icons/fi'
 import { useRouter } from 'next/router'
 import { Layout } from '../../components/Layout/Layout'
 import Head from 'next/head'
 import { LinksList } from '../../model/site/LinksList'
+import { useQuery } from 'react-query'
+import typedFetch from '../../utils/typedFetch/typedFetch'
+import {
+  Messages_api_get,
+  messages_api_get_Config,
+} from '../../model/api-models/messages/Messages_api_get'
 
 const Messages: React.FunctionComponent = () => {
-  const { data, loading, error } = useSWRFetch<MessagesQuery>('/api/messages/messages')
-  const [isLoading, isLoadingSet] = useState(true)
+  const { data, isLoading, error, refetch } = useQuery('fetch_tester_api_get_Key', async () => {
+    const resultObj = await typedFetch<Messages_api_get['input'], Messages_api_get['output']>({
+      ...messages_api_get_Config,
+    })
+    return resultObj.data
+  })
+
   const router = useRouter()
 
   useEffect(() => {
     if (error) {
       showErrorAlert({ error })
     }
-  }, [])
-
-  useEffect(() => {
-    isLoadingSet(loading)
-  }, [loading])
+  }, [error])
 
   return (
     <>
@@ -46,10 +50,8 @@ const Messages: React.FunctionComponent = () => {
             <button
               className='mx-2 btn btn-primary'
               onClick={async () => {
-                isLoadingSet(true)
                 await fetch('/api/messages/insert_messages_one_from_spaceflightnewsapi')
-                await mutate('/api/messages/messages')
-                isLoadingSet(false)
+                await refetch()
               }}
               disabled={isLoading}
             >

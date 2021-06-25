@@ -10,7 +10,6 @@ import { DeepMap, FieldError, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { UserValidationSchema } from '../../model/schemas/UserValidationSchema'
 import { FormInput } from '../../components/forms/FormInput/FormInput'
-import { checkFetchJsonResult } from '../../utils/checkFetchResult'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import { getInitialNameAvatar } from '../../utils/getInitialNameAvatar'
@@ -68,7 +67,8 @@ export default function User({ user }: UserProps) {
   const IS_ADMIN = session?.user?.role === Roles_Enum.Admin
 
   const onUpdateUser = async (submitProps: FormProps) => {
-    const fetchResponse = await fetch('/api/users/insert_users_one', {
+    // FIXME: convert to typedFetch
+    /* const fetchResponse = */ await fetch('/api/users/insert_users_one', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -79,17 +79,17 @@ export default function User({ user }: UserProps) {
       }),
     })
 
-    const isValid = await checkFetchJsonResult(fetchResponse)
-    if (isValid) {
-      const myAlert = withReactContent(Swal)
-      const swalResult = await myAlert.fire({
-        title: 'updated user',
-        confirmButtonText: 'close',
-      })
-      if (swalResult.isConfirmed) {
-        push('/users')
-      }
-    }
+    // const isValid = await checkFetchJsonResult(fetchResponse)
+    // if (isValid) {
+    //   const myAlert = withReactContent(Swal)
+    //   const swalResult = await myAlert.fire({
+    //     title: 'updated user',
+    //     confirmButtonText: 'close',
+    //   })
+    //   if (swalResult.isConfirmed) {
+    //     push('/users')
+    //   }
+    // }
   }
   const onError = (error: DeepMap<FormProps, FieldError>) => {
     console.log('--  submitErrors: ', error)
@@ -137,14 +137,14 @@ export default function User({ user }: UserProps) {
 
   return (
     <Layout
-        title={
-          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
-            <div className='text-base font-bold'>Edit user</div>
-            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
-          </div>
-        }
-        menuItems={Object.values(LinksList)}
-      >
+      title={
+        <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
+          <div className='text-base font-bold'>Edit user</div>
+          <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+        </div>
+      }
+      menuItems={Object.values(LinksList)}
+    >
       {isFallback ? (
         <button className='btn btn-sm btn-ghost loading'>loading</button>
       ) : (

@@ -1,10 +1,11 @@
 import { GraphQLClient } from 'graphql-request'
 import { getSdk } from '../graphql/generated'
 
-// prevent this to be called from client browser
-if (typeof window !== 'undefined') {
-  throw new Error('only server calls')
-}
+console.trace('WARNING: Only server calls', typeof window)
+//   if (typeof window !== 'undefined') {
+//   // prevent this to be called from client browser
+//   console.trace('WARNING: Only server calls', typeof window)
+// }
 
 export default class GqlSdkHelper {
   private _client: GraphQLClient
