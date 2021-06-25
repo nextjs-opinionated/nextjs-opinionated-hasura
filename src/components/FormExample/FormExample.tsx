@@ -172,7 +172,6 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                             color_input: getValues('color_input'),
                           },
                         })
-                        console.log(Fetch_formExample_apiResult.error)
                         if (
                           Fetch_formExample_apiResult.status === 400 &&
                           Fetch_formExample_apiResult.error
