@@ -177,8 +177,12 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                                 content={Fetch_formExample_apiResult.error.validationError}
                               />
                             ),
+                            customClass: {
+                              htmlContainer: 'bg-base-300 ',
+                            },
                             showConfirmButton: false,
                             showCancelButton: false,
+                            background: 'transparent',
                           })
                         } else if (
                           Fetch_formExample_apiResult.error === null &&
