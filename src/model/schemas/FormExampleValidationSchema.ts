@@ -1,6 +1,7 @@
 import * as z from 'zod'
 import isEmail from 'validator/lib/isEmail'
 import { EMPTY_SELECT_OPTION_VALUE } from '../../components/forms/FormSelect/FormSelect'
+import isHexColor from 'validator/lib/isHexColor'
 
 export const ImageFormExample = z
   .object({
@@ -25,7 +26,12 @@ export const FormExampleValidationSchema = z
     color_select: z.string().refine((value) => value !== EMPTY_SELECT_OPTION_VALUE, {
       message: 'please, select an option',
     }),
-    color_input: z.string().nonempty(),
+    color_input: z
+      .string()
+      .min(7)
+      .refine((value) => isHexColor(value), {
+        message: 'invalid color',
+      }),
     toggle: z.boolean(),
   })
   .and(ImageFormExample)
