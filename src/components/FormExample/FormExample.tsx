@@ -60,7 +60,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
     if (initialFormData?.image_url) {
       setValue('image_url', initialFormData.image_url)
     }
-  }, [])
+  }, [initialFormData.image_url, setValue])
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
