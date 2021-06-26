@@ -2,17 +2,22 @@
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import withReactContent from 'sweetalert2-react-content'
-import Swal from 'sweetalert2'
 import { FormExampleValidationSchema } from '../../model/schemas/FormExampleValidationSchema'
-import { checkFetchJsonResult } from '../../utils/checkFetchResult'
 import { FormInput } from '../forms/FormInput/FormInput'
 import { FormSelect } from '../forms/FormSelect/FormSelect'
 import { FormToggle } from '../forms/FormToggle/FormToggle'
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
 import { FormImage } from '../forms/FormImage/FormImage'
-import { useEffect } from 'react'
 import { FormInputColor } from '../forms/FormInputColor/FormInputColor'
+import {
+  Fetch_formExample_api_post,
+  fetch_formExample_api_post_Config,
+} from '../../model/api-models/form-example/Fetch_formExample_api_post'
+import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2'
+import typedFetch from '../../utils/typedFetch/typedFetch'
+import { ValidationError } from '../ValidationError/ValidationError'
+import { CodeBlock } from '../CodeBlock/CodeBlock'
 
 export type FormExampleProps = {
   onSubmitConfirm: (submitProps: any) => void
@@ -45,17 +50,11 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
     }, [initialFormData]),
   })
 
-  // const handleUpload = (file: File) => {
-  //   if (!file[0]) return null
-  //   const { name, type } = file[0]
-  //   return [{ name, type }]
-  // }
-
   useEffect(() => {
     if (initialFormData?.image_url) {
       setValue('image_url', initialFormData.image_url)
     }
-  }, [])
+  }, [initialFormData.image_url, setValue])
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
@@ -65,7 +64,6 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
       console.error('--  submitErrors: ', submitErrors)
     }
   )
-
   return (
     <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
       <div className='hidden sm:block' aria-hidden='true'>
@@ -154,29 +152,42 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                       type='button'
                       className='m-3 btn btn-ghost btn-link'
                       onClick={async () => {
-                        const headers = new Headers()
-                        headers.append('Content-Type', 'application/json')
-
-                        const fetchResponse = await fetch('/api/formExample_api', {
-                          method: 'POST',
-                          headers,
-                          body: JSON.stringify({
+                        const Fetch_formExample_apiResult = await typedFetch<
+                          Fetch_formExample_api_post['input'],
+                          Fetch_formExample_api_post['output']
+                        >({
+                          ...fetch_formExample_api_post_Config,
+                          data: {
                             email: getValues('email'),
                             color_select: getValues('color_select'),
                             toggle: getValues('toggle'),
                             image: getValues('image'),
                             image_url: getValues('image_url'),
                             color_input: getValues('color_input'),
-                          }),
+                          },
                         })
-
-                        const isValid = await checkFetchJsonResult(fetchResponse)
-                        if (isValid) {
-                          const resultJSON = await fetchResponse.json()
+                        if (
+                          Fetch_formExample_apiResult.status === 400 &&
+                          Fetch_formExample_apiResult.error
+                        ) {
                           const myAlert = withReactContent(Swal)
                           await myAlert.fire({
-                            title: 'server message',
-                            html: resultJSON.message,
+                            html: (
+                              <ValidationError
+                                content={Fetch_formExample_apiResult.error.validationError}
+                              />
+                            ),
+                            showConfirmButton: false,
+                            showCancelButton: false,
+                          })
+                        } else if (
+                          Fetch_formExample_apiResult.error === null &&
+                          Fetch_formExample_apiResult.status === 200
+                        ) {
+                          const myAlert = withReactContent(Swal)
+                          await myAlert.fire({
+                            title: 'submited',
+                            html: <CodeBlock content={Fetch_formExample_apiResult.data} />,
                             confirmButtonText: 'close',
                           })
                         }

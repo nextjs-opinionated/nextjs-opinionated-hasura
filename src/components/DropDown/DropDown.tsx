@@ -28,7 +28,7 @@ export const DropDown: React.FC<DropDownProps> = ({
     } else {
       currentValueSet('')
     }
-  }, [selectedId])
+  }, [items, selectedId])
 
   if (currentValue === null) {
     return null

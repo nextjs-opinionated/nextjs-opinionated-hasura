@@ -67,9 +67,7 @@ export default function Page() {
 
           {session?.user && (
             <div className='flex flex-col'>
-              <p>
-                Welcome, <span className='font-bold underline'>{session.user.name}</span>
-              </p>
+              Welcome, <span className='font-bold underline'>{session.user.name}</span>
             </div>
           )}
         </div>
@@ -88,29 +86,12 @@ export default function Page() {
 
           {/* buttons */}
           <div className='flex flex-wrap items-center my-16 space-x-2'>
-            <button
-              className='btn btn-primary'
-              onClick={async () => {
-                const res = await fetch('/api/get_server_time')
-                const resultJSON = await res.json()
-                const myAlert = withReactContent(Swal)
-                await myAlert.fire({
-                  title: 'from server',
-                  html: (
-                    <div>
-                      <img src='https://unsplash.it/600/300' />
-                      {resultJSON.message}
-                    </div>
-                  ),
-                  confirmButtonText: 'close',
-                })
-              }}
-            >
-              Call API
-            </button>
-
             <Link href='/form-example'>
-              <a className='btn btn-primary'>Form Example</a>
+              <a className='btn btn-primary'>React Form Example</a>
+            </Link>
+
+            <Link href='/typed-fetch-examples'>
+              <a className='btn btn-primary'>Typed-Fetch</a>
             </Link>
 
             <div className='mx-2'>
@@ -130,6 +111,28 @@ export default function Page() {
               </button>
             </div>
 
+            <button
+              className='btn btn-primary'
+              onClick={async () => {
+                const res = await fetch('/api/sentry-error')
+                const resultJSON = await res.json()
+                const myAlert = withReactContent(Swal)
+                await myAlert.fire({
+                  title: 'Sentry error',
+                  html: (
+                    <div>
+                      <h5>
+                        <strong>message:</strong> {resultJSON.message}
+                      </h5>
+                    </div>
+                  ),
+                  confirmButtonText: 'close',
+                })
+              }}
+            >
+              Sentry Error
+            </button>
+
             <ChangeThemeDropDown />
 
             <div className='mx-2'>
@@ -147,101 +150,31 @@ export default function Page() {
             </div>
           </div>
 
-          <p className='max-w-md mt-10 text-sm italic'>
-            <a className='underline' target='_blank' rel='noreferrer' href='https://nextjs.org/'>
-              next.js
-            </a>
-            ,{' '}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href='https://www.typescriptlang.org/'
-            >
-              typescript
-            </a>
-            ,{' '}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href='https://tailwindcss.com/'
-            >
-              tailwindcss
-            </a>
-            ,{' '}
-            <a className='underline' target='_blank' rel='noreferrer' href='https://daisyui.com/'>
-              daisyUI
-            </a>
-            ,{' '}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href='https://storybook.js.org/'
-            >
-              storybook
-            </a>
-            ,{' '}
-            <a className='underline' target='_blank' rel='noreferrer' href='https://jestjs.io/'>
-              jest
-            </a>
-            ,{' '}
-            <a className='underline' target='_blank' rel='noreferrer' href='https://eslint.org/'>
-              eslint
-            </a>
-            ,{' '}
-            <a className='underline' target='_blank' rel='noreferrer' href='https://prettier.io/'>
-              prettier
-            </a>
-            ,{' '}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href='https://sweetalert2.github.io/'
-            >
-              sweetalert2
-            </a>
-            ,{' '}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href='https://react-icons.github.io/react-icons/'
-            >
-              react-icons
-            </a>
-            ,{' '}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href='https://react-hook-form.com/'
-            >
-              react-hook-form
-            </a>
-            ,{' '}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href='https://github.com/tailwindlabs/tailwindcss-forms'
-            >
-              @tailwindcss/forms
-            </a>
-            ,{' '}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href='https://github.com/colinhacks/zod'
-            >
-              zod (validations)
-            </a>
+          <p className='max-w-md mt-5 text-sm italic'>
+            {extLink('next.js', 'https://nextjs.org/')},{' '}
+            {extLink('typescript', 'https://www.typescriptlang.org/')},{' '}
+            {extLink('tailwindcss', 'https://tailwindcss.com/')},{' '}
+            {extLink('daisyUI', 'https://daisyui.com/')},{' '}
+            {extLink('storybook', 'https://storybook.js.org/')},{' '}
+            {extLink('jest', 'https://jestjs.io/')}, {extLink('eslint', 'https://eslint.org/')},{' '}
+            {extLink('prettier', 'https://prettier.io/')},{' '}
+            {extLink('sweetalert2', 'https://sweetalert2.github.io/')},{' '}
+            {extLink('react-icons', 'https://react-icons.github.io/react-icons/')},{' '}
+            {extLink('react-hook-form', 'https://react-hook-form.com/')},{' '}
+            {extLink('@tailwindcss/forms', 'https://github.com/tailwindlabs/tailwindcss-forms')},{' '}
+            {extLink('zod', 'https://github.com/colinhacks/zod')},{' '}
+            {extLink('react-query', 'https://react-query.tanstack.com/')}
           </p>
         </div>
       </Layout>
     </>
+  )
+}
+
+function extLink(name: string, url: string) {
+  return (
+    <a className='link' target='_blank' rel='noreferrer' href={url}>
+      {name}
+    </a>
   )
 }

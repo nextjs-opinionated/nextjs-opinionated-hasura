@@ -6,8 +6,8 @@ const throwKnownError = () => Promise.reject(new Error('API Test 1'))
 throwKnownError() // only test sentry
 
 
-export default withSentry(logMiddleware(async function get_server_time(_: NextApiRequest, res: NextApiResponse) {
-  const response = {message: `Hello from server! It's ${new Date().toLocaleTimeString()}`}
+export default withSentry(logMiddleware((_: NextApiRequest, res: NextApiResponse) => {
+  const response = {message: `This must have generated an error in sentry. Check the console`}
   
   res.status(200).json(response)
 }))

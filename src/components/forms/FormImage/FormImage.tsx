@@ -28,7 +28,7 @@ export const FormImage: React.FC<FormImageProps> = ({
     if (defaultValue) {
       imageSet({ url: defaultValue, name: null })
     }
-  }, [])
+  }, [defaultValue])
 
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files.length !== 0) {
