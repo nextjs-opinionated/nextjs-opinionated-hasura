@@ -1,4 +1,5 @@
 import '../styles/tailwind.css'
+import '../styles/sweetalert.css'
 import { ThemeProvider } from 'next-themes'
 import { StrictMode } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
