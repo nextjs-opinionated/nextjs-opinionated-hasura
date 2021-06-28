@@ -111,27 +111,29 @@ export default function Page() {
               </button>
             </div>
 
-            <button
-              className='btn btn-primary'
-              onClick={async () => {
-                const res = await fetch('/api/sentry-error')
-                const resultJSON = await res.json()
-                const myAlert = withReactContent(Swal)
-                await myAlert.fire({
-                  title: 'Sentry error',
-                  html: (
-                    <div>
-                      <h5>
-                        <strong>message:</strong> {resultJSON.message}
-                      </h5>
-                    </div>
-                  ),
-                  confirmButtonText: 'close',
-                })
-              }}
-            >
-              Sentry Error
-            </button>
+            <div className='mx-2 mb-2'>
+              <button
+                className='btn btn-primary'
+                onClick={async () => {
+                  const res = await fetch('/api/sentry-error')
+                  const resultJSON = await res.json()
+                  const myAlert = withReactContent(Swal)
+                  await myAlert.fire({
+                    title: 'Sentry error',
+                    html: (
+                      <div>
+                        <h5>
+                          <strong>message:</strong> {resultJSON.message}
+                        </h5>
+                      </div>
+                    ),
+                    confirmButtonText: 'close',
+                  })
+                }}
+              >
+                Sentry Error
+              </button>
+            </div>
 
             <div className='mb-2'>
               <ChangeThemeDropDown />
