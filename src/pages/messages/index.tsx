@@ -13,6 +13,10 @@ import {
   Messages_api_get,
   messages_api_get_Config,
 } from '../../model/api-models/messages/Messages_api_get'
+import {
+  Insert_random_message_api_post,
+  insert_random_message_api_post_Config,
+} from '../../model/api-models/messages/Insert_random_message_api_post'
 
 const Messages: React.FunctionComponent = () => {
   const { data, isLoading, error, refetch } = useQuery('fetch_tester_api_get_Key', async () => {
@@ -50,7 +54,13 @@ const Messages: React.FunctionComponent = () => {
             <button
               className='mx-2 btn btn-primary'
               onClick={async () => {
-                await fetch('/api/messages/insert_messages_one_from_spaceflightnewsapi')
+                /* const typedFetchResult = */ await typedFetch<
+                  Insert_random_message_api_post['input'],
+                  Insert_random_message_api_post['output']
+                >({
+                  ...insert_random_message_api_post_Config,
+                  data: {},
+                })
                 await refetch()
               }}
               disabled={isLoading}

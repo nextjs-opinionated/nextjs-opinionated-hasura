@@ -18,6 +18,11 @@ import {
   messages_by_pk_api_get_Config,
 } from '../../model/api-models/messages/Messages_by_pk_api_get'
 import typedFetch from '../../utils/typedFetch/typedFetch'
+import {
+  Insert_messages_one_api_post,
+  insert_messages_one_api_post_Config,
+} from '../../model/api-models/messages/Insert_messages_one_api_post'
+import _ from 'lodash'
 
 type FormProps = Omit<Messages_Insert_Input, 'message_tags'> & {
   publishedAt_date: string
@@ -74,25 +79,28 @@ const Page: React.FunctionComponent = () => {
 
       const headers = new Headers()
       headers.append('Content-Type', 'application/json')
-      const res = await fetch('/api/messages/insert_messages_one', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          message_id: router.query.message_id === `new` ? null : router.query.message_id,
+
+      const typedFetchResult = await typedFetch<
+        Insert_messages_one_api_post['input'],
+        Insert_messages_one_api_post['output']
+      >({
+        ...insert_messages_one_api_post_Config,
+        data: {
+          id: router.query.message_id === `new` ? null : _.toNumber(router.query.message_id),
           title: submitProps.title,
           body: submitProps.body,
           url: submitProps.url,
           imageUrl: submitProps.imageUrl,
-          publishedAt,
-          timezoneOffset: new Date().getTimezoneOffset(),
-        }),
+          publishedAt: publishedAt.toISOString(),
+          // timezoneOffset: new Date().getTimezoneOffset(),
+        },
       })
 
-      if (res.status !== 200) {
+      if (typedFetchResult.error) {
         const myAlert = withReactContent(Swal)
         await myAlert.fire({
           title: 'error',
-          html: res.statusText,
+          html: typedFetchResult.statusText,
           confirmButtonText: 'close',
         })
         return
