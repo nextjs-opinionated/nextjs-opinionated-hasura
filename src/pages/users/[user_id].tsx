@@ -1,5 +1,3 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
-import GqlSdkHelper from '../../utils/GqlSdkHelper'
 import _ from 'lodash'
 import { Roles_Enum, Users } from '../../graphql/generated'
 import { Layout } from '../../components/Layout/Layout'
@@ -24,7 +22,11 @@ import {
   delete_users_by_pk_api_delete_Config,
 } from '../../model/api-models/users/Delete_users_by_pk_api_delete'
 import { useQuery } from 'react-query'
-import { Users_api_get, users_api_get_Config } from '../../model/api-models/users/Users_api_get'
+import { users_api_get_Config } from '../../model/api-models/users/Users_api_get'
+import {
+  Users_by_pk_api_get,
+  users_by_pk_api_get_Config,
+} from '../../model/api-models/users/Users_by_pk_api_get'
 
 type FormProps = Pick<Users, 'id' | 'name' | 'email' | 'image' | 'role'>
 
@@ -60,12 +62,15 @@ export default function Page() {
 
   // react-query
   const queryObj = useQuery(
-    'messages_by_pk_api_get',
+    'users_by_pk_api_get',
     async () => {
-      const resultObj = await typedFetch<Users_api_get['input'], Users_api_get['output']>({
-        ...users_api_get_Config,
+      const resultObj = await typedFetch<
+        Users_by_pk_api_get['input'],
+        Users_by_pk_api_get['output']
+      >({
+        ...users_by_pk_api_get_Config,
         data: {
-          use,
+          user_id: router.query.user_id,
         },
       })
       return resultObj.data
@@ -78,9 +83,11 @@ export default function Page() {
     // dependent query
     // https://github.com/tannerlinsley/react-query-essentials/blob/master/18%20-%20dependent%20queries/app/src/App.js
     {
-      enabled: router.query.message_id?.length > 0,
+      enabled: router.query.user_id?.length > 0,
     }
   )
+
+  console.log(router.query.user_id)
 
   const {
     handleSubmit,
@@ -131,7 +138,7 @@ export default function Page() {
     const swalConfirmDelete = await SwalReactAlert.fire({
       html: (
         <p>
-          Do you want to delete the user: <strong>{user.name}</strong>
+          Do you want to delete the user: <strong>{queryObj?.data?.users_by_pk?.name}</strong>
         </p>
       ),
       showCloseButton: true,
@@ -148,7 +155,7 @@ export default function Page() {
       >({
         ...delete_users_by_pk_api_delete_Config,
         data: {
-          id: user.id.toString(),
+          id: queryObj?.data?.users_by_pk?.id.toString(),
         },
       })
 
@@ -180,7 +187,7 @@ export default function Page() {
       }
       menuItems={Object.values(LinksList)}
     >
-      {router.isFallback ? (
+      {queryObj.isSuccess ? (
         <button className='btn btn-sm btn-ghost loading'>loading</button>
       ) : (
         <main className='flex justify-center mx-8'>
@@ -199,7 +206,10 @@ export default function Page() {
                     <div className='w-40 h-40 m-auto mt-8 mb-4 rounded-btn ring ring-primary ring-offset-base-100 ring-offset-2'>
                       <img
                         className='w-full h-full'
-                        src={user.image || getInitialNameAvatar(user.name)}
+                        src={
+                          queryObj?.data?.users_by_pk?.image ||
+                          getInitialNameAvatar(queryObj?.data?.users_by_pk?.name)
+                        }
                       />
                     </div>
                     {IS_ADMIN && (
@@ -221,7 +231,7 @@ export default function Page() {
                         name='name'
                         register={register}
                         disabled={!IS_ADMIN}
-                        defaultValue={user.name}
+                        defaultValue={queryObj?.data?.users_by_pk?.name}
                         validationErrors={validationErrors}
                       />
 
@@ -231,7 +241,7 @@ export default function Page() {
                         type='email'
                         disabled={!IS_ADMIN}
                         register={register}
-                        defaultValue={user.email}
+                        defaultValue={queryObj?.data?.users_by_pk?.email}
                         validationErrors={validationErrors}
                       />
 
@@ -239,7 +249,7 @@ export default function Page() {
                       <select
                         name='role'
                         {...register('role')}
-                        defaultValue={user.role}
+                        defaultValue={queryObj?.data?.users_by_pk?.role}
                         disabled={!IS_ADMIN}
                         className='w-full mt-10 select select-bordered'
                       >
@@ -254,7 +264,7 @@ export default function Page() {
                         <button
                           type='button'
                           onClick={() => {
-                            reset(user)
+                            reset(queryObj?.data?.users_by_pk)
                           }}
                           className='btn btn-secondary btn-link'
                         >

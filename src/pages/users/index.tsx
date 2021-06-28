@@ -57,8 +57,8 @@ export default function Page() {
               <th>Função</th>
             </tr>
           </thead>
-          {data.users.length > 0 &&
-            data.users.map((user) => (
+          {data?.users.length > 0 &&
+            data?.users.map((user) => (
               <tbody key={user.id}>
                 <tr>
                   <td>
