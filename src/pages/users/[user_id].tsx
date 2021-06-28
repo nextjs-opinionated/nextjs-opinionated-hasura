@@ -87,8 +87,6 @@ export default function Page() {
     }
   )
 
-  console.log(router.query.user_id)
-
   const {
     handleSubmit,
     register,

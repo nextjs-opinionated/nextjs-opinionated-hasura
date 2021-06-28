@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Messages_by_pk_api_get } from '../../../model/api-models/messages/Messages_by_pk_api_get'
 import { Users_by_pk_api_get } from '../../../model/api-models/users/Users_by_pk_api_get'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
@@ -17,11 +16,9 @@ export default async function API(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     // process
-    const data: Messages_by_pk_api_get['output'] = await new GqlSdkHelper()
-      .getSdk()
-      .messages_by_pk({
-        id: _.toNumber(inputData.user_id),
-      })
+    const data: Users_by_pk_api_get['output'] = await new GqlSdkHelper().getSdk().users_by_pk({
+      id: _.toNumber(inputData.user_id),
+    })
 
     // output data
     res.status(HttpStatusCode.OK_200).json(data)
