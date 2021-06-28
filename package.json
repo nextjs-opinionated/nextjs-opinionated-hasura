@@ -29,7 +29,7 @@
     "test:ci": "jest --runInBand --no-cache",
     "storybook": "start-storybook --ci -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "chromatic": "yarn chromatic"
+    "chromatic": "chromatic --exit-zero-on-changes"
   },
   "dependencies": {
     "@headlessui/react": "^1.3.0",
