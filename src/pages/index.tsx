@@ -15,6 +15,7 @@ export default function Page() {
   const imageUrl = process.env.NEXT_PUBLIC_SITE_IMAGE
   const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
+
   const [session] = useSession()
 
   return (
