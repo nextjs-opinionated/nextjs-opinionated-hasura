@@ -23,44 +23,65 @@ import {
   Delete_users_by_pk_api_delete,
   delete_users_by_pk_api_delete_Config,
 } from '../../model/api-models/users/Delete_users_by_pk_api_delete'
+import { useQuery } from 'react-query'
+import { Users_api_get, users_api_get_Config } from '../../model/api-models/users/Users_api_get'
 
-type User = Pick<Users, 'id' | 'name' | 'email' | 'image' | 'role'>
+type FormProps = Pick<Users, 'id' | 'name' | 'email' | 'image' | 'role'>
 
-type UserProps = {
-  user: User
-}
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const { users } = await new GqlSdkHelper().getSdk().users({ limit: 3 }) // load only 3 in build time
 
-type FormProps = User
+//   const userIds = users.map((user) => ({
+//     params: { userId: String(user.id) },
+//   }))
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { users } = await new GqlSdkHelper().getSdk().users({ limit: 3 }) // load only 3 in build time
+//   return { paths: userIds, fallback: true }
+// }
 
-  const userIds = users.map((user) => ({
-    params: { userId: String(user.id) },
-  }))
+// export const getStaticProps: GetStaticProps = async (context) => {
+//   const { userId } = context.params
+//   const { users_by_pk } = await new GqlSdkHelper().getSdk().users_by_pk({ id: _.toNumber(userId) })
 
-  return { paths: userIds, fallback: true }
-}
+//   if (users_by_pk) {
+//     return {
+//       props: {
+//         user: users_by_pk,
+//       },
+//       revalidate: 1,
+//     }
+//   } else {
+//     return { notFound: true }
+//   }
+// }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const { userId } = context.params
-  const { users_by_pk } = await new GqlSdkHelper().getSdk().users_by_pk({ id: _.toNumber(userId) })
-
-  if (users_by_pk) {
-    return {
-      props: {
-        user: users_by_pk,
-      },
-      revalidate: 1,
-    }
-  } else {
-    return { notFound: true }
-  }
-}
-
-export default function User({ user }: UserProps) {
+export default function Page() {
   const router = useRouter()
   const [session] = useSession()
+
+  // react-query
+  const queryObj = useQuery(
+    'messages_by_pk_api_get',
+    async () => {
+      const resultObj = await typedFetch<Users_api_get['input'], Users_api_get['output']>({
+        ...users_api_get_Config,
+        data: {
+          use,
+        },
+      })
+      return resultObj.data
+    },
+    // # enabled
+    //   Set this to false to disable automatic refetching when the query mounts
+    //   or changes query keys. To refetch the query, use the refetch method returned
+    //   from the useQuery instance. Defaults to true.
+    //
+    // dependent query
+    // https://github.com/tannerlinsley/react-query-essentials/blob/master/18%20-%20dependent%20queries/app/src/App.js
+    {
+      enabled: router.query.message_id?.length > 0,
+    }
+  )
+
   const {
     handleSubmit,
     register,
@@ -82,7 +103,7 @@ export default function User({ user }: UserProps) {
       ...insert_users_one_api_post_Config,
       data: {
         ...submitProps,
-        id: user.id,
+        id: router.query.user_id,
       },
     })
 
