@@ -47,7 +47,7 @@
     "test:ci": "jest --runInBand --no-cache",
     "type-check": "tsc --pretty --noEmit",
     "remove-local-database": "(cd ./hasura; docker-compose down -v)",
-    "chromatic": "yarn chromatic"
+    "chromatic": "chromatic --auto-accept-changes"
   },
   "dependencies": {
     "@headlessui/react": "^1.3.0",
