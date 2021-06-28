@@ -124,7 +124,7 @@ export default function Page() {
             </div>
           </div>
 
-          <p className='max-w-md mt-5 text-sm italic '>
+          <p className='max-w-md mt-5 text-sm italic'>
             {extLink('next.js', 'https://nextjs.org/')},{' '}
             {extLink('typescript', 'https://www.typescriptlang.org/')},{' '}
             {extLink('tailwindcss', 'https://tailwindcss.com/')},{' '}
