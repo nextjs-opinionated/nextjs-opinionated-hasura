@@ -22,39 +22,12 @@ import {
   delete_users_by_pk_api_delete_Config,
 } from '../../model/api-models/users/Delete_users_by_pk_api_delete'
 import { useQuery } from 'react-query'
-import { users_api_get_Config } from '../../model/api-models/users/Users_api_get'
 import {
   Users_by_pk_api_get,
   users_by_pk_api_get_Config,
 } from '../../model/api-models/users/Users_by_pk_api_get'
 
 type FormProps = Pick<Users, 'id' | 'name' | 'email' | 'image' | 'role'>
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const { users } = await new GqlSdkHelper().getSdk().users({ limit: 3 }) // load only 3 in build time
-
-//   const userIds = users.map((user) => ({
-//     params: { userId: String(user.id) },
-//   }))
-
-//   return { paths: userIds, fallback: true }
-// }
-
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   const { userId } = context.params
-//   const { users_by_pk } = await new GqlSdkHelper().getSdk().users_by_pk({ id: _.toNumber(userId) })
-
-//   if (users_by_pk) {
-//     return {
-//       props: {
-//         user: users_by_pk,
-//       },
-//       revalidate: 1,
-//     }
-//   } else {
-//     return { notFound: true }
-//   }
-// }
 
 export default function Page() {
   const router = useRouter()
@@ -185,7 +158,7 @@ export default function Page() {
       }
       menuItems={Object.values(LinksList)}
     >
-      {queryObj.isSuccess ? (
+      {!queryObj.isSuccess ? (
         <button className='btn btn-sm btn-ghost loading'>loading</button>
       ) : (
         <main className='flex justify-center mx-8'>
