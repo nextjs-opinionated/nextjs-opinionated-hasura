@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { Roles_Enum, Users } from '../../graphql/generated'
 import { Layout } from '../../components/Layout/Layout'
 import { useRouter } from 'next/router'
