@@ -1,7 +1,7 @@
 // import _ from 'lodash'
 import * as z from 'zod'
 import { Roles_Enum } from '../../graphql/generated'
-import _ from "lodash"
+import _ from 'lodash'
 
 export const UserValidationSchema = z.object({
   id: z.any().refine(
@@ -18,5 +18,5 @@ export const UserValidationSchema = z.object({
   ),
   name: z.string().nonempty(),
   email: z.string().email(),
-  role: z.nativeEnum(Roles_Enum)
+  role: z.nativeEnum(Roles_Enum),
 })

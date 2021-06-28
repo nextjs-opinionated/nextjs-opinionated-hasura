@@ -1,6 +1,3 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
-import GqlSdkHelper from '../../utils/GqlSdkHelper'
-import _ from 'lodash'
 import { Roles_Enum, Users } from '../../graphql/generated'
 import { Layout } from '../../components/Layout/Layout'
 import { useRouter } from 'next/router'
@@ -10,50 +7,58 @@ import { DeepMap, FieldError, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { UserValidationSchema } from '../../model/schemas/UserValidationSchema'
 import { FormInput } from '../../components/forms/FormInput/FormInput'
-import { checkFetchJsonResult } from '../../utils/checkFetchResult'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import { getInitialNameAvatar } from '../../utils/getInitialNameAvatar'
-import queryString from 'query-string'
 import { LinksList } from '../../model/site/LinksList'
+import {
+  Insert_users_one_api_post,
+  insert_users_one_api_post_Config,
+} from '../../model/api-models/users/Insert_users_one_api_post'
+import typedFetch from '../../utils/typedFetch/typedFetch'
+import {
+  Delete_users_by_pk_api_delete,
+  delete_users_by_pk_api_delete_Config,
+} from '../../model/api-models/users/Delete_users_by_pk_api_delete'
+import { useQuery } from 'react-query'
+import {
+  Users_by_pk_api_get,
+  users_by_pk_api_get_Config,
+} from '../../model/api-models/users/Users_by_pk_api_get'
 
-type User = Pick<Users, 'id' | 'name' | 'email' | 'image' | 'role'>
+type FormProps = Pick<Users, 'id' | 'name' | 'email' | 'image' | 'role'>
 
-type UserProps = {
-  user: User
-}
-
-type FormProps = User
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { users } = await new GqlSdkHelper().getSdk().users({ limit: 3 }) // load only 3 in build time
-
-  const userIds = users.map((user) => ({
-    params: { userId: String(user.id) },
-  }))
-
-  return { paths: userIds, fallback: true }
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const { userId } = context.params
-  const { users_by_pk } = await new GqlSdkHelper().getSdk().users_by_pk({ id: _.toNumber(userId) })
-
-  if (users_by_pk) {
-    return {
-      props: {
-        user: users_by_pk,
-      },
-      revalidate: 1,
-    }
-  } else {
-    return { notFound: true }
-  }
-}
-
-export default function User({ user }: UserProps) {
-  const { isFallback, push } = useRouter()
+export default function Page() {
+  const router = useRouter()
   const [session] = useSession()
+
+  // react-query
+  const queryObj = useQuery(
+    'users_by_pk_api_get',
+    async () => {
+      const resultObj = await typedFetch<
+        Users_by_pk_api_get['input'],
+        Users_by_pk_api_get['output']
+      >({
+        ...users_by_pk_api_get_Config,
+        data: {
+          user_id: router.query.user_id,
+        },
+      })
+      return resultObj.data
+    },
+    // # enabled
+    //   Set this to false to disable automatic refetching when the query mounts
+    //   or changes query keys. To refetch the query, use the refetch method returned
+    //   from the useQuery instance. Defaults to true.
+    //
+    // dependent query
+    // https://github.com/tannerlinsley/react-query-essentials/blob/master/18%20-%20dependent%20queries/app/src/App.js
+    {
+      enabled: router.query.user_id?.length > 0,
+    }
+  )
+
   const {
     handleSubmit,
     register,
@@ -68,27 +73,31 @@ export default function User({ user }: UserProps) {
   const IS_ADMIN = session?.user?.role === Roles_Enum.Admin
 
   const onUpdateUser = async (submitProps: FormProps) => {
-    const fetchResponse = await fetch('/api/users/insert_users_one', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    const result = await typedFetch<
+      Insert_users_one_api_post['input'],
+      Insert_users_one_api_post['output']
+    >({
+      ...insert_users_one_api_post_Config,
+      data: {
         ...submitProps,
-        id: user.id,
-      }),
+        id: router.query.user_id,
+      },
     })
 
-    const isValid = await checkFetchJsonResult(fetchResponse)
-    if (isValid) {
+    if (!result.error) {
       const myAlert = withReactContent(Swal)
-      const swalResult = await myAlert.fire({
+      await myAlert.fire({
         title: 'updated user',
         confirmButtonText: 'close',
       })
-      if (swalResult.isConfirmed) {
-        push('/users')
-      }
+      await router.push('/users')
+    } else {
+      const myAlert = withReactContent(Swal)
+      await myAlert.fire({
+        title: 'error',
+        html: <p>{JSON.stringify(result.error)}</p>,
+        confirmButtonText: 'close',
+      })
     }
   }
   const onError = (error: DeepMap<FormProps, FieldError>) => {
@@ -99,7 +108,7 @@ export default function User({ user }: UserProps) {
     const swalConfirmDelete = await SwalReactAlert.fire({
       html: (
         <p>
-          Do you want to delete the user: <strong>{user.name}</strong>
+          Do you want to delete the user: <strong>{queryObj?.data?.users_by_pk?.name}</strong>
         </p>
       ),
       showCloseButton: true,
@@ -110,42 +119,45 @@ export default function User({ user }: UserProps) {
     })
 
     if (swalConfirmDelete.isConfirmed) {
-      const deleteResponse = await fetch(
-        `/api/users/delete_users_by_pk?${queryString.stringify({
-          user_id: user.id,
-        })}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      const result = await typedFetch<
+        Delete_users_by_pk_api_delete['input'],
+        Delete_users_by_pk_api_delete['output']
+      >({
+        ...delete_users_by_pk_api_delete_Config,
+        data: {
+          id: queryObj?.data?.users_by_pk?.id.toString(),
+        },
+      })
 
-      const isValid = await checkFetchJsonResult(deleteResponse)
-      if (isValid) {
-        const swalResult = await SwalReactAlert.fire({
+      if (!result.error) {
+        const myAlert = withReactContent(Swal)
+        await myAlert.fire({
           title: 'deleted user',
           confirmButtonText: 'close',
         })
-        if (swalResult.isConfirmed) {
-          push('/users')
-        }
+        await router.push('/users')
+      } else {
+        const myAlert = withReactContent(Swal)
+        await myAlert.fire({
+          title: 'error',
+          html: <p>{JSON.stringify(result.error)}</p>,
+          confirmButtonText: 'close',
+        })
       }
     }
   }
 
   return (
     <Layout
-        title={
-          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
-            <div className='text-base font-bold'>Edit user</div>
-            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
-          </div>
-        }
-        menuItems={Object.values(LinksList)}
-      >
-      {isFallback ? (
+      title={
+        <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
+          <div className='text-base font-bold'>Edit user</div>
+          <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+        </div>
+      }
+      menuItems={Object.values(LinksList)}
+    >
+      {!queryObj.isSuccess ? (
         <button className='btn btn-sm btn-ghost loading'>loading</button>
       ) : (
         <main className='flex justify-center mx-8'>
@@ -164,7 +176,10 @@ export default function User({ user }: UserProps) {
                     <div className='w-40 h-40 m-auto mt-8 mb-4 rounded-btn ring ring-primary ring-offset-base-100 ring-offset-2'>
                       <img
                         className='w-full h-full'
-                        src={user.image || getInitialNameAvatar(user.name)}
+                        src={
+                          queryObj?.data?.users_by_pk?.image ||
+                          getInitialNameAvatar(queryObj?.data?.users_by_pk?.name)
+                        }
                       />
                     </div>
                     {IS_ADMIN && (
@@ -186,7 +201,7 @@ export default function User({ user }: UserProps) {
                         name='name'
                         register={register}
                         disabled={!IS_ADMIN}
-                        defaultValue={user.name}
+                        defaultValue={queryObj?.data?.users_by_pk?.name}
                         validationErrors={validationErrors}
                       />
 
@@ -196,7 +211,7 @@ export default function User({ user }: UserProps) {
                         type='email'
                         disabled={!IS_ADMIN}
                         register={register}
-                        defaultValue={user.email}
+                        defaultValue={queryObj?.data?.users_by_pk?.email}
                         validationErrors={validationErrors}
                       />
 
@@ -204,7 +219,7 @@ export default function User({ user }: UserProps) {
                       <select
                         name='role'
                         {...register('role')}
-                        defaultValue={user.role}
+                        defaultValue={queryObj?.data?.users_by_pk?.role}
                         disabled={!IS_ADMIN}
                         className='w-full mt-10 select select-bordered'
                       >
@@ -219,7 +234,7 @@ export default function User({ user }: UserProps) {
                         <button
                           type='button'
                           onClick={() => {
-                            reset(user)
+                            reset(queryObj?.data?.users_by_pk)
                           }}
                           className='btn btn-secondary btn-link'
                         >

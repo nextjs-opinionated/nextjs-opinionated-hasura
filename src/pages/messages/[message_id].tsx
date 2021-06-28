@@ -1,10 +1,8 @@
 import * as React from 'react'
-import { Messages_By_PkQuery, Messages_Insert_Input } from '../../graphql/generated'
+import { Messages_Insert_Input } from '../../graphql/generated'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MessageValidationSchema } from '../../model/schemas/MessageValidationSchema'
-import useSWRFetch from '../../utils/useSWRFetch'
-import queryString from 'query-string'
 import { useRouter } from 'next/router'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
@@ -14,6 +12,17 @@ import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
 import { FormInput } from '../../components/forms/FormInput/FormInput'
 import Loading from '../../components/Loading/Loading'
+import { useQuery } from 'react-query'
+import {
+  Messages_by_pk_api_get,
+  messages_by_pk_api_get_Config,
+} from '../../model/api-models/messages/Messages_by_pk_api_get'
+import typedFetch from '../../utils/typedFetch/typedFetch'
+import {
+  Insert_messages_one_api_post,
+  insert_messages_one_api_post_Config,
+} from '../../model/api-models/messages/Insert_messages_one_api_post'
+import _ from 'lodash'
 
 type FormProps = Omit<Messages_Insert_Input, 'message_tags'> & {
   publishedAt_date: string
@@ -22,16 +31,35 @@ type FormProps = Omit<Messages_Insert_Input, 'message_tags'> & {
 
 const Page: React.FunctionComponent = () => {
   const router = useRouter()
-  const {
-    data: dataMessages_by_pk,
-    loading: loadingMessages_by_pk,
-    error: errorMessages_by_pk,
-    isValidating: isValidatingMessages_by_pk,
-  } = useSWRFetch<Messages_By_PkQuery>(
-    `/api/messages/messages_by_pk/?${queryString.stringify({
-      message_id: router.query.message_id,
-    })}`
+
+  // react-query
+  const queryObj = useQuery(
+    'messages_by_pk_api_get',
+    async () => {
+      const resultObj = await typedFetch<
+        Messages_by_pk_api_get['input'],
+        Messages_by_pk_api_get['output']
+      >({
+        ...messages_by_pk_api_get_Config,
+        data: {
+          message_id: router.query.message_id,
+        },
+      })
+      return resultObj.data
+    },
+    // # enabled
+    //   Set this to false to disable automatic refetching when the query mounts
+    //   or changes query keys. To refetch the query, use the refetch method returned
+    //   from the useQuery instance. Defaults to true.
+    //
+    // dependent query
+    // https://github.com/tannerlinsley/react-query-essentials/blob/master/18%20-%20dependent%20queries/app/src/App.js
+    {
+      enabled: router.query.message_id?.length > 0,
+    }
   )
+
+  // react-hook-form
   const {
     handleSubmit,
     register,
@@ -51,25 +79,28 @@ const Page: React.FunctionComponent = () => {
 
       const headers = new Headers()
       headers.append('Content-Type', 'application/json')
-      const res = await fetch('/api/messages/insert_messages_one', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          message_id: router.query.message_id === `new` ? null : router.query.message_id,
+
+      const typedFetchResult = await typedFetch<
+        Insert_messages_one_api_post['input'],
+        Insert_messages_one_api_post['output']
+      >({
+        ...insert_messages_one_api_post_Config,
+        data: {
+          id: router.query.message_id === `new` ? null : _.toNumber(router.query.message_id),
           title: submitProps.title,
           body: submitProps.body,
           url: submitProps.url,
           imageUrl: submitProps.imageUrl,
-          publishedAt,
-          timezoneOffset: new Date().getTimezoneOffset(),
-        }),
+          publishedAt: publishedAt.toISOString(),
+          // timezoneOffset: new Date().getTimezoneOffset(),
+        },
       })
 
-      if (res.status !== 200) {
+      if (typedFetchResult.error) {
         const myAlert = withReactContent(Swal)
         await myAlert.fire({
           title: 'error',
-          html: res.statusText,
+          html: typedFetchResult.statusText,
           confirmButtonText: 'close',
         })
         return
@@ -81,7 +112,7 @@ const Page: React.FunctionComponent = () => {
     }
   )
 
-  if (loadingMessages_by_pk) {
+  if (queryObj.isLoading) {
     return (
       <>
         <Head>
@@ -97,7 +128,7 @@ const Page: React.FunctionComponent = () => {
           }
           menuItems={Object.values(LinksList)}
         >
-          <div className="flex items-center justify-center">
+          <div className='flex items-center justify-center'>
             <Loading title='Loading...' className='w-10 h-10' />
           </div>
         </Layout>
@@ -105,8 +136,8 @@ const Page: React.FunctionComponent = () => {
     )
   }
 
-  if (errorMessages_by_pk) {
-    return <p>ERROR {errorMessages_by_pk}</p>
+  if (queryObj.error) {
+    return <p>ERROR {queryObj.error}</p>
   }
 
   return (
@@ -125,7 +156,7 @@ const Page: React.FunctionComponent = () => {
         menuItems={Object.values(LinksList)}
       >
         <main className='flex justify-center mx-8'>
-          {!isValidatingMessages_by_pk && (
+          {queryObj.isSuccess && (
             <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
               <div className='hidden sm:block' aria-hidden='true'>
                 <div className='py-5'>
@@ -147,7 +178,7 @@ const Page: React.FunctionComponent = () => {
                           label='Title:'
                           name='title'
                           register={register}
-                          defaultValue={dataMessages_by_pk?.messages_by_pk?.title}
+                          defaultValue={queryObj.data?.messages_by_pk?.title}
                           validationErrors={validationErrors}
                         />
 
@@ -155,7 +186,7 @@ const Page: React.FunctionComponent = () => {
                           label='Body:'
                           name='body'
                           register={register}
-                          defaultValue={dataMessages_by_pk?.messages_by_pk?.body}
+                          defaultValue={queryObj.data?.messages_by_pk?.body}
                           validationErrors={validationErrors}
                         />
 
@@ -163,7 +194,7 @@ const Page: React.FunctionComponent = () => {
                           label='URL:'
                           name='url'
                           register={register}
-                          defaultValue={dataMessages_by_pk?.messages_by_pk?.url}
+                          defaultValue={queryObj.data?.messages_by_pk?.url}
                           validationErrors={validationErrors}
                         />
 
@@ -171,7 +202,7 @@ const Page: React.FunctionComponent = () => {
                           label='Image URL:'
                           name='imageUrl'
                           register={register}
-                          defaultValue={dataMessages_by_pk?.messages_by_pk?.imageUrl}
+                          defaultValue={queryObj.data?.messages_by_pk?.imageUrl}
                           validationErrors={validationErrors}
                         />
 
@@ -180,9 +211,9 @@ const Page: React.FunctionComponent = () => {
                           type='date'
                           name='publishedAt_date'
                           register={register}
-                          defaultValue={dayjs(
-                            dataMessages_by_pk?.messages_by_pk?.publishedAt
-                          ).format('YYYY-MM-DD')}
+                          defaultValue={dayjs(queryObj.data?.messages_by_pk?.publishedAt).format(
+                            'YYYY-MM-DD'
+                          )}
                           validationErrors={validationErrors}
                         />
 
@@ -191,9 +222,9 @@ const Page: React.FunctionComponent = () => {
                           type='time'
                           name='publishedAt_time'
                           register={register}
-                          defaultValue={dayjs(
-                            dataMessages_by_pk?.messages_by_pk?.publishedAt
-                          ).format('HH:mm')}
+                          defaultValue={dayjs(queryObj.data?.messages_by_pk?.publishedAt).format(
+                            'HH:mm'
+                          )}
                           validationErrors={validationErrors}
                         />
 
@@ -201,7 +232,7 @@ const Page: React.FunctionComponent = () => {
                           <button
                             type='button'
                             onClick={() => {
-                              reset(dataMessages_by_pk?.messages_by_pk)
+                              reset(queryObj.data?.messages_by_pk)
                             }}
                             className='btn btn-secondary btn-link'
                           >
