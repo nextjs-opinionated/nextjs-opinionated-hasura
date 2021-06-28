@@ -1,4 +1,5 @@
 import '../styles/tailwind.css'
+import '../styles/sweetalert.css'
 import { ThemeProvider } from 'next-themes'
 import * as Sentry from '@sentry/react'
 import { Integrations } from '@sentry/tracing'

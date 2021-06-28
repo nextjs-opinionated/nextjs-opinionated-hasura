@@ -7,6 +7,7 @@ import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import Link from 'next/link'
+import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -98,14 +99,14 @@ export default function Page() {
           {/* buttons */}
           <div className='flex flex-wrap items-center my-16 space-x-2'>
             <Link href='/form-example'>
-              <a className='btn btn-primary'>React Form Example</a>
+              <a className='mx-2 mb-2 btn btn-primary'>React Form Example</a>
             </Link>
 
             <Link href='/typed-fetch-examples'>
-              <a className='btn btn-primary'>Typed-Fetch</a>
+              <a className='mb-2 btn btn-primary'>Typed-Fetch</a>
             </Link>
 
-            <div className='mx-2'>
+            <div className='mx-2 mb-2'>
               <button
                 className='btn btn-primary'
                 onClick={async () => {
@@ -120,6 +121,24 @@ export default function Page() {
               >
                 Show Image
               </button>
+            </div>
+
+            <div className='mb-2'>
+              <ChangeThemeDropDown />
+            </div>
+
+            <div className='mx-2 mb-2'>
+              {!session?.user && (
+                <button className='btn btn-primary btn-md' onClick={() => signIn()}>
+                  Login
+                </button>
+              )}
+
+              {session?.user && (
+                <button className='btn btn-outline btn-md' onClick={() => signOut()}>
+                  SignOut
+                </button>
+              )}
             </div>
           </div>
 

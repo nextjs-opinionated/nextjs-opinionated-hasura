@@ -177,8 +177,12 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                                 content={Fetch_formExample_apiResult.error.validationError}
                               />
                             ),
+                            customClass: {
+                              htmlContainer: 'bg-base-200',
+                            },
                             showConfirmButton: false,
                             showCancelButton: false,
+                            background: 'transparent',
                           })
                         } else if (
                           Fetch_formExample_apiResult.error === null &&
@@ -189,6 +193,16 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                             title: 'submited',
                             html: <CodeBlock content={Fetch_formExample_apiResult.data} />,
                             confirmButtonText: 'close',
+                            customClass: {
+                              confirmButton: 'btn btn-primary btn-md',
+                              actions: 'bg-base-200 sweetalert-action',
+                              title: 'bg-base-200 text-base-content',
+                              htmlContainer: 'bg-base-200',
+                            },
+                            buttonsStyling: false,
+                            showConfirmButton: true,
+                            background: 'transparent',
+                            width: 'auto',
                           })
                         }
                       }}
@@ -205,7 +219,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
 
       <div className='hidden sm:block' aria-hidden='true'>
         <div className='py-5'>
-          <div className='border-t ' />
+          <div className='border-t' />
         </div>
       </div>
     </form>
