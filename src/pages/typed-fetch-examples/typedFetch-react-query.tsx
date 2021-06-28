@@ -6,12 +6,17 @@ import { CodeBlock } from '../../components/CodeBlock/CodeBlock'
 import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
 import typedFetch from '../../utils/typedFetch/typedFetch'
-import { Fetch_tester_api_get, fetch_tester_api_get_Config } from '../api/fetch_tester_api_get'
+import {
+  Fetch_tester_api_get,
+  fetch_tester_api_get_Config,
+} from '../../model/api-models/typed-fetch-examples/Fetch_tester_api_get'
 // import { Fetch_tester_api_post, fetch_tester_api_post_Config } from '../api/fetch_tester_api_post'
 import { useQuery } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
-import { Fetch_tester_api_post, fetch_tester_api_post_Config } from '../api/fetch_tester_api_post'
 import classnames from 'classnames'
+import {
+  Fetch_tester_api_post,
+  fetch_tester_api_post_Config,
+} from '../../model/api-models/typed-fetch-examples/Fetch_tester_api_post'
 
 export default function Page() {
   const [fetchResultJSON, fetchResultJSONSet] = useState({})
@@ -104,7 +109,6 @@ export default function Page() {
           <CodeBlock content={fetchResultJSON} />
         </div>
       </Layout>
-      <ReactQueryDevtools initialIsOpen={false} />
     </>
   )
 }

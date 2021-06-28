@@ -1,27 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import _ from 'lodash'
-import { ApiConfig } from '../../utils/typedFetch/ApiConfig'
+import { Fetch_tester_api_get } from '../../../model/api-models/typed-fetch-examples/Fetch_tester_api_get'
+import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 
-// types
-export interface Fetch_tester_api_get {
-  input: {
-    some_string: string
-    divide_by: string
-    force_error: string
-  }
-  output: {
-    message: string
-    division_result: number
-  }
-}
-
-export const fetch_tester_api_get_Config: ApiConfig = {
-  url: '/api/fetch_tester_api_get',
-  method: 'get',
-  responseType: 'json',
-}
-
-// api
 export default async function fetch_tester_api_get(req: NextApiRequest, res: NextApiResponse) {
   // input data
   const inputData = req.query as Fetch_tester_api_get['input']
@@ -45,12 +26,12 @@ export default async function fetch_tester_api_get(req: NextApiRequest, res: Nex
       message: finalMessage,
       division_result: result,
     }
-    res.status(200).json(output)
+    res.status(HttpStatusCode.OK_200).json(output)
   } catch (error) {
     // TODO: log on log service
     console.error(error)
 
-    res.status(500).json({
+    res.status(HttpStatusCode.INTERNAL_SERVER_ERROR_500).json({
       message: error.message,
       stack: error.stack,
     })

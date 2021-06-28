@@ -6,18 +6,18 @@ import { FormExampleValidationSchema } from '../../model/schemas/FormExampleVali
 import { FormInput } from '../forms/FormInput/FormInput'
 import { FormSelect } from '../forms/FormSelect/FormSelect'
 import { FormToggle } from '../forms/FormToggle/FormToggle'
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
 import { FormImage } from '../forms/FormImage/FormImage'
-import { useEffect } from 'react'
 import { FormInputColor } from '../forms/FormInputColor/FormInputColor'
-import { CodeBlock } from '../CodeBlock/CodeBlock'
 import {
   Fetch_formExample_api_post,
   fetch_formExample_api_post_Config,
-} from '../../pages/api/formExample_api_post'
+} from '../../model/api-models/form-example/Fetch_formExample_api_post'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import typedFetch from '../../utils/typedFetch/typedFetch'
+import { ValidationError } from '../ValidationError/ValidationError'
+import { CodeBlock } from '../CodeBlock/CodeBlock'
 
 export type FormExampleProps = {
   onSubmitConfirm: (submitProps: any) => void
@@ -50,17 +50,11 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
     }, [initialFormData]),
   })
 
-  // const handleUpload = (file: File) => {
-  //   if (!file[0]) return null
-  //   const { name, type } = file[0]
-  //   return [{ name, type }]
-  // }
-
   useEffect(() => {
     if (initialFormData?.image_url) {
       setValue('image_url', initialFormData.image_url)
     }
-  }, [])
+  }, [initialFormData.image_url, setValue])
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
@@ -70,7 +64,6 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
       console.error('--  submitErrors: ', submitErrors)
     }
   )
-
   return (
     <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
       <div className='hidden sm:block' aria-hidden='true'>
@@ -173,13 +166,43 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                             color_input: getValues('color_input'),
                           },
                         })
-                        console.log(Fetch_formExample_apiResult)
-                        if (Fetch_formExample_apiResult) {
+                        if (
+                          Fetch_formExample_apiResult.status === 400 &&
+                          Fetch_formExample_apiResult.error
+                        ) {
+                          const myAlert = withReactContent(Swal)
+                          await myAlert.fire({
+                            html: (
+                              <ValidationError
+                                content={Fetch_formExample_apiResult.error.validationError}
+                              />
+                            ),
+                            customClass: {
+                              htmlContainer: 'bg-base-200',
+                            },
+                            showConfirmButton: false,
+                            showCancelButton: false,
+                            background: 'transparent',
+                          })
+                        } else if (
+                          Fetch_formExample_apiResult.error === null &&
+                          Fetch_formExample_apiResult.status === 200
+                        ) {
                           const myAlert = withReactContent(Swal)
                           await myAlert.fire({
                             title: 'submited',
-                            html: <CodeBlock content={Fetch_formExample_apiResult} />,
+                            html: <CodeBlock content={Fetch_formExample_apiResult.data} />,
                             confirmButtonText: 'close',
+                            customClass: {
+                              confirmButton: 'btn btn-primary btn-md',
+                              actions: 'bg-base-200 sweetalert-action',
+                              title: 'bg-base-200 text-base-content',
+                              htmlContainer: 'bg-base-200',
+                            },
+                            buttonsStyling: false,
+                            showConfirmButton: true,
+                            background: 'transparent',
+                            width: 'auto',
                           })
                         }
                       }}
@@ -196,7 +219,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
 
       <div className='hidden sm:block' aria-hidden='true'>
         <div className='py-5'>
-          <div className='border-t ' />
+          <div className='border-t' />
         </div>
       </div>
     </form>

@@ -10,7 +10,7 @@ import typedFetch from '../../utils/typedFetch/typedFetch'
 import {
   Fetch_formExample_api_post,
   fetch_formExample_api_post_Config,
-} from '../api/formExample_api_post'
+} from '../../model/api-models/form-example/Fetch_formExample_api_post'
 
 const Page: React.FunctionComponent = () => {
   return (
@@ -47,6 +47,16 @@ const Page: React.FunctionComponent = () => {
                   title: 'submited',
                   html: <CodeBlock content={fetch_result.data} />,
                   confirmButtonText: 'close',
+                  customClass: {
+                    confirmButton: 'btn btn-primary btn-md',
+                    actions: 'bg-base-200 sweetalert-action',
+                    title: 'bg-base-200',
+                    htmlContainer: 'bg-base-200',
+                  },
+                  buttonsStyling: false,
+                  showConfirmButton: true,
+                  background: 'transparent',
+                  width: 'auto',
                 })
               }
             }}

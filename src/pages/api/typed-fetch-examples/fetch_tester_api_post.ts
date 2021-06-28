@@ -1,26 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { ApiConfig } from '../../utils/typedFetch/ApiConfig'
+import { Fetch_tester_api_post } from '../../../model/api-models/typed-fetch-examples/Fetch_tester_api_post'
+import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 
-// types
-export interface Fetch_tester_api_post {
-  input: {
-    some_string: string
-    divide_by: number
-    force_error: boolean
-  }
-  output: {
-    message: string
-    division_result: number
-  }
-}
-
-export const fetch_tester_api_post_Config: ApiConfig = {
-  url: '/api/fetch_tester_api_post',
-  method: 'post',
-  responseType: 'json',
-}
-
-// api
 export default async function fetch_tester_api_post(req: NextApiRequest, res: NextApiResponse) {
   // input data
   const inputData = req.body as Fetch_tester_api_post['input']
@@ -44,12 +25,12 @@ export default async function fetch_tester_api_post(req: NextApiRequest, res: Ne
       message: finalMessage,
       division_result: result,
     }
-    res.status(200).json(output)
+    res.status(HttpStatusCode.OK_200).json(output)
   } catch (error) {
     // TODO: log on log service
     console.error(error)
 
-    res.status(500).json({
+    res.status(HttpStatusCode.INTERNAL_SERVER_ERROR_500).json({
       message: error.message,
       stack: error.stack,
     })
