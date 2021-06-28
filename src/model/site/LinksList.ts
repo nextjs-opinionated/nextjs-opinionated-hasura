@@ -43,15 +43,15 @@ export const LinksList: {
     name: 'React Form Example',
     internalURL: '/form-example',
   },
-  'typed-fetch-examples': {
-    id: 'typed-fetch-examples',
-    name: 'Typed-Fetch',
-    internalURL: '/typed-fetch-examples',
-  },
   github: {
     id: 'github',
     name: 'Github',
     externalURL: 'https://github.com/saitodisse/nextjs-opinionated-hasura',
+  },
+  'typed-fetch-examples': {
+    id: 'typed-fetch-examples',
+    name: 'Typed-Fetch',
+    internalURL: '/typed-fetch-examples',
   },
   login: {
     id: 'login',
