@@ -18,6 +18,10 @@ export default function Page() {
 
   const [session] = useSession()
 
+  const throwKnownError = () => {
+    throw new Error('Error from sentry!!!')
+  }
+
   return (
     <>
       <Head>
@@ -57,6 +61,8 @@ export default function Page() {
                 session?.user?.image ||
                 'http://daisyui.com/tailwind-css-component-profile-1@94w.png'
               }
+              // Example
+              onClick={throwKnownError}
             />
           </div>
 
@@ -121,6 +127,30 @@ export default function Page() {
                 }}
               >
                 Show Image
+              </button>
+            </div>
+
+            <div className='mx-2 mb-2'>
+              <button
+                className='btn btn-primary'
+                onClick={async () => {
+                  const res = await fetch('/api/sentry-error')
+                  const resultJSON = await res.json()
+                  const myAlert = withReactContent(Swal)
+                  await myAlert.fire({
+                    title: 'Sentry error',
+                    html: (
+                      <div>
+                        <h5>
+                          <strong>message:</strong> {resultJSON.message}
+                        </h5>
+                      </div>
+                    ),
+                    confirmButtonText: 'close',
+                  })
+                }}
+              >
+                Sentry Error
               </button>
             </div>
 
