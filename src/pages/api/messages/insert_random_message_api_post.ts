@@ -6,6 +6,8 @@ import { MessageValidationSchema } from '../../../model/schemas/MessageValidatio
 import _ from 'lodash'
 import { Insert_random_message_api_post } from '../../../model/api-models/messages/Insert_random_message_api_post'
 import dayjs from 'dayjs'
+import { withSentry } from '@sentry/nextjs'
+import { logMiddleware } from '../../../utils/middleware/log'
 
 interface SpaceFlightNewsApiType {
   id: string
@@ -21,45 +23,45 @@ interface SpaceFlightNewsApiType {
   events: any[]
 }
 
-export default async function insert_random_message_api_post(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  // check method
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST'])
-    res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
-  }
+export default withSentry(
+  logMiddleware(async function insert_random_message_api_post(
+    req: NextApiRequest,
+    res: NextApiResponse
+  ) {
+    // check method
+    if (req.method !== 'POST') {
+      res.setHeader('Allow', ['POST'])
+      res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
+    }
 
-  // input data
-  const resSpace = await fetch(
-    `https://www.spaceflightnewsapi.net/api/v2/articles?_limit=1&_start=${Math.floor(
-      Math.random() * 8000
-    )}`
-  )
-  const spaceJson = (await resSpace.json()) as SpaceFlightNewsApiType[]
+    // input data
+    const resSpace = await fetch(
+      `https://www.spaceflightnewsapi.net/api/v2/articles?_limit=1&_start=${Math.floor(
+        Math.random() * 8000
+      )}`
+    )
+    const spaceJson = (await resSpace.json()) as SpaceFlightNewsApiType[]
 
-  const inputData = {
-    title: spaceJson?.[0]?.title,
-    body: spaceJson?.[0]?.summary,
-    url: spaceJson?.[0]?.url,
-    imageUrl: spaceJson?.[0]?.imageUrl,
-    publishedAt: dayjs(spaceJson?.[0]?.publishedAt).toISOString(),
-  } as Insert_random_message_api_post['input']
+    const inputData = {
+      title: spaceJson?.[0]?.title,
+      body: spaceJson?.[0]?.summary,
+      url: spaceJson?.[0]?.url,
+      imageUrl: spaceJson?.[0]?.imageUrl,
+      publishedAt: dayjs(spaceJson?.[0]?.publishedAt).toISOString(),
+    } as Insert_random_message_api_post['input']
 
-  // server validations
-  try {
-    MessageValidationSchema.parse(inputData)
-  } catch (error) {
-    if (error?.errors) {
-      res.status(HttpStatusCode.BAD_REQUEST_400).json(error.errors)
+    // server validations
+    try {
+      MessageValidationSchema.parse(inputData)
+    } catch (error) {
+      if (error?.errors) {
+        res.status(HttpStatusCode.BAD_REQUEST_400).json(error.errors)
+        return
+      }
+      res.status(HttpStatusCode.INTERNAL_SERVER_ERROR_500).json(error)
       return
     }
-    res.status(HttpStatusCode.INTERNAL_SERVER_ERROR_500).json(error)
-    return
-  }
 
-  try {
     // process
     // insert new item
     const data: Insert_random_message_api_post['output'] = await new GqlSdkHelper()
@@ -79,13 +81,5 @@ export default async function insert_random_message_api_post(
 
     // output data
     res.status(HttpStatusCode.OK_200).json(data)
-  } catch (error) {
-    // TODO: log on log service
-    console.error(error)
-
-    res.status(HttpStatusCode.INTERNAL_SERVER_ERROR_500).json({
-      message: error.message,
-      stack: error.stack,
-    })
-  }
-}
+  })
+)
