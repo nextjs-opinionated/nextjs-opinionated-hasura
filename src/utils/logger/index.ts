@@ -1,2 +1,2 @@
-export { logger, log } from './logger'
+export { logger } from './logger'
 export { headerFormatter } from './headerFormatter'
