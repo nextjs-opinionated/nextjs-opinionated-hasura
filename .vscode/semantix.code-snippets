@@ -1,0 +1,34 @@
+{
+  "lc: logChild": {
+    "prefix": "linit",
+    "body": ["const log = logger.child({ file: '${TM_FILEPATH/.*?\\/src\\/(.+)$/$1/}' })"],
+    "description": "Pino log Child"
+  },
+  "linfo: log.info": {
+    "prefix": "linfo",
+    "body": ["log.info({ msg: '${1}', ${2} })"],
+    "description": "Pino log Info"
+  },
+  "ldebug: log.debug": {
+    "prefix": "ldebug",
+    "body": ["log.debug({ msg: '${1}', ${2} })"],
+    "description": "Pino log Debug"
+  },
+  "lerror: log.error": {
+    "prefix": "lerror",
+    "body": ["log.error(error, { estado: `ERRO`, msg: `${1}`, ${2} })"],
+    "description": "Pino log Error"
+  },
+  "tw:classnames": {
+    "prefix": "cns",
+    "body": [
+      "className={classnames(",
+      "  '${1:font-normal}',",
+      "  {",
+      "    '${2:font-bold}': ${3:condicao},",
+      "  }",
+      ")}"
+    ],
+    "description": "classnames"
+  }
+}
