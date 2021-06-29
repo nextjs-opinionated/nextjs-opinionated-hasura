@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { NextHandler } from 'next-connect'
 import { headerFormatter, logger } from '../logger'
 import _ from 'lodash'
 
