@@ -17,6 +17,10 @@ export default function Page() {
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
   const [session] = useSession()
 
+  const throwKnownError = () => {
+    throw new Error('Error from sentry!!!')
+  }
+
   return (
     <>
       <Head>
@@ -56,6 +60,8 @@ export default function Page() {
                 session?.user?.image ||
                 'http://daisyui.com/tailwind-css-component-profile-1@94w.png'
               }
+              // Example
+              onClick={throwKnownError}
             />
           </div>
 
@@ -81,14 +87,14 @@ export default function Page() {
           {/* buttons */}
           <div className='flex flex-wrap items-center my-16 space-x-2'>
             <Link href='/form-example'>
-              <a className='btn btn-primary'>React Form Example</a>
+              <a className='mx-2 mb-2 btn btn-primary'>React Form Example</a>
             </Link>
 
             <Link href='/typed-fetch-examples'>
-              <a className='btn btn-primary'>Typed-Fetch</a>
+              <a className='mb-2 btn btn-primary'>Typed-Fetch</a>
             </Link>
 
-            <div className='mx-2'>
+            <div className='mx-2 mb-2'>
               <button
                 className='btn btn-primary'
                 onClick={async () => {
@@ -105,9 +111,35 @@ export default function Page() {
               </button>
             </div>
 
-            <ChangeThemeDropDown />
+            <div className='mx-2 mb-2'>
+              <button
+                className='btn btn-primary'
+                onClick={async () => {
+                  const res = await fetch('/api/sentry-error')
+                  const resultJSON = await res.json()
+                  const myAlert = withReactContent(Swal)
+                  await myAlert.fire({
+                    title: 'Sentry error',
+                    html: (
+                      <div>
+                        <h5>
+                          <strong>message:</strong> {resultJSON.message}
+                        </h5>
+                      </div>
+                    ),
+                    confirmButtonText: 'close',
+                  })
+                }}
+              >
+                Sentry Error
+              </button>
+            </div>
 
-            <div className='mx-2'>
+            <div className='mb-2'>
+              <ChangeThemeDropDown />
+            </div>
+
+            <div className='mx-2 mb-2'>
               {!session?.user && (
                 <button className='btn btn-primary btn-md' onClick={() => signIn()}>
                   Login

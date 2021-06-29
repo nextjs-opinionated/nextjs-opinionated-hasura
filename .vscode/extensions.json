@@ -1,5 +1,11 @@
 {
   "recommendations": [
-    "bradlc.vscode-tailwindcss"
+    "esbenp.prettier-vscode",
+    "heybourn.headwind",
+    "petermekhaeil.vscode-tailwindcss-explorer",
+    "dbaeumer.vscode-eslint",
+    "graphql.vscode-graphql",
+    "ms-vsliveshare.vsliveshare",
+    "wayou.vscode-todo-highlight"
   ]
 }

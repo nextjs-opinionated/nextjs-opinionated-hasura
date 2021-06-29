@@ -18,18 +18,20 @@ export const ValidationError: React.FC<ValidationErrorProps> = ({
   return (
     <div
       data-testid='validation-validation'
-      className={classnames(`s lg:card-side  rounded-lg card  ${className}`)}
+      className={classnames(`lg:card-side rounded-lg card ${className}`)}
     >
-      <div className='flex flex-col items-center card-body '>
+      <div className='flex flex-col items-center card-body'>
         <VscError size={50} color='red' />
 
-        <h2 className='card-title'>{title}</h2>
+        <h2 className='text-base-content card-title'>{title}</h2>
         {content.map((error, index) => {
-          return <p key={index}>{`${error?.path} : ${error?.message} `}</p>
+          return (
+            <p className='text-base-content' key={index}>{`${error?.path} : ${error?.message}`}</p>
+          )
         })}
         <div className='card-actions'>
           <button
-            className='swal2-confirm btn btn-primary'
+            className='swal2-confirm btn btn-primary btn-md'
             onClick={() => {
               Swal.close()
             }}
