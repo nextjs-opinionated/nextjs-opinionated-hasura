@@ -5,7 +5,6 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
-import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import Link from 'next/link'
 
@@ -85,73 +84,43 @@ export default function Page() {
           </p>
 
           {/* buttons */}
-          <div className='flex flex-wrap items-center my-16 space-x-2'>
+          <div className='flex space-x-2 space-y-2'>
+            <div></div>
+
             <Link href='/form-example'>
-              <a className='mx-2 mb-2 btn btn-primary'>React Form Example</a>
+              <a className='btn btn-primary'>React Form Example</a>
             </Link>
 
             <Link href='/typed-fetch-examples'>
-              <a className='mb-2 btn btn-primary'>Typed-Fetch</a>
+              <a className='btn btn-primary'>Typed-Fetch</a>
             </Link>
 
-            <div className='mx-2 mb-2'>
-              <button
-                className='btn btn-primary'
-                onClick={async () => {
-                  const myAlert = withReactContent(Swal)
-                  await myAlert.fire({
-                    title: 'Some Alert Title',
-                    html: <img src='https://unsplash.it/600/300' />,
-                    imageAlt: 'Custom image',
-                    confirmButtonText: 'ok button',
-                  })
-                }}
-              >
-                Show Image
+            <button
+              className='btn btn-primary'
+              onClick={async () => {
+                const myAlert = withReactContent(Swal)
+                await myAlert.fire({
+                  title: 'Some Alert Title',
+                  html: <img src='https://unsplash.it/600/300' />,
+                  imageAlt: 'Custom image',
+                  confirmButtonText: 'ok button',
+                })
+              }}
+            >
+              Show Image
+            </button>
+
+            {!session?.user && (
+              <button className='btn btn-primary btn-md' onClick={() => signIn()}>
+                Login
               </button>
-            </div>
+            )}
 
-            <div className='mx-2 mb-2'>
-              <button
-                className='btn btn-primary'
-                onClick={async () => {
-                  const res = await fetch('/api/sentry-error')
-                  const resultJSON = await res.json()
-                  const myAlert = withReactContent(Swal)
-                  await myAlert.fire({
-                    title: 'Sentry error',
-                    html: (
-                      <div>
-                        <h5>
-                          <strong>message:</strong> {resultJSON.message}
-                        </h5>
-                      </div>
-                    ),
-                    confirmButtonText: 'close',
-                  })
-                }}
-              >
-                Sentry Error
+            {session?.user && (
+              <button className='btn btn-outline btn-md' onClick={() => signOut()}>
+                SignOut
               </button>
-            </div>
-
-            <div className='mb-2'>
-              <ChangeThemeDropDown />
-            </div>
-
-            <div className='mx-2 mb-2'>
-              {!session?.user && (
-                <button className='btn btn-primary btn-md' onClick={() => signIn()}>
-                  Login
-                </button>
-              )}
-
-              {session?.user && (
-                <button className='btn btn-outline btn-md' onClick={() => signOut()}>
-                  SignOut
-                </button>
-              )}
-            </div>
+            )}
           </div>
 
           <p className='max-w-md mt-5 text-sm italic'>
