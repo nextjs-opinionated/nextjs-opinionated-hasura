@@ -34,33 +34,3 @@ export const logMiddleware = (handler: (req: NextApiRequest, res: NextApiRespons
     return handler(req, res)
   }
 }
-
-export const logMiddleware2 = (req: NextApiRequest, __: NextApiResponse, next: NextHandler) => {
-  const enviroment = process.env.NODE_ENV
-
-  if (enviroment === 'production') {
-    return next()
-  }
-
-  const headers = headerFormatter(req.headers)
-
-  const headerWithoutCookie = _.omit(headers, ['cookie'])
-
-  const body: unknown = req.body
-
-  logger.debug(
-    {
-      request: {
-        headers: headerWithoutCookie,
-        url: req.url,
-        method: req.method,
-      },
-      input: {
-        body,
-      },
-    },
-    req.url.split('/').pop()
-  )
-
-  return next()
-}
