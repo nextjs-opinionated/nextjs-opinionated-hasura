@@ -44,7 +44,7 @@ exports[`renders correctly 1`] = `
           className="hidden lg:inline-block"
         >
           <ul
-            className="mr-2 space-x-2 menu horizontal"
+            className="space-x-2 menu horizontal"
           >
             <li>
               <div

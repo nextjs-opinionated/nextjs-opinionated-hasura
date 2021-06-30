@@ -46,22 +46,27 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
           <div className='flex-none'>
             {/* navbar is only visible for desktop */}
             <div className='hidden lg:inline-block'>
-              <ul className='mr-2 space-x-2 menu horizontal'>
+              <ul className='space-x-2 menu horizontal'>
                 {menuItems?.map((m) => (
-                  <li key={m.name}>
-                    <div className='m-1 normal-case btn'>
-                      {m.internalURL && (
-                        <Link href={m.internalURL}>
-                          <a className='rounded-btn'>{m.name}</a>
-                        </Link>
-                      )}
-                      {m.externalURL && (
-                        <a href={m.externalURL} className='rounded-btn'>
+                  <div className='flex items-center' key={m.name}>
+                    {m.internalURL && (
+                      <Link href={m.internalURL}>
+                        <a className='rounded-btn btn btn-ghost btn-sm' rel='noopener noreferrer'>
                           {m.name}
                         </a>
-                      )}
-                    </div>
-                  </li>
+                      </Link>
+                    )}
+                    {m.externalURL && (
+                      <a
+                        className='rounded-btn btn btn-ghost btn-sm'
+                        href={m.externalURL}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        {m.name}
+                      </a>
+                    )}
+                  </div>
                 ))}
                 <li>
                   <div className='z-30 m-1'>
