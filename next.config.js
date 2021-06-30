@@ -21,6 +21,23 @@ const SentryWebpackPluginOptions = {
   //   urlPrefix, include, ignore
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
+  plugins: [
+    // ...
+    function () {
+      this.plugin('done', function (stats) {
+        if (
+          stats.compilation.errors &&
+          stats.compilation.errors.length &&
+          process.argv.indexOf('--watch') == -1
+        ) {
+          console.log(stats.compilation.errors)
+          process.exit(1) // or throw new Error('webpack build failed.');
+        }
+        // ...
+      })
+    },
+    // ...
+  ],
 }
 
 // Make sure adding Sentry options is the last code to run before exporting, to
