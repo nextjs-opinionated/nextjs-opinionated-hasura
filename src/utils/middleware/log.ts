@@ -1,14 +1,13 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import {  NextHandler  } from 'next-connect'
-import { headerFormatter, logger } from "../logger"
-import _ from "lodash"
+import { NextApiRequest, NextApiResponse } from 'next'
+import { NextHandler } from 'next-connect'
+import { headerFormatter, logger } from '../logger'
+import _ from 'lodash'
 
-export const logMiddleware = (handler: (req: NextApiRequest, res: NextApiResponse) =>  void) => {
+export const logMiddleware = (handler: (req: NextApiRequest, res: NextApiResponse) => void) => {
   return async (req: NextApiRequest, res: NextApiResponse) => {
-
     const enviroment = process.env.NODE_ENV
 
-    if(enviroment === "production") {
+    if (enviroment === 'production') {
       return handler(req, res)
     }
 
@@ -26,7 +25,7 @@ export const logMiddleware = (handler: (req: NextApiRequest, res: NextApiRespons
           method: req.method,
         },
         input: {
-          body
+          body,
         },
       },
       handler.name
@@ -35,7 +34,6 @@ export const logMiddleware = (handler: (req: NextApiRequest, res: NextApiRespons
     return handler(req, res)
   }
 }
-
 
 export const logMiddleware2 = (req: NextApiRequest, __: NextApiResponse, next: NextHandler) => {
   const enviroment = process.env.NODE_ENV
@@ -61,7 +59,7 @@ export const logMiddleware2 = (req: NextApiRequest, __: NextApiResponse, next: N
         body,
       },
     },
-    req.url.split("/").pop()
+    req.url.split('/').pop()
   )
 
   return next()
