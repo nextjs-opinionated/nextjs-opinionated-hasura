@@ -68,7 +68,7 @@ export const FormImage: React.FC<FormImageProps> = ({
             )}
           >
             <FiCamera size={20} />
-            <span className='mt-1 text-sm font-medium text-center'>{placeholder}</span>
+            <span className='mt-1 text-xs font-medium text-center'>{placeholder}</span>
             <input
               className='hidden'
               onChangeCapture={handleImage}
