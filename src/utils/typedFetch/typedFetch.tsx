@@ -1,7 +1,7 @@
 import queryString from 'query-string'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import _ from 'lodash'
+import isArray from 'lodash/isArray'
 import { HTTP_METHODS } from './HTTP_METHODS'
 import { RESPONSE_TYPE } from './RESPONSE_TYPE'
 
@@ -78,7 +78,7 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
     }
 
     // (VALIDATIONS)
-    if (_.isArray(resultJSON)) {
+    if (isArray(resultJSON)) {
       const myAlert = withReactContent(Swal)
       await myAlert.fire({
         title: 'server validation error',
