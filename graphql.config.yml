@@ -1,0 +1,11 @@
+schema:
+  - http://localhost:8080/v1/graphql:
+      headers:
+        x-hasura-admin-secret: admin_secret_local_zzz
+documents: 'src/graphql/gqls/**/*.gql'
+extensions:
+  endpoints:
+    default:
+      url: http://localhost:8080/v1/graphql
+      headers:
+        x-hasura-admin-secret: admin_secret_local_zzz
