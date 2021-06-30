@@ -16,7 +16,7 @@ export type Scalars = {
   timestamptz: any
 }
 
-/** expression to compare columns of type Int. All fields are combined with logical 'AND'. */
+/** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
   _eq?: Maybe<Scalars['Int']>
   _gt?: Maybe<Scalars['Int']>
@@ -29,22 +29,36 @@ export type Int_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['Int']>>
 }
 
-/** expression to compare columns of type String. All fields are combined with logical 'AND'. */
+/** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type String_Comparison_Exp = {
   _eq?: Maybe<Scalars['String']>
   _gt?: Maybe<Scalars['String']>
   _gte?: Maybe<Scalars['String']>
+  /** does the column match the given case-insensitive pattern */
   _ilike?: Maybe<Scalars['String']>
   _in?: Maybe<Array<Scalars['String']>>
+  /** does the column match the given POSIX regular expression, case insensitive */
+  _iregex?: Maybe<Scalars['String']>
   _is_null?: Maybe<Scalars['Boolean']>
+  /** does the column match the given pattern */
   _like?: Maybe<Scalars['String']>
   _lt?: Maybe<Scalars['String']>
   _lte?: Maybe<Scalars['String']>
   _neq?: Maybe<Scalars['String']>
+  /** does the column NOT match the given case-insensitive pattern */
   _nilike?: Maybe<Scalars['String']>
   _nin?: Maybe<Array<Scalars['String']>>
+  /** does the column NOT match the given POSIX regular expression, case insensitive */
+  _niregex?: Maybe<Scalars['String']>
+  /** does the column NOT match the given pattern */
   _nlike?: Maybe<Scalars['String']>
+  /** does the column NOT match the given POSIX regular expression, case sensitive */
+  _nregex?: Maybe<Scalars['String']>
+  /** does the column NOT match the given SQL regular expression */
   _nsimilar?: Maybe<Scalars['String']>
+  /** does the column match the given POSIX regular expression, case sensitive */
+  _regex?: Maybe<Scalars['String']>
+  /** does the column match the given SQL regular expression */
   _similar?: Maybe<Scalars['String']>
 }
 
@@ -75,7 +89,7 @@ export type Accounts_Aggregate = {
 export type Accounts_Aggregate_Fields = {
   __typename?: 'accounts_aggregate_fields'
   avg?: Maybe<Accounts_Avg_Fields>
-  count?: Maybe<Scalars['Int']>
+  count: Scalars['Int']
   max?: Maybe<Accounts_Max_Fields>
   min?: Maybe<Accounts_Min_Fields>
   stddev?: Maybe<Accounts_Stddev_Fields>
@@ -93,27 +107,6 @@ export type Accounts_Aggregate_FieldsCountArgs = {
   distinct?: Maybe<Scalars['Boolean']>
 }
 
-/** order by aggregate values of table "accounts" */
-export type Accounts_Aggregate_Order_By = {
-  avg?: Maybe<Accounts_Avg_Order_By>
-  count?: Maybe<Order_By>
-  max?: Maybe<Accounts_Max_Order_By>
-  min?: Maybe<Accounts_Min_Order_By>
-  stddev?: Maybe<Accounts_Stddev_Order_By>
-  stddev_pop?: Maybe<Accounts_Stddev_Pop_Order_By>
-  stddev_samp?: Maybe<Accounts_Stddev_Samp_Order_By>
-  sum?: Maybe<Accounts_Sum_Order_By>
-  var_pop?: Maybe<Accounts_Var_Pop_Order_By>
-  var_samp?: Maybe<Accounts_Var_Samp_Order_By>
-  variance?: Maybe<Accounts_Variance_Order_By>
-}
-
-/** input type for inserting array relation for remote table "accounts" */
-export type Accounts_Arr_Rel_Insert_Input = {
-  data: Array<Accounts_Insert_Input>
-  on_conflict?: Maybe<Accounts_On_Conflict>
-}
-
 /** aggregate avg on columns */
 export type Accounts_Avg_Fields = {
   __typename?: 'accounts_avg_fields'
@@ -121,17 +114,11 @@ export type Accounts_Avg_Fields = {
   user_id?: Maybe<Scalars['Float']>
 }
 
-/** order by avg() on columns of table "accounts" */
-export type Accounts_Avg_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** Boolean expression to filter rows from the table "accounts". All fields are combined with a logical 'AND'. */
 export type Accounts_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Accounts_Bool_Exp>>>
+  _and?: Maybe<Array<Accounts_Bool_Exp>>
   _not?: Maybe<Accounts_Bool_Exp>
-  _or?: Maybe<Array<Maybe<Accounts_Bool_Exp>>>
+  _or?: Maybe<Array<Accounts_Bool_Exp>>
   access_token?: Maybe<String_Comparison_Exp>
   access_token_expires?: Maybe<Timestamptz_Comparison_Exp>
   compound_id?: Maybe<String_Comparison_Exp>
@@ -153,7 +140,7 @@ export enum Accounts_Constraint {
   CompoundId = 'compound_id',
 }
 
-/** input type for incrementing integer column in table "accounts" */
+/** input type for incrementing numeric columns in table "accounts" */
 export type Accounts_Inc_Input = {
   id?: Maybe<Scalars['Int']>
   user_id?: Maybe<Scalars['Int']>
@@ -190,21 +177,6 @@ export type Accounts_Max_Fields = {
   user_id?: Maybe<Scalars['Int']>
 }
 
-/** order by max() on columns of table "accounts" */
-export type Accounts_Max_Order_By = {
-  access_token?: Maybe<Order_By>
-  access_token_expires?: Maybe<Order_By>
-  compound_id?: Maybe<Order_By>
-  created_at?: Maybe<Order_By>
-  id?: Maybe<Order_By>
-  provider_account_id?: Maybe<Order_By>
-  provider_id?: Maybe<Order_By>
-  provider_type?: Maybe<Order_By>
-  refresh_token?: Maybe<Order_By>
-  updated_at?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** aggregate min on columns */
 export type Accounts_Min_Fields = {
   __typename?: 'accounts_min_fields'
@@ -221,44 +193,23 @@ export type Accounts_Min_Fields = {
   user_id?: Maybe<Scalars['Int']>
 }
 
-/** order by min() on columns of table "accounts" */
-export type Accounts_Min_Order_By = {
-  access_token?: Maybe<Order_By>
-  access_token_expires?: Maybe<Order_By>
-  compound_id?: Maybe<Order_By>
-  created_at?: Maybe<Order_By>
-  id?: Maybe<Order_By>
-  provider_account_id?: Maybe<Order_By>
-  provider_id?: Maybe<Order_By>
-  provider_type?: Maybe<Order_By>
-  refresh_token?: Maybe<Order_By>
-  updated_at?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** response of any mutation on the table "accounts" */
 export type Accounts_Mutation_Response = {
   __typename?: 'accounts_mutation_response'
-  /** number of affected rows by the mutation */
+  /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
-  /** data of the affected rows by the mutation */
+  /** data from the rows affected by the mutation */
   returning: Array<Accounts>
-}
-
-/** input type for inserting object relation for remote table "accounts" */
-export type Accounts_Obj_Rel_Insert_Input = {
-  data: Accounts_Insert_Input
-  on_conflict?: Maybe<Accounts_On_Conflict>
 }
 
 /** on conflict condition type for table "accounts" */
 export type Accounts_On_Conflict = {
   constraint: Accounts_Constraint
-  update_columns: Array<Accounts_Update_Column>
+  update_columns?: Array<Accounts_Update_Column>
   where?: Maybe<Accounts_Bool_Exp>
 }
 
-/** ordering options when selecting data from "accounts" */
+/** Ordering options when selecting data from "accounts". */
 export type Accounts_Order_By = {
   access_token?: Maybe<Order_By>
   access_token_expires?: Maybe<Order_By>
@@ -273,7 +224,7 @@ export type Accounts_Order_By = {
   user_id?: Maybe<Order_By>
 }
 
-/** primary key columns input for table: "accounts" */
+/** primary key columns input for table: accounts */
 export type Accounts_Pk_Columns_Input = {
   id: Scalars['Int']
 }
@@ -326,23 +277,11 @@ export type Accounts_Stddev_Fields = {
   user_id?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev() on columns of table "accounts" */
-export type Accounts_Stddev_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** aggregate stddev_pop on columns */
 export type Accounts_Stddev_Pop_Fields = {
   __typename?: 'accounts_stddev_pop_fields'
   id?: Maybe<Scalars['Float']>
   user_id?: Maybe<Scalars['Float']>
-}
-
-/** order by stddev_pop() on columns of table "accounts" */
-export type Accounts_Stddev_Pop_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
 }
 
 /** aggregate stddev_samp on columns */
@@ -352,23 +291,11 @@ export type Accounts_Stddev_Samp_Fields = {
   user_id?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev_samp() on columns of table "accounts" */
-export type Accounts_Stddev_Samp_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** aggregate sum on columns */
 export type Accounts_Sum_Fields = {
   __typename?: 'accounts_sum_fields'
   id?: Maybe<Scalars['Int']>
   user_id?: Maybe<Scalars['Int']>
-}
-
-/** order by sum() on columns of table "accounts" */
-export type Accounts_Sum_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
 }
 
 /** update columns of table "accounts" */
@@ -404,12 +331,6 @@ export type Accounts_Var_Pop_Fields = {
   user_id?: Maybe<Scalars['Float']>
 }
 
-/** order by var_pop() on columns of table "accounts" */
-export type Accounts_Var_Pop_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** aggregate var_samp on columns */
 export type Accounts_Var_Samp_Fields = {
   __typename?: 'accounts_var_samp_fields'
@@ -417,23 +338,11 @@ export type Accounts_Var_Samp_Fields = {
   user_id?: Maybe<Scalars['Float']>
 }
 
-/** order by var_samp() on columns of table "accounts" */
-export type Accounts_Var_Samp_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** aggregate variance on columns */
 export type Accounts_Variance_Fields = {
   __typename?: 'accounts_variance_fields'
   id?: Maybe<Scalars['Float']>
   user_id?: Maybe<Scalars['Float']>
-}
-
-/** order by variance() on columns of table "accounts" */
-export type Accounts_Variance_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
 }
 
 /** columns and relationships of "message_tag" */
@@ -458,7 +367,7 @@ export type Message_Tag_Aggregate = {
 export type Message_Tag_Aggregate_Fields = {
   __typename?: 'message_tag_aggregate_fields'
   avg?: Maybe<Message_Tag_Avg_Fields>
-  count?: Maybe<Scalars['Int']>
+  count: Scalars['Int']
   max?: Maybe<Message_Tag_Max_Fields>
   min?: Maybe<Message_Tag_Min_Fields>
   stddev?: Maybe<Message_Tag_Stddev_Fields>
@@ -494,6 +403,7 @@ export type Message_Tag_Aggregate_Order_By = {
 /** input type for inserting array relation for remote table "message_tag" */
 export type Message_Tag_Arr_Rel_Insert_Input = {
   data: Array<Message_Tag_Insert_Input>
+  /** on conflict condition */
   on_conflict?: Maybe<Message_Tag_On_Conflict>
 }
 
@@ -512,9 +422,9 @@ export type Message_Tag_Avg_Order_By = {
 
 /** Boolean expression to filter rows from the table "message_tag". All fields are combined with a logical 'AND'. */
 export type Message_Tag_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Message_Tag_Bool_Exp>>>
+  _and?: Maybe<Array<Message_Tag_Bool_Exp>>
   _not?: Maybe<Message_Tag_Bool_Exp>
-  _or?: Maybe<Array<Maybe<Message_Tag_Bool_Exp>>>
+  _or?: Maybe<Array<Message_Tag_Bool_Exp>>
   message?: Maybe<Messages_Bool_Exp>
   message_id?: Maybe<Int_Comparison_Exp>
   tag?: Maybe<Tags_Bool_Exp>
@@ -527,7 +437,7 @@ export enum Message_Tag_Constraint {
   MessageTagPkey = 'message_tag_pkey',
 }
 
-/** input type for incrementing integer column in table "message_tag" */
+/** input type for incrementing numeric columns in table "message_tag" */
 export type Message_Tag_Inc_Input = {
   message_id?: Maybe<Scalars['Int']>
   tag_id?: Maybe<Scalars['Int']>
@@ -570,26 +480,20 @@ export type Message_Tag_Min_Order_By = {
 /** response of any mutation on the table "message_tag" */
 export type Message_Tag_Mutation_Response = {
   __typename?: 'message_tag_mutation_response'
-  /** number of affected rows by the mutation */
+  /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
-  /** data of the affected rows by the mutation */
+  /** data from the rows affected by the mutation */
   returning: Array<Message_Tag>
-}
-
-/** input type for inserting object relation for remote table "message_tag" */
-export type Message_Tag_Obj_Rel_Insert_Input = {
-  data: Message_Tag_Insert_Input
-  on_conflict?: Maybe<Message_Tag_On_Conflict>
 }
 
 /** on conflict condition type for table "message_tag" */
 export type Message_Tag_On_Conflict = {
   constraint: Message_Tag_Constraint
-  update_columns: Array<Message_Tag_Update_Column>
+  update_columns?: Array<Message_Tag_Update_Column>
   where?: Maybe<Message_Tag_Bool_Exp>
 }
 
-/** ordering options when selecting data from "message_tag" */
+/** Ordering options when selecting data from "message_tag". */
 export type Message_Tag_Order_By = {
   message?: Maybe<Messages_Order_By>
   message_id?: Maybe<Order_By>
@@ -597,7 +501,7 @@ export type Message_Tag_Order_By = {
   tag_id?: Maybe<Order_By>
 }
 
-/** primary key columns input for table: "message_tag" */
+/** primary key columns input for table: message_tag */
 export type Message_Tag_Pk_Columns_Input = {
   message_id: Scalars['Int']
   tag_id: Scalars['Int']
@@ -725,7 +629,7 @@ export type Messages = {
   imageUrl?: Maybe<Scalars['String']>
   /** An array relationship */
   message_tags: Array<Message_Tag>
-  /** An aggregated array relationship */
+  /** An aggregate relationship */
   message_tags_aggregate: Message_Tag_Aggregate
   publishedAt?: Maybe<Scalars['timestamptz']>
   title?: Maybe<Scalars['String']>
@@ -762,7 +666,7 @@ export type Messages_Aggregate = {
 export type Messages_Aggregate_Fields = {
   __typename?: 'messages_aggregate_fields'
   avg?: Maybe<Messages_Avg_Fields>
-  count?: Maybe<Scalars['Int']>
+  count: Scalars['Int']
   max?: Maybe<Messages_Max_Fields>
   min?: Maybe<Messages_Min_Fields>
   stddev?: Maybe<Messages_Stddev_Fields>
@@ -780,43 +684,17 @@ export type Messages_Aggregate_FieldsCountArgs = {
   distinct?: Maybe<Scalars['Boolean']>
 }
 
-/** order by aggregate values of table "messages" */
-export type Messages_Aggregate_Order_By = {
-  avg?: Maybe<Messages_Avg_Order_By>
-  count?: Maybe<Order_By>
-  max?: Maybe<Messages_Max_Order_By>
-  min?: Maybe<Messages_Min_Order_By>
-  stddev?: Maybe<Messages_Stddev_Order_By>
-  stddev_pop?: Maybe<Messages_Stddev_Pop_Order_By>
-  stddev_samp?: Maybe<Messages_Stddev_Samp_Order_By>
-  sum?: Maybe<Messages_Sum_Order_By>
-  var_pop?: Maybe<Messages_Var_Pop_Order_By>
-  var_samp?: Maybe<Messages_Var_Samp_Order_By>
-  variance?: Maybe<Messages_Variance_Order_By>
-}
-
-/** input type for inserting array relation for remote table "messages" */
-export type Messages_Arr_Rel_Insert_Input = {
-  data: Array<Messages_Insert_Input>
-  on_conflict?: Maybe<Messages_On_Conflict>
-}
-
 /** aggregate avg on columns */
 export type Messages_Avg_Fields = {
   __typename?: 'messages_avg_fields'
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by avg() on columns of table "messages" */
-export type Messages_Avg_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** Boolean expression to filter rows from the table "messages". All fields are combined with a logical 'AND'. */
 export type Messages_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Messages_Bool_Exp>>>
+  _and?: Maybe<Array<Messages_Bool_Exp>>
   _not?: Maybe<Messages_Bool_Exp>
-  _or?: Maybe<Array<Maybe<Messages_Bool_Exp>>>
+  _or?: Maybe<Array<Messages_Bool_Exp>>
   body?: Maybe<String_Comparison_Exp>
   created_at?: Maybe<Timestamptz_Comparison_Exp>
   id?: Maybe<Int_Comparison_Exp>
@@ -834,7 +712,7 @@ export enum Messages_Constraint {
   MessagesPkey = 'messages_pkey',
 }
 
-/** input type for incrementing integer column in table "messages" */
+/** input type for incrementing numeric columns in table "messages" */
 export type Messages_Inc_Input = {
   id?: Maybe<Scalars['Int']>
 }
@@ -865,18 +743,6 @@ export type Messages_Max_Fields = {
   url?: Maybe<Scalars['String']>
 }
 
-/** order by max() on columns of table "messages" */
-export type Messages_Max_Order_By = {
-  body?: Maybe<Order_By>
-  created_at?: Maybe<Order_By>
-  id?: Maybe<Order_By>
-  imageUrl?: Maybe<Order_By>
-  publishedAt?: Maybe<Order_By>
-  title?: Maybe<Order_By>
-  updated_at?: Maybe<Order_By>
-  url?: Maybe<Order_By>
-}
-
 /** aggregate min on columns */
 export type Messages_Min_Fields = {
   __typename?: 'messages_min_fields'
@@ -890,41 +756,30 @@ export type Messages_Min_Fields = {
   url?: Maybe<Scalars['String']>
 }
 
-/** order by min() on columns of table "messages" */
-export type Messages_Min_Order_By = {
-  body?: Maybe<Order_By>
-  created_at?: Maybe<Order_By>
-  id?: Maybe<Order_By>
-  imageUrl?: Maybe<Order_By>
-  publishedAt?: Maybe<Order_By>
-  title?: Maybe<Order_By>
-  updated_at?: Maybe<Order_By>
-  url?: Maybe<Order_By>
-}
-
 /** response of any mutation on the table "messages" */
 export type Messages_Mutation_Response = {
   __typename?: 'messages_mutation_response'
-  /** number of affected rows by the mutation */
+  /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
-  /** data of the affected rows by the mutation */
+  /** data from the rows affected by the mutation */
   returning: Array<Messages>
 }
 
 /** input type for inserting object relation for remote table "messages" */
 export type Messages_Obj_Rel_Insert_Input = {
   data: Messages_Insert_Input
+  /** on conflict condition */
   on_conflict?: Maybe<Messages_On_Conflict>
 }
 
 /** on conflict condition type for table "messages" */
 export type Messages_On_Conflict = {
   constraint: Messages_Constraint
-  update_columns: Array<Messages_Update_Column>
+  update_columns?: Array<Messages_Update_Column>
   where?: Maybe<Messages_Bool_Exp>
 }
 
-/** ordering options when selecting data from "messages" */
+/** Ordering options when selecting data from "messages". */
 export type Messages_Order_By = {
   body?: Maybe<Order_By>
   created_at?: Maybe<Order_By>
@@ -937,7 +792,7 @@ export type Messages_Order_By = {
   url?: Maybe<Order_By>
 }
 
-/** primary key columns input for table: "messages" */
+/** primary key columns input for table: messages */
 export type Messages_Pk_Columns_Input = {
   id: Scalars['Int']
 }
@@ -980,20 +835,10 @@ export type Messages_Stddev_Fields = {
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev() on columns of table "messages" */
-export type Messages_Stddev_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** aggregate stddev_pop on columns */
 export type Messages_Stddev_Pop_Fields = {
   __typename?: 'messages_stddev_pop_fields'
   id?: Maybe<Scalars['Float']>
-}
-
-/** order by stddev_pop() on columns of table "messages" */
-export type Messages_Stddev_Pop_Order_By = {
-  id?: Maybe<Order_By>
 }
 
 /** aggregate stddev_samp on columns */
@@ -1002,20 +847,10 @@ export type Messages_Stddev_Samp_Fields = {
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev_samp() on columns of table "messages" */
-export type Messages_Stddev_Samp_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** aggregate sum on columns */
 export type Messages_Sum_Fields = {
   __typename?: 'messages_sum_fields'
   id?: Maybe<Scalars['Int']>
-}
-
-/** order by sum() on columns of table "messages" */
-export type Messages_Sum_Order_By = {
-  id?: Maybe<Order_By>
 }
 
 /** update columns of table "messages" */
@@ -1044,31 +879,16 @@ export type Messages_Var_Pop_Fields = {
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by var_pop() on columns of table "messages" */
-export type Messages_Var_Pop_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** aggregate var_samp on columns */
 export type Messages_Var_Samp_Fields = {
   __typename?: 'messages_var_samp_fields'
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by var_samp() on columns of table "messages" */
-export type Messages_Var_Samp_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** aggregate variance on columns */
 export type Messages_Variance_Fields = {
   __typename?: 'messages_variance_fields'
   id?: Maybe<Scalars['Float']>
-}
-
-/** order by variance() on columns of table "messages" */
-export type Messages_Variance_Order_By = {
-  id?: Maybe<Order_By>
 }
 
 /** mutation root */
@@ -1461,21 +1281,20 @@ export type Mutation_RootUpdate_Verification_Requests_By_PkArgs = {
 
 /** column ordering options */
 export enum Order_By {
-  /** in the ascending order, nulls last */
+  /** in ascending order, nulls last */
   Asc = 'asc',
-  /** in the ascending order, nulls first */
+  /** in ascending order, nulls first */
   AscNullsFirst = 'asc_nulls_first',
-  /** in the ascending order, nulls last */
+  /** in ascending order, nulls last */
   AscNullsLast = 'asc_nulls_last',
-  /** in the descending order, nulls first */
+  /** in descending order, nulls first */
   Desc = 'desc',
-  /** in the descending order, nulls first */
+  /** in descending order, nulls first */
   DescNullsFirst = 'desc_nulls_first',
-  /** in the descending order, nulls last */
+  /** in descending order, nulls last */
   DescNullsLast = 'desc_nulls_last',
 }
 
-/** query root */
 export type Query_Root = {
   __typename?: 'query_root'
   /** fetch data from the table: "accounts" */
@@ -1516,7 +1335,7 @@ export type Query_Root = {
   tags_by_pk?: Maybe<Tags>
   /** fetch data from the table: "users" */
   users: Array<Users>
-  /** fetch aggregated fields from the table: "users" */
+  /** An aggregate relationship */
   users_aggregate: Users_Aggregate
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>
@@ -1528,7 +1347,6 @@ export type Query_Root = {
   verification_requests_by_pk?: Maybe<Verification_Requests>
 }
 
-/** query root */
 export type Query_RootAccountsArgs = {
   distinct_on?: Maybe<Array<Accounts_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1537,7 +1355,6 @@ export type Query_RootAccountsArgs = {
   where?: Maybe<Accounts_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootAccounts_AggregateArgs = {
   distinct_on?: Maybe<Array<Accounts_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1546,12 +1363,10 @@ export type Query_RootAccounts_AggregateArgs = {
   where?: Maybe<Accounts_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootAccounts_By_PkArgs = {
   id: Scalars['Int']
 }
 
-/** query root */
 export type Query_RootMessage_TagArgs = {
   distinct_on?: Maybe<Array<Message_Tag_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1560,7 +1375,6 @@ export type Query_RootMessage_TagArgs = {
   where?: Maybe<Message_Tag_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootMessage_Tag_AggregateArgs = {
   distinct_on?: Maybe<Array<Message_Tag_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1569,13 +1383,11 @@ export type Query_RootMessage_Tag_AggregateArgs = {
   where?: Maybe<Message_Tag_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootMessage_Tag_By_PkArgs = {
   message_id: Scalars['Int']
   tag_id: Scalars['Int']
 }
 
-/** query root */
 export type Query_RootMessagesArgs = {
   distinct_on?: Maybe<Array<Messages_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1584,7 +1396,6 @@ export type Query_RootMessagesArgs = {
   where?: Maybe<Messages_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootMessages_AggregateArgs = {
   distinct_on?: Maybe<Array<Messages_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1593,12 +1404,10 @@ export type Query_RootMessages_AggregateArgs = {
   where?: Maybe<Messages_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootMessages_By_PkArgs = {
   id: Scalars['Int']
 }
 
-/** query root */
 export type Query_RootRolesArgs = {
   distinct_on?: Maybe<Array<Roles_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1607,7 +1416,6 @@ export type Query_RootRolesArgs = {
   where?: Maybe<Roles_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootRoles_AggregateArgs = {
   distinct_on?: Maybe<Array<Roles_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1616,12 +1424,10 @@ export type Query_RootRoles_AggregateArgs = {
   where?: Maybe<Roles_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootRoles_By_PkArgs = {
   name: Scalars['String']
 }
 
-/** query root */
 export type Query_RootSessionsArgs = {
   distinct_on?: Maybe<Array<Sessions_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1630,7 +1436,6 @@ export type Query_RootSessionsArgs = {
   where?: Maybe<Sessions_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootSessions_AggregateArgs = {
   distinct_on?: Maybe<Array<Sessions_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1639,12 +1444,10 @@ export type Query_RootSessions_AggregateArgs = {
   where?: Maybe<Sessions_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootSessions_By_PkArgs = {
   id: Scalars['Int']
 }
 
-/** query root */
 export type Query_RootTagsArgs = {
   distinct_on?: Maybe<Array<Tags_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1653,7 +1456,6 @@ export type Query_RootTagsArgs = {
   where?: Maybe<Tags_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootTags_AggregateArgs = {
   distinct_on?: Maybe<Array<Tags_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1662,12 +1464,10 @@ export type Query_RootTags_AggregateArgs = {
   where?: Maybe<Tags_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootTags_By_PkArgs = {
   id: Scalars['Int']
 }
 
-/** query root */
 export type Query_RootUsersArgs = {
   distinct_on?: Maybe<Array<Users_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1676,7 +1476,6 @@ export type Query_RootUsersArgs = {
   where?: Maybe<Users_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootUsers_AggregateArgs = {
   distinct_on?: Maybe<Array<Users_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1685,12 +1484,10 @@ export type Query_RootUsers_AggregateArgs = {
   where?: Maybe<Users_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootUsers_By_PkArgs = {
   id: Scalars['Int']
 }
 
-/** query root */
 export type Query_RootVerification_RequestsArgs = {
   distinct_on?: Maybe<Array<Verification_Requests_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1699,7 +1496,6 @@ export type Query_RootVerification_RequestsArgs = {
   where?: Maybe<Verification_Requests_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootVerification_Requests_AggregateArgs = {
   distinct_on?: Maybe<Array<Verification_Requests_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -1708,7 +1504,6 @@ export type Query_RootVerification_Requests_AggregateArgs = {
   where?: Maybe<Verification_Requests_Bool_Exp>
 }
 
-/** query root */
 export type Query_RootVerification_Requests_By_PkArgs = {
   id: Scalars['Int']
 }
@@ -1717,9 +1512,9 @@ export type Query_RootVerification_Requests_By_PkArgs = {
 export type Roles = {
   __typename?: 'roles'
   name: Scalars['String']
-  /** An array relationship */
+  /** fetch data from the table: "users" */
   users: Array<Users>
-  /** An aggregated array relationship */
+  /** An aggregate relationship */
   users_aggregate: Users_Aggregate
 }
 
@@ -1751,7 +1546,7 @@ export type Roles_Aggregate = {
 /** aggregate fields of "roles" */
 export type Roles_Aggregate_Fields = {
   __typename?: 'roles_aggregate_fields'
-  count?: Maybe<Scalars['Int']>
+  count: Scalars['Int']
   max?: Maybe<Roles_Max_Fields>
   min?: Maybe<Roles_Min_Fields>
 }
@@ -1762,24 +1557,11 @@ export type Roles_Aggregate_FieldsCountArgs = {
   distinct?: Maybe<Scalars['Boolean']>
 }
 
-/** order by aggregate values of table "roles" */
-export type Roles_Aggregate_Order_By = {
-  count?: Maybe<Order_By>
-  max?: Maybe<Roles_Max_Order_By>
-  min?: Maybe<Roles_Min_Order_By>
-}
-
-/** input type for inserting array relation for remote table "roles" */
-export type Roles_Arr_Rel_Insert_Input = {
-  data: Array<Roles_Insert_Input>
-  on_conflict?: Maybe<Roles_On_Conflict>
-}
-
 /** Boolean expression to filter rows from the table "roles". All fields are combined with a logical 'AND'. */
 export type Roles_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Roles_Bool_Exp>>>
+  _and?: Maybe<Array<Roles_Bool_Exp>>
   _not?: Maybe<Roles_Bool_Exp>
-  _or?: Maybe<Array<Maybe<Roles_Bool_Exp>>>
+  _or?: Maybe<Array<Roles_Bool_Exp>>
   name?: Maybe<String_Comparison_Exp>
   users?: Maybe<Users_Bool_Exp>
 }
@@ -1795,7 +1577,7 @@ export enum Roles_Enum {
   User = 'user',
 }
 
-/** expression to compare columns of type roles_enum. All fields are combined with logical 'AND'. */
+/** Boolean expression to compare columns of type "roles_enum". All fields are combined with logical 'AND'. */
 export type Roles_Enum_Comparison_Exp = {
   _eq?: Maybe<Roles_Enum>
   _in?: Maybe<Array<Roles_Enum>>
@@ -1816,51 +1598,42 @@ export type Roles_Max_Fields = {
   name?: Maybe<Scalars['String']>
 }
 
-/** order by max() on columns of table "roles" */
-export type Roles_Max_Order_By = {
-  name?: Maybe<Order_By>
-}
-
 /** aggregate min on columns */
 export type Roles_Min_Fields = {
   __typename?: 'roles_min_fields'
   name?: Maybe<Scalars['String']>
 }
 
-/** order by min() on columns of table "roles" */
-export type Roles_Min_Order_By = {
-  name?: Maybe<Order_By>
-}
-
 /** response of any mutation on the table "roles" */
 export type Roles_Mutation_Response = {
   __typename?: 'roles_mutation_response'
-  /** number of affected rows by the mutation */
+  /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
-  /** data of the affected rows by the mutation */
+  /** data from the rows affected by the mutation */
   returning: Array<Roles>
 }
 
 /** input type for inserting object relation for remote table "roles" */
 export type Roles_Obj_Rel_Insert_Input = {
   data: Roles_Insert_Input
+  /** on conflict condition */
   on_conflict?: Maybe<Roles_On_Conflict>
 }
 
 /** on conflict condition type for table "roles" */
 export type Roles_On_Conflict = {
   constraint: Roles_Constraint
-  update_columns: Array<Roles_Update_Column>
+  update_columns?: Array<Roles_Update_Column>
   where?: Maybe<Roles_Bool_Exp>
 }
 
-/** ordering options when selecting data from "roles" */
+/** Ordering options when selecting data from "roles". */
 export type Roles_Order_By = {
   name?: Maybe<Order_By>
   users_aggregate?: Maybe<Users_Aggregate_Order_By>
 }
 
-/** primary key columns input for table: "roles" */
+/** primary key columns input for table: roles */
 export type Roles_Pk_Columns_Input = {
   name: Scalars['String']
 }
@@ -1905,7 +1678,7 @@ export type Sessions_Aggregate = {
 export type Sessions_Aggregate_Fields = {
   __typename?: 'sessions_aggregate_fields'
   avg?: Maybe<Sessions_Avg_Fields>
-  count?: Maybe<Scalars['Int']>
+  count: Scalars['Int']
   max?: Maybe<Sessions_Max_Fields>
   min?: Maybe<Sessions_Min_Fields>
   stddev?: Maybe<Sessions_Stddev_Fields>
@@ -1923,27 +1696,6 @@ export type Sessions_Aggregate_FieldsCountArgs = {
   distinct?: Maybe<Scalars['Boolean']>
 }
 
-/** order by aggregate values of table "sessions" */
-export type Sessions_Aggregate_Order_By = {
-  avg?: Maybe<Sessions_Avg_Order_By>
-  count?: Maybe<Order_By>
-  max?: Maybe<Sessions_Max_Order_By>
-  min?: Maybe<Sessions_Min_Order_By>
-  stddev?: Maybe<Sessions_Stddev_Order_By>
-  stddev_pop?: Maybe<Sessions_Stddev_Pop_Order_By>
-  stddev_samp?: Maybe<Sessions_Stddev_Samp_Order_By>
-  sum?: Maybe<Sessions_Sum_Order_By>
-  var_pop?: Maybe<Sessions_Var_Pop_Order_By>
-  var_samp?: Maybe<Sessions_Var_Samp_Order_By>
-  variance?: Maybe<Sessions_Variance_Order_By>
-}
-
-/** input type for inserting array relation for remote table "sessions" */
-export type Sessions_Arr_Rel_Insert_Input = {
-  data: Array<Sessions_Insert_Input>
-  on_conflict?: Maybe<Sessions_On_Conflict>
-}
-
 /** aggregate avg on columns */
 export type Sessions_Avg_Fields = {
   __typename?: 'sessions_avg_fields'
@@ -1951,17 +1703,11 @@ export type Sessions_Avg_Fields = {
   user_id?: Maybe<Scalars['Float']>
 }
 
-/** order by avg() on columns of table "sessions" */
-export type Sessions_Avg_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** Boolean expression to filter rows from the table "sessions". All fields are combined with a logical 'AND'. */
 export type Sessions_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Sessions_Bool_Exp>>>
+  _and?: Maybe<Array<Sessions_Bool_Exp>>
   _not?: Maybe<Sessions_Bool_Exp>
-  _or?: Maybe<Array<Maybe<Sessions_Bool_Exp>>>
+  _or?: Maybe<Array<Sessions_Bool_Exp>>
   access_token?: Maybe<String_Comparison_Exp>
   created_at?: Maybe<Timestamptz_Comparison_Exp>
   expires?: Maybe<Timestamptz_Comparison_Exp>
@@ -1981,7 +1727,7 @@ export enum Sessions_Constraint {
   SessionsPkey = 'sessions_pkey',
 }
 
-/** input type for incrementing integer column in table "sessions" */
+/** input type for incrementing numeric columns in table "sessions" */
 export type Sessions_Inc_Input = {
   id?: Maybe<Scalars['Int']>
   user_id?: Maybe<Scalars['Int']>
@@ -2010,17 +1756,6 @@ export type Sessions_Max_Fields = {
   user_id?: Maybe<Scalars['Int']>
 }
 
-/** order by max() on columns of table "sessions" */
-export type Sessions_Max_Order_By = {
-  access_token?: Maybe<Order_By>
-  created_at?: Maybe<Order_By>
-  expires?: Maybe<Order_By>
-  id?: Maybe<Order_By>
-  session_token?: Maybe<Order_By>
-  updated_at?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** aggregate min on columns */
 export type Sessions_Min_Fields = {
   __typename?: 'sessions_min_fields'
@@ -2033,40 +1768,23 @@ export type Sessions_Min_Fields = {
   user_id?: Maybe<Scalars['Int']>
 }
 
-/** order by min() on columns of table "sessions" */
-export type Sessions_Min_Order_By = {
-  access_token?: Maybe<Order_By>
-  created_at?: Maybe<Order_By>
-  expires?: Maybe<Order_By>
-  id?: Maybe<Order_By>
-  session_token?: Maybe<Order_By>
-  updated_at?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** response of any mutation on the table "sessions" */
 export type Sessions_Mutation_Response = {
   __typename?: 'sessions_mutation_response'
-  /** number of affected rows by the mutation */
+  /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
-  /** data of the affected rows by the mutation */
+  /** data from the rows affected by the mutation */
   returning: Array<Sessions>
-}
-
-/** input type for inserting object relation for remote table "sessions" */
-export type Sessions_Obj_Rel_Insert_Input = {
-  data: Sessions_Insert_Input
-  on_conflict?: Maybe<Sessions_On_Conflict>
 }
 
 /** on conflict condition type for table "sessions" */
 export type Sessions_On_Conflict = {
   constraint: Sessions_Constraint
-  update_columns: Array<Sessions_Update_Column>
+  update_columns?: Array<Sessions_Update_Column>
   where?: Maybe<Sessions_Bool_Exp>
 }
 
-/** ordering options when selecting data from "sessions" */
+/** Ordering options when selecting data from "sessions". */
 export type Sessions_Order_By = {
   access_token?: Maybe<Order_By>
   created_at?: Maybe<Order_By>
@@ -2077,7 +1795,7 @@ export type Sessions_Order_By = {
   user_id?: Maybe<Order_By>
 }
 
-/** primary key columns input for table: "sessions" */
+/** primary key columns input for table: sessions */
 export type Sessions_Pk_Columns_Input = {
   id: Scalars['Int']
 }
@@ -2118,23 +1836,11 @@ export type Sessions_Stddev_Fields = {
   user_id?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev() on columns of table "sessions" */
-export type Sessions_Stddev_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** aggregate stddev_pop on columns */
 export type Sessions_Stddev_Pop_Fields = {
   __typename?: 'sessions_stddev_pop_fields'
   id?: Maybe<Scalars['Float']>
   user_id?: Maybe<Scalars['Float']>
-}
-
-/** order by stddev_pop() on columns of table "sessions" */
-export type Sessions_Stddev_Pop_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
 }
 
 /** aggregate stddev_samp on columns */
@@ -2144,23 +1850,11 @@ export type Sessions_Stddev_Samp_Fields = {
   user_id?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev_samp() on columns of table "sessions" */
-export type Sessions_Stddev_Samp_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** aggregate sum on columns */
 export type Sessions_Sum_Fields = {
   __typename?: 'sessions_sum_fields'
   id?: Maybe<Scalars['Int']>
   user_id?: Maybe<Scalars['Int']>
-}
-
-/** order by sum() on columns of table "sessions" */
-export type Sessions_Sum_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
 }
 
 /** update columns of table "sessions" */
@@ -2188,23 +1882,11 @@ export type Sessions_Var_Pop_Fields = {
   user_id?: Maybe<Scalars['Float']>
 }
 
-/** order by var_pop() on columns of table "sessions" */
-export type Sessions_Var_Pop_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
 /** aggregate var_samp on columns */
 export type Sessions_Var_Samp_Fields = {
   __typename?: 'sessions_var_samp_fields'
   id?: Maybe<Scalars['Float']>
   user_id?: Maybe<Scalars['Float']>
-}
-
-/** order by var_samp() on columns of table "sessions" */
-export type Sessions_Var_Samp_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
 }
 
 /** aggregate variance on columns */
@@ -2214,13 +1896,6 @@ export type Sessions_Variance_Fields = {
   user_id?: Maybe<Scalars['Float']>
 }
 
-/** order by variance() on columns of table "sessions" */
-export type Sessions_Variance_Order_By = {
-  id?: Maybe<Order_By>
-  user_id?: Maybe<Order_By>
-}
-
-/** subscription root */
 export type Subscription_Root = {
   __typename?: 'subscription_root'
   /** fetch data from the table: "accounts" */
@@ -2261,7 +1936,7 @@ export type Subscription_Root = {
   tags_by_pk?: Maybe<Tags>
   /** fetch data from the table: "users" */
   users: Array<Users>
-  /** fetch aggregated fields from the table: "users" */
+  /** An aggregate relationship */
   users_aggregate: Users_Aggregate
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>
@@ -2273,7 +1948,6 @@ export type Subscription_Root = {
   verification_requests_by_pk?: Maybe<Verification_Requests>
 }
 
-/** subscription root */
 export type Subscription_RootAccountsArgs = {
   distinct_on?: Maybe<Array<Accounts_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2282,7 +1956,6 @@ export type Subscription_RootAccountsArgs = {
   where?: Maybe<Accounts_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootAccounts_AggregateArgs = {
   distinct_on?: Maybe<Array<Accounts_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2291,12 +1964,10 @@ export type Subscription_RootAccounts_AggregateArgs = {
   where?: Maybe<Accounts_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootAccounts_By_PkArgs = {
   id: Scalars['Int']
 }
 
-/** subscription root */
 export type Subscription_RootMessage_TagArgs = {
   distinct_on?: Maybe<Array<Message_Tag_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2305,7 +1976,6 @@ export type Subscription_RootMessage_TagArgs = {
   where?: Maybe<Message_Tag_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootMessage_Tag_AggregateArgs = {
   distinct_on?: Maybe<Array<Message_Tag_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2314,13 +1984,11 @@ export type Subscription_RootMessage_Tag_AggregateArgs = {
   where?: Maybe<Message_Tag_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootMessage_Tag_By_PkArgs = {
   message_id: Scalars['Int']
   tag_id: Scalars['Int']
 }
 
-/** subscription root */
 export type Subscription_RootMessagesArgs = {
   distinct_on?: Maybe<Array<Messages_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2329,7 +1997,6 @@ export type Subscription_RootMessagesArgs = {
   where?: Maybe<Messages_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootMessages_AggregateArgs = {
   distinct_on?: Maybe<Array<Messages_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2338,12 +2005,10 @@ export type Subscription_RootMessages_AggregateArgs = {
   where?: Maybe<Messages_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootMessages_By_PkArgs = {
   id: Scalars['Int']
 }
 
-/** subscription root */
 export type Subscription_RootRolesArgs = {
   distinct_on?: Maybe<Array<Roles_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2352,7 +2017,6 @@ export type Subscription_RootRolesArgs = {
   where?: Maybe<Roles_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootRoles_AggregateArgs = {
   distinct_on?: Maybe<Array<Roles_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2361,12 +2025,10 @@ export type Subscription_RootRoles_AggregateArgs = {
   where?: Maybe<Roles_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootRoles_By_PkArgs = {
   name: Scalars['String']
 }
 
-/** subscription root */
 export type Subscription_RootSessionsArgs = {
   distinct_on?: Maybe<Array<Sessions_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2375,7 +2037,6 @@ export type Subscription_RootSessionsArgs = {
   where?: Maybe<Sessions_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootSessions_AggregateArgs = {
   distinct_on?: Maybe<Array<Sessions_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2384,12 +2045,10 @@ export type Subscription_RootSessions_AggregateArgs = {
   where?: Maybe<Sessions_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootSessions_By_PkArgs = {
   id: Scalars['Int']
 }
 
-/** subscription root */
 export type Subscription_RootTagsArgs = {
   distinct_on?: Maybe<Array<Tags_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2398,7 +2057,6 @@ export type Subscription_RootTagsArgs = {
   where?: Maybe<Tags_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootTags_AggregateArgs = {
   distinct_on?: Maybe<Array<Tags_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2407,12 +2065,10 @@ export type Subscription_RootTags_AggregateArgs = {
   where?: Maybe<Tags_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootTags_By_PkArgs = {
   id: Scalars['Int']
 }
 
-/** subscription root */
 export type Subscription_RootUsersArgs = {
   distinct_on?: Maybe<Array<Users_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2421,7 +2077,6 @@ export type Subscription_RootUsersArgs = {
   where?: Maybe<Users_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootUsers_AggregateArgs = {
   distinct_on?: Maybe<Array<Users_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2430,12 +2085,10 @@ export type Subscription_RootUsers_AggregateArgs = {
   where?: Maybe<Users_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootUsers_By_PkArgs = {
   id: Scalars['Int']
 }
 
-/** subscription root */
 export type Subscription_RootVerification_RequestsArgs = {
   distinct_on?: Maybe<Array<Verification_Requests_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2444,7 +2097,6 @@ export type Subscription_RootVerification_RequestsArgs = {
   where?: Maybe<Verification_Requests_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootVerification_Requests_AggregateArgs = {
   distinct_on?: Maybe<Array<Verification_Requests_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2453,7 +2105,6 @@ export type Subscription_RootVerification_Requests_AggregateArgs = {
   where?: Maybe<Verification_Requests_Bool_Exp>
 }
 
-/** subscription root */
 export type Subscription_RootVerification_Requests_By_PkArgs = {
   id: Scalars['Int']
 }
@@ -2465,7 +2116,7 @@ export type Tags = {
   id: Scalars['Int']
   /** An array relationship */
   message_tags: Array<Message_Tag>
-  /** An aggregated array relationship */
+  /** An aggregate relationship */
   message_tags_aggregate: Message_Tag_Aggregate
   name: Scalars['String']
   updated_at: Scalars['timestamptz']
@@ -2500,7 +2151,7 @@ export type Tags_Aggregate = {
 export type Tags_Aggregate_Fields = {
   __typename?: 'tags_aggregate_fields'
   avg?: Maybe<Tags_Avg_Fields>
-  count?: Maybe<Scalars['Int']>
+  count: Scalars['Int']
   max?: Maybe<Tags_Max_Fields>
   min?: Maybe<Tags_Min_Fields>
   stddev?: Maybe<Tags_Stddev_Fields>
@@ -2518,43 +2169,17 @@ export type Tags_Aggregate_FieldsCountArgs = {
   distinct?: Maybe<Scalars['Boolean']>
 }
 
-/** order by aggregate values of table "tags" */
-export type Tags_Aggregate_Order_By = {
-  avg?: Maybe<Tags_Avg_Order_By>
-  count?: Maybe<Order_By>
-  max?: Maybe<Tags_Max_Order_By>
-  min?: Maybe<Tags_Min_Order_By>
-  stddev?: Maybe<Tags_Stddev_Order_By>
-  stddev_pop?: Maybe<Tags_Stddev_Pop_Order_By>
-  stddev_samp?: Maybe<Tags_Stddev_Samp_Order_By>
-  sum?: Maybe<Tags_Sum_Order_By>
-  var_pop?: Maybe<Tags_Var_Pop_Order_By>
-  var_samp?: Maybe<Tags_Var_Samp_Order_By>
-  variance?: Maybe<Tags_Variance_Order_By>
-}
-
-/** input type for inserting array relation for remote table "tags" */
-export type Tags_Arr_Rel_Insert_Input = {
-  data: Array<Tags_Insert_Input>
-  on_conflict?: Maybe<Tags_On_Conflict>
-}
-
 /** aggregate avg on columns */
 export type Tags_Avg_Fields = {
   __typename?: 'tags_avg_fields'
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by avg() on columns of table "tags" */
-export type Tags_Avg_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** Boolean expression to filter rows from the table "tags". All fields are combined with a logical 'AND'. */
 export type Tags_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Tags_Bool_Exp>>>
+  _and?: Maybe<Array<Tags_Bool_Exp>>
   _not?: Maybe<Tags_Bool_Exp>
-  _or?: Maybe<Array<Maybe<Tags_Bool_Exp>>>
+  _or?: Maybe<Array<Tags_Bool_Exp>>
   created_at?: Maybe<Timestamptz_Comparison_Exp>
   id?: Maybe<Int_Comparison_Exp>
   message_tags?: Maybe<Message_Tag_Bool_Exp>
@@ -2568,7 +2193,7 @@ export enum Tags_Constraint {
   TagsPkey = 'tags_pkey',
 }
 
-/** input type for incrementing integer column in table "tags" */
+/** input type for incrementing numeric columns in table "tags" */
 export type Tags_Inc_Input = {
   id?: Maybe<Scalars['Int']>
 }
@@ -2591,14 +2216,6 @@ export type Tags_Max_Fields = {
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
-/** order by max() on columns of table "tags" */
-export type Tags_Max_Order_By = {
-  created_at?: Maybe<Order_By>
-  id?: Maybe<Order_By>
-  name?: Maybe<Order_By>
-  updated_at?: Maybe<Order_By>
-}
-
 /** aggregate min on columns */
 export type Tags_Min_Fields = {
   __typename?: 'tags_min_fields'
@@ -2608,37 +2225,30 @@ export type Tags_Min_Fields = {
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
-/** order by min() on columns of table "tags" */
-export type Tags_Min_Order_By = {
-  created_at?: Maybe<Order_By>
-  id?: Maybe<Order_By>
-  name?: Maybe<Order_By>
-  updated_at?: Maybe<Order_By>
-}
-
 /** response of any mutation on the table "tags" */
 export type Tags_Mutation_Response = {
   __typename?: 'tags_mutation_response'
-  /** number of affected rows by the mutation */
+  /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
-  /** data of the affected rows by the mutation */
+  /** data from the rows affected by the mutation */
   returning: Array<Tags>
 }
 
 /** input type for inserting object relation for remote table "tags" */
 export type Tags_Obj_Rel_Insert_Input = {
   data: Tags_Insert_Input
+  /** on conflict condition */
   on_conflict?: Maybe<Tags_On_Conflict>
 }
 
 /** on conflict condition type for table "tags" */
 export type Tags_On_Conflict = {
   constraint: Tags_Constraint
-  update_columns: Array<Tags_Update_Column>
+  update_columns?: Array<Tags_Update_Column>
   where?: Maybe<Tags_Bool_Exp>
 }
 
-/** ordering options when selecting data from "tags" */
+/** Ordering options when selecting data from "tags". */
 export type Tags_Order_By = {
   created_at?: Maybe<Order_By>
   id?: Maybe<Order_By>
@@ -2647,7 +2257,7 @@ export type Tags_Order_By = {
   updated_at?: Maybe<Order_By>
 }
 
-/** primary key columns input for table: "tags" */
+/** primary key columns input for table: tags */
 export type Tags_Pk_Columns_Input = {
   id: Scalars['Int']
 }
@@ -2678,20 +2288,10 @@ export type Tags_Stddev_Fields = {
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev() on columns of table "tags" */
-export type Tags_Stddev_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** aggregate stddev_pop on columns */
 export type Tags_Stddev_Pop_Fields = {
   __typename?: 'tags_stddev_pop_fields'
   id?: Maybe<Scalars['Float']>
-}
-
-/** order by stddev_pop() on columns of table "tags" */
-export type Tags_Stddev_Pop_Order_By = {
-  id?: Maybe<Order_By>
 }
 
 /** aggregate stddev_samp on columns */
@@ -2700,20 +2300,10 @@ export type Tags_Stddev_Samp_Fields = {
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev_samp() on columns of table "tags" */
-export type Tags_Stddev_Samp_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** aggregate sum on columns */
 export type Tags_Sum_Fields = {
   __typename?: 'tags_sum_fields'
   id?: Maybe<Scalars['Int']>
-}
-
-/** order by sum() on columns of table "tags" */
-export type Tags_Sum_Order_By = {
-  id?: Maybe<Order_By>
 }
 
 /** update columns of table "tags" */
@@ -2734,20 +2324,10 @@ export type Tags_Var_Pop_Fields = {
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by var_pop() on columns of table "tags" */
-export type Tags_Var_Pop_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** aggregate var_samp on columns */
 export type Tags_Var_Samp_Fields = {
   __typename?: 'tags_var_samp_fields'
   id?: Maybe<Scalars['Float']>
-}
-
-/** order by var_samp() on columns of table "tags" */
-export type Tags_Var_Samp_Order_By = {
-  id?: Maybe<Order_By>
 }
 
 /** aggregate variance on columns */
@@ -2756,12 +2336,7 @@ export type Tags_Variance_Fields = {
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by variance() on columns of table "tags" */
-export type Tags_Variance_Order_By = {
-  id?: Maybe<Order_By>
-}
-
-/** expression to compare columns of type timestamptz. All fields are combined with logical 'AND'. */
+/** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
   _eq?: Maybe<Scalars['timestamptz']>
   _gt?: Maybe<Scalars['timestamptz']>
@@ -2801,7 +2376,7 @@ export type Users_Aggregate = {
 export type Users_Aggregate_Fields = {
   __typename?: 'users_aggregate_fields'
   avg?: Maybe<Users_Avg_Fields>
-  count?: Maybe<Scalars['Int']>
+  count: Scalars['Int']
   max?: Maybe<Users_Max_Fields>
   min?: Maybe<Users_Min_Fields>
   stddev?: Maybe<Users_Stddev_Fields>
@@ -2837,6 +2412,7 @@ export type Users_Aggregate_Order_By = {
 /** input type for inserting array relation for remote table "users" */
 export type Users_Arr_Rel_Insert_Input = {
   data: Array<Users_Insert_Input>
+  /** on conflict condition */
   on_conflict?: Maybe<Users_On_Conflict>
 }
 
@@ -2853,9 +2429,9 @@ export type Users_Avg_Order_By = {
 
 /** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
 export type Users_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Users_Bool_Exp>>>
+  _and?: Maybe<Array<Users_Bool_Exp>>
   _not?: Maybe<Users_Bool_Exp>
-  _or?: Maybe<Array<Maybe<Users_Bool_Exp>>>
+  _or?: Maybe<Array<Users_Bool_Exp>>
   created_at?: Maybe<Timestamptz_Comparison_Exp>
   email?: Maybe<String_Comparison_Exp>
   email_verified?: Maybe<Timestamptz_Comparison_Exp>
@@ -2880,7 +2456,7 @@ export enum Users_Constraint {
   UsersPkey = 'users_pkey',
 }
 
-/** input type for incrementing integer column in table "users" */
+/** input type for incrementing numeric columns in table "users" */
 export type Users_Inc_Input = {
   id?: Maybe<Scalars['Int']>
 }
@@ -2952,26 +2528,20 @@ export type Users_Min_Order_By = {
 /** response of any mutation on the table "users" */
 export type Users_Mutation_Response = {
   __typename?: 'users_mutation_response'
-  /** number of affected rows by the mutation */
+  /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
-  /** data of the affected rows by the mutation */
+  /** data from the rows affected by the mutation */
   returning: Array<Users>
-}
-
-/** input type for inserting object relation for remote table "users" */
-export type Users_Obj_Rel_Insert_Input = {
-  data: Users_Insert_Input
-  on_conflict?: Maybe<Users_On_Conflict>
 }
 
 /** on conflict condition type for table "users" */
 export type Users_On_Conflict = {
   constraint: Users_Constraint
-  update_columns: Array<Users_Update_Column>
+  update_columns?: Array<Users_Update_Column>
   where?: Maybe<Users_Bool_Exp>
 }
 
-/** ordering options when selecting data from "users" */
+/** Ordering options when selecting data from "users". */
 export type Users_Order_By = {
   created_at?: Maybe<Order_By>
   email?: Maybe<Order_By>
@@ -2985,7 +2555,7 @@ export type Users_Order_By = {
   updated_at?: Maybe<Order_By>
 }
 
-/** primary key columns input for table: "users" */
+/** primary key columns input for table: users */
 export type Users_Pk_Columns_Input = {
   id: Scalars['Int']
 }
@@ -3146,7 +2716,7 @@ export type Verification_Requests_Aggregate = {
 export type Verification_Requests_Aggregate_Fields = {
   __typename?: 'verification_requests_aggregate_fields'
   avg?: Maybe<Verification_Requests_Avg_Fields>
-  count?: Maybe<Scalars['Int']>
+  count: Scalars['Int']
   max?: Maybe<Verification_Requests_Max_Fields>
   min?: Maybe<Verification_Requests_Min_Fields>
   stddev?: Maybe<Verification_Requests_Stddev_Fields>
@@ -3164,43 +2734,17 @@ export type Verification_Requests_Aggregate_FieldsCountArgs = {
   distinct?: Maybe<Scalars['Boolean']>
 }
 
-/** order by aggregate values of table "verification_requests" */
-export type Verification_Requests_Aggregate_Order_By = {
-  avg?: Maybe<Verification_Requests_Avg_Order_By>
-  count?: Maybe<Order_By>
-  max?: Maybe<Verification_Requests_Max_Order_By>
-  min?: Maybe<Verification_Requests_Min_Order_By>
-  stddev?: Maybe<Verification_Requests_Stddev_Order_By>
-  stddev_pop?: Maybe<Verification_Requests_Stddev_Pop_Order_By>
-  stddev_samp?: Maybe<Verification_Requests_Stddev_Samp_Order_By>
-  sum?: Maybe<Verification_Requests_Sum_Order_By>
-  var_pop?: Maybe<Verification_Requests_Var_Pop_Order_By>
-  var_samp?: Maybe<Verification_Requests_Var_Samp_Order_By>
-  variance?: Maybe<Verification_Requests_Variance_Order_By>
-}
-
-/** input type for inserting array relation for remote table "verification_requests" */
-export type Verification_Requests_Arr_Rel_Insert_Input = {
-  data: Array<Verification_Requests_Insert_Input>
-  on_conflict?: Maybe<Verification_Requests_On_Conflict>
-}
-
 /** aggregate avg on columns */
 export type Verification_Requests_Avg_Fields = {
   __typename?: 'verification_requests_avg_fields'
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by avg() on columns of table "verification_requests" */
-export type Verification_Requests_Avg_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** Boolean expression to filter rows from the table "verification_requests". All fields are combined with a logical 'AND'. */
 export type Verification_Requests_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Verification_Requests_Bool_Exp>>>
+  _and?: Maybe<Array<Verification_Requests_Bool_Exp>>
   _not?: Maybe<Verification_Requests_Bool_Exp>
-  _or?: Maybe<Array<Maybe<Verification_Requests_Bool_Exp>>>
+  _or?: Maybe<Array<Verification_Requests_Bool_Exp>>
   created_at?: Maybe<Timestamptz_Comparison_Exp>
   expires?: Maybe<Timestamptz_Comparison_Exp>
   id?: Maybe<Int_Comparison_Exp>
@@ -3217,7 +2761,7 @@ export enum Verification_Requests_Constraint {
   VerificationRequestsPkey = 'verification_requests_pkey',
 }
 
-/** input type for incrementing integer column in table "verification_requests" */
+/** input type for incrementing numeric columns in table "verification_requests" */
 export type Verification_Requests_Inc_Input = {
   id?: Maybe<Scalars['Int']>
 }
@@ -3243,16 +2787,6 @@ export type Verification_Requests_Max_Fields = {
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
-/** order by max() on columns of table "verification_requests" */
-export type Verification_Requests_Max_Order_By = {
-  created_at?: Maybe<Order_By>
-  expires?: Maybe<Order_By>
-  id?: Maybe<Order_By>
-  identifier?: Maybe<Order_By>
-  token?: Maybe<Order_By>
-  updated_at?: Maybe<Order_By>
-}
-
 /** aggregate min on columns */
 export type Verification_Requests_Min_Fields = {
   __typename?: 'verification_requests_min_fields'
@@ -3264,39 +2798,23 @@ export type Verification_Requests_Min_Fields = {
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
-/** order by min() on columns of table "verification_requests" */
-export type Verification_Requests_Min_Order_By = {
-  created_at?: Maybe<Order_By>
-  expires?: Maybe<Order_By>
-  id?: Maybe<Order_By>
-  identifier?: Maybe<Order_By>
-  token?: Maybe<Order_By>
-  updated_at?: Maybe<Order_By>
-}
-
 /** response of any mutation on the table "verification_requests" */
 export type Verification_Requests_Mutation_Response = {
   __typename?: 'verification_requests_mutation_response'
-  /** number of affected rows by the mutation */
+  /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']
-  /** data of the affected rows by the mutation */
+  /** data from the rows affected by the mutation */
   returning: Array<Verification_Requests>
-}
-
-/** input type for inserting object relation for remote table "verification_requests" */
-export type Verification_Requests_Obj_Rel_Insert_Input = {
-  data: Verification_Requests_Insert_Input
-  on_conflict?: Maybe<Verification_Requests_On_Conflict>
 }
 
 /** on conflict condition type for table "verification_requests" */
 export type Verification_Requests_On_Conflict = {
   constraint: Verification_Requests_Constraint
-  update_columns: Array<Verification_Requests_Update_Column>
+  update_columns?: Array<Verification_Requests_Update_Column>
   where?: Maybe<Verification_Requests_Bool_Exp>
 }
 
-/** ordering options when selecting data from "verification_requests" */
+/** Ordering options when selecting data from "verification_requests". */
 export type Verification_Requests_Order_By = {
   created_at?: Maybe<Order_By>
   expires?: Maybe<Order_By>
@@ -3306,7 +2824,7 @@ export type Verification_Requests_Order_By = {
   updated_at?: Maybe<Order_By>
 }
 
-/** primary key columns input for table: "verification_requests" */
+/** primary key columns input for table: verification_requests */
 export type Verification_Requests_Pk_Columns_Input = {
   id: Scalars['Int']
 }
@@ -3343,20 +2861,10 @@ export type Verification_Requests_Stddev_Fields = {
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev() on columns of table "verification_requests" */
-export type Verification_Requests_Stddev_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** aggregate stddev_pop on columns */
 export type Verification_Requests_Stddev_Pop_Fields = {
   __typename?: 'verification_requests_stddev_pop_fields'
   id?: Maybe<Scalars['Float']>
-}
-
-/** order by stddev_pop() on columns of table "verification_requests" */
-export type Verification_Requests_Stddev_Pop_Order_By = {
-  id?: Maybe<Order_By>
 }
 
 /** aggregate stddev_samp on columns */
@@ -3365,20 +2873,10 @@ export type Verification_Requests_Stddev_Samp_Fields = {
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by stddev_samp() on columns of table "verification_requests" */
-export type Verification_Requests_Stddev_Samp_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** aggregate sum on columns */
 export type Verification_Requests_Sum_Fields = {
   __typename?: 'verification_requests_sum_fields'
   id?: Maybe<Scalars['Int']>
-}
-
-/** order by sum() on columns of table "verification_requests" */
-export type Verification_Requests_Sum_Order_By = {
-  id?: Maybe<Order_By>
 }
 
 /** update columns of table "verification_requests" */
@@ -3403,31 +2901,16 @@ export type Verification_Requests_Var_Pop_Fields = {
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by var_pop() on columns of table "verification_requests" */
-export type Verification_Requests_Var_Pop_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** aggregate var_samp on columns */
 export type Verification_Requests_Var_Samp_Fields = {
   __typename?: 'verification_requests_var_samp_fields'
   id?: Maybe<Scalars['Float']>
 }
 
-/** order by var_samp() on columns of table "verification_requests" */
-export type Verification_Requests_Var_Samp_Order_By = {
-  id?: Maybe<Order_By>
-}
-
 /** aggregate variance on columns */
 export type Verification_Requests_Variance_Fields = {
   __typename?: 'verification_requests_variance_fields'
   id?: Maybe<Scalars['Float']>
-}
-
-/** order by variance() on columns of table "verification_requests" */
-export type Verification_Requests_Variance_Order_By = {
-  id?: Maybe<Order_By>
 }
 
 export type Delete_MessagesMutationVariables = Exact<{
