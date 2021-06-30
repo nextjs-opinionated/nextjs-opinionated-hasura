@@ -4,6 +4,7 @@ on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    envs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -31,3 +32,10 @@ jobs:
 
       - name: Build
         run: yarn build
+        env:
+          NEXT_PUBLIC_SENTRY_DSN: ${{ env.NEXT_PUBLIC_SENTRY_DSN }}
+          SENTRY_AUTH_TOKEN: ${{ env.SENTRY_AUTH_TOKEN }}
+          SENTRY_DSN: ${{ env.SENTRY_DSN }}
+          SENTRY_ORG: ${{ env.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ env.SENTRY_PROJECT }}
+          SENTRY_SERVER_INIT_PATH: ${{ env.SENTRY_SERVER_INIT_PATH }}
