@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Users_by_pk_api_get } from '../../../model/api-models/users/Users_by_pk_api_get'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
-import { logMiddleware } from '../../../utils/middleware/log'
+import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 
 export default withSentry(

@@ -5,7 +5,7 @@ import { Messages_Update_Column } from '../../../graphql/generated'
 import { MessageValidationSchema } from '../../../model/schemas/MessageValidationSchema'
 import { Insert_messages_one_api_post } from '../../../model/api-models/messages/Insert_messages_one_api_post'
 import { withSentry } from '@sentry/nextjs'
-import { logMiddleware } from '../../../utils/middleware/log'
+import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 
 export default withSentry(
   logMiddleware(async function insert_messages_one_api_post(

@@ -4,7 +4,7 @@ import { isAdmin } from '../../../utils/middleware/isAdmin'
 import { Insert_users_one_api_post } from '../../../model/api-models/users/Insert_users_one_api_post'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { withSentry } from '@sentry/nextjs'
-import { logMiddleware } from '../../../utils/middleware/log'
+import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 
 export default withSentry(
   logMiddleware(

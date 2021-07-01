@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { Delete_users_by_pk_api_delete } from '../../../model/api-models/users/Delete_users_by_pk_api_delete'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 import { isAdmin } from '../../../utils/middleware/isAdmin'
-import { logMiddleware } from '../../../utils/middleware/log'
+import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 
 export default withSentry(

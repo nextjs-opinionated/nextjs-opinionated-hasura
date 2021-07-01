@@ -4,7 +4,7 @@ import { Users_api_get } from '../../../model/api-models/users/Users_api_get'
 import _ from 'lodash'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { withSentry } from '@sentry/nextjs'
-import { logMiddleware } from '../../../utils/middleware/log'
+import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 
 export default withSentry(
   logMiddleware(async function users_api_get(req: NextApiRequest, res: NextApiResponse) {

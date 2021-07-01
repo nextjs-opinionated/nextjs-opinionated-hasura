@@ -3,7 +3,7 @@ import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 import { Messages_api_get } from '../../../model/api-models/messages/Messages_api_get'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { withSentry } from '@sentry/nextjs'
-import { logMiddleware } from '../../../utils/middleware/log'
+import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 
 export default withSentry(
   logMiddleware(async function API(req: NextApiRequest, res: NextApiResponse) {

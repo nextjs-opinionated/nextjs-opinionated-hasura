@@ -7,7 +7,7 @@ import _ from 'lodash'
 import { Insert_random_message_api_post } from '../../../model/api-models/messages/Insert_random_message_api_post'
 import dayjs from 'dayjs'
 import { withSentry } from '@sentry/nextjs'
-import { logMiddleware } from '../../../utils/middleware/log'
+import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 
 interface SpaceFlightNewsApiType {
   id: string
