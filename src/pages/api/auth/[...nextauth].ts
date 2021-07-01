@@ -95,8 +95,6 @@ export default NextAuth({
         session.user.role = token.role
       }
 
-      session.accessToken = token?.accessToken
-      session.user.sub = String(token?.sub)
       return session
     },
   },
