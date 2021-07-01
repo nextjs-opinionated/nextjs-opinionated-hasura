@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
-import { Roles_Enum } from '../../../graphql/generated'
+import { Roles_Enum } from '../../../model/site/RoleList'
 
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 
@@ -83,18 +83,9 @@ export default NextAuth({
       return token
     },
     async session(session, token) {
-      if (token?.accessToken) {
-        session.accessToken = token.accessToken
-      }
-
-      if (token?.email) {
-        session.user.email = token.email
-      }
-
-      if (token?.role) {
-        session.user.role = token.role
-      }
-
+      session.accessToken = (token?.accessToken && String(token?.accessToken)) || null
+      session.user.sub = (token?.sub && String(token?.sub)) || null
+      session.user.role = (token?.role && (token?.role as Roles_Enum)) || null
       return session
     },
   },

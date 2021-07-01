@@ -1,4 +1,7 @@
-import { Roles_Enum } from "../../graphql/generated"
+export enum Roles_Enum {
+  Admin = 'admin',
+  User = 'user',
+}
 
 export type RoleProps = {
   id: Roles_Enum
@@ -14,6 +17,6 @@ export const RoleList: {
   },
   admin: {
     id: Roles_Enum.Admin,
-    name: "Administrator"
-  }
+    name: 'Administrator',
+  },
 }
