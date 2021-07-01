@@ -27,7 +27,7 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/options#jwt
   jwt: {
     secret: process.env.JWT_SECRET,
-    encryption: true
+    encryption: true,
   },
 
   // You can define custom pages to override the built-in ones. These will be regular Next.js pages
@@ -56,7 +56,9 @@ export default NextAuth({
     },
     async jwt(token, user, account) {
       if (user) {
-        const { users } = await new GqlSdkHelper().getSdk().users_by_oauth_id({ oauth_id: String(user.id) })
+        const { users } = await new GqlSdkHelper()
+          .getSdk()
+          .users_by_oauth_id({ oauth_id: String(user.id) })
         if (users.length > 0) {
           token.role = users[0].role
           token.email = users[0].email
@@ -67,7 +69,7 @@ export default NextAuth({
             email: user?.email,
             image: user?.image,
             role: Roles_Enum.User,
-            oauth_id: String(user?.id)
+            oauth_id: String(user?.id),
           }
           await new GqlSdkHelper().getSdk().insert_users_one({ user: userInput })
           token.role = Roles_Enum.User // default user
@@ -93,6 +95,8 @@ export default NextAuth({
         session.user.role = token.role
       }
 
+      session.accessToken = token?.accessToken
+      session.user.sub = String(token?.sub)
       return session
     },
   },
