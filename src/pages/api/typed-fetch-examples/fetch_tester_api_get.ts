@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import _ from 'lodash'
+import toNumber from 'lodash/toNumber'
 import { Fetch_tester_api_get } from '../../../model/api-models/typed-fetch-examples/Fetch_tester_api_get'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import Sentry, { withSentry } from '@sentry/nextjs'
@@ -18,7 +18,7 @@ export default withSentry(async function fetch_tester_api_get(
   }
 
   // process
-  const result = 10 / _.toNumber(inputData.divide_by)
+  const result = 10 / toNumber(inputData.divide_by)
   const finalMessage = `Your string <${inputData.some_string}> has ${inputData.some_string.length} letters`
 
   await new Promise(function (resolve) {

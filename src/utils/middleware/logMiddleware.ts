@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { NextHandler } from 'next-connect'
 import { headerFormatter, logger } from '../logger'
-import _ from 'lodash'
+import omit from 'lodash/omit'
 
 export const logMiddleware = (handler: (req: NextApiRequest, res: NextApiResponse) => void) => {
   return async (req: NextApiRequest, res: NextApiResponse) => {
@@ -13,7 +12,7 @@ export const logMiddleware = (handler: (req: NextApiRequest, res: NextApiRespons
 
     const headers = headerFormatter(req.headers)
 
-    const headerWithoutCookie = _.omit(headers, ['cookie'])
+    const headerWithoutCookie = omit(headers, ['cookie'])
 
     const body: unknown = req.body
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import _ from 'lodash'
+import toString from 'lodash/toString'
 import Head from 'next/head'
 import React, { useState } from 'react'
 import { CodeBlock } from '../../components/CodeBlock/CodeBlock'
@@ -30,8 +30,8 @@ export default function Page() {
       ...fetch_tester_api_get_Config,
       data: {
         some_string: 'Ueba!',
-        divide_by: _.toString(5),
-        force_error: _.toString(forceError),
+        divide_by: toString(5),
+        force_error: toString(forceError),
       },
     })
 
