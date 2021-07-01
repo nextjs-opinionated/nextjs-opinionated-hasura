@@ -6,7 +6,6 @@ const { withSentryConfig } = require('@sentry/nextjs')
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 const nextConfig = {
-  target: 'experimental-serverless-trace',
   // Your existing module.exports
   poweredByHeader: false,
   images: {
@@ -24,10 +23,12 @@ const SentryWebpackPluginOptions = {
   // https://github.com/getsentry/sentry-webpack-plugin#options.
 }
 
-const isDevelopment = process.env.NODE_ENV === 'development'
+const hasSentryEnv = !!(process.env.SENTRY_ORG || process.env.SENTRY_URL)
+
+const shouldInitSentry = process.env.NODE_ENV !== 'development' && hasSentryEnv
 
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
-module.exports = isDevelopment
-  ? nextConfig
-  : withSentryConfig(nextConfig, SentryWebpackPluginOptions)
+module.exports = shouldInitSentry
+  ? withSentryConfig(nextConfig, SentryWebpackPluginOptions)
+  : nextConfig
