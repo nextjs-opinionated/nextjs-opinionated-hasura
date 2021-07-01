@@ -6,7 +6,6 @@ const { withSentryConfig } = require('@sentry/nextjs')
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 const nextConfig = {
-  target: 'experimental-serverless-trace',
   // Your existing module.exports
   poweredByHeader: false,
   images: {

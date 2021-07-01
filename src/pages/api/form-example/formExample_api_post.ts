@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { FormExampleValidationSchema } from '../../../model/schemas/FormExampleValidationSchema'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { Fetch_formExample_api_post } from '../../../model/api-models/form-example/Fetch_formExample_api_post'
-import { logMiddleware } from '../../../utils/middleware/log'
+import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 import { withSentry } from '@sentry/nextjs'
 import { logger } from '../../../utils/logger'
 
