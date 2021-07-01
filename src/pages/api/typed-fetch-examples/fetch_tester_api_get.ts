@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import toNumber from 'lodash/toNumber'
 import { Fetch_tester_api_get } from '../../../model/api-models/typed-fetch-examples/Fetch_tester_api_get'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
-import Sentry, { withSentry } from '@sentry/nextjs'
+import { withSentry } from '@sentry/nextjs'
 
 export default withSentry(async function fetch_tester_api_get(
   req: NextApiRequest,
@@ -13,7 +13,6 @@ export default withSentry(async function fetch_tester_api_get(
 
   // force_error
   if (inputData.force_error === 'true') {
-    Sentry.captureException(new Error('test'))
     throw new Error('SOME SERVER ERROR ON GET')
   }
 
