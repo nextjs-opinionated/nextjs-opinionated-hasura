@@ -1,7 +1,4 @@
 import queryString from 'query-string'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
-import isArray from 'lodash/isArray'
 import { HTTP_METHODS } from './HTTP_METHODS'
 import { RESPONSE_TYPE } from './RESPONSE_TYPE'
 
@@ -50,13 +47,13 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
   const res = await fetch(`${url}${qs}`, fetchOptions)
 
   // NOT OK!
-  if (!res.ok) {
+  if (!res.ok || (res.status < 200 && res.status > 299)) {
     let errorJSON = {}
     try {
       // try get JSON
       errorJSON = await res.json()
     } catch (error) {
-      console.error('> fetchHelper error: ', error)
+      console.error('> res.json() error: ', error)
     }
 
     return {
@@ -67,34 +64,27 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
     }
   }
 
-  // OK!
+  // try get JSON
+  let resultJSON: OUTPUT_TYPE
   if (responseType === 'json') {
-    let resultJSON: OUTPUT_TYPE
     try {
-      // try get JSON
       resultJSON = await res.json()
     } catch (error) {
       console.error('>> await res.json() error: ', error)
+      return {
+        status: res.status,
+        statusText: res.statusText,
+        error,
+        data: null,
+      }
     }
+  }
 
-    // (VALIDATIONS)
-    if (isArray(resultJSON)) {
-      const myAlert = withReactContent(Swal)
-      await myAlert.fire({
-        title: 'server validation error',
-        html: JSON.stringify(resultJSON, null, 2),
-        confirmButtonText: 'close',
-      })
-    }
-    /* else {
-      console.error('>> VALIDATIONS error: ', resultJSON)
-    } */
-
-    return {
-      status: res.status,
-      statusText: res.statusText,
-      error: null,
-      data: resultJSON,
-    }
+  // OK!
+  return {
+    status: res.status,
+    statusText: res.statusText,
+    error: null,
+    data: resultJSON,
   }
 }
