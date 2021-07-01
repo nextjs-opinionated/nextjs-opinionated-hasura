@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
-import _ from 'lodash'
-import { useSession } from 'next-auth/client'
+import toString from 'lodash/toString'
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { CodeBlock } from '../../components/CodeBlock/CodeBlock'
 import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
@@ -17,12 +16,7 @@ import {
 } from '../../model/api-models/typed-fetch-examples/Fetch_tester_api_post'
 
 export default function Page() {
-  const [session] = useSession()
   const [fetchResultJSON, fetchResultJSONSet] = useState({})
-
-  useEffect(() => {
-    console.log(session?.user)
-  }, [session])
 
   return (
     <>
@@ -47,10 +41,7 @@ export default function Page() {
           <div className='flex flex-wrap items-center my-6'>
             <button
               className='m-2 btn btn-primary'
-              title={`{
-  some_string: 'Ueba!',
-  divide_by: 2,
-}`}
+              title={`{some_string: 'Ueba!', divide_by: 2,}`}
               onClick={async () => {
                 const typedFetchResult = await typedFetch<
                   Fetch_tester_api_get['input'],
@@ -59,8 +50,8 @@ export default function Page() {
                   ...fetch_tester_api_get_Config,
                   data: {
                     some_string: 'Ueba!',
-                    divide_by: _.toString(2),
-                    force_error: _.toString(false),
+                    divide_by: toString(2),
+                    force_error: toString(false),
                   },
                 })
                 fetchResultJSONSet(typedFetchResult)
@@ -95,11 +86,7 @@ export default function Page() {
 
             <button
               className='m-2 btn btn-secondary'
-              title={`{
-  some_string: 'Post Text',
-  divide_by: 0,
-  force_error: true,
-}`}
+              title={`{some_string: 'Post Text', divide_by: 0, force_error: true,}`}
               onClick={async () => {
                 const typedFetchResult = await typedFetch<
                   Fetch_tester_api_get['input'],
@@ -108,8 +95,8 @@ export default function Page() {
                   ...fetch_tester_api_get_Config,
                   data: {
                     some_string: 'Get Text',
-                    divide_by: _.toString(10),
-                    force_error: _.toString(true),
+                    divide_by: toString(10),
+                    force_error: toString(true),
                   },
                 })
                 fetchResultJSONSet(typedFetchResult)
@@ -120,11 +107,7 @@ export default function Page() {
 
             <button
               className='m-2 btn btn-secondary'
-              title={`{
-  some_string: 'Post Text',
-  divide_by: 0,
-  force_error: true,
-}`}
+              title={`{some_string: 'Post Text', divide_by: 0, force_error: true, }`}
               onClick={async () => {
                 const typedFetchResult = await typedFetch<
                   Fetch_tester_api_post['input'],
