@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
+import { Roles_Enum } from '../../../model/site/RoleList'
 
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
@@ -67,8 +68,9 @@ export default NextAuth({
       return token
     },
     async session(session, token) {
-      session.accessToken = token?.accessToken
-      session.user.sub = String(token?.sub)
+      session.accessToken = (token?.accessToken && String(token?.accessToken)) || null
+      session.user.sub = (token?.sub && String(token?.sub)) || null
+      session.user.role = (token?.role && (token?.role as Roles_Enum)) || null
       return session
     },
   },
