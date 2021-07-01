@@ -1,15 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { User } from 'next-auth'
 import { getSession } from 'next-auth/client'
 import { Roles_Enum } from '../../graphql/generated'
 import { HttpStatusCode } from '../typedFetch/HttpStatusCode'
 
 export interface NextApiRequestWithUser extends NextApiRequest {
-  user: {
-    name: string
-    role?: unknown
-    image: string
-    email: string
-  }
+  user: User
 }
 
 // HOC
