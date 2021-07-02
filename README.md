@@ -130,7 +130,7 @@ _I'm keeping in sync with nextjs-opinionated base template_
 
 ```sh
 # merge
-git pull git@github.com:saitodisse/nextjs-opinionated.git main
+git pull git@github.com:semantix-engagement-hub/nextjs-opinionated.git main
 ```
 
 _I'm always updating all packages here_
