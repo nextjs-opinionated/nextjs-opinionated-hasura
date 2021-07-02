@@ -124,6 +124,12 @@ yarn storybook
 
 ---
 
+## configure login
+
+https://next-auth.js.org/providers/github
+
+---
+
 ## always updated
 
 _I'm keeping in sync with nextjs-opinionated base template_
