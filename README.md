@@ -43,6 +43,12 @@ yarn storybook
 
 ---
 
+## configure login
+
+https://next-auth.js.org/providers/github
+
+---
+
 ## always updated
 
 _Please, update all packages before continue:_
