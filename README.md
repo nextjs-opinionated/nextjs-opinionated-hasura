@@ -47,6 +47,11 @@ yarn storybook
 
 https://next-auth.js.org/providers/github
 
+Prod: add to vercel (run .env.production.sh)
+
+- GITHUB_CLIENT_ID
+- GITHUB_CLIENT_SECRET
+
 ---
 
 ## always updated
