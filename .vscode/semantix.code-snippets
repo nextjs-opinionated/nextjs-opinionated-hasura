@@ -30,5 +30,10 @@
       ")}"
     ],
     "description": "classnames"
+  },
+  "useEffectAsync": {
+    "prefix": "useEffectAsync",
+    "body": ["useEffect(() => {", "  ;(async () => {", "    ${1}", "  })()", "}, [])"],
+    "description": "useEffect Async Hook"
   }
 }
