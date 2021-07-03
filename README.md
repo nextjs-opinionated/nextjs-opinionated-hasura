@@ -6,7 +6,11 @@
 
 ---
 
-### Includes
+_check [nextjs-opinionated-hasura](https://github.com/saitodisse/nextjs-opinionated-hasura) ([demo](https://nextjs-opinionated-hasura.vercel.app/)) with Hasura and Auth0_
+
+---
+
+### This template includes
 
 - [next.js](https://nextjs.org/)
 - [storybook](https://storybook.js.org/)
@@ -19,10 +23,6 @@
 - [sweetalert2](https://sweetalert2.github.io/)
 - [react-icons](https://react-icons.github.io/react-icons/)
 - [react-query](https://react-query.tanstack.com/)
-
----
-
-_For a more advanced template, with Hasura and NextAuth.js see [nextjs-opinionated-hasura](https://github.com/saitodisse/nextjs-opinionated-hasura) ([demo](https://nextjs-opinionated-hasura.vercel.app/))_
 
 ---
 
