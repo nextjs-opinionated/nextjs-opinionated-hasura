@@ -14,8 +14,8 @@ export default function Page() {
   const imageUrl = process.env.NEXT_PUBLIC_SITE_IMAGE
   const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
-  const { user, error, isLoading } = useUser()
 
+  const { user, error, isLoading } = useUser()
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
 
