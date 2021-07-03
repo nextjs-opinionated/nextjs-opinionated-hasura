@@ -3,7 +3,6 @@ export type LinksListIds =
   | 'github'
   | 'styleGuide'
   | 'form-example'
-  | 'login'
   | 'typed-fetch-examples'
 
 export type LinkProps = {
@@ -35,11 +34,6 @@ export const LinksList: {
     id: 'typed-fetch-examples',
     name: 'Typed-Fetch',
     internalURL: '/typed-fetch-examples',
-  },
-  login: {
-    id: 'login',
-    name: 'Login',
-    internalURL: '/auth/login',
   },
   github: {
     id: 'github',

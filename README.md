@@ -43,14 +43,9 @@ yarn storybook
 
 ---
 
-## configure login
+## configure Auth0
 
-https://next-auth.js.org/providers/github
-
-Prod: add to vercel (run .env.production.sh)
-
-- GITHUB_CLIENT_ID
-- GITHUB_CLIENT_SECRET
+- https://github.com/auth0/nextjs-auth0
 
 ---
 
