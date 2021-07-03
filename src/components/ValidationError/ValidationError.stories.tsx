@@ -59,5 +59,4 @@ Alert_With_ClassName.args = {
 export const Alert_With_TextType = Template.bind({})
 Alert_With_TextType.args = {
   content,
-  title: 'Erro de Validação! Verifique as requisiçoes dos campos abaixo',
 }
