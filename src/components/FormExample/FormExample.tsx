@@ -178,11 +178,13 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                               />
                             ),
                             customClass: {
-                              htmlContainer: 'bg-base-200',
+                              title: 'text-base-content',
                             },
+                            title: 'Server Validation Errors',
                             showConfirmButton: false,
                             showCancelButton: false,
-                            background: 'transparent',
+                            background: 'hsla(var(--b2))',
+                            icon: 'error',
                           })
                         } else if (
                           Fetch_formExample_apiResult.error === null &&

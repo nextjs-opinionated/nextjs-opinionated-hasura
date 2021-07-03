@@ -124,9 +124,9 @@ yarn storybook
 
 ---
 
-## configure login
+## configure Auth0
 
-https://next-auth.js.org/providers/github
+- https://github.com/auth0/nextjs-auth0
 
 ---
 

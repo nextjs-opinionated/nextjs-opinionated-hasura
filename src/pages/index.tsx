@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { useUser } from '@auth0/nextjs-auth0'
 import Link from 'next/link'
 
 export default function Page() {
@@ -15,7 +15,9 @@ export default function Page() {
   const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
 
-  const [session] = useSession()
+  const { user, error, isLoading } = useUser()
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>{error.message}</div>
 
   const throwKnownError = () => {
     throw new Error('Error from sentry!!!')
@@ -56,18 +58,15 @@ export default function Page() {
         <div className='flex flex-col avatar'>
           <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
             <img
-              src={
-                session?.user?.image ||
-                'http://daisyui.com/tailwind-css-component-profile-1@94w.png'
-              }
+              src={user?.picture || 'http://daisyui.com/tailwind-css-component-profile-1@94w.png'}
               // Example
               onClick={throwKnownError}
             />
           </div>
 
-          {session?.user && (
+          {user && (
             <div className='flex flex-col'>
-              Welcome, <span className='font-bold underline'>{session.user.name}</span>
+              Welcome, <span className='font-bold underline'>{user.name}</span>
             </div>
           )}
         </div>
@@ -87,18 +86,6 @@ export default function Page() {
           <Link href='/messages'>
             <a className='mx-2 my-4 btn btn-primary btn-md'>Messages (hasura)</a>
           </Link>
-
-          {!session?.user && (
-            <button className='ml-5 btn btn-primary btn-md' onClick={() => signIn()}>
-              Login
-            </button>
-          )}
-
-          {session?.user && (
-            <button className='ml-5 btn btn-outline btn-md' onClick={() => signOut()}>
-              SignOut
-            </button>
-          )}
 
           <hr className='my-16 text-secondary-content' />
 
@@ -129,16 +116,16 @@ export default function Page() {
               Show Image
             </button>
 
-            {!session?.user && (
-              <button className='btn btn-primary btn-md' onClick={() => signIn()}>
+            {!user && (
+              <a className='btn btn-primary btn-md' href='/api/auth/login'>
                 Login
-              </button>
+              </a>
             )}
 
-            {session?.user && (
-              <button className='btn btn-outline btn-md' onClick={() => signOut()}>
-                SignOut
-              </button>
+            {user && (
+              <a className='btn btn-outline btn-md' href='/api/auth/logout'>
+                Logout
+              </a>
             )}
           </div>
 

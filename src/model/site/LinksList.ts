@@ -1,12 +1,11 @@
 export type LinksListIds =
   | 'home'
+  | 'styleGuide'
+  | 'typed-fetch-examples'
+  | 'form-example'
+  | 'messages'
   | 'users'
   | 'github'
-  | 'styleGuide'
-  | 'form-example'
-  | 'login'
-  | 'messages'
-  | 'typed-fetch-examples'
 
 export type LinkProps = {
   id: LinksListIds
@@ -23,39 +22,35 @@ export const LinksList: {
     name: 'Home',
     internalURL: '/',
   },
-  users: {
-    id: 'users',
-    name: 'Users',
-    internalURL: '/users',
-  },
   styleGuide: {
     id: 'styleGuide',
     name: 'Style Guide',
     internalURL: '/style-guide',
-  },
-  messages: {
-    id: 'messages',
-    name: 'Messages',
-    internalURL: '/messages',
   },
   'form-example': {
     id: 'form-example',
     name: 'React Form Example',
     internalURL: '/form-example',
   },
-  github: {
-    id: 'github',
-    name: 'Github',
-    externalURL: 'https://github.com/saitodisse/nextjs-opinionated-hasura',
-  },
   'typed-fetch-examples': {
     id: 'typed-fetch-examples',
     name: 'Typed-Fetch',
     internalURL: '/typed-fetch-examples',
   },
-  login: {
-    id: 'login',
-    name: 'Login',
-    internalURL: '/auth/login',
+
+  messages: {
+    id: 'messages',
+    name: 'Messages',
+    internalURL: '/messages',
+  },
+  users: {
+    id: 'users',
+    name: 'Users',
+    internalURL: '/users',
+  },
+  github: {
+    id: 'github',
+    name: 'Github',
+    externalURL: 'https://github.com/saitodisse/nextjs-opinionated-hasura',
   },
 }
