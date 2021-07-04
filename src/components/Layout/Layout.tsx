@@ -13,7 +13,7 @@ export interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) => {
   const { theme, setTheme } = useTheme()
-  const checkboxRef = useRef<HTMLInputElement>()
+  const checkboxRef = useRef<HTMLInputElement>(null)
   return (
     <div className='h-screen bg-base-100 drawer text-base-content'>
       {/* put everything in a off-canvas drawer */}
@@ -106,7 +106,9 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                 <Link href={m.internalURL}>
                   <a
                     onClick={() => {
-                      checkboxRef.current.checked = false
+                      if (checkboxRef.current) {
+                        checkboxRef.current.checked = false
+                      }
                     }}
                     className='rounded-btn'
                   >
@@ -117,7 +119,9 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
               {m.externalURL && (
                 <a
                   onClick={() => {
-                    checkboxRef.current.checked = false
+                    if (checkboxRef.current) {
+                      checkboxRef.current.checked = false
+                    }
                   }}
                   href={m.externalURL}
                   className='rounded-btn'

@@ -7,7 +7,7 @@ export interface PaginationProps {
   className?: string
   previousButtonTitle?: string
   nextButtonTitle?: string
-  OnPageSet?: (string) => void
+  OnPageSet: (string) => void
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
@@ -18,11 +18,11 @@ export const Pagination: React.FC<PaginationProps> = ({
   previousButtonTitle = 'Previous',
   nextButtonTitle = 'Next',
 }) => {
-  const [listNumberOfPages, listNumberOfPagesSet] = useState([])
+  const [listNumberOfPages, listNumberOfPagesSet] = useState<number[]>([])
 
   const handlePagination = useCallback(() => {
-    let startOfPageOnList
-    let endOfPageOnList
+    let startOfPageOnList = 0
+    let endOfPageOnList = 0
 
     if (currentPage === 1) {
       startOfPageOnList = currentPage
@@ -39,7 +39,7 @@ export const Pagination: React.FC<PaginationProps> = ({
     } else {
       endOfPageOnList = currentPage + 2
     }
-    const listOfNumbers = []
+    const listOfNumbers: number[] = []
     for (let i = startOfPageOnList; i <= endOfPageOnList; i++) {
       listOfNumbers.push(i)
     }
@@ -61,7 +61,7 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   useEffect(() => {
     handlePagination()
-  }, [currentPage])
+  }, [currentPage, handlePagination])
   return (
     <div data-testid='button' className='btn-group '>
       <button

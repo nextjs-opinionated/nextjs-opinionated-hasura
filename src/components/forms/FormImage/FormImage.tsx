@@ -19,11 +19,14 @@ export const FormImage: React.FC<FormImageProps> = ({
   height = 200,
   placeholder,
   register,
-  defaultValue,
+  defaultValue = null,
   validationErrors,
   className = '',
 }) => {
-  const [image, imageSet] = useState({ url: null, name: null })
+  const [image, imageSet] = useState<{ url: string | null; name: string | null }>({
+    url: null,
+    name: null,
+  })
   useEffect(() => {
     if (defaultValue) {
       imageSet({ url: defaultValue, name: null })
@@ -31,8 +34,11 @@ export const FormImage: React.FC<FormImageProps> = ({
   }, [defaultValue])
 
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files.length !== 0) {
-      const imageObj = { url: URL.createObjectURL(e.target.files[0]), name: e.target.files[0].name }
+    if (e.target?.files?.length !== 0) {
+      const imageObj = {
+        url: URL.createObjectURL(e.target.files?.[0]) || null,
+        name: e.target.files?.[0]?.name || null,
+      }
       imageSet(imageObj)
     }
   }
