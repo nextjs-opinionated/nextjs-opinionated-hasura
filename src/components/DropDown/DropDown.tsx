@@ -7,7 +7,7 @@ export interface DropDownProps {
   label: string
   items: { id: string; value: string }[]
   onSelect: (string) => void
-  selectedId: string
+  selectedId: string | null
   className?: string
   width?: number
 }
@@ -20,7 +20,7 @@ export const DropDown: React.FC<DropDownProps> = ({
   className,
   width = 176,
 }) => {
-  const [currentValue, currentValueSet] = useState<string>(null)
+  const [currentValue, currentValueSet] = useState<string | null>(null)
   useEffect(() => {
     const localValue = items.find((i) => i.id === selectedId)
     if (localValue) {

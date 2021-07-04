@@ -21,7 +21,7 @@ import { CodeBlock } from '../CodeBlock/CodeBlock'
 
 export type FormExampleProps = {
   onSubmitConfirm: (submitProps: any) => void
-  initialFormData?: {
+  initialFormData: {
     email: string
     color_select: string
     toggle: boolean

@@ -1,7 +1,7 @@
 import Document, { Html, Main, Head, NextScript } from 'next/document'
 import React from 'react'
 
-const googleAnalytics = process.env.NEXT_PUBLIC_GA_ID
+const googleAnalytics = process.env.NEXT_PUBLIC_GA_ID || ''
 
 export default class MyDocument extends Document {
   render() {
@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
           <meta name='keywords' content={keywords} />
 
           {/* Global Site Tag (gtag.js) - Google Analytics */}
-          {googleAnalytics?.length > 0 && (
+          {googleAnalytics.length > 0 && (
             <>
               <script
                 async

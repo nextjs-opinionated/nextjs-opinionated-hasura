@@ -41,7 +41,7 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
     // TODO: Add a way to send normal post, without json
     fetchOptions.body = JSON.stringify(data)
   } else {
-    qs = `?${queryString.stringify(data)}`
+    qs = `?${queryString.stringify(data || {})}`
   }
 
   const res = await fetch(`${url}${qs}`, fetchOptions)
@@ -60,7 +60,7 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
       status: res.status,
       statusText: res.statusText,
       error: errorJSON,
-      data: null,
+      data: undefined,
     }
   }
 
@@ -69,22 +69,29 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
   if (responseType === 'json') {
     try {
       resultJSON = await res.json()
+      // OK!
+      return {
+        status: res.status,
+        statusText: res.statusText,
+        error: null,
+        data: resultJSON,
+      }
     } catch (error) {
       console.error('>> await res.json() error: ', error)
       return {
         status: res.status,
         statusText: res.statusText,
         error,
-        data: null,
+        data: undefined,
       }
     }
   }
 
-  // OK!
+  // ?
   return {
     status: res.status,
     statusText: res.statusText,
-    error: null,
-    data: resultJSON,
+    error: '? typed',
+    data: undefined,
   }
 }

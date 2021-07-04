@@ -67,7 +67,6 @@ describe('Code_block Component', () => {
             path: ['color_select'],
           },
         ]}
-        title='Erro de validação!'
       />
     )
     expect(render.getByText('Erro de validação!')).toBeInTheDocument()
