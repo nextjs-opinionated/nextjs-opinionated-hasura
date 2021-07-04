@@ -23,6 +23,7 @@ _check [nextjs-opinionated-hasura](https://github.com/saitodisse/nextjs-opiniona
 - [sweetalert2](https://sweetalert2.github.io/)
 - [react-icons](https://react-icons.github.io/react-icons/)
 - [react-query](https://react-query.tanstack.com/)
+- [auth0](https://auth0.com/)
 
 ---
 
