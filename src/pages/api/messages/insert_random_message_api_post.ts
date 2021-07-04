@@ -76,7 +76,7 @@ export default withSentry(
 
     // delete old items
     await new GqlSdkHelper().getSdk().delete_messages({
-      message_id: _.last(messagesLast6.messages)?.id,
+      message_id: _.toNumber(_.last(messagesLast6.messages)?.id),
     })
 
     // output data

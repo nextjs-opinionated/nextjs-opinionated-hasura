@@ -34,7 +34,7 @@ export default handleAuth({
         afterCallback: async (req, res, session /* , state */) => {
           // search for user
           // at server we have to pass absolute url
-          const url = `${process.env.AUTH0_BASE_URL.replace(/(.+)\/?$/gm, '$1')}${
+          const url = `${(process.env.AUTH0_BASE_URL as string).replace(/(.+)\/?$/gm, '$1')}${
             users_by_pk_api_get_Config.url
           }`
           console.log('--  url: ', url)

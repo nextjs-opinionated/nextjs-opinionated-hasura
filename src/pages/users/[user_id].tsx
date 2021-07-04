@@ -1,4 +1,4 @@
-import { Roles_Enum, Users } from '../../graphql/generated'
+import { Roles_Enum } from '../../graphql/generated'
 import { Layout } from '../../components/Layout/Layout'
 import { useRouter } from 'next/router'
 import { RoleList } from '../../model/site/RoleList'
@@ -26,7 +26,7 @@ import {
 } from '../../model/api-models/users/Users_by_pk_api_get'
 import { useUser } from '@auth0/nextjs-auth0'
 
-type FormProps = Pick<Users, 'id' | 'name' | 'email' | 'image' | 'role'>
+type FormProps = Insert_users_one_api_post['input']
 
 export default function Page() {
   const router = useRouter()
@@ -40,7 +40,7 @@ export default function Page() {
       >({
         ...users_by_pk_api_get_Config,
         data: {
-          id: router.query.user_id,
+          id: router.query.user_id as string,
         },
       })
       return resultObj.data
@@ -53,7 +53,7 @@ export default function Page() {
     // dependent query
     // https://github.com/tannerlinsley/react-query-essentials/blob/master/18%20-%20dependent%20queries/app/src/App.js
     {
-      enabled: router.query.user_id?.length > 0,
+      enabled: (router?.query?.user_id as string)?.length > 0,
     }
   )
 
@@ -70,7 +70,7 @@ export default function Page() {
   const { user: currentUser, error, isLoading } = useUser()
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
-  const isAdmin = currentUser.role === Roles_Enum.Admin
+  const isAdmin = currentUser?.role === Roles_Enum.Admin
 
   const onUpdateUser = async (submitProps: FormProps) => {
     const result = await typedFetch<
@@ -80,7 +80,7 @@ export default function Page() {
       ...insert_users_one_api_post_Config,
       data: {
         ...submitProps,
-        id: router.query.user_id,
+        id: router.query.user_id as string,
       },
     })
 
@@ -119,14 +119,14 @@ export default function Page() {
       icon: 'question',
     })
 
-    if (swalConfirmDelete.isConfirmed) {
+    if (swalConfirmDelete.isConfirmed && queryObj?.data?.users_by_pk?.id) {
       const result = await typedFetch<
         Delete_users_by_pk_api_delete['input'],
         Delete_users_by_pk_api_delete['output']
       >({
         ...delete_users_by_pk_api_delete_Config,
         data: {
-          id: queryObj?.data?.users_by_pk?.id.toString(),
+          id: queryObj?.data?.users_by_pk?.id?.toString(),
         },
       })
 
@@ -218,9 +218,9 @@ export default function Page() {
 
                       {/* TODO: change to select component */}
                       <select
-                        name='role'
                         {...register('role')}
-                        defaultValue={queryObj?.data?.users_by_pk?.role}
+                        name='role'
+                        defaultValue={queryObj?.data?.users_by_pk?.role as string}
                         disabled={!isAdmin}
                         className='w-full mt-10 select select-bordered'
                       >
@@ -235,7 +235,7 @@ export default function Page() {
                         <button
                           type='button'
                           onClick={() => {
-                            reset(queryObj?.data?.users_by_pk)
+                            reset(queryObj?.data?.users_by_pk as FormProps)
                           }}
                           className='btn btn-secondary btn-link'
                         >

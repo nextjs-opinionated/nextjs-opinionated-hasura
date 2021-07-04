@@ -57,7 +57,8 @@ export default function Page() {
               <th>Função</th>
             </tr>
           </thead>
-          {data?.users.length > 0 &&
+          {data &&
+            data?.users?.length > 0 &&
             data?.users.map((user) => (
               <tbody key={user.id}>
                 <tr>
@@ -80,7 +81,7 @@ export default function Page() {
                     </div>
                   </td>
                   <td>{user.email}</td>
-                  <td>{handleBadgeRole(user.role)}</td>
+                  <td>{handleBadgeRole(user.role as Roles_Enum)}</td>
                   <th>
                     <Link href={`/users/${user.id}`}>
                       <button className='btn btn-ghost btn-xs'>details</button>

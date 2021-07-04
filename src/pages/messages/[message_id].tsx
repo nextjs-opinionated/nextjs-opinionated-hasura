@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Messages_Insert_Input } from '../../graphql/generated'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MessageValidationSchema } from '../../model/schemas/MessageValidationSchema'
@@ -24,7 +23,7 @@ import {
 } from '../../model/api-models/messages/Insert_messages_one_api_post'
 import _ from 'lodash'
 
-type FormProps = Omit<Messages_Insert_Input, 'message_tags'> & {
+type FormProps = Insert_messages_one_api_post['input'] & {
   publishedAt_date: string
   publishedAt_time: string
 }
@@ -42,7 +41,7 @@ const Page: React.FunctionComponent = () => {
       >({
         ...messages_by_pk_api_get_Config,
         data: {
-          message_id: router.query.message_id,
+          message_id: router.query.message_id as string,
         },
       })
       return resultObj.data
@@ -55,7 +54,7 @@ const Page: React.FunctionComponent = () => {
     // dependent query
     // https://github.com/tannerlinsley/react-query-essentials/blob/master/18%20-%20dependent%20queries/app/src/App.js
     {
-      enabled: router.query.message_id?.length > 0,
+      enabled: (router.query.message_id as string)?.length > 0,
     }
   )
 
@@ -232,7 +231,7 @@ const Page: React.FunctionComponent = () => {
                           <button
                             type='button'
                             onClick={() => {
-                              reset(queryObj.data?.messages_by_pk)
+                              reset(queryObj?.data?.messages_by_pk as FormProps)
                             }}
                             className='btn btn-secondary btn-link'
                           >

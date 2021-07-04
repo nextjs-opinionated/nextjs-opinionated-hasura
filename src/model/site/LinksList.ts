@@ -2,7 +2,6 @@ export type LinksListIds =
   | 'home'
   | 'styleGuide'
   | 'typed-fetch-examples'
-  | 'form-example'
   | 'messages'
   | 'users'
   | 'github'

@@ -54,12 +54,11 @@ const Messages: React.FunctionComponent = () => {
             <button
               className='mx-2 btn btn-primary'
               onClick={async () => {
-                /* const typedFetchResult = */ await typedFetch<
+                await typedFetch<
                   Insert_random_message_api_post['input'],
                   Insert_random_message_api_post['output']
                 >({
                   ...insert_random_message_api_post_Config,
-                  data: {},
                 })
                 await refetch()
               }}
@@ -85,14 +84,14 @@ const Messages: React.FunctionComponent = () => {
             {data?.messages?.map((message) => (
               <div key={message.id} className='card bordered'>
                 <figure>
-                  <img src={message.imageUrl} className='object-cover w-full h-48' />
+                  <img src={message.imageUrl || ''} className='object-cover w-full h-48' />
                 </figure>
                 <div className='card-body'>
                   <div className='flex flex-col justify-between h-full'>
                     <div className='my-1'>
                       <p>{dayjs(message.publishedAt).format('YYYY-MM-DD')}</p>
                       <h2 className='card-title'>
-                        <a className='underline link-hover' href={message.url}>
+                        <a className='underline link-hover' href={message.url || ''}>
                           {message.title}
                         </a>
                       </h2>

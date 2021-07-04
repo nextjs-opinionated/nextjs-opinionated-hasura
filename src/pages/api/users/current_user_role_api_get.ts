@@ -5,6 +5,7 @@ import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 import { Current_user_role_api_get } from '../../../model/api-models/users/Current_user_role_api_get'
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0'
+import { Roles_Enum } from '../../../graphql/generated'
 
 export default withSentry(
   logMiddleware(
@@ -20,10 +21,10 @@ export default withSentry(
 
       // process
       const session = getSession(req, res)
-      console.log('--  session.user: ', session.user)
-      const data = await new GqlSdkHelper().getSdk().users_by_pk({ id: session.user.sub })
+      console.log('--  session.user: ', session?.user)
+      const data = await new GqlSdkHelper().getSdk().users_by_pk({ id: session?.user.sub })
 
-      const role: Current_user_role_api_get['output'] = data.users_by_pk.role
+      const role: Current_user_role_api_get['output'] = data?.users_by_pk?.role as Roles_Enum
 
       // output data
       res.status(HttpStatusCode.OK_200).json(role)

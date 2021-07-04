@@ -17,7 +17,7 @@ export const showErrorAlert = ({
   let textFinal = text
   if (!textFinal) {
     textFinal = error?.message
-    textFinal = textFinal.replace(/\\n/g, '\n')
+    textFinal = textFinal?.replace(/\\n/g, '\n')
   }
 
   return Alerta.fire({

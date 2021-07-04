@@ -13,11 +13,8 @@ export default withSentry(
       res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
     }
 
-    // input data
-    const inputData = req.query as Messages_api_get['input']
-
     // process
-    const data: Messages_api_get['output'] = await new GqlSdkHelper().getSdk().messages(inputData)
+    const data: Messages_api_get['output'] = await new GqlSdkHelper().getSdk().messages()
 
     // output data
     res.status(HttpStatusCode.OK_200).json(data)

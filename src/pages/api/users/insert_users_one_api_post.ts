@@ -15,7 +15,7 @@ export default withSentry(
     ) {
       // check user's admin role
       const session = getSession(req, res)
-      if (session.user.role !== Roles_Enum.Admin) {
+      if (session?.user.role !== Roles_Enum.Admin) {
         res.status(HttpStatusCode.FORBIDDEN_403).end(`your role is forbidden`)
       }
 
