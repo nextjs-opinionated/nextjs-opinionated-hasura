@@ -143,6 +143,7 @@ export default function Page() {
             {extLink('@tailwindcss/forms', 'https://github.com/tailwindlabs/tailwindcss-forms')},
             {extLink('zod', 'https://github.com/colinhacks/zod')},
             {extLink('react-query', 'https://react-query.tanstack.com/')},
+            {extLink('auth0', 'https://auth0.com/')}
             {/*
               --- HASURA, etc - BELLOW ---
             */}

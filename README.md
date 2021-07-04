@@ -8,25 +8,9 @@ _extends [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated) 
 
 ---
 
-### Includes
+### This template includes
 
-- [next.js](https://nextjs.org/)
-- [storybook](https://storybook.js.org/)
-- [typescript](https://www.typescriptlang.org/)
-- [tailwindcss](https://tailwindcss.com/)
-- [daisyui](https://daisyui.com/)
-- [jest](https://jestjs.io/)
-- [eslint](https://eslint.org/)
-- [prettifier](https://prettier.io/)
-- [sweetalert2](https://sweetalert2.github.io/)
-- [react-icons](https://react-icons.github.io/react-icons/)
-- [react-query](https://react-query.tanstack.com/)
-- [auth0](https://auth0.com/)
-
-_from [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated)_
-
-### And More
-
+- everything from [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated)
 - [hasura](https://hasura.io/)
 - [graphql-request](https://github.com/prisma-labs/graphql-request)
 - [graphql-codegen](https://www.graphql-code-generator.com/)
