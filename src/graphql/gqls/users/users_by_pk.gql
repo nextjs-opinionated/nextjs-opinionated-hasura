@@ -1,4 +1,4 @@
-query users_by_pk($id: Int!) {
+query users_by_pk($id: String!) {
   users_by_pk(id: $id) {
     ...usersFragment
   }

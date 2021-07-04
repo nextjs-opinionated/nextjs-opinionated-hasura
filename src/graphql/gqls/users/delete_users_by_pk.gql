@@ -1,4 +1,4 @@
-mutation delete_users_by_pk($id: Int!) {
+mutation delete_users_by_pk($id: String!) {
   delete_users_by_pk(id: $id) {
     ...usersFragment
   }

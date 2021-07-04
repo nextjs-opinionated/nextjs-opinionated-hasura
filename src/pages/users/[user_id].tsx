@@ -2,7 +2,6 @@ import { Roles_Enum, Users } from '../../graphql/generated'
 import { Layout } from '../../components/Layout/Layout'
 import { useRouter } from 'next/router'
 import { RoleList } from '../../model/site/RoleList'
-import { useSession } from 'next-auth/client'
 import { DeepMap, FieldError, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { UserValidationSchema } from '../../model/schemas/UserValidationSchema'
@@ -25,13 +24,12 @@ import {
   Users_by_pk_api_get,
   users_by_pk_api_get_Config,
 } from '../../model/api-models/users/Users_by_pk_api_get'
+import { useUser } from '@auth0/nextjs-auth0'
 
 type FormProps = Pick<Users, 'id' | 'name' | 'email' | 'image' | 'role'>
 
 export default function Page() {
   const router = useRouter()
-  const [session] = useSession()
-
   // react-query
   const queryObj = useQuery(
     'users_by_pk_api_get',
@@ -42,7 +40,7 @@ export default function Page() {
       >({
         ...users_by_pk_api_get_Config,
         data: {
-          user_id: router.query.user_id,
+          id: router.query.user_id,
         },
       })
       return resultObj.data
@@ -68,9 +66,11 @@ export default function Page() {
     mode: 'onChange',
     resolver: zodResolver(UserValidationSchema),
   })
-  const SwalReactAlert = withReactContent(Swal)
 
-  const IS_ADMIN = session?.user?.role === Roles_Enum.Admin
+  const { user: currentUser, error, isLoading } = useUser()
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>{error.message}</div>
+  const isAdmin = currentUser.role === Roles_Enum.Admin
 
   const onUpdateUser = async (submitProps: FormProps) => {
     const result = await typedFetch<
@@ -105,6 +105,7 @@ export default function Page() {
   }
 
   const onDeleteUser = async () => {
+    const SwalReactAlert = withReactContent(Swal)
     const swalConfirmDelete = await SwalReactAlert.fire({
       html: (
         <p>
@@ -182,7 +183,7 @@ export default function Page() {
                         }
                       />
                     </div>
-                    {IS_ADMIN && (
+                    {isAdmin && (
                       <button
                         type='button'
                         onClick={() => onDeleteUser()}
@@ -200,7 +201,7 @@ export default function Page() {
                         label='Nome:'
                         name='name'
                         register={register}
-                        disabled={!IS_ADMIN}
+                        disabled={!isAdmin}
                         defaultValue={queryObj?.data?.users_by_pk?.name}
                         validationErrors={validationErrors}
                       />
@@ -209,7 +210,7 @@ export default function Page() {
                         label='email:'
                         name='email'
                         type='email'
-                        disabled={!IS_ADMIN}
+                        disabled={!isAdmin}
                         register={register}
                         defaultValue={queryObj?.data?.users_by_pk?.email}
                         validationErrors={validationErrors}
@@ -220,11 +221,11 @@ export default function Page() {
                         name='role'
                         {...register('role')}
                         defaultValue={queryObj?.data?.users_by_pk?.role}
-                        disabled={!IS_ADMIN}
+                        disabled={!isAdmin}
                         className='w-full mt-10 select select-bordered'
                       >
                         {Object.entries(RoleList).map(([key, value]) => (
-                          <option disabled={!IS_ADMIN} key={key} value={key}>
+                          <option disabled={!isAdmin} key={key} value={key}>
                             {value.name}
                           </option>
                         ))}
@@ -241,7 +242,7 @@ export default function Page() {
                           RESET
                         </button>
 
-                        <button type='submit' className='btn btn-primary' disabled={!IS_ADMIN}>
+                        <button type='submit' className='btn btn-primary' disabled={!isAdmin}>
                           SAVE
                         </button>
                       </div>

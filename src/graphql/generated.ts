@@ -1060,7 +1060,7 @@ export type Mutation_RootDelete_UsersArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Users_By_PkArgs = {
-  id: Scalars['Int']
+  id: Scalars['String']
 }
 
 /** mutation root */
@@ -1253,14 +1253,12 @@ export type Mutation_RootUpdate_Tags_By_PkArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_UsersArgs = {
-  _inc?: Maybe<Users_Inc_Input>
   _set?: Maybe<Users_Set_Input>
   where: Users_Bool_Exp
 }
 
 /** mutation root */
 export type Mutation_RootUpdate_Users_By_PkArgs = {
-  _inc?: Maybe<Users_Inc_Input>
   _set?: Maybe<Users_Set_Input>
   pk_columns: Users_Pk_Columns_Input
 }
@@ -1485,7 +1483,7 @@ export type Query_RootUsers_AggregateArgs = {
 }
 
 export type Query_RootUsers_By_PkArgs = {
-  id: Scalars['Int']
+  id: Scalars['String']
 }
 
 export type Query_RootVerification_RequestsArgs = {
@@ -2086,7 +2084,7 @@ export type Subscription_RootUsers_AggregateArgs = {
 }
 
 export type Subscription_RootUsers_By_PkArgs = {
-  id: Scalars['Int']
+  id: Scalars['String']
 }
 
 export type Subscription_RootVerification_RequestsArgs = {
@@ -2355,7 +2353,7 @@ export type Users = {
   created_at: Scalars['timestamptz']
   email?: Maybe<Scalars['String']>
   email_verified?: Maybe<Scalars['timestamptz']>
-  id: Scalars['Int']
+  id: Scalars['String']
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   oauth_id?: Maybe<Scalars['String']>
@@ -2375,17 +2373,9 @@ export type Users_Aggregate = {
 /** aggregate fields of "users" */
 export type Users_Aggregate_Fields = {
   __typename?: 'users_aggregate_fields'
-  avg?: Maybe<Users_Avg_Fields>
   count: Scalars['Int']
   max?: Maybe<Users_Max_Fields>
   min?: Maybe<Users_Min_Fields>
-  stddev?: Maybe<Users_Stddev_Fields>
-  stddev_pop?: Maybe<Users_Stddev_Pop_Fields>
-  stddev_samp?: Maybe<Users_Stddev_Samp_Fields>
-  sum?: Maybe<Users_Sum_Fields>
-  var_pop?: Maybe<Users_Var_Pop_Fields>
-  var_samp?: Maybe<Users_Var_Samp_Fields>
-  variance?: Maybe<Users_Variance_Fields>
 }
 
 /** aggregate fields of "users" */
@@ -2396,17 +2386,9 @@ export type Users_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "users" */
 export type Users_Aggregate_Order_By = {
-  avg?: Maybe<Users_Avg_Order_By>
   count?: Maybe<Order_By>
   max?: Maybe<Users_Max_Order_By>
   min?: Maybe<Users_Min_Order_By>
-  stddev?: Maybe<Users_Stddev_Order_By>
-  stddev_pop?: Maybe<Users_Stddev_Pop_Order_By>
-  stddev_samp?: Maybe<Users_Stddev_Samp_Order_By>
-  sum?: Maybe<Users_Sum_Order_By>
-  var_pop?: Maybe<Users_Var_Pop_Order_By>
-  var_samp?: Maybe<Users_Var_Samp_Order_By>
-  variance?: Maybe<Users_Variance_Order_By>
 }
 
 /** input type for inserting array relation for remote table "users" */
@@ -2414,17 +2396,6 @@ export type Users_Arr_Rel_Insert_Input = {
   data: Array<Users_Insert_Input>
   /** on conflict condition */
   on_conflict?: Maybe<Users_On_Conflict>
-}
-
-/** aggregate avg on columns */
-export type Users_Avg_Fields = {
-  __typename?: 'users_avg_fields'
-  id?: Maybe<Scalars['Float']>
-}
-
-/** order by avg() on columns of table "users" */
-export type Users_Avg_Order_By = {
-  id?: Maybe<Order_By>
 }
 
 /** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
@@ -2435,7 +2406,7 @@ export type Users_Bool_Exp = {
   created_at?: Maybe<Timestamptz_Comparison_Exp>
   email?: Maybe<String_Comparison_Exp>
   email_verified?: Maybe<Timestamptz_Comparison_Exp>
-  id?: Maybe<Int_Comparison_Exp>
+  id?: Maybe<String_Comparison_Exp>
   image?: Maybe<String_Comparison_Exp>
   name?: Maybe<String_Comparison_Exp>
   oauth_id?: Maybe<String_Comparison_Exp>
@@ -2456,17 +2427,12 @@ export enum Users_Constraint {
   UsersPkey = 'users_pkey',
 }
 
-/** input type for incrementing numeric columns in table "users" */
-export type Users_Inc_Input = {
-  id?: Maybe<Scalars['Int']>
-}
-
 /** input type for inserting data into table "users" */
 export type Users_Insert_Input = {
   created_at?: Maybe<Scalars['timestamptz']>
   email?: Maybe<Scalars['String']>
   email_verified?: Maybe<Scalars['timestamptz']>
-  id?: Maybe<Scalars['Int']>
+  id?: Maybe<Scalars['String']>
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   oauth_id?: Maybe<Scalars['String']>
@@ -2481,7 +2447,7 @@ export type Users_Max_Fields = {
   created_at?: Maybe<Scalars['timestamptz']>
   email?: Maybe<Scalars['String']>
   email_verified?: Maybe<Scalars['timestamptz']>
-  id?: Maybe<Scalars['Int']>
+  id?: Maybe<Scalars['String']>
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   oauth_id?: Maybe<Scalars['String']>
@@ -2506,7 +2472,7 @@ export type Users_Min_Fields = {
   created_at?: Maybe<Scalars['timestamptz']>
   email?: Maybe<Scalars['String']>
   email_verified?: Maybe<Scalars['timestamptz']>
-  id?: Maybe<Scalars['Int']>
+  id?: Maybe<Scalars['String']>
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   oauth_id?: Maybe<Scalars['String']>
@@ -2557,7 +2523,7 @@ export type Users_Order_By = {
 
 /** primary key columns input for table: users */
 export type Users_Pk_Columns_Input = {
-  id: Scalars['Int']
+  id: Scalars['String']
 }
 
 /** select columns of table "users" */
@@ -2587,56 +2553,12 @@ export type Users_Set_Input = {
   created_at?: Maybe<Scalars['timestamptz']>
   email?: Maybe<Scalars['String']>
   email_verified?: Maybe<Scalars['timestamptz']>
-  id?: Maybe<Scalars['Int']>
+  id?: Maybe<Scalars['String']>
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   oauth_id?: Maybe<Scalars['String']>
   role?: Maybe<Roles_Enum>
   updated_at?: Maybe<Scalars['timestamptz']>
-}
-
-/** aggregate stddev on columns */
-export type Users_Stddev_Fields = {
-  __typename?: 'users_stddev_fields'
-  id?: Maybe<Scalars['Float']>
-}
-
-/** order by stddev() on columns of table "users" */
-export type Users_Stddev_Order_By = {
-  id?: Maybe<Order_By>
-}
-
-/** aggregate stddev_pop on columns */
-export type Users_Stddev_Pop_Fields = {
-  __typename?: 'users_stddev_pop_fields'
-  id?: Maybe<Scalars['Float']>
-}
-
-/** order by stddev_pop() on columns of table "users" */
-export type Users_Stddev_Pop_Order_By = {
-  id?: Maybe<Order_By>
-}
-
-/** aggregate stddev_samp on columns */
-export type Users_Stddev_Samp_Fields = {
-  __typename?: 'users_stddev_samp_fields'
-  id?: Maybe<Scalars['Float']>
-}
-
-/** order by stddev_samp() on columns of table "users" */
-export type Users_Stddev_Samp_Order_By = {
-  id?: Maybe<Order_By>
-}
-
-/** aggregate sum on columns */
-export type Users_Sum_Fields = {
-  __typename?: 'users_sum_fields'
-  id?: Maybe<Scalars['Int']>
-}
-
-/** order by sum() on columns of table "users" */
-export type Users_Sum_Order_By = {
-  id?: Maybe<Order_By>
 }
 
 /** update columns of table "users" */
@@ -2659,39 +2581,6 @@ export enum Users_Update_Column {
   Role = 'role',
   /** column name */
   UpdatedAt = 'updated_at',
-}
-
-/** aggregate var_pop on columns */
-export type Users_Var_Pop_Fields = {
-  __typename?: 'users_var_pop_fields'
-  id?: Maybe<Scalars['Float']>
-}
-
-/** order by var_pop() on columns of table "users" */
-export type Users_Var_Pop_Order_By = {
-  id?: Maybe<Order_By>
-}
-
-/** aggregate var_samp on columns */
-export type Users_Var_Samp_Fields = {
-  __typename?: 'users_var_samp_fields'
-  id?: Maybe<Scalars['Float']>
-}
-
-/** order by var_samp() on columns of table "users" */
-export type Users_Var_Samp_Order_By = {
-  id?: Maybe<Order_By>
-}
-
-/** aggregate variance on columns */
-export type Users_Variance_Fields = {
-  __typename?: 'users_variance_fields'
-  id?: Maybe<Scalars['Float']>
-}
-
-/** order by variance() on columns of table "users" */
-export type Users_Variance_Order_By = {
-  id?: Maybe<Order_By>
 }
 
 /** columns and relationships of "verification_requests" */
@@ -2996,7 +2885,7 @@ export type Messages_By_PkQuery = { __typename?: 'query_root' } & {
 }
 
 export type Delete_Users_By_PkMutationVariables = Exact<{
-  id: Scalars['Int']
+  id: Scalars['String']
 }>
 
 export type Delete_Users_By_PkMutation = { __typename?: 'mutation_root' } & {
@@ -3033,7 +2922,7 @@ export type Users_By_Oauth_IdQuery = { __typename?: 'query_root' } & {
 }
 
 export type Users_By_PkQueryVariables = Exact<{
-  id: Scalars['Int']
+  id: Scalars['String']
 }>
 
 export type Users_By_PkQuery = { __typename?: 'query_root' } & {
@@ -3135,7 +3024,7 @@ export const Messages_By_PkDocument = gql`
   }
 `
 export const Delete_Users_By_PkDocument = gql`
-  mutation delete_users_by_pk($id: Int!) {
+  mutation delete_users_by_pk($id: String!) {
     delete_users_by_pk(id: $id) {
       ...usersFragment
     }
@@ -3170,7 +3059,7 @@ export const Users_By_Oauth_IdDocument = gql`
   ${UsersFragmentFragmentDoc}
 `
 export const Users_By_PkDocument = gql`
-  query users_by_pk($id: Int!) {
+  query users_by_pk($id: String!) {
     users_by_pk(id: $id) {
       ...usersFragment
     }

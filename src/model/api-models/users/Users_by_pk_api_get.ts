@@ -3,7 +3,7 @@ import { ApiConfig } from '../../../utils/typedFetch/ApiConfig'
 
 export interface Users_by_pk_api_get {
   input: {
-    user_id: string | string[]
+    id: string | string[]
   }
   output: Users_By_PkQuery
 }

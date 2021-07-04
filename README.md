@@ -2,7 +2,9 @@
 
 ### - [demo](https://nextjs-opinionated-hasura.vercel.app/)
 
-<!-- ### - [storybook](https://main--60d0b5d829870700396e0a3b.chromatic.com) -->
+## <!-- ### - [storybook](https://main--60d0b5d829870700396e0a3b.chromatic.com) -->
+
+_extends [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated) ([demo](https://nextjs-opinionated.vercel.app/)) - base template, without Hasura and Auth0_
 
 ---
 
@@ -19,6 +21,7 @@
 - [sweetalert2](https://sweetalert2.github.io/)
 - [react-icons](https://react-icons.github.io/react-icons/)
 - [react-query](https://react-query.tanstack.com/)
+- [auth0](https://auth0.com/)
 
 _from [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated)_
 
@@ -100,10 +103,6 @@ yarn dev
 
 - `cp .env.production.sh.example .env.production.sh`
 - update `HASURA_ADMIN_SECRET`, `NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT`, `HASURA_GRAPHQL_ADMIN_SECRET` at `.env.production.sh` - search/replace for `xxx`
-
----
-
-_For a simpler template, without Hasura and NextAuth.js see [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated) ([demo](https://nextjs-opinionated.vercel.app/))_
 
 ---
 

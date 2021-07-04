@@ -1,5 +1,4 @@
 import { withSentry } from '@sentry/nextjs'
-import _ from 'lodash'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Users_by_pk_api_get } from '../../../model/api-models/users/Users_by_pk_api_get'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
@@ -19,7 +18,7 @@ export default withSentry(
 
     // process
     const data: Users_by_pk_api_get['output'] = await new GqlSdkHelper().getSdk().users_by_pk({
-      id: _.toNumber(inputData.user_id),
+      id: inputData.id as string,
     })
 
     // output data
