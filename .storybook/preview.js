@@ -1,6 +1,5 @@
 // .storybook/preview.js
 import '../src/styles/tailwind.css'
-import { themes } from '@storybook/theming'
 import { StrictMode } from 'react'
 
 import * as nextImage from 'next/image'
