@@ -29,9 +29,10 @@ export const Table: React.FC<TableProps> = ({ data, fieldNames, className = '', 
               <tr key={`${index}-tr`}>
                 {fieldNames.map((fieldName, index) => (
                   <td key={`${index}-td`}>
-                    {index === 0 && linkPage ? (
+                    {/* the first field is mandatory for the detail's link and should have 'id' field */}
+                    {index === 0 && linkPage && value.id ? (
                       <Link href={`${linkPage}/${value.id}`}>
-                        <a className='pl-0 btn btn-link btn-xs'>{value[fieldName]} </a>
+                        <a className='pl-0 underline btn btn-link btn-xs'>{value[fieldName]} </a>
                       </Link>
                     ) : (
                       value[fieldName]

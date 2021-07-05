@@ -63,9 +63,46 @@ Table_OK.args = {
       customers: [],
     },
   ],
-
   fieldNames: ['name', 'created_at', 'email'],
-  linkPage: '/',
+  linkPage: '/companies',
+}
+
+export const Table_Without_ID = Template.bind({})
+Table_Without_ID.args = {
+  data: [
+    {
+      name: 'Empresa 1',
+      email: 'empresa1@hotmail.com',
+      created_at: '2021-04-06T21:32:11.33154+00:00',
+      customers: [],
+    },
+    {
+      name: 'Empresa 2',
+      email: 'empresa2@hotmail.com',
+      created_at: '2021-06-30T20:22:57.057824+00:00',
+      customers: [],
+    },
+    {
+      name: 'Empresa 3',
+      email: 'empresa3@hotmail.com',
+      created_at: '2021-06-30T20:22:57.057824+00:00',
+      customers: [],
+    },
+    {
+      name: 'Empresa 4',
+      email: 'empresa4@hotmail.com',
+      created_at: '2021-06-30T20:22:57.057824+00:00',
+      customers: [],
+    },
+    {
+      name: 'Empresa 5',
+      email: 'empresa5@hotmail.com',
+      created_at: '2021-06-30T20:22:57.057824+00:00',
+      customers: [],
+    },
+  ],
+  fieldNames: ['name', 'created_at', 'email'],
+  linkPage: '/companies',
 }
 
 export const Table_WithClassName = Template.bind({})
