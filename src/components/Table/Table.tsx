@@ -26,7 +26,7 @@ export const Table: React.FC<TableProps> = ({
 }) => {
   return (
     <div className='overflow-x-auto'>
-      <table className='table w-full table-compact'>
+      <table className={classnames(`table w-full table-compact ${className}`)}>
         <thead>
           <tr>
             {selectedItems.map((item, index) => (
