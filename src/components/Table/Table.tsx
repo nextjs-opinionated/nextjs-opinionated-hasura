@@ -3,50 +3,41 @@ import Link from 'next/link'
 import React from 'react'
 
 export interface TableProps {
-  content: any
+  data: any[]
   className?: string
-  selectedItems: string[]
-  buttonSelectedItemName: string
+  fieldNames: string[]
   linkPage: string
 }
 
-export const Table: React.FC<TableProps> = ({
-  content,
-  selectedItems,
-  buttonSelectedItemName,
-  className = '',
-  linkPage,
-}) => {
+export const Table: React.FC<TableProps> = ({ data, fieldNames, className = '', linkPage }) => {
   return (
     <div className='overflow-x-auto'>
-      <table className={classnames(`table  w-full ${className}`)}>
+      <table className={classnames(`table w-full ${className}`)}>
         <thead>
           <tr>
-            {selectedItems.map((item, index) => (
+            {fieldNames.map((fieldName, index) => (
               <th key={`${index}-thead`} className=' text-base-300'>
-                {item}
+                {fieldName}
               </th>
             ))}
           </tr>
         </thead>
 
         <tbody>
-          {content?.companies.length > 0 &&
-            content?.companies.map((company, companyIndex) => (
-              <tr key={`${companyIndex}-tbody`}>
-                {selectedItems.map((item, index) => {
-                  {
-                    return buttonSelectedItemName == item ? (
-                      <Link href={linkPage}>
-                        <td>
-                          <button className='pl-0 btn btn-link btn-xs'>{company[item]} </button>
-                        </td>
+          {data?.length > 0 &&
+            data?.map((value, index) => (
+              <tr key={`${index}-tr`}>
+                {fieldNames.map((fieldName, index) => (
+                  <td key={`${index}-td`}>
+                    {index === 0 && linkPage ? (
+                      <Link href={`${linkPage}/${value.id}`}>
+                        <a className='pl-0 btn btn-link btn-xs'>{value[fieldName]} </a>
                       </Link>
                     ) : (
-                      <td key={`${index}-content`}>{company[item]}</td>
-                    )
-                  }
-                })}
+                      value[fieldName]
+                    )}
+                  </td>
+                ))}
               </tr>
             ))}
         </tbody>
