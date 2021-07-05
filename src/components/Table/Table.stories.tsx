@@ -30,38 +30,177 @@ Table_OK.args = {
     companies: [
       {
         id: 'cd89d348-5832-44d2-9ef7-829c26b11974',
-        name: 'Cia Marítima',
+        name: 'Empresa 1',
+        email: 'empresa1@hotmail.com',
         created_at: '2021-04-06T21:32:11.33154+00:00',
-        customers: [
-          {
-            id: 'f02f1b25-a62b-4de3-8463-f3a9b75c0960',
-            name: 'Cliente teste',
-            email: 'julio.saito@semantix.com.br',
-            cpfCnpj: '22159151882',
-          },
-          {
-            id: '628e63f0-4224-4007-b8d6-876a95e5560f',
-            name: 'Bruno Maia',
-            email: 'brunomaia@hotmail.com',
-            cpfCnpj: '22389263801',
-          },
-          {
-            id: '430228ba-621c-45cc-859d-833b1e00228b',
-            name: 'Bruno Maia',
-            email: 'brunomaia@hotmail.com',
-            cpfCnpj: '22389263801',
-          },
-        ],
+        customers: [],
       },
       {
         id: 'bc2f52ae-4fe3-4744-b9d8-f0262d798d95',
-        name: 'Semantix',
+        name: 'Empresa 2',
+        email: 'empresa2@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+      {
+        id: 'bc2asd2ae-4fe3-4744-b9d8-f0262d798d95',
+        name: 'Empresa 3',
+        email: 'empresa3@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+      {
+        id: 'bcasd4fe3-4744-b9d8-f0262d798d95',
+        name: 'Empresa 4',
+        email: 'empresa4@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+      {
+        id: 'bc2f52ae-4fe3-474450262d798d95',
+        name: 'Empresa 5',
+        email: 'empresa5@hotmail.com',
         created_at: '2021-06-30T20:22:57.057824+00:00',
         customers: [],
       },
     ],
   },
-  selectedItems: ['name', 'created_at'],
+  selectedItems: ['name', 'created_at', 'email'],
+  buttonSelectedItemName: 'name',
+  linkPage: '/',
+}
+
+export const Table_WithClassName = Template.bind({})
+Table_WithClassName.args = {
+  content: {
+    companies: [
+      {
+        id: 'cd89d348-5832-44d2-9ef7-829c26b11974',
+        name: 'Empresa 1',
+        email: 'empresa1@hotmail.com',
+        created_at: '2021-04-06T21:32:11.33154+00:00',
+        customers: [],
+      },
+      {
+        id: 'bc2f52ae-4fe3-4744-b9d8-f0262d798d95',
+        name: 'Empresa 2',
+        email: 'empresa2@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+      {
+        id: 'bc2asd2ae-4fe3-4744-b9d8-f0262d798d95',
+        name: 'Empresa 3',
+        email: 'empresa3@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+      {
+        id: 'bcasd4fe3-4744-b9d8-f0262d798d95',
+        name: 'Empresa 4',
+        email: 'empresa4@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+      {
+        id: 'bc2f52ae-4fe3-474450262d798d95',
+        name: 'Empresa 5',
+        email: 'empresa5@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+    ],
+  },
+  selectedItems: ['name', 'created_at', 'email'],
+  className: ' table-compact table-zebra',
+}
+
+export const Table_WithSelectedItems = Template.bind({})
+Table_WithSelectedItems.args = {
+  content: {
+    companies: [
+      {
+        id: 'cd89d348-5832-44d2-9ef7-829c26b11974',
+        name: 'Empresa 1',
+        email: 'empresa1@hotmail.com',
+        created_at: '2021-04-06T21:32:11.33154+00:00',
+        customers: [],
+      },
+      {
+        id: 'bc2f52ae-4fe3-4744-b9d8-f0262d798d95',
+        name: 'Empresa 2',
+        email: 'empresa2@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+      {
+        id: 'bc2asd2ae-4fe3-4744-b9d8-f0262d798d95',
+        name: 'Empresa 3',
+        email: 'empresa3@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+      {
+        id: 'bcasd4fe3-4744-b9d8-f0262d798d95',
+        name: 'Empresa 4',
+        email: 'empresa4@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+      {
+        id: 'bc2f52ae-4fe3-474450262d798d95',
+        name: 'Empresa 5',
+        email: 'empresa5@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+    ],
+  },
+  selectedItems: ['name', 'email'],
+}
+
+export const buttonSelectedItemName = Template.bind({})
+buttonSelectedItemName.args = {
+  content: {
+    companies: [
+      {
+        id: 'cd89d348-5832-44d2-9ef7-829c26b11974',
+        name: 'Empresa 1',
+        email: 'empresa1@hotmail.com',
+        created_at: '2021-04-06T21:32:11.33154+00:00',
+        customers: [],
+      },
+      {
+        id: 'bc2f52ae-4fe3-4744-b9d8-f0262d798d95',
+        name: 'Empresa 2',
+        email: 'empresa2@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+      {
+        id: 'bc2asd2ae-4fe3-4744-b9d8-f0262d798d95',
+        name: 'Empresa 3',
+        email: 'empresa3@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+      {
+        id: 'bcasd4fe3-4744-b9d8-f0262d798d95',
+        name: 'Empresa 4',
+        email: 'empresa4@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+      {
+        id: 'bc2f52ae-4fe3-474450262d798d95',
+        name: 'Empresa 5',
+        email: 'empresa5@hotmail.com',
+        created_at: '2021-06-30T20:22:57.057824+00:00',
+        customers: [],
+      },
+    ],
+  },
+  selectedItems: ['name', 'email'],
   buttonSelectedItemName: 'name',
   linkPage: '/',
 }
