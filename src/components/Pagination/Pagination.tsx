@@ -78,7 +78,9 @@ export const Pagination: React.FC<PaginationProps> = ({
         onClick={() => {
           handlePreviousPage()
         }}
-        className={classnames(`btn ${className}`)}
+        className={classnames(`btn ${className}`, {
+          'btn-disabled cursor-not-allowed': currentPage === 1,
+        })}
       >
         {previousButtonTitle}
       </button>
@@ -99,7 +101,9 @@ export const Pagination: React.FC<PaginationProps> = ({
         onClick={() => {
           handleNextPage()
         }}
-        className={classnames(`btn ${className}`)}
+        className={classnames(`btn ${className}`, {
+          'btn-disabled cursor-not-allowed': totalPages === currentPage,
+        })}
       >
         {nextButtonTitle}
       </button>
