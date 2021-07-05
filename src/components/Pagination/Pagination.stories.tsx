@@ -27,26 +27,26 @@ const Template: Story<PaginationProps> = (args) => <Pagination {...args} />
 
 export const Pagination_OK = Template.bind({})
 Pagination_OK.args = {
-  totalPage: 1,
+  totalPages: 1,
   currentPage: 1,
 }
 
 export const Pagination_Without_content = Template.bind({})
 Pagination_Without_content.args = {
-  totalPage: 5,
+  totalPages: 5,
   currentPage: 3,
 }
 
 export const Pagination_With_ClassName = Template.bind({})
 Pagination_With_ClassName.args = {
-  totalPage: 5,
+  totalPages: 5,
   currentPage: 3,
   className: 'btn-xs',
 }
 
 export const Pagination_With_Custom_Button_Tiltle = Template.bind({})
 Pagination_With_ClassName.args = {
-  totalPage: 5,
+  totalPagesfi: 5,
   currentPage: 3,
   className: 'btn-xs',
   previousButtonTitle: '<<',
