@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 export interface TableProps {
-  content?: any
+  content: any
   className?: string
   selectedItems: string[]
   buttonSelectedItemName: string
@@ -11,22 +11,15 @@ export interface TableProps {
 }
 
 export const Table: React.FC<TableProps> = ({
-  content = {
-    companies: {
-      id: 'cd89d348-5832-44d2-9ef7-829c26b11974',
-      name: 'Cia Marítima',
-      toggle: true,
-      image_url: '',
-    },
-  },
-  selectedItems = ['name'],
-  buttonSelectedItemName = 'name',
+  content,
+  selectedItems,
+  buttonSelectedItemName,
   className = '',
   linkPage,
 }) => {
   return (
     <div className='overflow-x-auto'>
-      <table className={classnames(`table w-full table-compact ${className}`)}>
+      <table className={classnames(`table  w-full ${className}`)}>
         <thead>
           <tr>
             {selectedItems.map((item, index) => (
