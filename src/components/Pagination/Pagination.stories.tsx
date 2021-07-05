@@ -46,7 +46,7 @@ Pagination_With_ClassName.args = {
 
 export const Pagination_With_Custom_Button_Tiltle = Template.bind({})
 Pagination_With_ClassName.args = {
-  totalPages: 5,
+  totalPagesfi: 5,
   currentPage: 3,
   className: 'btn-xs',
   previousButtonTitle: '<<',
