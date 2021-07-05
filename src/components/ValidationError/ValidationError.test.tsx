@@ -3,7 +3,7 @@ import * as TestingLib from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { ValidationError } from './ValidationError'
 
-describe('Code_block Component', () => {
+describe('Validation Error Component', () => {
   it('should render a component', async () => {
     const render = TestingLib.render(
       <ValidationError
