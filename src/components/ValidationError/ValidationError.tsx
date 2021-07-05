@@ -11,7 +11,7 @@ export const ValidationError: React.FC<ValidationErrorProps> = ({
   className = '',
 }) => {
   return (
-    <div className={`my-2 ${className}`}>
+    <div data-testid='validation-validation' className={`my-2 ${className}`}>
       {content.map((error, index) => {
         return (
           <p
