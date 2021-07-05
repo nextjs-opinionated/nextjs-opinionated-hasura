@@ -28,11 +28,17 @@ export const Pagination: React.FC<PaginationProps> = ({
       startOfPageOnList = currentPage
     } else if (currentPage === 2) {
       startOfPageOnList = currentPage - 1
+    } else if (currentPage >= totalPages) {
+      if (totalPages > 2) {
+        startOfPageOnList = totalPages - 1
+      } else if (totalPages === 1) {
+        startOfPageOnList = totalPages
+      }
     } else {
       startOfPageOnList = currentPage - 2
     }
 
-    if (totalPages === currentPage) {
+    if (totalPages <= currentPage) {
       endOfPageOnList = totalPages
     } else if (totalPages === currentPage + 1) {
       endOfPageOnList = currentPage + 1
