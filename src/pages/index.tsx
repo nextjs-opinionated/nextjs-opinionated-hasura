@@ -7,6 +7,7 @@ import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import Link from 'next/link'
 import * as nextjsAuth0 from '@auth0/nextjs-auth0'
+import Loading from '../components/Loading/Loading'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -16,12 +17,8 @@ export default function Page() {
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
 
   const { user, error, isLoading } = nextjsAuth0.useUser()
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <Loading />
   if (error) return <div>{error.message}</div>
-
-  const throwKnownError = () => {
-    throw new Error('Error from sentry!!!')
-  }
 
   return (
     <>
@@ -59,8 +56,6 @@ export default function Page() {
           <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
             <img
               src={user?.picture || 'http://daisyui.com/tailwind-css-component-profile-1@94w.png'}
-              // Example
-              onClick={throwKnownError}
             />
           </div>
 
