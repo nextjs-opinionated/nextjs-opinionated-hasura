@@ -42,7 +42,26 @@ export default function Page() {
         <meta name='twitter:creator' content='' key='twhandle' />
       </Head>
 
-      <Layout
+      <div className='min-h-screen hero bg-gradient-to-br from-secondary to-primary text-primary-content'>
+        <div className='flex-col justify-between w-full max-w-6xl mt-10 mb-48 text-center hero-content'>
+          <h1 className='py-4 mb-2 font-extrabold text-center font-title'>
+            <div className='text-4xl font-bold lg:text-5xl'>Welcome to</div>
+            <div className='text-5xl lg:text-7xl'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+          </h1>
+          <div className='max-w-md'>
+            <p className='mb-5'>
+              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+              exercitationem quasi.
+            </p>
+            <div className='flex justify-center space-x-2'>
+              <button className='btn btn-ghost'>Enjoy it</button>
+              <button className='btn btn-primary'>Get Started</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <Layout
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
             <div className='text-base font-bold'>HOME</div>
@@ -51,7 +70,7 @@ export default function Page() {
         }
         menuItems={Object.values(LinksList)}
       >
-        {/* avatar */}
+
         <div className='flex flex-col avatar'>
           <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
             <img
@@ -66,7 +85,6 @@ export default function Page() {
           )}
         </div>
 
-        {/* text */}
         <div className='pb-3'>
           <h1 className='py-2 text-3xl font-bold'>
             {process.env.NEXT_PUBLIC_SITE_NAME} - {process.env.NODE_ENV}
@@ -78,7 +96,6 @@ export default function Page() {
             quaerat sit architecto nemo tempora ratione.
           </p>
 
-          {/* buttons */}
           <div className='flex space-x-2 space-y-2'>
             <div></div>
 
@@ -135,27 +152,27 @@ export default function Page() {
             {extLink('auth0', 'https://auth0.com/')}
           </p>
         </div>
-        <style jsx global>{`
-          html,
-          body {
-            padding: 0;
-            margin: 0;
-            font-family: 'Montserrat', sans-serif;
-          }
+      </Layout> */}
+      <style jsx global>{`
+        html,
+        body {
+          padding: 0;
+          margin: 0;
+          font-family: 'Montserrat', sans-serif;
+        }
 
-          * {
-            box-sizing: border-box;
-          }
-        `}</style>
-      </Layout>
+        * {
+          box-sizing: border-box;
+        }
+      `}</style>
     </>
   )
 }
 
-function extLink(name: string, url: string) {
-  return (
-    <a className='link' target='_blank' rel='noreferrer' href={url}>
-      {name}
-    </a>
-  )
-}
+// function extLink(name: string, url: string) {
+//   return (
+//     <a className='link' target='_blank' rel='noreferrer' href={url}>
+//       {name}
+//     </a>
+//   )
+// }

@@ -21,7 +21,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
       <input id='menu-drawer' type='checkbox' className='drawer-toggle' ref={checkboxRef} />
       <div className='flex flex-col drawer-content'>
         {/* drawer content */}
-        <div className='w-full navbar bg-base-300'>
+        <div className='w-full bg-transparent navbar'>
           {/* hamburger menu is only visible on mobile */}
           <div className='flex-none lg:hidden'>
             <label htmlFor='menu-drawer' className='btn btn-square btn-ghost'>
