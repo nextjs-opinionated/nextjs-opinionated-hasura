@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { showErrorAlert } from '../../components/showErrorAlert'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import { FiEdit } from 'react-icons/fi'
 import { useRouter } from 'next/router'
@@ -17,6 +17,8 @@ import {
   Insert_random_message_api_post,
   insert_random_message_api_post_Config,
 } from '../../model/api-models/messages/Insert_random_message_api_post'
+import classnames from 'classnames'
+import { Table } from '../../components/Table/Table'
 
 const Messages: React.FunctionComponent = () => {
   const { data, isLoading, error, refetch } = useQuery('fetch_tester_api_get_Key', async () => {
@@ -33,6 +35,20 @@ const Messages: React.FunctionComponent = () => {
       showErrorAlert({ error })
     }
   }, [error])
+
+  const [messages, messagesSet] = useState<any[]>()
+  useEffect(() => {
+    if (data?.messages) {
+      messagesSet(
+        data?.messages?.map((message) => {
+          return {
+            ...message,
+            publishedAt: dayjs(message.publishedAt).format('YYYY-MM-DD'),
+          }
+        })
+      )
+    }
+  }, [data?.messages])
 
   return (
     <>
@@ -78,49 +94,88 @@ const Messages: React.FunctionComponent = () => {
             </button>
           </div>
 
-          <p className='my-10 text-sm'>items below are persisted on server:</p>
+          <div className='flex justify-between'>
+            <div className='my-10 text-sm'>items below are persisted on server:</div>
+            <div className='btn-group'>
+              <button
+                className={classnames('btn btn-outline', {
+                  'btn-active': (router.query.showAs as string) === 'cards',
+                })}
+                onClick={() => {
+                  router.replace('/messages?showAs=cards')
+                }}
+              >
+                cards
+              </button>
+              <button
+                className={classnames('btn btn-outline', {
+                  'btn-active': (router.query.showAs as string) === 'table',
+                })}
+                onClick={() => {
+                  router.replace('/messages?showAs=table')
+                }}
+              >
+                table
+              </button>
+            </div>
+          </div>
 
-          <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 grid-flow'>
-            {data?.messages?.map((message) => (
-              <div key={message.id} className='card bordered'>
-                <figure>
-                  <img src={message.imageUrl || ''} className='object-cover w-full h-48' />
-                </figure>
-                <div className='card-body'>
-                  <div className='flex flex-col justify-between h-full'>
-                    <div className='my-1'>
-                      <p>{dayjs(message.publishedAt).format('YYYY-MM-DD')}</p>
-                      <h2 className='card-title'>
-                        <a className='underline link-hover' href={message.url || ''}>
-                          {message.title}
-                        </a>
-                      </h2>
-                    </div>
-                    <div className='card-actions'>
-                      <div className='mt-1'>
-                        {message.message_tags?.map((tag) => (
-                          <div className='badge badge-ghost' key={tag.tag.name}>
-                            {tag.tag.name}
-                          </div>
-                        ))}
+          {(router.query.showAs as string) === 'cards' ? (
+            <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 grid-flow'>
+              {messages?.map((message) => (
+                <div key={message.id} className='card bordered'>
+                  <figure>
+                    <img src={message.imageUrl || ''} className='object-cover w-full h-48' />
+                  </figure>
+                  <div className='card-body'>
+                    <div className='flex flex-col justify-between h-full'>
+                      <div className='my-1'>
+                        <p>{dayjs(message.publishedAt).format('YYYY-MM-DD')}</p>
+                        <h2 className='card-title'>
+                          <a className='underline link-hover' href={message.url || ''}>
+                            {message.title}
+                          </a>
+                        </h2>
                       </div>
+                      <div className='card-actions'>
+                        <div className='mt-1'>
+                          {message.message_tags?.map((tag) => (
+                            <div className='badge badge-ghost' key={tag.tag.name}>
+                              {tag.tag.name}
+                            </div>
+                          ))}
+                        </div>
 
-                      <button
-                        className='btn btn-sm btn-secondary'
-                        onClick={async () => {
-                          router.push(`/messages/${message.id}`)
-                        }}
-                        disabled={isLoading}
-                      >
-                        edit &nbsp;
-                        <FiEdit />
-                      </button>
+                        <button
+                          className='btn btn-sm btn-secondary'
+                          onClick={async () => {
+                            router.push(`/messages/${message.id}`)
+                          }}
+                          disabled={isLoading}
+                        >
+                          edit &nbsp;
+                          <FiEdit />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <Table
+              className='table-zebra'
+              data={messages || []}
+              fields={{
+                title: (item) => <div>{item.title}</div>
+              }}
+              {_.map(fields, (valor, chave) => {
+                
+              })}
+              // fieldNames={['title', 'publishedAt']}
+              urlPrefix='/messages'
+            />
+          )}
         </main>
       </Layout>
     </>
