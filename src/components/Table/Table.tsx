@@ -1,7 +1,6 @@
 import classnames from 'classnames'
 import Link from 'next/link'
 import React from 'react'
-import { useState } from 'react'
 import { MdDelete } from 'react-icons/md'
 
 export interface TableProps {
