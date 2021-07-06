@@ -135,6 +135,18 @@ export default function Page() {
             {extLink('auth0', 'https://auth0.com/')}
           </p>
         </div>
+        <style jsx global>{`
+          html,
+          body {
+            padding: 0;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+        `}</style>
       </Layout>
     </>
   )
