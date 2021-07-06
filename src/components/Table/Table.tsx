@@ -6,9 +6,11 @@ import { FaUserAlt } from 'react-icons/fa'
 import { Pagination } from '../Pagination/Pagination'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import _ from 'lodash'
 
 export interface TableProps {
   data: any[]
+  fields: React.ReactNodeArray
   className?: string
   fieldNames: string[]
   urlPrefix?: string
@@ -23,6 +25,7 @@ export interface TableProps {
 }
 
 export const Table: React.FC<TableProps> = ({
+  fields,
   data,
   fieldNames,
   className = '',
@@ -39,6 +42,15 @@ export const Table: React.FC<TableProps> = ({
   const [totalPage, totalPageSet] = useState<number>(0)
 
   useEffect(() => {
+    if (fields) {
+      _.map(fields, (value, key) => {
+        console.log(React.createElement(value))
+        console.log('--')
+      })
+    }
+  }, [fields])
+
+  useEffect(() => {
     if (totalItems) {
       const totalPages = Math.ceil(totalItems / pageSize)
       totalPageSet(totalPages)
@@ -51,9 +63,9 @@ export const Table: React.FC<TableProps> = ({
         <table className={classnames(`table w-full ${className}`)}>
           <thead>
             <tr>
-              {fieldNames.map((fieldName, index) => (
-                <th key={`${index}-thead`} className=' text-base-content'>
-                  {fieldName}
+              {_.map(fields, (value, key) => (
+                <th key={`${key}-thead`} className=' text-base-content'>
+                  {key}
                 </th>
               ))}
               {onDelete && <th className=' text-base-content'>&nbsp;</th>}
@@ -123,7 +135,6 @@ export const Table: React.FC<TableProps> = ({
                             confirmButtonText: deleteConfirmationYesLabel,
                             icon: 'question',
                           })
-
                           if (swalConfirmDelete.isConfirmed) {
                             await onDelete(value.id)
                           }
