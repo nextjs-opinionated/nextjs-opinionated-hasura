@@ -4,6 +4,7 @@ export type LinksListIds =
   | 'typed-fetch-examples'
   | 'form-example'
   | 'github'
+  | 'documentation'
 
 export type LinkProps = {
   id: LinksListIds
@@ -39,5 +40,10 @@ export const LinksList: {
     id: 'github',
     name: 'Github',
     externalURL: 'https://github.com/saitodisse/nextjs-opinionated',
+  },
+  documentation: {
+    id: 'documentation',
+    name: 'Documentation',
+    internalURL: '/docs',
   },
 }
