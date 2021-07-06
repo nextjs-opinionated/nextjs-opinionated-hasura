@@ -64,8 +64,8 @@ Table_OK.args = {
     },
   ],
   pageSize: 5,
-  currentPage: 35,
-  totalItems: 600,
+  currentPage: 2,
+  totalItems: 20,
   fieldNames: ['name', 'created_at', 'email'],
   linkPage: '/companies',
 }

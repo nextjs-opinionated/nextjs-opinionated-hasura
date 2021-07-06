@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdDelete } from 'react-icons/md'
 import { FaUserAlt } from 'react-icons/fa'
 import { Pagination } from '../Pagination/Pagination'
@@ -11,6 +11,9 @@ export interface TableProps {
   fieldNames: string[]
   linkPage?: string
   OnDelete?: (id: string) => void
+  pageSize?: number
+  currentPage?: number
+  totalItems?: number
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -19,8 +22,20 @@ export const Table: React.FC<TableProps> = ({
   className = '',
   linkPage,
   OnDelete,
+  pageSize,
+  //currentPage,
+  totalItems,
 }) => {
   const [currentPage, currentPageSet] = useState(1)
+  const [totalPage, totalPageSet] = useState<number>()
+
+  useEffect(() => {
+    if (totalItems) {
+      let totalPage = totalItems / pageSize
+      totalPage = Math.ceil(totalPage)
+      totalPageSet(totalPage)
+    }
+  }, [pageSize, totalItems, totalPage])
 
   return (
     <div className='flex flex-col items-center'>
@@ -103,7 +118,7 @@ export const Table: React.FC<TableProps> = ({
       </div>
       <Pagination
         className='my-2'
-        totalPage={10}
+        totalPage={totalPage}
         currentPage={currentPage}
         OnPageSet={(newCurrentPage) => {
           currentPageSet(newCurrentPage)
