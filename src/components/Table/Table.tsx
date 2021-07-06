@@ -1,15 +1,24 @@
 import classnames from 'classnames'
 import Link from 'next/link'
 import React from 'react'
+import { useState } from 'react'
+import { MdDelete } from 'react-icons/md'
 
 export interface TableProps {
   data: any[]
   className?: string
   fieldNames: string[]
-  linkPage: string
+  linkPage?: string
+  OnDelete?: (id: string) => void
 }
 
-export const Table: React.FC<TableProps> = ({ data, fieldNames, className = '', linkPage }) => {
+export const Table: React.FC<TableProps> = ({
+  data,
+  fieldNames,
+  className = '',
+  linkPage,
+  OnDelete,
+}) => {
   return (
     <div className='overflow-x-auto'>
       <table className={classnames(`table w-full ${className}`)}>
@@ -39,6 +48,18 @@ export const Table: React.FC<TableProps> = ({ data, fieldNames, className = '', 
                     )}
                   </td>
                 ))}
+                {OnDelete && (
+                  <td
+                    key={`${index}-del`}
+                    onClick={() => {
+                      OnDelete(value.id)
+                    }}
+                  >
+                    <button>
+                      <MdDelete size={25} />
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
         </tbody>
