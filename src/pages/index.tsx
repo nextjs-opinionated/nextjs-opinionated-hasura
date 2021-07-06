@@ -5,8 +5,8 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
-import { useUser } from '@auth0/nextjs-auth0'
 import Link from 'next/link'
+import * as nextjsAuth0 from '@auth0/nextjs-auth0'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -15,7 +15,7 @@ export default function Page() {
   const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
 
-  const { user, error, isLoading } = useUser()
+  const { user, error, isLoading } = nextjsAuth0.useUser()
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
 
