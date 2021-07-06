@@ -8,8 +8,8 @@ describe('Pagination Component', () => {
     const render = TestingLib.render(
       <Pagination
         currentPage={1}
-        totalPage={1}
-        OnPageSet={() => {
+        totalPages={1}
+        onPageSet={() => {
           //
         }}
         className='btn-xs'
@@ -21,8 +21,8 @@ describe('Pagination Component', () => {
     const render = TestingLib.render(
       <Pagination
         currentPage={1}
-        totalPage={1}
-        OnPageSet={() => {
+        totalPages={1}
+        onPageSet={() => {
           //
         }}
         className='btn-xs'
@@ -34,8 +34,8 @@ describe('Pagination Component', () => {
     const render = TestingLib.render(
       <Pagination
         currentPage={1}
-        totalPage={1}
-        OnPageSet={() => {
+        totalPages={1}
+        onPageSet={() => {
           //
         }}
         className='btn-xs'

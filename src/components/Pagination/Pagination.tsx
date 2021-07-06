@@ -2,19 +2,19 @@ import classnames from 'classnames'
 import React, { useCallback, useEffect, useState } from 'react'
 
 export interface PaginationProps {
-  totalPage?: number
-  currentPage?: number
+  totalPages: number
+  currentPage: number
   className?: string
   previousButtonTitle?: string
   nextButtonTitle?: string
-  OnPageSet: (string) => void
+  onPageSet: (number) => void
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
   className = '',
-  totalPage = 1,
+  totalPages = 1,
   currentPage = 1,
-  OnPageSet,
+  onPageSet,
   previousButtonTitle = 'Previous',
   nextButtonTitle = 'Next',
 }) => {
@@ -28,13 +28,19 @@ export const Pagination: React.FC<PaginationProps> = ({
       startOfPageOnList = currentPage
     } else if (currentPage === 2) {
       startOfPageOnList = currentPage - 1
+    } else if (currentPage >= totalPages) {
+      if (totalPages > 2) {
+        startOfPageOnList = totalPages - 1
+      } else if (totalPages === 1) {
+        startOfPageOnList = totalPages
+      }
     } else {
       startOfPageOnList = currentPage - 2
     }
 
-    if (totalPage === currentPage) {
-      endOfPageOnList = totalPage
-    } else if (totalPage === currentPage + 1) {
+    if (totalPages <= currentPage) {
+      endOfPageOnList = totalPages
+    } else if (totalPages === currentPage + 1) {
       endOfPageOnList = currentPage + 1
     } else {
       endOfPageOnList = currentPage + 2
@@ -45,18 +51,22 @@ export const Pagination: React.FC<PaginationProps> = ({
     }
 
     listNumberOfPagesSet(listOfNumbers)
-  }, [currentPage, totalPage])
+  }, [currentPage, totalPages])
 
-  const handlePreviusPage = () => {
-    OnPageSet(currentPage - 1)
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      onPageSet(currentPage - 1)
+    }
   }
 
   const handleNextPage = () => {
-    OnPageSet(currentPage + 1)
+    if (currentPage < totalPages) {
+      onPageSet(currentPage + 1)
+    }
   }
 
   const handlePage = (page) => {
-    OnPageSet(page)
+    onPageSet(page)
   }
 
   useEffect(() => {
@@ -66,9 +76,11 @@ export const Pagination: React.FC<PaginationProps> = ({
     <div data-testid='button' className='btn-group '>
       <button
         onClick={() => {
-          handlePreviusPage()
+          handlePreviousPage()
         }}
-        className={classnames(`btn ${className}`)}
+        className={classnames(`btn ${className}`, {
+          'btn-disabled cursor-not-allowed': currentPage === 1,
+        })}
       >
         {previousButtonTitle}
       </button>
@@ -89,7 +101,9 @@ export const Pagination: React.FC<PaginationProps> = ({
         onClick={() => {
           handleNextPage()
         }}
-        className={classnames(`btn ${className}`)}
+        className={classnames(`btn ${className}`, {
+          'btn-disabled cursor-not-allowed': totalPages === currentPage,
+        })}
       >
         {nextButtonTitle}
       </button>
