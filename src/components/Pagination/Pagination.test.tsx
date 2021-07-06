@@ -9,7 +9,7 @@ describe('Pagination Component', () => {
       <Pagination
         currentPage={1}
         totalPages={1}
-        OnPageSet={() => {
+        onPageSet={() => {
           //
         }}
         className='btn-xs'
@@ -22,7 +22,7 @@ describe('Pagination Component', () => {
       <Pagination
         currentPage={1}
         totalPages={1}
-        OnPageSet={() => {
+        onPageSet={() => {
           //
         }}
         className='btn-xs'
@@ -35,7 +35,7 @@ describe('Pagination Component', () => {
       <Pagination
         currentPage={1}
         totalPages={1}
-        OnPageSet={() => {
+        onPageSet={() => {
           //
         }}
         className='btn-xs'

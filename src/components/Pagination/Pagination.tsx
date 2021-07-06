@@ -7,14 +7,14 @@ export interface PaginationProps {
   className?: string
   previousButtonTitle?: string
   nextButtonTitle?: string
-  OnPageSet: (number) => void
+  onPageSet: (number) => void
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
   className = '',
   totalPages = 1,
   currentPage = 1,
-  OnPageSet,
+  onPageSet,
   previousButtonTitle = 'Previous',
   nextButtonTitle = 'Next',
 }) => {
@@ -55,18 +55,18 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
-      OnPageSet(currentPage - 1)
+      onPageSet(currentPage - 1)
     }
   }
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      OnPageSet(currentPage + 1)
+      onPageSet(currentPage + 1)
     }
   }
 
   const handlePage = (page) => {
-    OnPageSet(page)
+    onPageSet(page)
   }
 
   useEffect(() => {

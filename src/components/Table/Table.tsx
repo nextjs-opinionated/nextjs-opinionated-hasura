@@ -4,32 +4,39 @@ import React, { useEffect, useState } from 'react'
 import { MdDelete } from 'react-icons/md'
 import { FaUserAlt } from 'react-icons/fa'
 import { Pagination } from '../Pagination/Pagination'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 export interface TableProps {
   data: any[]
   className?: string
   fieldNames: string[]
-  linkPage?: string
-  OnDelete?: (id: string) => void
+  urlPrefix?: string
   pageSize?: number
   currentPage?: number
   totalItems?: number
-  OnPageSet: (number) => void
+  onPageSet?: (number) => void
+  onDelete?: (id: string) => Promise<void>
+  deleteConfirmationMessage?: string
+  deleteConfirmationYesLabel?: string
+  deleteConfirmationNoLabel?: string
 }
 
 export const Table: React.FC<TableProps> = ({
   data,
   fieldNames,
   className = '',
-  linkPage,
-  OnDelete,
+  urlPrefix,
   pageSize = 5,
-  //currentPage,
+  currentPage = 1,
   totalItems,
-  OnPageSet,
+  onPageSet,
+  onDelete,
+  deleteConfirmationMessage = 'Do you really want to delete?',
+  deleteConfirmationYesLabel = 'Yes',
+  deleteConfirmationNoLabel = 'No',
 }) => {
-  const [currentPage, currentPageSet] = useState(1)
-  const [totalPage, totalPageSet] = useState<number>()
+  const [totalPage, totalPageSet] = useState<number>(0)
 
   useEffect(() => {
     if (totalItems) {
@@ -49,6 +56,7 @@ export const Table: React.FC<TableProps> = ({
                   {fieldName}
                 </th>
               ))}
+              {onDelete && <th className=' text-base-content'>&nbsp;</th>}
             </tr>
           </thead>
 
@@ -59,8 +67,8 @@ export const Table: React.FC<TableProps> = ({
                   {fieldNames.map((fieldName, index) => (
                     <td key={`${index}-td`}>
                       {/* the first field is mandatory for the detail's link and should have 'id' field */}
-                      {index === 0 && linkPage && value.id ? (
-                        <Link href={`${linkPage}/${value.id}`}>
+                      {index === 0 && urlPrefix && value.id ? (
+                        <Link href={`${urlPrefix}/${value.id}`}>
                           <a className='pl-0 underline btn btn-link btn-xs'>
                             {fieldName === 'image' ? (
                               <div className='flex items-center space-x-3'>
@@ -100,14 +108,27 @@ export const Table: React.FC<TableProps> = ({
                       )}
                     </td>
                   ))}
-                  {OnDelete && (
-                    <td
-                      key={`${index}-del`}
-                      onClick={() => {
-                        OnDelete(value.id)
-                      }}
-                    >
-                      <button>
+
+                  {onDelete && (
+                    <td>
+                      <button
+                        data-testid={`btn-delete-${value?.id}`}
+                        onClick={async () => {
+                          const SwalReactAlert = withReactContent(Swal)
+                          const swalConfirmDelete = await SwalReactAlert.fire({
+                            html: <p>{deleteConfirmationMessage}</p>,
+                            showCloseButton: true,
+                            showDenyButton: true,
+                            denyButtonText: deleteConfirmationNoLabel,
+                            confirmButtonText: deleteConfirmationYesLabel,
+                            icon: 'question',
+                          })
+
+                          if (swalConfirmDelete.isConfirmed) {
+                            await onDelete(value.id)
+                          }
+                        }}
+                      >
                         <MdDelete size={25} />
                       </button>
                     </td>
@@ -117,16 +138,16 @@ export const Table: React.FC<TableProps> = ({
           </tbody>
         </table>
       </div>
-      <Pagination
-        className='my-2'
-        totalPages={totalPage}
-        currentPage={currentPage}
-        OnPageSet={(newCurrentPage) => {
-          currentPageSet(newCurrentPage)
-          OnPageSet(newCurrentPage)
-          console.log('--  newCurrentPage: ', newCurrentPage)
-        }}
-      />
+      {onPageSet && (
+        <Pagination
+          className='my-2'
+          totalPages={totalPage}
+          currentPage={currentPage}
+          onPageSet={(newCurrentPage) => {
+            onPageSet(newCurrentPage)
+          }}
+        />
+      )}
     </div>
   )
 }
