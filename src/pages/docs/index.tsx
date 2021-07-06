@@ -1,6 +1,5 @@
 import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
-import { useRouter } from 'next/router'
 import dayjs from 'dayjs'
 import { getAllDocs, MetaTypes } from '../../utils/docs'
 import { GetStaticProps } from 'next'
@@ -19,8 +18,6 @@ type DocsProps = {
 }
 
 export default function Docs({ docs }: DocsProps) {
-  const router = useRouter()
-
   return (
     <Layout
       title={
@@ -32,7 +29,7 @@ export default function Docs({ docs }: DocsProps) {
       menuItems={Object.values(LinksList)}
     >
       <main className='md:mx-8'>
-        <h2 className='my-10 text-xl'>Documentation about the boilerplate</h2>
+        <h2 className='my-10 text-xl'>Documentation</h2>
 
         <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 grid-flow'>
           {docs?.length > 0 &&
@@ -56,14 +53,6 @@ export default function Docs({ docs }: DocsProps) {
                           <a className='underline link-hover'>{item.meta.title}</a>
                         </Link>
                       </h2>
-                    </div>
-                    <div className='card-actions'>
-                      <button
-                        className='btn btn-sm btn-secondary'
-                        onClick={() => router.push(`/docs/${item.slug}`)}
-                      >
-                        Visitar
-                      </button>
                     </div>
                   </div>
                 </div>
