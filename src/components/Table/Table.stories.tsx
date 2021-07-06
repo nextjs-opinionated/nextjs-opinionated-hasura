@@ -233,3 +233,48 @@ Table_WithoutLink.args = {
   ],
   fieldNames: ['name', 'email'],
 }
+
+export const Table_WithoOnDelete = Template.bind({})
+Table_WithoOnDelete.args = {
+  data: [
+    {
+      id: 'cd89d348-5832-44d2-9ef7-829c26b11974',
+      name: 'Empresa 1',
+      email: 'empresa1@hotmail.com',
+      created_at: '2021-04-06T21:32:11.33154+00:00',
+      customers: [],
+    },
+    {
+      id: 'bc2f52ae-4fe3-4744-b9d8-f0262d798d95',
+      name: 'Empresa 2',
+      email: 'empresa2@hotmail.com',
+      created_at: '2021-06-30T20:22:57.057824+00:00',
+      customers: [],
+    },
+    {
+      id: 'bc2asd2ae-4fe3-4744-b9d8-f0262d798d95',
+      name: 'Empresa 3',
+      email: 'empresa3@hotmail.com',
+      created_at: '2021-06-30T20:22:57.057824+00:00',
+      customers: [],
+    },
+    {
+      id: 'bcasd4fe3-4744-b9d8-f0262d798d95',
+      name: 'Empresa 4',
+      email: 'empresa4@hotmail.com',
+      created_at: '2021-06-30T20:22:57.057824+00:00',
+      customers: [],
+    },
+    {
+      id: 'bc2f52ae-4fe3-474450262d798d95',
+      name: 'Empresa 5',
+      email: 'empresa5@hotmail.com',
+      created_at: '2021-06-30T20:22:57.057824+00:00',
+      customers: [],
+    },
+  ],
+  fieldNames: ['name', 'email'],
+  OnDelete: () => {
+    /* noop */
+  },
+}
