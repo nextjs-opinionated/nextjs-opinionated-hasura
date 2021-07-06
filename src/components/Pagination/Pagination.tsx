@@ -7,7 +7,7 @@ export interface PaginationProps {
   className?: string
   previousButtonTitle?: string
   nextButtonTitle?: string
-  OnPageSet: (string) => void
+  OnPageSet: (number) => void
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
