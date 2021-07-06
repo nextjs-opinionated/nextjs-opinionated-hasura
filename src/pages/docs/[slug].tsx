@@ -43,7 +43,15 @@ export default function Doc({ meta, content }: MetaTypes) {
         <link href={`https://unpkg.com/prismjs@0.0.1/themes/prism-okaidia.css`} rel='stylesheet' />
       </Head>
 
-      <Layout menuItems={Object.values(LinksList)}>
+      <Layout
+        title={
+          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
+            <div className='text-base font-bold'>Documentation</div>
+            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+          </div>
+        }
+        menuItems={Object.values(LinksList)}
+      >
         <article
           className='w-full px-8 m-auto my-4 prose lg:w-3/4 lg:prose-xl sm:my-16'
           dangerouslySetInnerHTML={{ __html: content }}
