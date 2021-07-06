@@ -5,6 +5,7 @@ export type LinksListIds =
   | 'messages'
   | 'users'
   | 'github'
+  | 'documentation'
 
 export type LinkProps = {
   id: LinksListIds
@@ -45,5 +46,10 @@ export const LinksList: {
     id: 'github',
     name: 'Github',
     externalURL: 'https://github.com/saitodisse/nextjs-opinionated-hasura',
+  },
+  documentation: {
+    id: 'documentation',
+    name: 'Documentation',
+    internalURL: '/docs',
   },
 }
