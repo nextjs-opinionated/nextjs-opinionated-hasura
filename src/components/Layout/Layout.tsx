@@ -1,5 +1,7 @@
 import React, { ReactNode, useRef } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
+import classnames from 'classnames'
 import { LinkProps } from '../../model/site/LinksList'
 import { ThemeList } from '../../model/site/ThemeList'
 import { useTheme } from 'next-themes'
@@ -13,6 +15,7 @@ export interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) => {
   const { theme, setTheme } = useTheme()
+  const router = useRouter()
   const checkboxRef = useRef<HTMLInputElement>(null)
   return (
     <div className='h-screen bg-base-100 drawer text-base-content'>
@@ -21,7 +24,14 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
       <input id='menu-drawer' type='checkbox' className='drawer-toggle' ref={checkboxRef} />
       <div className='flex flex-col drawer-content'>
         {/* drawer content */}
-        <div className='w-full bg-transparent navbar'>
+        <div
+          className={classnames(
+            'inset-x-0 top-0 z-50 w-full bg- border-b border-transparent navbar text-base-content',
+            {
+              'bg-transparent fixed text-primary-content': router.asPath === '/',
+            }
+          )}
+        >
           {/* hamburger menu is only visible on mobile */}
           <div className='flex-none lg:hidden'>
             <label htmlFor='menu-drawer' className='btn btn-square btn-ghost'>
@@ -72,7 +82,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                 <li>
                   <div className='z-30 m-1'>
                     <select
-                      className='w-full max-w-xs select select-bordered'
+                      className='w-full max-w-xs bg-transparent border-solid select select-bordered'
                       onChange={(ev) => {
                         setTheme(ev.target.value)
                       }}
@@ -93,7 +103,13 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
         </div>
 
         {/* main content */}
-        <div className='w-full p-4 md:px-6 md:container md:mx-auto'>{children}</div>
+        <div
+          className={classnames('w-full', {
+            'p-4 md:px-6 md:container md:mx-auto': router.asPath !== '/',
+          })}
+        >
+          {children}
+        </div>
       </div>
 
       {/* drawer sidebar for mobile */}

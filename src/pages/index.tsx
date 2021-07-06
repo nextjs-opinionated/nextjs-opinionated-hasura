@@ -6,6 +6,7 @@ import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import Link from 'next/link'
+import { IoIosArrowDown } from 'react-icons/io'
 import * as nextjsAuth0 from '@auth0/nextjs-auth0'
 import Loading from '../components/Loading/Loading'
 
@@ -42,26 +43,7 @@ export default function Page() {
         <meta name='twitter:creator' content='' key='twhandle' />
       </Head>
 
-      <div className='min-h-screen hero bg-gradient-to-br from-secondary to-primary text-primary-content'>
-        <div className='flex-col justify-between w-full max-w-6xl mt-10 mb-48 text-center hero-content'>
-          <h1 className='py-4 mb-2 font-extrabold text-center font-title'>
-            <div className='text-4xl font-bold lg:text-5xl'>Welcome to</div>
-            <div className='text-5xl lg:text-7xl'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
-          </h1>
-          <div className='max-w-md'>
-            <p className='mb-5'>
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
-              exercitationem quasi.
-            </p>
-            <div className='flex justify-center space-x-2'>
-              <button className='btn btn-ghost'>Enjoy it</button>
-              <button className='btn btn-primary'>Get Started</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* <Layout
+      <Layout
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
             <div className='text-base font-bold'>HOME</div>
@@ -70,8 +52,119 @@ export default function Page() {
         }
         menuItems={Object.values(LinksList)}
       >
+        <div className='min-h-screen hero bg-gradient-to-br from-secondary to-primary text-primary-content'>
+          <div className='flex-col justify-between w-full max-w-6xl mt-10 mb-48 text-center hero-content'>
+            <h1 className='py-4 mb-2 font-extrabold text-center font-title'>
+              <div className='text-4xl font-bold lg:text-5xl'>Welcome to</div>
+              <div className='text-5xl lg:text-7xl'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+            </h1>
+            <div className='max-w-md'>
+              <p className='mb-5'>
+                Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+                exercitationem quasi.
+              </p>
+              <div className='flex justify-center space-x-2'>
+                <button className='btn btn-ghost'>Enjoy it</button>
+                <button className='btn btn-primary'>Get Started</button>
+              </div>
+              <div className='flex justify-center'>
+                <IoIosArrowDown className='w-6 h-6 animate-bounce' />
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <div className='flex flex-col avatar'>
+        <div className='max-w-md mx-auto hero bg-base-100 md:max-w-full'>
+          <div className='flex-col text-center hero-content'>
+            <div>
+              <h2 className='mt-20 mb-2 text-4xl font-extrabold text-transparent md:text-6xl bg-clip-text bg-gradient-to-r from-primary to-secondary'>
+                A new boilerplate
+              </h2>
+              <h3 className='mb-5 text-3xl font-bold'>Lorem ipsum</h3>
+              <p className='mb-5'>
+                Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+                exercitationem quasi.
+              </p>
+            </div>
+            <div className='flex space-x-2'>
+              <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
+                <div className='card-body'>
+                  <p>Rerum reiciendis beatae tenetur excepturi aut pariatur est eos.</p>
+                  <div className='justify-end card-actions'>
+                    <button className='btn btn-primary'>
+                      More info
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        className='inline-block w-6 h-6 ml-2 stroke-current'
+                      >
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='2'
+                          d='M9 5l7 7-7 7'
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
+                <div className='card-body'>
+                  <p>Rerum reiciendis beatae tenetur excepturi aut pariatur est eos.</p>
+                  <div className='justify-end card-actions'>
+                    <button className='btn btn-primary'>
+                      More info
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        className='inline-block w-6 h-6 ml-2 stroke-current'
+                      >
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='2'
+                          d='M9 5l7 7-7 7'
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
+                <div className='card-body'>
+                  <p>Rerum reiciendis beatae tenetur excepturi aut pariatur est eos.</p>
+                  <div className='justify-end card-actions'>
+                    <button className='btn btn-primary'>
+                      More info
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        className='inline-block w-6 h-6 ml-2 stroke-current'
+                      >
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='2'
+                          d='M9 5l7 7-7 7'
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='flex justify-center w-full mt-6'>
+              <a href='/components/button' className='btn btn-secondary btn-wide'>
+                See All Components
+              </a>
+            </div>
+          </div>
+        </div>
+        {/* <div className='flex flex-col avatar'>
           <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
             <img
               src={user?.picture || 'http://daisyui.com/tailwind-css-component-profile-1@94w.png'}
@@ -86,15 +179,6 @@ export default function Page() {
         </div>
 
         <div className='pb-3'>
-          <h1 className='py-2 text-3xl font-bold'>
-            {process.env.NEXT_PUBLIC_SITE_NAME} - {process.env.NODE_ENV}
-          </h1>
-
-          <p className='max-w-md my-2'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eius odit soluta
-            porro libero amet quidem, iste nihil ipsam, aspernatur distinctio iure aperiam fugiat
-            quaerat sit architecto nemo tempora ratione.
-          </p>
 
           <div className='flex space-x-2 space-y-2'>
             <div></div>
@@ -123,7 +207,7 @@ export default function Page() {
             </button>
 
             {!user && (
-              <a className='btn btn-primary btn-md' href='/api/auth/login'>
+              <a classNameName='btn btn-primary btn-md' href='/api/auth/login'>
                 Login
               </a>
             )}
@@ -151,8 +235,8 @@ export default function Page() {
             {extLink('react-query', 'https://react-query.tanstack.com/')}
             {extLink('auth0', 'https://auth0.com/')}
           </p>
-        </div>
-      </Layout> */}
+        </div>*/}
+      </Layout>
       <style jsx global>{`
         html,
         body {
