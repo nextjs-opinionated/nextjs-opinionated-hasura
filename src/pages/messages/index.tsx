@@ -166,13 +166,7 @@ const Messages: React.FunctionComponent = () => {
             <Table
               className='table-zebra'
               data={messages || []}
-              fields={{
-                title: (item) => <div>{item.title}</div>
-              }}
-              {_.map(fields, (valor, chave) => {
-                
-              })}
-              // fieldNames={['title', 'publishedAt']}
+              fieldNames={['title', 'publishedAt']}
               urlPrefix='/messages'
             />
           )}
