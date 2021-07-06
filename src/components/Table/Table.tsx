@@ -14,6 +14,7 @@ export interface TableProps {
   pageSize?: number
   currentPage?: number
   totalItems?: number
+  OnPageSet: (number) => void
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -22,18 +23,18 @@ export const Table: React.FC<TableProps> = ({
   className = '',
   linkPage,
   OnDelete,
-  pageSize,
+  pageSize = 5,
   //currentPage,
   totalItems,
+  OnPageSet,
 }) => {
   const [currentPage, currentPageSet] = useState(1)
   const [totalPage, totalPageSet] = useState<number>()
 
   useEffect(() => {
     if (totalItems) {
-      let totalPage = totalItems / pageSize
-      totalPage = Math.ceil(totalPage)
-      totalPageSet(totalPage)
+      const totalPages = Math.ceil(totalItems / pageSize)
+      totalPageSet(totalPages)
     }
   }, [pageSize, totalItems, totalPage])
 
@@ -118,10 +119,11 @@ export const Table: React.FC<TableProps> = ({
       </div>
       <Pagination
         className='my-2'
-        totalPage={totalPage}
+        totalPages={totalPage}
         currentPage={currentPage}
         OnPageSet={(newCurrentPage) => {
           currentPageSet(newCurrentPage)
+          OnPageSet(newCurrentPage)
           console.log('--  newCurrentPage: ', newCurrentPage)
         }}
       />

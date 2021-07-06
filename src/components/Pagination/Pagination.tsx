@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import React, { useCallback, useEffect, useState } from 'react'
 
 export interface PaginationProps {
-  totalPage?: number
+  totalPages?: number
   currentPage?: number
   className?: string
   previousButtonTitle?: string
@@ -12,7 +12,7 @@ export interface PaginationProps {
 
 export const Pagination: React.FC<PaginationProps> = ({
   className = '',
-  totalPage = 1,
+  totalPages: totalPage = 1,
   currentPage = 1,
   OnPageSet,
   previousButtonTitle = 'Previous',

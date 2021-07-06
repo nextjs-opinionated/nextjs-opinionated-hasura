@@ -8,7 +8,7 @@ describe('Pagination Component', () => {
     const render = TestingLib.render(
       <Pagination
         currentPage={1}
-        totalPage={1}
+        totalPages={1}
         OnPageSet={() => {
           //
         }}
@@ -21,7 +21,7 @@ describe('Pagination Component', () => {
     const render = TestingLib.render(
       <Pagination
         currentPage={1}
-        totalPage={1}
+        totalPages={1}
         OnPageSet={() => {
           //
         }}
@@ -34,7 +34,7 @@ describe('Pagination Component', () => {
     const render = TestingLib.render(
       <Pagination
         currentPage={1}
-        totalPage={1}
+        totalPages={1}
         OnPageSet={() => {
           //
         }}
