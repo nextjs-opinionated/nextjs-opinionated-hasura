@@ -52,7 +52,7 @@ export default function Page() {
         }
         menuItems={Object.values(LinksList)}
       >
-        <div className='min-h-screen hero bg-gradient-to-br from-secondary to-primary text-primary-content'>
+        <div className='relative min-h-screen hero bg-gradient-to-br from-secondary to-primary text-primary-content'>
           <div className='flex-col justify-between w-full max-w-6xl mt-10 mb-48 text-center hero-content'>
             <h1 className='py-4 mb-2 font-extrabold text-center font-title'>
               <div className='text-4xl font-bold lg:text-5xl'>Welcome to</div>
@@ -67,7 +67,7 @@ export default function Page() {
                 <button className='btn btn-ghost'>Enjoy it</button>
                 <button className='btn btn-primary'>Get Started</button>
               </div>
-              <div className='flex justify-center'>
+              <div className='absolute left-0 right-0 flex justify-center mt-2 bottom-20'>
                 <IoIosArrowDown className='w-6 h-6 animate-bounce' />
               </div>
             </div>
@@ -159,7 +159,7 @@ export default function Page() {
             </div>
             <div className='flex justify-center w-full mt-6'>
               <a href='/components/button' className='btn btn-secondary btn-wide'>
-                See All Components
+                See All
               </a>
             </div>
           </div>
