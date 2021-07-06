@@ -10,7 +10,7 @@ import _ from 'lodash'
 
 export interface TableProps {
   data: any[]
-  fields: React.ReactNodeArray
+  fields: { [key: string]: (item: any) => React.ReactNode }
   className?: string
   fieldNames: string[]
   urlPrefix?: string
@@ -44,8 +44,8 @@ export const Table: React.FC<TableProps> = ({
   useEffect(() => {
     if (fields) {
       _.map(fields, (value, key) => {
-        console.log(React.createElement(value))
-        console.log('--')
+        console.log('--  key: ', key)
+        console.log('--  value: ', value)
       })
     }
   }, [fields])
@@ -74,11 +74,16 @@ export const Table: React.FC<TableProps> = ({
 
           <tbody>
             {data?.length > 0 &&
-              data?.map((value, index) => (
+              data?.map((item, index) => (
                 <tr key={`${index}-tr`}>
-                  {fieldNames.map((fieldName, index) => (
+                  {_.map(fields, (value, key) => (
+                    <td key={`${key}-tr`} className=' text-base-content'>
+                      {value(item)}
+                    </td>
+                  ))}
+
+                  {/* fieldNames.map((fieldName, index) => (
                     <td key={`${index}-td`}>
-                      {/* the first field is mandatory for the detail's link and should have 'id' field */}
                       {index === 0 && urlPrefix && value.id ? (
                         <Link href={`${urlPrefix}/${value.id}`}>
                           <a className='pl-0 underline btn btn-link btn-xs'>
@@ -119,12 +124,12 @@ export const Table: React.FC<TableProps> = ({
                         value[fieldName]
                       )}
                     </td>
-                  ))}
+                      ))} */}
 
                   {onDelete && (
                     <td>
                       <button
-                        data-testid={`btn-delete-${value?.id}`}
+                        data-testid={`btn-delete-${item?.id}`}
                         onClick={async () => {
                           const SwalReactAlert = withReactContent(Swal)
                           const swalConfirmDelete = await SwalReactAlert.fire({
@@ -136,7 +141,7 @@ export const Table: React.FC<TableProps> = ({
                             icon: 'question',
                           })
                           if (swalConfirmDelete.isConfirmed) {
-                            await onDelete(value.id)
+                            await onDelete(item.id)
                           }
                         }}
                       >

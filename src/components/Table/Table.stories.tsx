@@ -1,6 +1,7 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
 import { Table, TableProps } from './Table'
+import dayjs from 'dayjs'
 
 export default {
   title: 'Component/Table',
@@ -65,7 +66,11 @@ const TABLE_DATA = [
 export const Table_Simple = Template.bind({})
 Table_Simple.args = {
   data: TABLE_DATA,
-  fields: { name: () => <h2>teste</h2> },
+  fields: {
+    Name: (item) => item.name,
+    'E-mail': (item) => item.email,
+    'Created At': (item) => dayjs(item.created_at).format('YYYY-MM-DD'),
+  },
   fieldNames: ['name', 'created_at', 'email'],
   linkPage: '/companies',
 }
