@@ -84,7 +84,7 @@ export default function Page() {
           </p>
 
           {/* buttons */}
-          <div className='flex space-x-2 space-y-2'>
+          <div className='flex flex-wrap space-x-4 space-y-4'>
             <div></div>
 
             <Link href='/form-example'>
@@ -109,6 +109,10 @@ export default function Page() {
             >
               Show Image
             </button>
+
+            <Link href='/code-generator'>
+              <a className='btn btn-primary'>Generate Code</a>
+            </Link>
 
             {!user && (
               <a className='btn btn-primary btn-md' href='/api/auth/login'>
