@@ -127,10 +127,7 @@ export default function Page() {
               <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
                 <div className='card-body'>
                   <h2 className='card-title'>Typed-Fetch</h2>
-                  <p>
-                    We create a standard typed-fetch using typeScript to manage API calls on your
-                    app
-                  </p>
+                  <p>We created a standard typed-fetch using typeScript to manage API calls</p>
                   <div className='justify-end card-actions'>
                     <Link href='/typed-fetch-examples'>
                       <a className='btn btn-primary'>
