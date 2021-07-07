@@ -18,7 +18,7 @@ export default function Page() {
   const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
 
-  const { user, error, isLoading } = nextjsAuth0.useUser()
+  const { error, isLoading } = nextjsAuth0.useUser()
   if (isLoading) return <Loading />
   if (error) return <div>{error.message}</div>
 
@@ -205,23 +205,6 @@ export default function Page() {
             </a>
           </div>
         </div>
-
-        {/* <p className='max-w-md mt-5 text-sm italic'>
-            {extLink('next.js', 'https://nextjs.org/')},{' '}
-            {extLink('typescript', 'https://www.typescriptlang.org/')},{' '}
-            {extLink('tailwindcss', 'https://tailwindcss.com/')},{' '}
-            {extLink('daisyUI', 'https://daisyui.com/')},{' '}
-            {extLink('storybook', 'https://storybook.js.org/')},{' '}
-            {extLink('jest', 'https://jestjs.io/')}, {extLink('eslint', 'https://eslint.org/')},{' '}
-            {extLink('prettier', 'https://prettier.io/')},{' '}
-            {extLink('sweetalert2', 'https://sweetalert2.github.io/')},{' '}
-            {extLink('react-icons', 'https://react-icons.github.io/react-icons/')},{' '}
-            {extLink('react-hook-form', 'https://react-hook-form.com/')},{' '}
-            {extLink('@tailwindcss/forms', 'https://github.com/tailwindlabs/tailwindcss-forms')},{' '}
-            {extLink('zod', 'https://github.com/colinhacks/zod')},{' '}
-            {extLink('react-query', 'https://react-query.tanstack.com/')}
-            {extLink('auth0', 'https://auth0.com/')}
-          </p> */}
       </Layout>
       <style jsx global>{`
         html {
@@ -241,11 +224,3 @@ export default function Page() {
     </>
   )
 }
-
-// function extLink(name: string, url: string) {
-//   return (
-//     <a className='link' target='_blank' rel='noreferrer' href={url}>
-//       {name}
-//     </a>
-//   )
-// }
