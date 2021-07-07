@@ -7,6 +7,7 @@
 - table:
     schema: public
     name: roles
+  is_enum: true
   array_relationships:
   - name: users
     using:

@@ -1113,6 +1113,20 @@ export enum Roles_Constraint {
   RolesPkey = 'roles_pkey',
 }
 
+export enum Roles_Enum {
+  Admin = 'admin',
+  User = 'user',
+}
+
+/** Boolean expression to compare columns of type "roles_enum". All fields are combined with logical 'AND'. */
+export type Roles_Enum_Comparison_Exp = {
+  _eq?: Maybe<Roles_Enum>
+  _in?: Maybe<Array<Roles_Enum>>
+  _is_null?: Maybe<Scalars['Boolean']>
+  _neq?: Maybe<Roles_Enum>
+  _nin?: Maybe<Array<Roles_Enum>>
+}
+
 /** input type for inserting data into table "roles" */
 export type Roles_Insert_Input = {
   name?: Maybe<Scalars['String']>
@@ -1606,7 +1620,7 @@ export type Users = {
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   oauth_id?: Maybe<Scalars['String']>
-  role?: Maybe<Scalars['String']>
+  role?: Maybe<Roles_Enum>
   /** An object relationship */
   roleByRole?: Maybe<Roles>
   updated_at: Scalars['timestamptz']
@@ -1659,7 +1673,7 @@ export type Users_Bool_Exp = {
   image?: Maybe<String_Comparison_Exp>
   name?: Maybe<String_Comparison_Exp>
   oauth_id?: Maybe<String_Comparison_Exp>
-  role?: Maybe<String_Comparison_Exp>
+  role?: Maybe<Roles_Enum_Comparison_Exp>
   roleByRole?: Maybe<Roles_Bool_Exp>
   updated_at?: Maybe<Timestamptz_Comparison_Exp>
 }
@@ -1685,7 +1699,7 @@ export type Users_Insert_Input = {
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   oauth_id?: Maybe<Scalars['String']>
-  role?: Maybe<Scalars['String']>
+  role?: Maybe<Roles_Enum>
   roleByRole?: Maybe<Roles_Obj_Rel_Insert_Input>
   updated_at?: Maybe<Scalars['timestamptz']>
 }
@@ -1700,7 +1714,6 @@ export type Users_Max_Fields = {
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   oauth_id?: Maybe<Scalars['String']>
-  role?: Maybe<Scalars['String']>
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
@@ -1713,7 +1726,6 @@ export type Users_Max_Order_By = {
   image?: Maybe<Order_By>
   name?: Maybe<Order_By>
   oauth_id?: Maybe<Order_By>
-  role?: Maybe<Order_By>
   updated_at?: Maybe<Order_By>
 }
 
@@ -1727,7 +1739,6 @@ export type Users_Min_Fields = {
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   oauth_id?: Maybe<Scalars['String']>
-  role?: Maybe<Scalars['String']>
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
@@ -1740,7 +1751,6 @@ export type Users_Min_Order_By = {
   image?: Maybe<Order_By>
   name?: Maybe<Order_By>
   oauth_id?: Maybe<Order_By>
-  role?: Maybe<Order_By>
   updated_at?: Maybe<Order_By>
 }
 
@@ -1810,7 +1820,7 @@ export type Users_Set_Input = {
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   oauth_id?: Maybe<Scalars['String']>
-  role?: Maybe<Scalars['String']>
+  role?: Maybe<Roles_Enum>
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
