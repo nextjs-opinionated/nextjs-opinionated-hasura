@@ -21,11 +21,14 @@ const Page: React.FunctionComponent = () => {
         menuItems={Object.values(LinksList)}
       >
         <main className='mx-8'>
-          <h3 className='text-lg italic'>Only works on localhost</h3>
+          <h3 className='text-lg italic'>Code generation only works on localhost</h3>
           <hr className='my-4' />
-          <div>
+          <div className='flex flex-col text-lg'>
             <Link href='/code-generator/generate-component'>
-              <a className='link'>Component</a>
+              <a className='my-1 link'>Component</a>
+            </Link>
+            <Link href='/code-generator/generate-crud'>
+              <a className='my-1 link'>CRUD</a>
             </Link>
           </div>
         </main>

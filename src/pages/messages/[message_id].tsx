@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { MessageValidationSchema } from '../../model/schemas/MessageValidationSchema'
+import { MessagesValidationSchema } from '../../model/schemas/MessagesValidationSchema'
 import { useRouter } from 'next/router'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
@@ -67,7 +67,7 @@ const Page: React.FunctionComponent = () => {
     reset,
   } = useForm<FormProps>({
     mode: 'onChange',
-    resolver: zodResolver(MessageValidationSchema),
+    resolver: zodResolver(MessagesValidationSchema),
   })
 
   const onSubmit = handleSubmit(

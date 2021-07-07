@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { Messages_Update_Column } from '../../../graphql/generated'
-import { MessageValidationSchema } from '../../../model/schemas/MessageValidationSchema'
+import { MessagesValidationSchema } from '../../../model/schemas/MessagesValidationSchema'
 import _ from 'lodash'
 import { Insert_random_message_api_post } from '../../../model/api-models/messages/Insert_random_message_api_post'
 import dayjs from 'dayjs'
@@ -52,7 +52,7 @@ export default withSentry(
 
     // server validations
     try {
-      MessageValidationSchema.parse(inputData)
+      MessagesValidationSchema.parse(inputData)
     } catch (error) {
       if (error?.errors) {
         res.status(HttpStatusCode.BAD_REQUEST_400).json(error.errors)

@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { Messages_Update_Column } from '../../../graphql/generated'
-import { MessageValidationSchema } from '../../../model/schemas/MessageValidationSchema'
+import { MessagesValidationSchema } from '../../../model/schemas/MessagesValidationSchema'
 import { Insert_messages_one_api_post } from '../../../model/api-models/messages/Insert_messages_one_api_post'
 import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
@@ -23,7 +23,7 @@ export default withSentry(
 
     // server validations
     try {
-      MessageValidationSchema.parse(inputData)
+      MessagesValidationSchema.parse(inputData)
     } catch (error) {
       if (error?.errors) {
         res.status(HttpStatusCode.BAD_REQUEST_400).json(error.errors)

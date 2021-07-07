@@ -1,10 +1,10 @@
 import { z } from 'zod'
 import { Insert_Messages_OneMutation } from '../../../graphql/generated'
 import { ApiConfig } from '../../../utils/typedFetch/ApiConfig'
-import { MessageValidationSchema } from '../../schemas/MessageValidationSchema'
+import { MessagesValidationSchema } from '../../schemas/MessagesValidationSchema'
 
 export interface Insert_messages_one_api_post {
-  input: z.infer<typeof MessageValidationSchema>
+  input: z.infer<typeof MessagesValidationSchema>
   output: Insert_Messages_OneMutation
 }
 
