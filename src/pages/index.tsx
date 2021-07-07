@@ -87,13 +87,15 @@ export default function Page() {
               <h2 className='mt-20 mb-2 text-4xl font-extrabold text-transparent md:text-6xl bg-clip-text bg-gradient-to-r from-primary to-secondary'>
                 A new boilerplate
               </h2>
-              <h3 className='mb-5 text-3xl font-bold'>Lorem ipsum</h3>
+              <h3 className='mt-5 text-2xl font-bold'>
+                Most popular libraries based on JavaScript
+              </h3>
               <p className='mb-5'>
                 Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
                 exercitationem quasi.
               </p>
             </div>
-            <div className='grid grid-cols-1 gap-4 space-x-2 md:grid-cols-3'>
+            <div className='grid grid-cols-1 gap-4 mt-5 space-x-2 md:grid-cols-3'>
               <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
                 <div className='card-body'>
                   <h2 className='card-title'>React Form Example</h2>
