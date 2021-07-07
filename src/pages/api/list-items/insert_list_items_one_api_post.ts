@@ -3,7 +3,10 @@ import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { List_Items_Update_Column } from '../../../graphql/generated'
 import { ListItemsValidationSchema } from '../../../model/schemas/ListItemsValidationSchema'
-import { Insert_list_items_one_api_post } from '../../../model/api-models/list-items/Insert_list_items_one_api_post'
+import {
+  Insert_list_items_one_api_post,
+  insert_list_items_one_api_post_Config,
+} from '../../../model/api-models/list-items/Insert_list_items_one_api_post'
 import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 
@@ -13,8 +16,8 @@ export default withSentry(
     res: NextApiResponse
   ) {
     // check method
-    if (req.method !== 'POST') {
-      res.setHeader('Allow', ['POST'])
+    if (req.method !== insert_list_items_one_api_post_Config.method.toUpperCase()) {
+      res.setHeader('Allow', [insert_list_items_one_api_post_Config.method.toUpperCase()])
       res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
     }
 

@@ -1,14 +1,15 @@
 import _ from 'lodash'
 import * as z from 'zod'
+import { validate as uuidValidate } from 'uuid'
 
 export const ListItemsValidationSchema = z.object({
   id: z.any().refine(
     (value) => {
       // optional if is on insert mode
-      if (!value) {
+      if (!value || value?.length === 0) {
         return true
       }
-      return _.isInteger(value)
+      return uuidValidate(value)
     },
     {
       message: 'id must be a valid integer',

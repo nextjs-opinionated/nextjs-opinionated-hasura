@@ -21,7 +21,6 @@ import {
   Insert_list_items_one_api_post,
   insert_list_items_one_api_post_Config,
 } from '../../model/api-models/list-items/Insert_list_items_one_api_post'
-import _ from 'lodash'
 
 type FormProps = Insert_list_items_one_api_post['input'] & {
   publishedAt_date: string
@@ -41,7 +40,7 @@ const Page: React.FunctionComponent = () => {
       >({
         ...list_items_by_pk_api_get_Config,
         data: {
-          list_item_id: router.query.list_item_id as string,
+          list_item_id: router.query?.list_item_id as string,
         },
       })
       return resultObj.data
@@ -54,9 +53,11 @@ const Page: React.FunctionComponent = () => {
     // dependent query
     // https://github.com/tannerlinsley/react-query-essentials/blob/master/18%20-%20dependent%20queries/app/src/App.js
     {
-      enabled: (router.query.list_item_id as string)?.length > 0,
+      enabled: (router.query?.list_item_id as string)?.length > 0,
     }
   )
+
+  console.log('--  router.query?.list_item_id: ', router.query?.list_item_id)
 
   // react-hook-form
   const {
@@ -85,7 +86,7 @@ const Page: React.FunctionComponent = () => {
       >({
         ...insert_list_items_one_api_post_Config,
         data: {
-          id: router.query.list_item_id === `new` ? null : _.toNumber(router.query.list_item_id),
+          id: router?.query?.list_item_id as string,
           title: submitProps.title,
           body: submitProps.body,
           url: submitProps.url,

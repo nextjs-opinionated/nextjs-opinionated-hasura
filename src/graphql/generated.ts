@@ -14,19 +14,7 @@ export type Scalars = {
   Int: number
   Float: number
   timestamptz: any
-}
-
-/** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
-export type Int_Comparison_Exp = {
-  _eq?: Maybe<Scalars['Int']>
-  _gt?: Maybe<Scalars['Int']>
-  _gte?: Maybe<Scalars['Int']>
-  _in?: Maybe<Array<Scalars['Int']>>
-  _is_null?: Maybe<Scalars['Boolean']>
-  _lt?: Maybe<Scalars['Int']>
-  _lte?: Maybe<Scalars['Int']>
-  _neq?: Maybe<Scalars['Int']>
-  _nin?: Maybe<Array<Scalars['Int']>>
+  uuid: any
 }
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -67,7 +55,7 @@ export type List_Items = {
   __typename?: 'list_items'
   body: Scalars['String']
   created_at: Scalars['timestamptz']
-  id: Scalars['Int']
+  id: Scalars['uuid']
   imageUrl?: Maybe<Scalars['String']>
   publishedAt?: Maybe<Scalars['timestamptz']>
   title?: Maybe<Scalars['String']>
@@ -85,29 +73,15 @@ export type List_Items_Aggregate = {
 /** aggregate fields of "list_items" */
 export type List_Items_Aggregate_Fields = {
   __typename?: 'list_items_aggregate_fields'
-  avg?: Maybe<List_Items_Avg_Fields>
   count: Scalars['Int']
   max?: Maybe<List_Items_Max_Fields>
   min?: Maybe<List_Items_Min_Fields>
-  stddev?: Maybe<List_Items_Stddev_Fields>
-  stddev_pop?: Maybe<List_Items_Stddev_Pop_Fields>
-  stddev_samp?: Maybe<List_Items_Stddev_Samp_Fields>
-  sum?: Maybe<List_Items_Sum_Fields>
-  var_pop?: Maybe<List_Items_Var_Pop_Fields>
-  var_samp?: Maybe<List_Items_Var_Samp_Fields>
-  variance?: Maybe<List_Items_Variance_Fields>
 }
 
 /** aggregate fields of "list_items" */
 export type List_Items_Aggregate_FieldsCountArgs = {
   columns?: Maybe<Array<List_Items_Select_Column>>
   distinct?: Maybe<Scalars['Boolean']>
-}
-
-/** aggregate avg on columns */
-export type List_Items_Avg_Fields = {
-  __typename?: 'list_items_avg_fields'
-  id?: Maybe<Scalars['Float']>
 }
 
 /** Boolean expression to filter rows from the table "list_items". All fields are combined with a logical 'AND'. */
@@ -117,7 +91,7 @@ export type List_Items_Bool_Exp = {
   _or?: Maybe<Array<List_Items_Bool_Exp>>
   body?: Maybe<String_Comparison_Exp>
   created_at?: Maybe<Timestamptz_Comparison_Exp>
-  id?: Maybe<Int_Comparison_Exp>
+  id?: Maybe<Uuid_Comparison_Exp>
   imageUrl?: Maybe<String_Comparison_Exp>
   publishedAt?: Maybe<Timestamptz_Comparison_Exp>
   title?: Maybe<String_Comparison_Exp>
@@ -131,16 +105,11 @@ export enum List_Items_Constraint {
   ListItemsPkey = 'list_items_pkey',
 }
 
-/** input type for incrementing numeric columns in table "list_items" */
-export type List_Items_Inc_Input = {
-  id?: Maybe<Scalars['Int']>
-}
-
 /** input type for inserting data into table "list_items" */
 export type List_Items_Insert_Input = {
   body?: Maybe<Scalars['String']>
   created_at?: Maybe<Scalars['timestamptz']>
-  id?: Maybe<Scalars['Int']>
+  id?: Maybe<Scalars['uuid']>
   imageUrl?: Maybe<Scalars['String']>
   publishedAt?: Maybe<Scalars['timestamptz']>
   title?: Maybe<Scalars['String']>
@@ -153,7 +122,7 @@ export type List_Items_Max_Fields = {
   __typename?: 'list_items_max_fields'
   body?: Maybe<Scalars['String']>
   created_at?: Maybe<Scalars['timestamptz']>
-  id?: Maybe<Scalars['Int']>
+  id?: Maybe<Scalars['uuid']>
   imageUrl?: Maybe<Scalars['String']>
   publishedAt?: Maybe<Scalars['timestamptz']>
   title?: Maybe<Scalars['String']>
@@ -166,7 +135,7 @@ export type List_Items_Min_Fields = {
   __typename?: 'list_items_min_fields'
   body?: Maybe<Scalars['String']>
   created_at?: Maybe<Scalars['timestamptz']>
-  id?: Maybe<Scalars['Int']>
+  id?: Maybe<Scalars['uuid']>
   imageUrl?: Maybe<Scalars['String']>
   publishedAt?: Maybe<Scalars['timestamptz']>
   title?: Maybe<Scalars['String']>
@@ -204,7 +173,7 @@ export type List_Items_Order_By = {
 
 /** primary key columns input for table: list_items */
 export type List_Items_Pk_Columns_Input = {
-  id: Scalars['Int']
+  id: Scalars['uuid']
 }
 
 /** select columns of table "list_items" */
@@ -231,36 +200,12 @@ export enum List_Items_Select_Column {
 export type List_Items_Set_Input = {
   body?: Maybe<Scalars['String']>
   created_at?: Maybe<Scalars['timestamptz']>
-  id?: Maybe<Scalars['Int']>
+  id?: Maybe<Scalars['uuid']>
   imageUrl?: Maybe<Scalars['String']>
   publishedAt?: Maybe<Scalars['timestamptz']>
   title?: Maybe<Scalars['String']>
   updated_at?: Maybe<Scalars['timestamptz']>
   url?: Maybe<Scalars['String']>
-}
-
-/** aggregate stddev on columns */
-export type List_Items_Stddev_Fields = {
-  __typename?: 'list_items_stddev_fields'
-  id?: Maybe<Scalars['Float']>
-}
-
-/** aggregate stddev_pop on columns */
-export type List_Items_Stddev_Pop_Fields = {
-  __typename?: 'list_items_stddev_pop_fields'
-  id?: Maybe<Scalars['Float']>
-}
-
-/** aggregate stddev_samp on columns */
-export type List_Items_Stddev_Samp_Fields = {
-  __typename?: 'list_items_stddev_samp_fields'
-  id?: Maybe<Scalars['Float']>
-}
-
-/** aggregate sum on columns */
-export type List_Items_Sum_Fields = {
-  __typename?: 'list_items_sum_fields'
-  id?: Maybe<Scalars['Int']>
 }
 
 /** update columns of table "list_items" */
@@ -281,24 +226,6 @@ export enum List_Items_Update_Column {
   UpdatedAt = 'updated_at',
   /** column name */
   Url = 'url',
-}
-
-/** aggregate var_pop on columns */
-export type List_Items_Var_Pop_Fields = {
-  __typename?: 'list_items_var_pop_fields'
-  id?: Maybe<Scalars['Float']>
-}
-
-/** aggregate var_samp on columns */
-export type List_Items_Var_Samp_Fields = {
-  __typename?: 'list_items_var_samp_fields'
-  id?: Maybe<Scalars['Float']>
-}
-
-/** aggregate variance on columns */
-export type List_Items_Variance_Fields = {
-  __typename?: 'list_items_variance_fields'
-  id?: Maybe<Scalars['Float']>
 }
 
 /** mutation root */
@@ -349,7 +276,7 @@ export type Mutation_RootDelete_List_ItemsArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_List_Items_By_PkArgs = {
-  id: Scalars['Int']
+  id: Scalars['uuid']
 }
 
 /** mutation root */
@@ -410,14 +337,12 @@ export type Mutation_RootInsert_Users_OneArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_List_ItemsArgs = {
-  _inc?: Maybe<List_Items_Inc_Input>
   _set?: Maybe<List_Items_Set_Input>
   where: List_Items_Bool_Exp
 }
 
 /** mutation root */
 export type Mutation_RootUpdate_List_Items_By_PkArgs = {
-  _inc?: Maybe<List_Items_Inc_Input>
   _set?: Maybe<List_Items_Set_Input>
   pk_columns: List_Items_Pk_Columns_Input
 }
@@ -501,7 +426,7 @@ export type Query_RootList_Items_AggregateArgs = {
 }
 
 export type Query_RootList_Items_By_PkArgs = {
-  id: Scalars['Int']
+  id: Scalars['uuid']
 }
 
 export type Query_RootRolesArgs = {
@@ -730,7 +655,7 @@ export type Subscription_RootList_Items_AggregateArgs = {
 }
 
 export type Subscription_RootList_Items_By_PkArgs = {
-  id: Scalars['Int']
+  id: Scalars['uuid']
 }
 
 export type Subscription_RootRolesArgs = {
@@ -1022,8 +947,21 @@ export enum Users_Update_Column {
   UpdatedAt = 'updated_at',
 }
 
+/** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
+export type Uuid_Comparison_Exp = {
+  _eq?: Maybe<Scalars['uuid']>
+  _gt?: Maybe<Scalars['uuid']>
+  _gte?: Maybe<Scalars['uuid']>
+  _in?: Maybe<Array<Scalars['uuid']>>
+  _is_null?: Maybe<Scalars['Boolean']>
+  _lt?: Maybe<Scalars['uuid']>
+  _lte?: Maybe<Scalars['uuid']>
+  _neq?: Maybe<Scalars['uuid']>
+  _nin?: Maybe<Array<Scalars['uuid']>>
+}
+
 export type Delete_List_Item_By_PkMutationVariables = Exact<{
-  list_item_id: Scalars['Int']
+  list_item_id: Scalars['uuid']
 }>
 
 export type Delete_List_Item_By_PkMutation = { __typename?: 'mutation_root' } & {
@@ -1064,7 +1002,7 @@ export type List_ItemsFragmentFragment = { __typename?: 'list_items' } & Pick<
 >
 
 export type List_Items_By_PkQueryVariables = Exact<{
-  id: Scalars['Int']
+  id: Scalars['uuid']
 }>
 
 export type List_Items_By_PkQuery = { __typename?: 'query_root' } & {
@@ -1143,7 +1081,7 @@ export const UsersFragmentFragmentDoc = gql`
   }
 `
 export const Delete_List_Item_By_PkDocument = gql`
-  mutation delete_list_item_by_pk($list_item_id: Int!) {
+  mutation delete_list_item_by_pk($list_item_id: uuid!) {
     delete_list_items(where: { id: { _lt: $list_item_id } }) {
       affected_rows
     }
@@ -1177,7 +1115,7 @@ export const List_ItemsDocument = gql`
   ${List_ItemsFragmentFragmentDoc}
 `
 export const List_Items_By_PkDocument = gql`
-  query list_items_by_pk($id: Int!) {
+  query list_items_by_pk($id: uuid!) {
     list_items_by_pk(id: $id) {
       ...list_itemsFragment
     }

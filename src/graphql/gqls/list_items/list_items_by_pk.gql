@@ -1,4 +1,4 @@
-query list_items_by_pk($id: Int!) {
+query list_items_by_pk($id: uuid!) {
   list_items_by_pk(id: $id) {
     ...list_itemsFragment
   }

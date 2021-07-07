@@ -1,6 +1,6 @@
 CREATE TABLE users
   (
-    id             SERIAL,
+    id             TEXT,
     name           VARCHAR(255),
     email          VARCHAR(255),
     email_verified TIMESTAMPTZ,

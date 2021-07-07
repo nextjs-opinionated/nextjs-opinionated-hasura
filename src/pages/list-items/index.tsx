@@ -13,11 +13,11 @@ import {
   List_Item_api_get,
   list_items_api_get_Config,
 } from '../../model/api-models/list-items/List_Items_api_get'
-
 import { Table } from '../../components/Table/Table'
 import Link from 'next/link'
 import { Pagination } from '../../components/Pagination/Pagination'
 import { BiLinkExternal } from 'react-icons/bi'
+import { v4 as uuidv4 } from 'uuid'
 
 const Messages: React.FunctionComponent = () => {
   const [current_page, current_pageSet] = useState(1)
@@ -81,7 +81,7 @@ const Messages: React.FunctionComponent = () => {
             <button
               className='mx-2 btn btn-primary'
               onClick={async () => {
-                router.push(`/list-items/new`)
+                router.push(`/list-items/${uuidv4()}`)
               }}
               disabled={isLoading}
             >

@@ -1,4 +1,4 @@
-CREATE TABLE "public"."list_items" ("id" serial NOT NULL, "body" text NOT NULL, "updated_at" timestamptz NOT NULL DEFAULT now(), "created_at" timestamptz NOT NULL DEFAULT now(), "title" text, "url" text, "imageUrl" text, "publishedAt" timestamptz, PRIMARY KEY ("id") );
+CREATE TABLE "public"."list_items" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "body" text NOT NULL, "updated_at" timestamptz NOT NULL DEFAULT now(), "created_at" timestamptz NOT NULL DEFAULT now(), "title" text, "url" text, "imageUrl" text, "publishedAt" timestamptz, PRIMARY KEY ("id") );
 CREATE OR REPLACE FUNCTION "public"."set_current_timestamp_updated_at"()
 RETURNS TRIGGER AS $$
 DECLARE

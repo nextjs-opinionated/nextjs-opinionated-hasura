@@ -1,7 +1,9 @@
 import { withSentry } from '@sentry/nextjs'
-import _ from 'lodash'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { List_items_by_pk_api_get } from '../../../model/api-models/list-items/List_Items_by_pk_api_get'
+import {
+  List_items_by_pk_api_get,
+  list_items_by_pk_api_get_Config,
+} from '../../../model/api-models/list-items/List_Items_by_pk_api_get'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
@@ -9,8 +11,8 @@ import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 export default withSentry(
   logMiddleware(async function API(req: NextApiRequest, res: NextApiResponse) {
     // check method
-    if (req.method !== 'GET') {
-      res.setHeader('Allow', ['GET'])
+    if (req.method !== list_items_by_pk_api_get_Config.method.toUpperCase()) {
+      res.setHeader('Allow', [list_items_by_pk_api_get_Config.method.toUpperCase()])
       res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
     }
 
@@ -21,7 +23,7 @@ export default withSentry(
     const data: List_items_by_pk_api_get['output'] = await new GqlSdkHelper()
       .getSdk()
       .list_items_by_pk({
-        id: _.toNumber(inputData.list_item_id),
+        id: inputData.list_item_id,
       })
 
     // output data
