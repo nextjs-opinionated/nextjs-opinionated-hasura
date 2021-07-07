@@ -110,7 +110,7 @@ const Page: React.FunctionComponent = () => {
                       <div className='flex flex-col'>
                         <div className='flex justify-end'>
                           <button type='reset' className='mx-3 btn btn-secondary'>
-                            Generate Code
+                            RESET
                           </button>
 
                           <button type='submit' className='mx-3 btn btn-primary'>
