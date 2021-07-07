@@ -63,8 +63,8 @@ export default function Page() {
             </h1>
             <div className='max-w-md'>
               <p className='mb-5'>
-                A new Next.js boilerplate with TypeScript, Tailwindcss, Storybook, Jest, ESLint,
-                Prettifier, React Hook forms, Zod validations and React-query
+                A new Next.js boilerplate with TypeScript, TailwindCSS, Storybook, Jest, ESLint,
+                Prettifier, React Hook Forms, Zod and React Query
               </p>
               <div className='flex justify-center space-x-2'>
                 <a href='/api/auth/login' className='btn btn-ghost'>
@@ -99,7 +99,9 @@ export default function Page() {
               <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
                 <div className='card-body'>
                   <h2 className='card-title'>React Form Example</h2>
-                  <p>We got a page with few example how to use our forms</p>
+                  <p>
+                    We got a page with few examples how to use our forms and how to validating it
+                  </p>
                   <div className='justify-end card-actions'>
                     <Link href='/form-example'>
                       <a className='btn btn-primary'>
@@ -125,7 +127,10 @@ export default function Page() {
               <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
                 <div className='card-body'>
                   <h2 className='card-title'>Typed-Fetch</h2>
-                  <p>We create a standard typed-fetch to use in API calls on your app</p>
+                  <p>
+                    We create a standard typed-fetch using typeScript to manage API calls on your
+                    app
+                  </p>
                   <div className='justify-end card-actions'>
                     <Link href='/typed-fetch-examples'>
                       <a className='btn btn-primary'>
