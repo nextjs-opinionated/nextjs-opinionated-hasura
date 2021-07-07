@@ -93,7 +93,7 @@ export default function Page() {
                 exercitationem quasi.
               </p>
             </div>
-            <div className='grid grid-cols-3 gap-4 space-x-2'>
+            <div className='grid grid-cols-1 gap-4 space-x-2 md:grid-cols-3'>
               <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
                 <div className='card-body'>
                   <h2 className='card-title'>React Form Example</h2>
