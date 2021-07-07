@@ -1,10 +1,4 @@
-export type LinksListIds =
-  | 'home'
-  | 'styleGuide'
-  | 'typed-fetch-examples'
-  | 'form-example'
-  | 'github'
-  | 'login'
+export type LinksListIds = 'home' | 'github' | 'docs' | 'login'
 
 export type LinkProps = {
   id: LinksListIds
@@ -21,25 +15,15 @@ export const LinksList: {
     name: 'Home',
     internalURL: '/',
   },
-  styleGuide: {
-    id: 'styleGuide',
-    name: 'Style Guide',
-    internalURL: '/style-guide',
-  },
-  'typed-fetch-examples': {
-    id: 'typed-fetch-examples',
-    name: 'Typed-Fetch',
-    internalURL: '/typed-fetch-examples',
-  },
-  'form-example': {
-    id: 'form-example',
-    name: 'React Form Example',
-    internalURL: '/form-example',
-  },
   github: {
     id: 'github',
     name: 'Github',
-    externalURL: 'https://github.com/saitodisse/nextjs-opinionated',
+    externalURL: 'https://github.com/nextjs-opinionated/nextjs-opinionated',
+  },
+  docs: {
+    id: 'docs',
+    name: 'Docs',
+    internalURL: '/docs',
   },
   login: {
     id: 'login',
