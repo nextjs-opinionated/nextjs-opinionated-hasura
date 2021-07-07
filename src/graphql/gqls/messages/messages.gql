@@ -1,5 +1,5 @@
-query messages {
-  messages(limit: 6, order_by: { id: desc }) {
+query messages($limit: Int, $offset: Int) {
+  messages(limit: $limit, offset: $offset, order_by: { id: desc }) {
     id
     title
     body
@@ -10,6 +10,11 @@ query messages {
       tag {
         name
       }
+    }
+  }
+  messages_aggregate {
+    aggregate {
+      count
     }
   }
 }
