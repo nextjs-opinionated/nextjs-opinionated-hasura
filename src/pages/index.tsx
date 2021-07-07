@@ -67,8 +67,8 @@ export default function Page() {
                 Prettifier, React Hook Forms, Zod and React Query
               </p>
               <div className='flex justify-center space-x-2'>
-                <a href='/api/auth/login' className='btn btn-ghost'>
-                  Enjoy it
+                <a href='/style-guide' className='btn btn-ghost'>
+                  Style Guide
                 </a>
                 <a href='/docs' className='btn btn-primary'>
                   Get Started
@@ -187,7 +187,7 @@ export default function Page() {
               </div>
             </div>
             <div className='flex justify-center w-full mt-6'>
-              <a href='https://' className='btn btn-secondary btn-wide'>
+              <a href='/docs' className='btn btn-secondary btn-wide'>
                 Read more
               </a>
             </div>
@@ -197,7 +197,10 @@ export default function Page() {
         <div className='w-full p-4 bg-neutral text-neutral-content'>
           <div className='pt-2 text-center opacity-60'>
             <p>© 2021 Next.js Opinionated Team.</p>
-            <a className='btn btn-link' href='https://'>
+            <a
+              className='btn btn-link'
+              href='https://github.com/nextjs-opinionated/nextjs-opinionated'
+            >
               Github
             </a>
           </div>
