@@ -48,9 +48,11 @@ export default function Page() {
       <Layout
         title={
           <div className='flex items-center flex-grow px-2 mx-2 space-x-3'>
-            <a href='/'>
-              <Logo />
-            </a>
+            <Link href='/'>
+              <a>
+                <Logo />
+              </a>
+            </Link>
             <div className='text-sm font-bold'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
           </div>
         }
@@ -59,7 +61,6 @@ export default function Page() {
         <div className='relative min-h-screen hero bg-gradient-to-br from-secondary to-primary text-primary-content'>
           <div className='flex-col justify-between w-full max-w-6xl mt-10 mb-48 text-center hero-content'>
             <h1 className='py-4 mb-2 font-extrabold text-center font-title'>
-              <div className='text-4xl font-bold lg:text-5xl'>Welcome to</div>
               <div className='text-5xl lg:text-7xl'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
             </h1>
             <div className='max-w-md'>
@@ -68,10 +69,10 @@ export default function Page() {
                 Prettifier, React Hook Forms, Zod and React Query
               </p>
               <div className='flex justify-center space-x-2'>
-                <a href='/style-guide' className='btn btn-ghost'>
-                  Style Guide
+                <a href='/docs' className='btn btn-ghost'>
+                  Documentation
                 </a>
-                <a href='/docs' className='btn btn-primary'>
+                <a href='/docs/getting-started' className='btn btn-primary'>
                   Get Started
                 </a>
               </div>
@@ -186,11 +187,6 @@ export default function Page() {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className='flex justify-center w-full mt-6'>
-              <a href='/docs' className='btn btn-secondary btn-wide'>
-                Read more
-              </a>
             </div>
           </div>
         </div>

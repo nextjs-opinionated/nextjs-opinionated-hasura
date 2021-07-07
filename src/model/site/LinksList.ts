@@ -1,4 +1,4 @@
-export type LinksListIds = 'home' | 'github' | 'docs' | 'login'
+export type LinksListIds = 'home' | 'github' | 'docs'
 
 export type LinkProps = {
   id: LinksListIds
@@ -24,10 +24,5 @@ export const LinksList: {
     id: 'docs',
     name: 'Docs',
     internalURL: '/docs',
-  },
-  login: {
-    id: 'login',
-    name: 'Login',
-    internalURL: '/api/auth/login',
   },
 }

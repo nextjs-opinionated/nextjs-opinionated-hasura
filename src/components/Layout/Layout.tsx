@@ -5,6 +5,11 @@ import classnames from 'classnames'
 import { LinkProps } from '../../model/site/LinksList'
 import { ThemeList } from '../../model/site/ThemeList'
 import { useTheme } from 'next-themes'
+import { useUser } from '@auth0/nextjs-auth0'
+import Loading from '../Loading/Loading'
+import { BiLogIn, BiLogOut } from 'react-icons/bi'
+import { BsPersonFill } from 'react-icons/bs'
+import { DropDown } from '../DropDown/DropDown'
 
 export interface LayoutProps {
   title?: ReactNode
@@ -16,7 +21,12 @@ export interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) => {
   const { theme, setTheme } = useTheme()
   const router = useRouter()
+  const { user, error, isLoading } = useUser()
   const checkboxRef = useRef<HTMLInputElement>(null)
+
+  if (isLoading) return <Loading />
+  if (error) return <div>{error.message}</div>
+
   return (
     <div className='h-screen bg-base-100 drawer text-base-content'>
       {/* put everything in a off-canvas drawer */}
@@ -26,7 +36,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
         {/* drawer content */}
         <div
           className={classnames(
-            'inset-x-0 top-0 z-50 w-full bg- border-b border-transparent navbar text-base-content',
+            'inset-x-0 top-0 z-10 w-full border-b border-transparent navbar text-base-content',
             {
               'bg-transparent fixed text-primary-content': router.asPath === '/',
             }
@@ -95,6 +105,46 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                         </option>
                       ))}
                     </select>
+                  </div>
+                </li>
+                <li>
+                  <div className='m-1'>
+                    {!user && (
+                      <a className='btn btn-ghost' href='/api/auth/login'>
+                        Login
+                        <BiLogIn size={20} className='mx-2' />
+                      </a>
+                    )}
+
+                    {user && (
+                      <>
+                        <DropDown
+                          className='static bg-transparent'
+                          width={50}
+                          selectedId={null}
+                          onSelect={() => {
+                            /**/
+                          }}
+                          label={
+                            <div className='avatar'>
+                              <div className='w-10 h-10 m-1 rounded-full'>
+                                {user?.picture ? <img src={user?.picture} /> : <BsPersonFill />}
+                              </div>
+                            </div>
+                          }
+                          items={[
+                            {
+                              id: '1',
+                              value: (
+                                <a className='justify-center btn btn-ghost' href='/api/auth/logout'>
+                                  <BiLogOut size={20} className='mx-2' />
+                                </a>
+                              ),
+                            },
+                          ]}
+                        />
+                      </>
+                    )}
                   </div>
                 </li>
               </ul>
