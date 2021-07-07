@@ -1,8 +1,5 @@
 - table:
     schema: public
-    name: accounts
-- table:
-    schema: public
     name: list_items
 - table:
     schema: public
@@ -18,14 +15,8 @@
           name: users
 - table:
     schema: public
-    name: sessions
-- table:
-    schema: public
     name: users
   object_relationships:
   - name: roleByRole
     using:
       foreign_key_constraint_on: role
-- table:
-    schema: public
-    name: verification_requests
