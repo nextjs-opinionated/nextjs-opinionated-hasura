@@ -10,6 +10,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 import * as nextjsAuth0 from '@auth0/nextjs-auth0'
 import Loading from '../components/Loading/Loading'
 import Logo from '../components/LogoDefault/Logo'
+import { FaGithub } from 'react-icons/fa'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -198,10 +199,12 @@ export default function Page() {
           <div className='pt-2 text-center opacity-60'>
             <p>© 2021 Next.js Opinionated Team.</p>
             <a
-              className='btn btn-link'
+              className='btn btn-link '
               href='https://github.com/nextjs-opinionated/nextjs-opinionated'
+              target='_blank'
+              rel='noreferrer'
             >
-              Github
+              <FaGithub color='#fff' size={22} />
             </a>
           </div>
         </div>

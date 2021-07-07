@@ -28,7 +28,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
           className={classnames(
             'inset-x-0 top-0 z-50 w-full bg- border-b border-transparent navbar text-base-content',
             {
-              'bg-transparent fixed text-primary-content': router.asPath === '/',
+              'bg-transparent fixed text-primary-content': router.basePath === '/',
             }
           )}
         >
@@ -105,7 +105,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
         {/* main content */}
         <div
           className={classnames('w-full', {
-            'p-4 md:px-6 md:container md:mx-auto': router.asPath !== '/',
+            'p-4 md:px-6 md:container md:mx-auto': router.basePath !== '/',
           })}
         >
           {children}
