@@ -22,6 +22,7 @@ export default {
   },
   parameters: {
     layout: 'centered',
+    actions: { argTypesRegex: null },
   },
 } as Meta
 
@@ -116,7 +117,7 @@ Table_With_Delete_Button.args = {
   data: TABLE_DATA,
   fieldNames: ['name', 'email'],
   fields: FIELDS,
-  OnDelete: (id) => {
+  onDelete: (id) => {
     // eslint-disable-next-line no-console
     console.log('--  id: ', id)
   },
