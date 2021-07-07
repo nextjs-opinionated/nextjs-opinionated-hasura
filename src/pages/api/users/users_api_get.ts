@@ -17,10 +17,12 @@ export default withSentry(
     // input data
     const inputData = req.query as Users_api_get['input']
 
+    const limit = _.toNumber(inputData.limit)
+    const current_page = _.toNumber(inputData.current_page)
+    const offset = current_page * limit - limit
+
     // process
-    const data: Users_api_get['output'] = await new GqlSdkHelper()
-      .getSdk()
-      .users({ limit: _.toNumber(inputData.limit) })
+    const data: Users_api_get['output'] = await new GqlSdkHelper().getSdk().users({ limit, offset })
 
     // output data
     res.status(HttpStatusCode.OK_200).json(data)
