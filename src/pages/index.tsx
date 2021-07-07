@@ -83,8 +83,8 @@ export default function Page() {
             quaerat sit architecto nemo tempora ratione.
           </p>
 
-          <Link href='/messages?showAs=table'>
-            <a className='mx-2 my-4 btn btn-primary btn-md'>Messages (hasura)</a>
+          <Link href='/list-items'>
+            <a className='mx-2 my-4 btn btn-primary btn-md'>List Items (hasura)</a>
           </Link>
 
           <hr className='my-16 text-secondary-content' />

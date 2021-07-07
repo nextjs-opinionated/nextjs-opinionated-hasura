@@ -85,7 +85,7 @@ const Messages: React.FunctionComponent = () => {
               }}
               disabled={isLoading}
             >
-              new empty
+              create new item
             </button>
           </div>
 
