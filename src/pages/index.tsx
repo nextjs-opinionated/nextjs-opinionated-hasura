@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { IoIosArrowDown } from 'react-icons/io'
 import * as nextjsAuth0 from '@auth0/nextjs-auth0'
 import Loading from '../components/Loading/Loading'
+import Logo from '../components/LogoDefault/Logo'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -45,9 +46,11 @@ export default function Page() {
 
       <Layout
         title={
-          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
-            <div className='text-base font-bold'>HOME</div>
-            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+          <div className='flex items-center flex-grow px-2 mx-2 space-x-3'>
+            <a href='/'>
+              <Logo />
+            </a>
+            <div className='text-sm font-bold'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
           </div>
         }
         menuItems={Object.values(LinksList)}
@@ -64,8 +67,12 @@ export default function Page() {
                 exercitationem quasi.
               </p>
               <div className='flex justify-center space-x-2'>
-                <button className='btn btn-ghost'>Enjoy it</button>
-                <button className='btn btn-primary'>Get Started</button>
+                <a href='/api/auth/login' className='btn btn-ghost'>
+                  Enjoy it
+                </a>
+                <a href='/docs' className='btn btn-primary'>
+                  Get Started
+                </a>
               </div>
               <div className='absolute left-0 right-0 flex justify-center mt-2 bottom-20'>
                 <IoIosArrowDown className='w-6 h-6 animate-bounce' />
@@ -74,7 +81,7 @@ export default function Page() {
           </div>
         </div>
 
-        <div className='max-w-md mx-auto hero bg-base-100 md:max-w-full'>
+        <div className='max-w-md pb-20 mx-auto hero bg-base-100 md:max-w-full'>
           <div className='flex-col text-center hero-content'>
             <div>
               <h2 className='mt-20 mb-2 text-4xl font-extrabold text-transparent md:text-6xl bg-clip-text bg-gradient-to-r from-primary to-secondary'>
@@ -86,59 +93,77 @@ export default function Page() {
                 exercitationem quasi.
               </p>
             </div>
-            <div className='flex space-x-2'>
+            <div className='grid grid-cols-3 gap-4 space-x-2'>
               <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
                 <div className='card-body'>
-                  <p>Rerum reiciendis beatae tenetur excepturi aut pariatur est eos.</p>
+                  <h2 className='card-title'>React Form Example</h2>
+                  <p>We got a page with few example how to use our forms</p>
                   <div className='justify-end card-actions'>
-                    <button className='btn btn-primary'>
-                      More info
-                      <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                        className='inline-block w-6 h-6 ml-2 stroke-current'
-                      >
-                        <path
-                          stroke-linecap='round'
-                          stroke-linejoin='round'
-                          stroke-width='2'
-                          d='M9 5l7 7-7 7'
-                        ></path>
-                      </svg>
-                    </button>
+                    <Link href='/form-example'>
+                      <a className='btn btn-primary'>
+                        Click here
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          className='inline-block w-6 h-6 ml-2 stroke-current'
+                        >
+                          <path
+                            stroke-linecap='round'
+                            stroke-linejoin='round'
+                            stroke-width='2'
+                            d='M9 5l7 7-7 7'
+                          ></path>
+                        </svg>
+                      </a>
+                    </Link>
                   </div>
                 </div>
               </div>
               <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
                 <div className='card-body'>
-                  <p>Rerum reiciendis beatae tenetur excepturi aut pariatur est eos.</p>
+                  <h2 className='card-title'>Typed-Fetch</h2>
+                  <p>We create a standard typed-fetch to use in API calls on your app</p>
                   <div className='justify-end card-actions'>
-                    <button className='btn btn-primary'>
-                      More info
-                      <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                        className='inline-block w-6 h-6 ml-2 stroke-current'
-                      >
-                        <path
-                          stroke-linecap='round'
-                          stroke-linejoin='round'
-                          stroke-width='2'
-                          d='M9 5l7 7-7 7'
-                        ></path>
-                      </svg>
-                    </button>
+                    <Link href='/typed-fetch-examples'>
+                      <a className='btn btn-primary'>
+                        Click here
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          className='inline-block w-6 h-6 ml-2 stroke-current'
+                        >
+                          <path
+                            stroke-linecap='round'
+                            stroke-linejoin='round'
+                            stroke-width='2'
+                            d='M9 5l7 7-7 7'
+                          ></path>
+                        </svg>
+                      </a>
+                    </Link>
                   </div>
                 </div>
               </div>
               <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
                 <div className='card-body'>
-                  <p>Rerum reiciendis beatae tenetur excepturi aut pariatur est eos.</p>
+                  <h2 className='card-title'>Show Image</h2>
+                  <p>A modal example using the SweetAlert2 library</p>
                   <div className='justify-end card-actions'>
-                    <button className='btn btn-primary'>
-                      More info
+                    <button
+                      className='btn btn-primary'
+                      onClick={async () => {
+                        const myAlert = withReactContent(Swal)
+                        await myAlert.fire({
+                          title: 'Some Alert Title',
+                          html: <img src='https://unsplash.it/600/300' />,
+                          imageAlt: 'Custom image',
+                          confirmButtonText: 'ok button',
+                        })
+                      }}
+                    >
+                      Click here
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'
@@ -158,68 +183,23 @@ export default function Page() {
               </div>
             </div>
             <div className='flex justify-center w-full mt-6'>
-              <a href='/components/button' className='btn btn-secondary btn-wide'>
-                See All
+              <a href='https://' className='btn btn-secondary btn-wide'>
+                Read more
               </a>
             </div>
           </div>
         </div>
-        {/* <div className='flex flex-col avatar'>
-          <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
-            <img
-              src={user?.picture || 'http://daisyui.com/tailwind-css-component-profile-1@94w.png'}
-            />
-          </div>
 
-          {user && (
-            <div className='flex flex-col'>
-              Welcome, <span className='font-bold underline'>{user.name}</span>
-            </div>
-          )}
+        <div className='w-full p-4 bg-neutral text-neutral-content'>
+          <div className='pt-2 text-center opacity-60'>
+            <p>© 2021 Next.js Opinionated Team.</p>
+            <a className='btn btn-link' href='https://'>
+              Github
+            </a>
+          </div>
         </div>
 
-        <div className='pb-3'>
-
-          <div className='flex space-x-2 space-y-2'>
-            <div></div>
-
-            <Link href='/form-example'>
-              <a className='btn btn-primary'>React Form Example</a>
-            </Link>
-
-            <Link href='/typed-fetch-examples'>
-              <a className='btn btn-primary'>Typed-Fetch</a>
-            </Link>
-
-            <button
-              className='btn btn-primary'
-              onClick={async () => {
-                const myAlert = withReactContent(Swal)
-                await myAlert.fire({
-                  title: 'Some Alert Title',
-                  html: <img src='https://unsplash.it/600/300' />,
-                  imageAlt: 'Custom image',
-                  confirmButtonText: 'ok button',
-                })
-              }}
-            >
-              Show Image
-            </button>
-
-            {!user && (
-              <a classNameName='btn btn-primary btn-md' href='/api/auth/login'>
-                Login
-              </a>
-            )}
-
-            {user && (
-              <a className='btn btn-outline btn-md' href='/api/auth/logout'>
-                Logout
-              </a>
-            )}
-          </div>
-
-          <p className='max-w-md mt-5 text-sm italic'>
+        {/* <p className='max-w-md mt-5 text-sm italic'>
             {extLink('next.js', 'https://nextjs.org/')},{' '}
             {extLink('typescript', 'https://www.typescriptlang.org/')},{' '}
             {extLink('tailwindcss', 'https://tailwindcss.com/')},{' '}
@@ -234,10 +214,12 @@ export default function Page() {
             {extLink('zod', 'https://github.com/colinhacks/zod')},{' '}
             {extLink('react-query', 'https://react-query.tanstack.com/')}
             {extLink('auth0', 'https://auth0.com/')}
-          </p>
-        </div>*/}
+          </p> */}
       </Layout>
       <style jsx global>{`
+        html {
+          scroll-behavior: smooth;
+        }
         html,
         body {
           padding: 0;
@@ -253,10 +235,10 @@ export default function Page() {
   )
 }
 
-// function extLink(name: string, url: string) {
-//   return (
-//     <a className='link' target='_blank' rel='noreferrer' href={url}>
-//       {name}
-//     </a>
-//   )
-// }
+function extLink(name: string, url: string) {
+  return (
+    <a className='link' target='_blank' rel='noreferrer' href={url}>
+      {name}
+    </a>
+  )
+}
