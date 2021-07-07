@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 import { withSentry } from '@sentry/nextjs'
-import fs from 'fs-extra'
 import { Generate_crud_api_post } from '../../../model/api-models/code-generator/Generate_crud_api_post'
 import { code_gen_replace } from '../../../utils/code_generator/code_gen_replace'
 
@@ -14,85 +13,97 @@ export default withSentry(
     const Table_name = `${table_name[0].toUpperCase()}${table_name.slice(1).toLowerCase()}`
     const table_id = inputData.table_id.toLowerCase()
 
-    // mkdir
-    await fs.ensureDir(`src/pages/${table_name}`)
+    const defaultReplaces = [
+      {
+        from: 'Messages',
+        to: Table_name,
+      },
+      {
+        from: 'messages',
+        to: table_name,
+      },
+    ]
 
-    // src/pages/messages/index.tsx
+    // pages
     await code_gen_replace({
       from_file: 'src/pages/messages/index.tsx',
       to_file: `src/pages/${table_name}/index.tsx`,
-      replace_from: 'Messages',
-      replace_to: Table_name,
+      replaces: defaultReplaces,
     })
-    await code_gen_replace({
-      from_file: `src/pages/${table_name}/index.tsx`,
-      to_file: `src/pages/${table_name}/index.tsx`,
-      replace_from: 'messages',
-      replace_to: table_name,
-    })
-
-    // src/pages/messages/[message_id].tsx
     await code_gen_replace({
       from_file: 'src/pages/messages/[message_id].tsx',
       to_file: `src/pages/${table_name}/[${table_id}].tsx`,
-      replace_from: 'Messages',
-      replace_to: Table_name,
-    })
-    await code_gen_replace({
-      from_file: `src/pages/${table_name}/[${table_id}].tsx`,
-      to_file: `src/pages/${table_name}/[${table_id}].tsx`,
-      replace_from: 'messages',
-      replace_to: table_name,
+      replaces: defaultReplaces,
     })
 
-    // src/model/api-models/messages/Insert_messages_one_api_post.ts
+    // api-models
     await code_gen_replace({
       from_file: 'src/model/api-models/messages/Insert_messages_one_api_post.ts',
       to_file: `src/model/api-models/${table_name}/Insert_${table_name}_one_api_post.ts`,
-      replace_from: 'Messages',
-      replace_to: Table_name,
-    })
-    await code_gen_replace({
-      from_file: `src/model/api-models/${table_name}/Insert_${table_name}_one_api_post.ts`,
-      to_file: `src/model/api-models/${table_name}/Insert_${table_name}_one_api_post.ts`,
-      replace_from: 'messages',
-      replace_to: table_name,
+      replaces: defaultReplaces,
     })
 
-    // src/model/api-models/messages/Messages_api_get.ts
     await code_gen_replace({
       from_file: 'src/model/api-models/messages/Messages_api_get.ts',
       to_file: `src/model/api-models/${table_name}/${Table_name}_api_get.ts`,
-      replace_from: 'Messages',
-      replace_to: Table_name,
-    })
-    await code_gen_replace({
-      from_file: `src/model/api-models/${table_name}/${Table_name}_api_get.ts`,
-      to_file: `src/model/api-models/${table_name}/${Table_name}_api_get.ts`,
-      replace_from: 'messages',
-      replace_to: table_name,
+      replaces: defaultReplaces,
     })
 
-    // src/model/api-models/messages/Messages_by_pk_api_get.ts
     await code_gen_replace({
       from_file: 'src/model/api-models/messages/Messages_by_pk_api_get.ts',
       to_file: `src/model/api-models/${table_name}/${Table_name}_by_pk_api_get.ts`,
-      replace_from: 'Messages',
-      replace_to: Table_name,
-    })
-    await code_gen_replace({
-      from_file: `src/model/api-models/${table_name}/${Table_name}_by_pk_api_get.ts`,
-      to_file: `src/model/api-models/${table_name}/${Table_name}_by_pk_api_get.ts`,
-      replace_from: 'messages',
-      replace_to: table_name,
+      replaces: defaultReplaces,
     })
 
-    // src/model/schemas/MessagesValidationSchema.ts
+    // api
+    await code_gen_replace({
+      from_file: 'src/pages/api/messages/insert_messages_one_api_post.ts',
+      to_file: `src/pages/api/${table_name}/insert_${table_name}_one_api_post.ts`,
+      replaces: defaultReplaces,
+    })
+    await code_gen_replace({
+      from_file: 'src/pages/api/messages/messages_api_get.ts',
+      to_file: `src/pages/api/${table_name}/${table_name}_api_get.ts`,
+      replaces: defaultReplaces,
+    })
+    await code_gen_replace({
+      from_file: 'src/pages/api/messages/messages_by_pk_api_get.ts    ',
+      to_file: `src/pages/api/${table_name}/${table_name}_by_pk_api_get.ts    `,
+      replaces: defaultReplaces,
+    })
+
+    // ValidationSchema
     await code_gen_replace({
       from_file: 'src/model/schemas/MessagesValidationSchema.ts',
       to_file: `src/model/schemas/${Table_name}ValidationSchema.ts`,
-      replace_from: 'Messages',
-      replace_to: Table_name,
+      replaces: defaultReplaces,
+    })
+
+    // gqls
+    await code_gen_replace({
+      from_file: 'src/graphql/gqls/messages/delete_messages.gql',
+      to_file: `src/graphql/gqls/${table_name}/delete_${table_name}.gql`,
+      replaces: defaultReplaces,
+    })
+    await code_gen_replace({
+      from_file: 'src/graphql/gqls/messages/insert_messages_one.gql',
+      to_file: `src/graphql/gqls/${table_name}/insert_${table_name}_one.gql`,
+      replaces: defaultReplaces,
+    })
+    await code_gen_replace({
+      from_file: 'src/graphql/gqls/messages/messages_by_pk.gql',
+      to_file: `src/graphql/gqls/${table_name}/${table_name}_by_pk.gql`,
+      replaces: defaultReplaces,
+    })
+    await code_gen_replace({
+      from_file: 'src/graphql/gqls/messages/messages.gql',
+      to_file: `src/graphql/gqls/${table_name}/${table_name}.gql`,
+      replaces: defaultReplaces,
+    })
+    await code_gen_replace({
+      from_file: 'src/graphql/gqls/messages/messagesFragment.gql',
+      to_file: `src/graphql/gqls/${table_name}/${table_name}Fragment.gql`,
+      replaces: defaultReplaces,
     })
 
     // output
