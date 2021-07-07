@@ -24,8 +24,8 @@ export default function Logo() {
           y2='20'
           gradientUnits='userSpaceOnUse'
         >
-          <stop stop-color='#2979FF' />
-          <stop offset='1' stop-color='#4C589E' />
+          <stop stopColor='#2979FF' />
+          <stop offset='1' stopColor='#4C589E' />
         </linearGradient>
         <image
           id='image0'
