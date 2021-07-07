@@ -151,7 +151,7 @@ export default function Page() {
               <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
                 <div className='card-body'>
                   <h2 className='card-title'>Show Image</h2>
-                  <p>A modal example using the SweetAlert2 library</p>
+                  <p>A simple modal example using the SweetAlert2 library</p>
                   <div className='justify-end card-actions'>
                     <button
                       className='btn btn-primary'
