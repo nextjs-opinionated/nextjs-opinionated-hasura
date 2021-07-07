@@ -1,0 +1,5 @@
+mutation delete_list_item_by_pk($list_item_id: Int!) {
+  delete_list_items(where: { id: { _lt: $list_item_id } }) {
+    affected_rows
+  }
+}

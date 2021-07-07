@@ -1,0 +1,15 @@
+query list_items($limit: Int, $offset: Int) {
+  list_items(limit: $limit, offset: $offset, order_by: { id: desc }) {
+    id
+    title
+    body
+    url
+    imageUrl
+    publishedAt
+  }
+  list_items_aggregate {
+    aggregate {
+      count
+    }
+  }
+}

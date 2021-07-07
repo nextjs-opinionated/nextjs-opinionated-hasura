@@ -1,0 +1,10 @@
+query list_items_by_pk($id: Int!) {
+  list_items_by_pk(id: $id) {
+    id
+    title
+    body
+    url
+    imageUrl
+    publishedAt
+  }
+}

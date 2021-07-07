@@ -3,29 +3,10 @@
     name: accounts
 - table:
     schema: public
-    name: message_tag
-  object_relationships:
-  - name: message
-    using:
-      foreign_key_constraint_on: message_id
-  - name: tag
-    using:
-      foreign_key_constraint_on: tag_id
-- table:
-    schema: public
-    name: messages
-  array_relationships:
-  - name: message_tags
-    using:
-      foreign_key_constraint_on:
-        column: message_id
-        table:
-          schema: public
-          name: message_tag
+    name: list_items
 - table:
     schema: public
     name: roles
-  is_enum: true
   array_relationships:
   - name: users
     using:
@@ -37,17 +18,6 @@
 - table:
     schema: public
     name: sessions
-- table:
-    schema: public
-    name: tags
-  array_relationships:
-  - name: message_tags
-    using:
-      foreign_key_constraint_on:
-        column: tag_id
-        table:
-          schema: public
-          name: message_tag
 - table:
     schema: public
     name: users
