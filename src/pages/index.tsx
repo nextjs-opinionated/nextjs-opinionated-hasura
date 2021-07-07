@@ -63,8 +63,8 @@ export default function Page() {
             </h1>
             <div className='max-w-md'>
               <p className='mb-5'>
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
-                exercitationem quasi.
+                A new Next.js boilerplate with TypeScript, Tailwindcss, Storybook, Jest, ESLint,
+                Prettifier, React Hook forms, Zod validations and React-query
               </p>
               <div className='flex justify-center space-x-2'>
                 <a href='/api/auth/login' className='btn btn-ghost'>
