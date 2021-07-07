@@ -13,11 +13,14 @@ import {
   List_Item_api_get,
   list_items_api_get_Config,
 } from '../../model/api-models/list-items/List_Items_api_get'
-
+import {
+  Insert_random_list_items_api_post,
+  insert_random_list_items_api_post_Config,
+} from '../../model/api-models/list-items/Insert_random_list_items_api_post'
+import classnames from 'classnames'
 import { Table } from '../../components/Table/Table'
 import Link from 'next/link'
 import { Pagination } from '../../components/Pagination/Pagination'
-import { BiLinkExternal } from 'react-icons/bi'
 
 const Messages: React.FunctionComponent = () => {
   const [current_page, current_pageSet] = useState(1)
@@ -61,23 +64,36 @@ const Messages: React.FunctionComponent = () => {
   return (
     <>
       <Head>
-        <title className='uppercase'>List Items : {process.env.NEXT_PUBLIC_SITE_NAME}</title>
+        <title>MESSAGES : {process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
 
       <Layout
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
-            <div className='text-base font-bold uppercase'>List Items</div>
+            <div className='text-base font-bold'>MESSAGES</div>
             <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
           </div>
         }
         menuItems={Object.values(LinksList)}
       >
         <main className='md:mx-8'>
-          <div className='flex flex-wrap my-4'></div>
+          <div className='flex flex-wrap my-4'>
+            <button
+              className='mx-2 btn btn-primary'
+              onClick={async () => {
+                await typedFetch<
+                  Insert_random_list_items_api_post['input'],
+                  Insert_random_list_items_api_post['output']
+                >({
+                  ...insert_random_list_items_api_post_Config,
+                })
+                await refetch()
+              }}
+              disabled={isLoading}
+            >
+              new random
+            </button>
 
-          <div className='flex items-center justify-between my-10'>
-            <h2 className='text-lg font-bold '>List Items:</h2>
             <button
               className='mx-2 btn btn-primary'
               onClick={async () => {
@@ -87,6 +103,32 @@ const Messages: React.FunctionComponent = () => {
             >
               new empty
             </button>
+          </div>
+
+          <div className='flex justify-between'>
+            <div className='my-10 text-sm'>items below are persisted on server:</div>
+            <div className='btn-group'>
+              <button
+                className={classnames('btn btn-outline', {
+                  'btn-active': (router.query.showAs as string) === 'cards',
+                })}
+                onClick={() => {
+                  router.replace('/list-items?showAs=cards')
+                }}
+              >
+                cards
+              </button>
+              <button
+                className={classnames('btn btn-outline', {
+                  'btn-active': (router.query.showAs as string) === 'table',
+                })}
+                onClick={() => {
+                  router.replace('/list-items?showAs=table')
+                }}
+              >
+                table
+              </button>
+            </div>
           </div>
 
           {(router.query.showAs as string) === 'cards' ? (
@@ -152,21 +194,12 @@ const Messages: React.FunctionComponent = () => {
               className='table-zebra'
               data={listItems || []}
               fields={{
-                Title: (item) => (
-                  <Link href={`list-items/${item.id}`}>
+                Título: (item) => (
+                  <Link href={`${item.url}`}>
                     <a className='pl-0 underline btn btn-link btn-xs'> {item.title}</a>
                   </Link>
                 ),
-                'External link': (item) => (
-                  <div className='flex justify-center mr-5'>
-                    <Link href={`${item.url}`}>
-                      <a>
-                        <BiLinkExternal size={20} />
-                      </a>
-                    </Link>
-                  </div>
-                ),
-                'Published at': (item) => item.publishedAt,
+                'Publicado em ': (item) => item.publishedAt,
               }}
             />
           )}

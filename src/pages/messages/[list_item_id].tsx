@@ -104,7 +104,7 @@ const Page: React.FunctionComponent = () => {
         })
         return
       }
-      router.push('/list-items')
+      router.push('/messages')
     },
     (submitErrors) => {
       console.log('--  submitErrors: ', submitErrors)
@@ -115,13 +115,13 @@ const Page: React.FunctionComponent = () => {
     return (
       <>
         <Head>
-          <title>EDIT LIST ITEM : {process.env.NEXT_PUBLIC_SITE_NAME}</title>
+          <title>EDIT MESSAGE : {process.env.NEXT_PUBLIC_SITE_NAME}</title>
         </Head>
 
         <Layout
           title={
             <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
-              <div className='text-base font-bold'>EDIT LIST ITEM</div>
+              <div className='text-base font-bold'>EDIT MESSAGE</div>
               <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
             </div>
           }
@@ -142,13 +142,13 @@ const Page: React.FunctionComponent = () => {
   return (
     <>
       <Head>
-        <title>EDIT LIST ITEM : {process.env.NEXT_PUBLIC_SITE_NAME}</title>
+        <title>EDIT MESSAGE : {process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
 
       <Layout
         title={
           <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
-            <div className='text-base font-bold'>EDIT LIST ITEM</div>
+            <div className='text-base font-bold'>EDIT MESSAGE</div>
             <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
           </div>
         }
@@ -167,7 +167,7 @@ const Page: React.FunctionComponent = () => {
                 <div className='md:grid md:grid-cols-3 md:gap-6'>
                   <div className='md:col-span-1'>
                     <div className='px-4 sm:px-0'>
-                      <h3 className='text-lg font-medium leading-6'>List Item</h3>
+                      <h3 className='text-lg font-medium leading-6'>Message</h3>
                     </div>
                   </div>
                   <div className='mt-5 md:mt-0 md:col-span-2'>
