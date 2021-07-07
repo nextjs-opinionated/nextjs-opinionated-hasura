@@ -2,7 +2,10 @@ import { MessagesQuery } from '../../../graphql/generated'
 import { ApiConfig } from '../../../utils/typedFetch/ApiConfig'
 
 export interface Messages_api_get {
-  input: null
+  input: {
+    limit: string
+    current_page: string
+  }
   output: MessagesQuery
 }
 
