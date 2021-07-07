@@ -3,6 +3,9 @@ import * as TestingLib from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { Table } from './Table'
 import { act, fireEvent, waitFor } from '@testing-library/react'
+import Link from 'next/link'
+import dayjs from 'dayjs'
+import { FaUserAlt } from 'react-icons/fa'
 
 const TABLE_DATA = [
   {
@@ -42,14 +45,24 @@ const TABLE_DATA = [
   },
 ]
 
+const FIELDS = {
+  Name: (item) => (
+    <Link href={`companies/${item.id}`}>
+      <a className='pl-0 underline btn btn-link btn-xs'> {item.name}</a>
+    </Link>
+  ),
+  'E-mail': (item) => item.email,
+  'Created At': (item) => dayjs(item.created_at).format('YYYY-MM-DD'),
+}
+
 describe('Table Component', () => {
   it('should render a component', async () => {
-    const render = TestingLib.render(<Table data={TABLE_DATA} fieldNames={['name', 'email']} />)
+    const render = TestingLib.render(<Table data={TABLE_DATA} fields={FIELDS} />)
     expect(render.getByText('Empresa 4')).toBeInTheDocument()
   })
 
   it('fieldNames: will change columns', async () => {
-    const render = TestingLib.render(<Table data={TABLE_DATA} fieldNames={['name', 'email']} />)
+    const render = TestingLib.render(<Table data={TABLE_DATA} fields={FIELDS} />)
     expect(render.getByText('Empresa 4')).toBeInTheDocument()
     expect(render.getByText('empresa4@hotmail.com')).toBeInTheDocument()
     expect(render.queryByText('2021-06-30T20:22:57.057824+00:00')).toBeNull()
@@ -57,15 +70,13 @@ describe('Table Component', () => {
 
   it('should render a component with different button className ', async () => {
     const render = TestingLib.render(
-      <Table data={TABLE_DATA} fieldNames={['name', 'email']} className='table-compact' />
+      <Table data={TABLE_DATA} fields={FIELDS} className='table-compact' />
     )
     expect(render.getByRole('table')).toHaveClass('table-compact')
   })
 
   it('urlPrefix will be on id column', async () => {
-    const render = TestingLib.render(
-      <Table data={TABLE_DATA} fieldNames={['name', 'email']} urlPrefix='/companies' />
-    )
+    const render = TestingLib.render(<Table data={TABLE_DATA} fields={FIELDS} />)
     expect(render.getByText('Empresa 1')).toHaveProperty(
       'href',
       'http://localhost/companies/cd89d348-5832-44d2-9ef7-829c26b11974'
@@ -73,7 +84,7 @@ describe('Table Component', () => {
   })
 
   it('without urlPrefix do not renders a Link', async () => {
-    const render = TestingLib.render(<Table data={TABLE_DATA} fieldNames={['name', 'email']} />)
+    const render = TestingLib.render(<Table data={TABLE_DATA} fields={FIELDS} />)
     expect(render.getByText('Empresa 1')).not.toHaveProperty(
       'href',
       'http://localhost/cd89d348-5832-44d2-9ef7-829c26b11974'
@@ -91,8 +102,7 @@ describe('Table Component', () => {
             customers: [],
           },
         ]}
-        fieldNames={['name', 'email']}
-        urlPrefix='/companies'
+        fields={FIELDS}
       />
     )
     expect(render.getByText('Empresa 1')).not.toHaveProperty(
@@ -107,12 +117,7 @@ describe('Table Component', () => {
     }
     const mockCallback = jest.fn()
     const render = TestingLib.render(
-      <Table
-        data={TABLE_DATA}
-        fieldNames={['name', 'email']}
-        urlPrefix='/companies'
-        onDelete={mockCallback}
-      />
+      <Table data={TABLE_DATA} fields={FIELDS} onDelete={mockCallback} />
     )
 
     // show confirmation
@@ -134,8 +139,29 @@ describe('Table Component', () => {
 
   it('should render a component with image  ', async () => {
     const render = TestingLib.render(
-      <Table data={TABLE_DATA} fieldNames={['image', 'name', 'email']} urlPrefix='/companies' />
+      <Table
+        data={TABLE_DATA}
+        fields={{
+          ...FIELDS,
+          Imagem: (item) => (
+            <div className='flex items-center space-x-3'>
+              {item.image ? (
+                <div className='avatar'>
+                  <div className='w-12 h-12 mask mask-squircle'>
+                    <img src={item.image} />
+                    <img src={item.image} />
+                  </div>
+                </div>
+              ) : (
+                <div className='flex flex-row items-center justify-center w-12 h-12 mask mask-squircle bg-base-300'>
+                  <FaUserAlt size={25} />
+                </div>
+              )}
+            </div>
+          ),
+        }}
+      />
     )
-    expect(render.getByText('image')).toBeInTheDocument()
+    expect(render.getByText('Imagem')).toBeInTheDocument()
   })
 })
