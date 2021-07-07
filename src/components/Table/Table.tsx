@@ -43,7 +43,7 @@ export const Table: React.FC<TableProps> = ({
   }, [pageSize, totalItems, totalPage])
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col'>
       <div className='overflow-x-auto'>
         <table className={classnames(`table w-full ${className}`)}>
           <thead>
@@ -96,14 +96,16 @@ export const Table: React.FC<TableProps> = ({
         </table>
       </div>
       {onPageSet && (
-        <Pagination
-          className='my-2'
-          totalPages={totalPage}
-          currentPage={currentPage}
-          onPageSet={(newCurrentPage) => {
-            onPageSet(newCurrentPage)
-          }}
-        />
+        <div className='self-center'>
+          <Pagination
+            className='my-2'
+            totalPages={totalPage}
+            currentPage={currentPage}
+            onPageSet={(newCurrentPage) => {
+              onPageSet(newCurrentPage)
+            }}
+          />
+        </div>
       )}
     </div>
   )
