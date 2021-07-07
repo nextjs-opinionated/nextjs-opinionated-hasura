@@ -19,11 +19,17 @@ import {
 } from '../../model/api-models/messages/Insert_random_message_api_post'
 import classnames from 'classnames'
 import { Table } from '../../components/Table/Table'
+import Link from 'next/link'
+import { Pagination } from '../../components/Pagination/Pagination'
 
 const Messages: React.FunctionComponent = () => {
+  const [current_page, current_pageSet] = useState(1)
+  const ITEMS_PER_PAGE = 3
+
   const { data, isLoading, error, refetch } = useQuery('fetch_tester_api_get_Key', async () => {
     const resultObj = await typedFetch<Messages_api_get['input'], Messages_api_get['output']>({
       ...messages_api_get_Config,
+      data: { limit: ITEMS_PER_PAGE.toString(), current_page: current_page.toString() },
     })
     return resultObj.data
   })
@@ -49,6 +55,11 @@ const Messages: React.FunctionComponent = () => {
       )
     }
   }, [data?.messages])
+  useEffect(() => {
+    ;(async () => {
+      await refetch()
+    })()
+  }, [current_page, refetch])
 
   return (
     <>
@@ -121,53 +132,75 @@ const Messages: React.FunctionComponent = () => {
           </div>
 
           {(router.query.showAs as string) === 'cards' ? (
-            <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 grid-flow'>
-              {messages?.map((message) => (
-                <div key={message.id} className='card bordered'>
-                  <figure>
-                    <img src={message.imageUrl || ''} className='object-cover w-full h-48' />
-                  </figure>
-                  <div className='card-body'>
-                    <div className='flex flex-col justify-between h-full'>
-                      <div className='my-1'>
-                        <p>{dayjs(message.publishedAt).format('YYYY-MM-DD')}</p>
-                        <h2 className='card-title'>
-                          <a className='underline link-hover' href={message.url || ''}>
-                            {message.title}
-                          </a>
-                        </h2>
-                      </div>
-                      <div className='card-actions'>
-                        <div className='mt-1'>
-                          {message.message_tags?.map((tag) => (
-                            <div className='badge badge-ghost' key={tag.tag.name}>
-                              {tag.tag.name}
-                            </div>
-                          ))}
+            <>
+              <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 grid-flow'>
+                {messages?.map((message) => (
+                  <div key={message.id} className='card bordered'>
+                    <figure>
+                      <img src={message.imageUrl || ''} className='object-cover w-full h-48' />
+                    </figure>
+                    <div className='card-body'>
+                      <div className='flex flex-col justify-between h-full'>
+                        <div className='my-1'>
+                          <p>{dayjs(message.publishedAt).format('YYYY-MM-DD')}</p>
+                          <h2 className='card-title'>
+                            <a className='underline link-hover' href={message.url || ''}>
+                              {message.title}
+                            </a>
+                          </h2>
                         </div>
+                        <div className='card-actions'>
+                          <div className='mt-1'>
+                            {message.message_tags?.map((tag) => (
+                              <div className='badge badge-ghost' key={tag.tag.name}>
+                                {tag.tag.name}
+                              </div>
+                            ))}
+                          </div>
 
-                        <button
-                          className='btn btn-sm btn-secondary'
-                          onClick={async () => {
-                            router.push(`/messages/${message.id}`)
-                          }}
-                          disabled={isLoading}
-                        >
-                          edit &nbsp;
-                          <FiEdit />
-                        </button>
+                          <button
+                            className='btn btn-sm btn-secondary'
+                            onClick={async () => {
+                              router.push(`/messages/${message.id}`)
+                            }}
+                            disabled={isLoading}
+                          >
+                            edit &nbsp;
+                            <FiEdit />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+              <div className='flex justify-center w-full'>
+                <Pagination
+                  className='my-2'
+                  totalPages={Math.ceil(
+                    (data?.messages_aggregate?.aggregate?.count as number) / ITEMS_PER_PAGE
+                  )}
+                  currentPage={current_page}
+                  onPageSet={current_pageSet}
+                />
+              </div>
+            </>
           ) : (
             <Table
+              pageSize={ITEMS_PER_PAGE}
+              totalItems={data?.messages_aggregate?.aggregate?.count}
+              currentPage={current_page}
+              onPageSet={current_pageSet}
               className='table-zebra'
               data={messages || []}
-              fieldNames={['title', 'publishedAt']}
-              urlPrefix='/messages'
+              fields={{
+                Título: (item) => (
+                  <Link href={`${item.url}`}>
+                    <a className='pl-0 underline btn btn-link btn-xs'> {item.title}</a>
+                  </Link>
+                ),
+                'Publicado em ': (item) => item.publishedAt,
+              }}
             />
           )}
         </main>

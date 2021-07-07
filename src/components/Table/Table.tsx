@@ -41,7 +41,6 @@ export const Table: React.FC<TableProps> = ({
       totalPageSet(totalPages)
     }
   }, [pageSize, totalItems, totalPage])
-
   return (
     <div className='flex flex-col'>
       <div className='overflow-x-auto'>
