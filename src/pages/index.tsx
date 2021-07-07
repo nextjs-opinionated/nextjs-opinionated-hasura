@@ -237,10 +237,10 @@ export default function Page() {
   )
 }
 
-function extLink(name: string, url: string) {
-  return (
-    <a className='link' target='_blank' rel='noreferrer' href={url}>
-      {name}
-    </a>
-  )
-}
+// function extLink(name: string, url: string) {
+//   return (
+//     <a className='link' target='_blank' rel='noreferrer' href={url}>
+//       {name}
+//     </a>
+//   )
+// }
