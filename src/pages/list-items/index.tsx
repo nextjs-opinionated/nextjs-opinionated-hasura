@@ -19,7 +19,7 @@ import { Pagination } from '../../components/Pagination/Pagination'
 import { BiLinkExternal } from 'react-icons/bi'
 import { v4 as uuidv4 } from 'uuid'
 
-const Messages: React.FunctionComponent = () => {
+const List_Items_Page: React.FunctionComponent = () => {
   const [current_page, current_pageSet] = useState(1)
   const ITEMS_PER_PAGE = 3
 
@@ -176,4 +176,4 @@ const Messages: React.FunctionComponent = () => {
   )
 }
 
-export default Messages
+export default List_Items_Page
