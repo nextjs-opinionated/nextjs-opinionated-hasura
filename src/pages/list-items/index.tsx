@@ -16,6 +16,12 @@ import { Table } from '../../components/Table/Table'
 import Link from 'next/link'
 import { BiLinkExternal } from 'react-icons/bi'
 import { v4 as uuidv4 } from 'uuid'
+import {
+  Delete_list_items_by_pk_api_delete,
+  delete_list_items_by_pk_api_delete_Config,
+} from '../../model/api-models/list-items/Delete_list_item_by_pk_api_delete'
+import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2'
 
 const List_Items_Page: React.FunctionComponent = () => {
   const [current_page, current_pageSet] = useState(1)
@@ -56,6 +62,32 @@ const List_Items_Page: React.FunctionComponent = () => {
     })()
   }, [current_page, refetch])
 
+  const onDelete = async (id: string) => {
+    const result = await typedFetch<
+      Delete_list_items_by_pk_api_delete['input'],
+      Delete_list_items_by_pk_api_delete['output']
+    >({
+      ...delete_list_items_by_pk_api_delete_Config,
+      inputData: { id: id },
+    })
+
+    if (!result.error) {
+      const myAlert = withReactContent(Swal)
+      await myAlert.fire({
+        title: 'Deleted Item',
+        confirmButtonText: 'close',
+      })
+      await router.push('/list-items')
+    } else {
+      const myAlert = withReactContent(Swal)
+      await myAlert.fire({
+        title: 'error',
+        html: <p>{JSON.stringify(result.error)}</p>,
+        confirmButtonText: 'close',
+      })
+    }
+  }
+
   return (
     <>
       <Head>
@@ -94,6 +126,7 @@ const List_Items_Page: React.FunctionComponent = () => {
             onPageSet={current_pageSet}
             className='table-zebra'
             data={items || []}
+            onDelete={onDelete}
             fields={{
               Image: (item) => (
                 <Link href={`list-items/${item.id}`}>
