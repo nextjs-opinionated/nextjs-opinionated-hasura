@@ -40,6 +40,8 @@ export default withSentry(
     const list_items_by_pk = dataList.data.list_items.findIndex((item) => item.id === inputData.id)
     if (list_items_by_pk < 0) {
       dataList.data.list_items.push(inputData)
+      dataList.data.list_items_aggregate.aggregate.count =
+        dataList.data.list_items_aggregate.aggregate.count + 1
     } else {
       dataList.data.list_items[list_items_by_pk] = {
         ...inputData,

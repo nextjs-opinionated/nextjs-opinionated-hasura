@@ -93,7 +93,7 @@ const Page: React.FunctionComponent = () => {
         menuItems={Object.values(LinksList)}
       >
         <main className='flex justify-center mx-8'>
-          {isSuccess && (
+          {isSuccess && data?.outputData?.list_items_by_pk?.id === router.query?.list_item_id && (
             <List_items_Form
               initialFormData={{
                 title: data?.outputData?.list_items_by_pk?.title || '',
