@@ -10,6 +10,7 @@ import Loading from '../Loading/Loading'
 import { BiLogIn, BiLogOut } from 'react-icons/bi'
 import { BsPersonFill } from 'react-icons/bs'
 import { DropDown } from '../DropDown/DropDown'
+import _ from 'lodash'
 
 export interface LayoutProps {
   title?: ReactNode
@@ -92,14 +93,14 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                 <li>
                   <div className='z-30 m-1'>
                     <select
-                      className='w-full max-w-xs bg-transparent border-solid select select-bordered'
+                      className='w-full max-w-xs border-solid bg-primary select select-bordered'
                       onChange={(ev) => {
                         setTheme(ev.target.value)
                       }}
                       value={theme}
                     >
                       <option disabled>theme</option>
-                      {Object.values(ThemeList).map((t) => (
+                      {_.map(ThemeList, (t) => (
                         <option key={t.id} value={t.id}>
                           {t.name}
                         </option>
@@ -155,7 +156,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
         {/* main content */}
         <div
           className={classnames('w-full', {
-            'p-4 md:px-6 md:container md:mx-auto': router.asPath !== '/',
+            'p-4 lg:px-6 lg:container lg:mx-auto': router.asPath !== '/',
           })}
         >
           {children}
