@@ -1,8 +1,15 @@
 import React, { ReactNode, useRef } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
+import classnames from 'classnames'
 import { LinkProps } from '../../model/site/LinksList'
 import { ThemeList } from '../../model/site/ThemeList'
 import { useTheme } from 'next-themes'
+import { useUser } from '@auth0/nextjs-auth0'
+import Loading from '../Loading/Loading'
+import { BiLogIn, BiLogOut } from 'react-icons/bi'
+import { BsPersonFill } from 'react-icons/bs'
+import { DropDown } from '../DropDown/DropDown'
 
 export interface LayoutProps {
   title?: ReactNode
@@ -12,7 +19,13 @@ export interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) => {
   const { theme, setTheme } = useTheme()
+  const router = useRouter()
+  const { user, error, isLoading } = useUser()
   const checkboxRef = useRef<HTMLInputElement>(null)
+
+  if (isLoading) return <Loading />
+  if (error) return <div>{error.message}</div>
+
   return (
     <div className='h-screen bg-base-100 drawer text-base-content'>
       {/* put everything in a off-canvas drawer */}
@@ -20,7 +33,14 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
       <input id='menu-drawer' type='checkbox' className='drawer-toggle' ref={checkboxRef} />
       <div className='flex flex-col drawer-content'>
         {/* drawer content */}
-        <div className='w-full navbar bg-base-300'>
+        <div
+          className={classnames(
+            'inset-x-0 top-0 z-10 w-full border-b border-transparent navbar text-base-content',
+            {
+              'bg-transparent fixed text-primary-content': router.asPath === '/',
+            }
+          )}
+        >
           {/* hamburger menu is only visible on mobile */}
           <div className='flex-none lg:hidden'>
             <label htmlFor='menu-drawer' className='btn btn-square btn-ghost'>
@@ -71,7 +91,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                 <li>
                   <div className='z-30 m-1'>
                     <select
-                      className='w-full max-w-xs select select-bordered'
+                      className='w-full max-w-xs bg-transparent border-solid select select-bordered'
                       onChange={(ev) => {
                         setTheme(ev.target.value)
                       }}
@@ -86,12 +106,58 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                     </select>
                   </div>
                 </li>
+                <li>
+                  <div className='m-1'>
+                    {!user && (
+                      <a className='btn btn-ghost' href='/api/auth/login'>
+                        Login
+                        <BiLogIn size={20} className='mx-2' />
+                      </a>
+                    )}
+
+                    {user && (
+                      <>
+                        <DropDown
+                          className='static bg-transparent'
+                          width={50}
+                          selectedId={null}
+                          onSelect={() => {
+                            /**/
+                          }}
+                          label={
+                            <div className='avatar'>
+                              <div className='w-10 h-10 m-1 rounded-full'>
+                                {user?.picture ? <img src={user?.picture} /> : <BsPersonFill />}
+                              </div>
+                            </div>
+                          }
+                          items={[
+                            {
+                              id: '1',
+                              value: (
+                                <a className='justify-center btn btn-ghost' href='/api/auth/logout'>
+                                  <BiLogOut size={20} className='mx-2' />
+                                </a>
+                              ),
+                            },
+                          ]}
+                        />
+                      </>
+                    )}
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
         </div>
         {/* main content */}
-        <div className='w-full p-4 md:px-6 md:container md:mx-auto'>{children}</div>
+        <div
+          className={classnames('w-full', {
+            'p-4 md:px-6 md:container md:mx-auto': router.asPath !== '/',
+          })}
+        >
+          {children}
+        </div>
       </div>
       {/* drawer sidebar for mobile */}
       <div className='drawer-side'>
