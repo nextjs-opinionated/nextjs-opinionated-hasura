@@ -5,16 +5,17 @@ export interface List_items_by_pk_api_get {
     list_item_id: string | string[]
   }
   output: {
-    list_items_by_pk: {
-      body?: string
-      created_at?: string
-      id?: number
-      imageUrl?: string
-      publishedAt?: string
-      title?: string
-      updated_at?: string
-      url?: string
-    }
+    list_items_by_pk:
+      | {
+          id: string
+          title: string
+          body: string
+          imageUrl: string
+          publishedAt: string
+          url: string
+          updated_at: string
+        }
+      | undefined
   }
 }
 

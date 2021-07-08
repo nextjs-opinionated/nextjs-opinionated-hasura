@@ -20,9 +20,10 @@ export default withSentry(
     const inputData = req.query as List_items_by_pk_api_get['input']
 
     // process
-    const data: List_items_by_pk_api_get['output'] = dataList.data.list_items.find(
+    const list_items_by_pk = dataList.data.list_items.find(
       (item) => item.id === inputData.list_item_id
     )
+    const data: List_items_by_pk_api_get['output'] = { list_items_by_pk: list_items_by_pk }
 
     // output data
     res.status(HttpStatusCode.OK_200).json(data)
