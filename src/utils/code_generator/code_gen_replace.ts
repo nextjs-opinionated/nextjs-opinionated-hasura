@@ -12,12 +12,6 @@ export async function code_gen_replace({
     to: string
   }[]
 }) {
-  console.log({
-    from_file,
-    to_file,
-    replaces,
-  })
-
   await fs.ensureFile(to_file)
 
   // load
