@@ -5,8 +5,8 @@ import { RESPONSE_TYPE } from './RESPONSE_TYPE'
 export type TypedFetchResult<P> = {
   status: number
   statusText: string
-  error: any
-  outputData: P | null
+  error?: any
+  outputData?: P
 }
 
 export type TypedFetchParams<INPUT_TYPE> = {
@@ -60,7 +60,7 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
       status: res.status,
       statusText: res.statusText,
       error: errorJSON,
-      outputData: null,
+      outputData: undefined,
     }
   }
 
@@ -82,7 +82,7 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
         status: res.status,
         statusText: res.statusText,
         error,
-        outputData: null,
+        outputData: undefined,
       }
     }
   }
@@ -92,6 +92,6 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
     status: res.status,
     statusText: res.statusText,
     error: '? typed',
-    outputData: null,
+    outputData: undefined,
   }
 }

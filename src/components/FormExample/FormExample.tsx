@@ -157,7 +157,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                           Fetch_formExample_api_post['output']
                         >({
                           ...fetch_formExample_api_post_Config,
-                          data: {
+                          inputData: {
                             email: getValues('email'),
                             color_select: getValues('color_select'),
                             toggle: getValues('toggle'),
@@ -193,7 +193,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                           const myAlert = withReactContent(Swal)
                           await myAlert.fire({
                             title: 'submited',
-                            html: <CodeBlock content={Fetch_formExample_apiResult.data} />,
+                            html: <CodeBlock content={Fetch_formExample_apiResult.outputData} />,
                             confirmButtonText: 'close',
                             customClass: {
                               confirmButton: 'btn btn-primary btn-md',
