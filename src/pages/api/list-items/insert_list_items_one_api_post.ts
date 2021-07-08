@@ -27,7 +27,7 @@ export default withSentry(
 
     // server validations
     try {
-      //   List_items_validation_schema.parse(inputData)
+      List_items_validation_schema.parse(inputData)
     } catch (error) {
       if (error?.errors) {
         res.status(HttpStatusCode.BAD_REQUEST_400).json(error.errors)
@@ -55,8 +55,6 @@ export default withSentry(
       (err) => {
         if (err) {
           throw new Error(err.message)
-        } else {
-          console.log('success')
         }
       }
     )

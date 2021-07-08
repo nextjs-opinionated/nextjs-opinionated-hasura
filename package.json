@@ -42,11 +42,8 @@
     "classnames": "^2.3.1",
     "daisyui": "^1.6.0",
     "dayjs": "^1.10.5",
-
     "fs-extra": "^10.0.0",
-
     "gray-matter": "^4.0.3",
-
     "lodash": "^4.17.21",
     "next": "11.0.1",
     "next-themes": "^0.0.15",
@@ -64,6 +61,7 @@
     "remark-prism": "^1.3.6",
     "sweetalert2": "^11.0.18",
     "sweetalert2-react-content": "^4.1.0",
+    "uuid": "^8.3.2",
     "validator": "^13.6.0",
     "zod": "^3.2.0"
   },

@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
-import { List_items_validation_schema } from '../../../model/schemas/List_items_validation_schema'
 import {
   Delete_list_items_by_pk_api_delete,
   delete_list_items_by_pk_api_delete_Config,
@@ -25,18 +24,6 @@ export default withSentry(
     // input data
     const inputData = req.body as Delete_list_items_by_pk_api_delete['input']
 
-    // server validations
-    try {
-      //   List_items_validation_schema.parse(inputData)
-    } catch (error) {
-      if (error?.errors) {
-        res.status(HttpStatusCode.BAD_REQUEST_400).json(error.errors)
-        return
-      }
-      res.status(HttpStatusCode.INTERNAL_SERVER_ERROR_500).json(error)
-      return
-    }
-
     const list_items_by_pk = dataList.data.list_items.findIndex((item) => item.id === inputData.id)
     if (list_items_by_pk > 0) {
       dataList.data.list_items.slice(list_items_by_pk)
@@ -49,8 +36,6 @@ export default withSentry(
       (err) => {
         if (err) {
           throw new Error(err.message)
-        } else {
-          console.log('success')
         }
       }
     )
