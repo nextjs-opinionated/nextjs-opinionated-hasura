@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import classnames from 'classnames'
 import React from 'react'
 import { useState } from 'react'
@@ -44,12 +45,15 @@ export const FormImage: React.FC<FormImageProps> = ({
             className={className}
           />
 
-          <div className='flex justify-center'>
+          <div className='flex justify-center p-2'>
             <img
-              style={{ height }}
-              className={classnames('object-scale-down', {
-                hidden: currentImageIsValid === false,
-              })}
+              style={{ width, height }}
+              className={classnames(
+                'object-scale-down rounded-lg border-solid shadow-2xl border-base-300',
+                {
+                  hidden: currentImageIsValid === false,
+                }
+              )}
               src={imageUrl || defaultValue || null}
               onError={() => {
                 currentImageIsValidSet(false)
@@ -59,7 +63,7 @@ export const FormImage: React.FC<FormImageProps> = ({
               }}
             />
             <BsImage
-              size={96}
+              size={(_.isNumber(height) && height) || (_.isNumber(width) && width) || 96}
               className={classnames('h-24', {
                 hidden: currentImageIsValid === true,
               })}
