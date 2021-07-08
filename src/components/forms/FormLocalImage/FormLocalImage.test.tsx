@@ -1,13 +1,13 @@
 import React from 'react'
 import * as TestingLib from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { FormImage } from './FormImage'
+import { FormLocalImage } from './FormLocalImage'
 import { fireEvent } from '@testing-library/react'
 
-describe('Image Component', () => {
+describe('Form Local Image Component', () => {
   it('should render a component', async () => {
     const render = TestingLib.render(
-      <FormImage
+      <FormLocalImage
         label='Name'
         placeholder='Select an Image'
         name='image_name'
@@ -23,7 +23,7 @@ describe('Image Component', () => {
 
   it('should render component with default value', async () => {
     const render = TestingLib.render(
-      <FormImage
+      <FormLocalImage
         label='Label'
         name='Select an Image'
         defaultValue='https://via.placeholder.com/1080x1920.png?text=Image+Placeholder'
@@ -43,7 +43,7 @@ describe('Image Component', () => {
 
   it('should click and change the selected image', async () => {
     const render = TestingLib.render(
-      <FormImage
+      <FormLocalImage
         label='Label'
         placeholder='Select an Image'
         name='image_name'
@@ -64,7 +64,7 @@ describe('Image Component', () => {
 
   it('should render component with error message', async () => {
     const render = TestingLib.render(
-      <FormImage
+      <FormLocalImage
         label='Label'
         placeholder='Select an Image'
         name='text_with_error'

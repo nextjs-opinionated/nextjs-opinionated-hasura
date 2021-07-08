@@ -1,10 +1,10 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
-import { FormImage, FormImageProps } from './FormImage'
+import { FormLocalImage, FormLocalImageProps } from './FormLocalImage'
 
 export default {
-  title: 'Component/Forms/FormImage',
-  component: FormImage,
+  title: 'Component/Forms/FormLocalImage',
+  component: FormLocalImage,
   argTypes: {
     register: {
       table: {
@@ -19,7 +19,7 @@ export default {
   },
 } as Meta
 
-const Template: Story<FormImageProps> = (args) => <FormImage {...args} />
+const Template: Story<FormLocalImageProps> = (args) => <FormLocalImage {...args} />
 
 export const Image_Clean = Template.bind({})
 Image_Clean.args = {

@@ -6,12 +6,12 @@ import { FormBaseProps } from '../FormBaseProps'
 import { FormLabel } from '../FormLabel'
 import { FiCamera } from 'react-icons/fi'
 
-export interface FormImageProps extends FormBaseProps {
+export interface FormLocalImageProps extends FormBaseProps {
   width?: string | number
   height?: string | number
 }
 
-export const FormImage: React.FC<FormImageProps> = ({
+export const FormLocalImage: React.FC<FormLocalImageProps> = ({
   label,
   labelDescription,
   name,
