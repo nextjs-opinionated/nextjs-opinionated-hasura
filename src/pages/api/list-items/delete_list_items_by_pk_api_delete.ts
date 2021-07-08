@@ -22,13 +22,14 @@ export default withSentry(
     }
 
     // input data
-    const inputData = req.body as Delete_list_items_by_pk_api_delete['input']
+    const inputData = req.query as Delete_list_items_by_pk_api_delete['input']
 
     const list_items_by_pk = dataList.data.list_items.findIndex((item) => item.id === inputData.id)
-    if (list_items_by_pk > 0) {
-      dataList.data.list_items.slice(list_items_by_pk)
+    if (list_items_by_pk >= 0) {
+      delete dataList.data.list_items[list_items_by_pk]
+      dataList.data.list_items_aggregate.aggregate.count =
+        dataList.data.list_items_aggregate.aggregate.count - 1
     }
-
     fs.writeFile(
       path.join(__dirname, '..', '..', '..', '..', '..', 'src', 'model', 'datas', 'list-items.ts'),
       `export const dataList=${JSON.stringify(dataList)}`,

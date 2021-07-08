@@ -9,6 +9,7 @@ import { List_items_validation_schema } from '../../model/schemas/List_items_val
 import { FormImage } from '../forms/FormImage/FormImage'
 
 export type List_items_FormProps = {
+  onDelete: () => void
   onSubmitConfirm: (submitProps: any) => void
   initialFormData: {
     // id: router?.query?.list_item_id as string,
@@ -22,6 +23,7 @@ export type List_items_FormProps = {
 
 export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
   onSubmitConfirm,
+  onDelete,
   initialFormData = {},
 }) => {
   const {
@@ -130,6 +132,15 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                   <button type='submit' className='btn btn-primary' disabled={!formState.isValid}>
                     SAVE
                   </button>
+                  {initialFormData && (
+                    <button
+                      type='button'
+                      onClick={() => onDelete()}
+                      className='ml-2 btn btn-link text-error'
+                    >
+                      Delete
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

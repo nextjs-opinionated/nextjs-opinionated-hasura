@@ -17,9 +17,14 @@ import {
   insert_list_items_one_api_post_Config,
 } from '../../model/api-models/list-items/Insert_list_items_one_api_post'
 import { List_items_Form } from '../../components/List_items_Form/List_items_Form'
+import {
+  Delete_list_items_by_pk_api_delete,
+  delete_list_items_by_pk_api_delete_Config,
+} from '../../model/api-models/list-items/Delete_list_item_by_pk_api_delete'
 
 const Page: React.FunctionComponent = () => {
   const router = useRouter()
+  const Alerta = withReactContent(Swal)
 
   // react-query
   const { data, isLoading, isSuccess, error } = useQuery(
@@ -77,6 +82,48 @@ const Page: React.FunctionComponent = () => {
     return <p>ERROR {error}</p>
   }
 
+  const onDelete = async () => {
+    const swalConfirmDelete = await Alerta.fire({
+      html: (
+        <p>
+          Do you want to delete the item:{' '}
+          <strong>{data?.outputData?.list_items_by_pk?.title}</strong>
+        </p>
+      ),
+      showCloseButton: true,
+      showDenyButton: true,
+      denyButtonText: 'No',
+      confirmButtonText: 'Yes',
+      icon: 'question',
+    })
+
+    if (swalConfirmDelete.isConfirmed && data?.outputData?.list_items_by_pk?.id) {
+      const result = await typedFetch<
+        Delete_list_items_by_pk_api_delete['input'],
+        Delete_list_items_by_pk_api_delete['output']
+      >({
+        ...delete_list_items_by_pk_api_delete_Config,
+        inputData: { id: data?.outputData?.list_items_by_pk?.id.toString() },
+      })
+
+      if (!result.error) {
+        const myAlert = withReactContent(Swal)
+        await myAlert.fire({
+          title: 'Deleted Item',
+          confirmButtonText: 'close',
+        })
+        await router.push('/list-items')
+      } else {
+        const myAlert = withReactContent(Swal)
+        await myAlert.fire({
+          title: 'error',
+          html: <p>{JSON.stringify(result.error)}</p>,
+          confirmButtonText: 'close',
+        })
+      }
+    }
+  }
+
   return (
     <>
       <Head>
@@ -95,6 +142,7 @@ const Page: React.FunctionComponent = () => {
         <main className='flex justify-center mx-8'>
           {isSuccess && data?.outputData?.list_items_by_pk?.id === router.query?.list_item_id && (
             <List_items_Form
+              onDelete={onDelete}
               initialFormData={{
                 title: data?.outputData?.list_items_by_pk?.title || '',
                 body: data?.outputData?.list_items_by_pk?.body || '',
