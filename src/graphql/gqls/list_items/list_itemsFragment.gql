@@ -1,0 +1,8 @@
+fragment list_items_fragment on list_items {
+  id
+  title
+  body
+  url
+  imageUrl
+  publishedAt
+}

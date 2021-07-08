@@ -37,7 +37,7 @@ const Page: React.FunctionComponent = () => {
         Generate_component_api_post['output']
       >({
         ...generate_component_api_post_Config,
-        data: {
+        inputData: {
           ...submitProps,
         },
       })
@@ -46,7 +46,7 @@ const Page: React.FunctionComponent = () => {
         const myAlert = withReactContent(Swal)
         await myAlert.fire({
           title: 'submited',
-          html: <CodeBlock content={fetch_result.data} />,
+          html: <CodeBlock content={fetch_result.outputData} />,
           confirmButtonText: 'close',
           customClass: {
             confirmButton: 'btn btn-primary btn-md',

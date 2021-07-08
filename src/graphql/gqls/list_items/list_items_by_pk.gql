@@ -1,0 +1,5 @@
+query list_items_by_pk($id: uuid!) {
+  list_items_by_pk(id: $id) {
+    ...list_items_fragment
+  }
+}

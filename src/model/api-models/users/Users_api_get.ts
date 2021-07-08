@@ -4,6 +4,7 @@ import { ApiConfig } from '../../../utils/typedFetch/ApiConfig'
 export interface Users_api_get {
   input: {
     limit: string
+    current_page: string
   }
   output: UsersQuery
 }

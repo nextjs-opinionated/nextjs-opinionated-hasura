@@ -1,5 +1,10 @@
-query users($limit: Int) {
-  users(limit: $limit) {
+query users($limit: Int, $offset: Int) {
+  users(limit: $limit, offset: $offset, order_by: { id: desc }) {
     ...usersFragment
+  }
+  users_aggregate {
+    aggregate {
+      count
+    }
   }
 }
