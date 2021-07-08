@@ -21,10 +21,14 @@ export default {
 
 const Template: Story<FormImageProps> = (args) => <FormImage {...args} />
 
-export const Image_Clean = Template.bind({})
-Image_Clean.args = {
+export const Image_Default = Template.bind({})
+Image_Default.args = {
   name: 'image_name',
+  defaultValue: 'https://media.altphotos.com/cache/images/2020/04/14/05/752/flowers-spring.jpg',
   register: () => {
+    /* noop */
+  },
+  watch: () => {
     /* noop */
   },
   validationErrors: {},
@@ -33,17 +37,39 @@ Image_Clean.args = {
 export const Image_Height = Template.bind({})
 Image_Height.args = {
   name: 'image_name',
+  defaultValue: 'https://media.altphotos.com/cache/images/2020/04/14/05/752/flowers-spring.jpg',
   register: () => {
+    /* noop */
+  },
+  watch: () => {
     /* noop */
   },
   validationErrors: {},
   height: 400,
 }
 
+export const Image_Width = Template.bind({})
+Image_Width.args = {
+  name: 'image_name',
+  defaultValue: 'https://media.altphotos.com/cache/images/2020/04/14/05/752/flowers-spring.jpg',
+  register: () => {
+    /* noop */
+  },
+  watch: () => {
+    /* noop */
+  },
+  validationErrors: {},
+  width: 400,
+}
+
 export const Image_Small = Template.bind({})
 Image_Small.args = {
   name: 'image_name',
+  defaultValue: 'https://media.altphotos.com/cache/images/2020/04/14/05/752/flowers-spring.jpg',
   register: () => {
+    /* noop */
+  },
+  watch: () => {
     /* noop */
   },
   validationErrors: {},
@@ -51,34 +77,33 @@ Image_Small.args = {
   height: 100,
 }
 
-export const Image_DefaultValue = Template.bind({})
-Image_DefaultValue.args = {
+export const Image_Empty = Template.bind({})
+Image_Empty.args = {
   name: 'image_name',
-  defaultValue: 'https://via.placeholder.com/1080x1920.png?text=Image+Placeholder',
+  placeholder: 'Select an Image',
   register: () => {
     /* noop */
   },
-
-  validationErrors: {},
+  watch: () => {
+    /* noop */
+  },
+  width: 400,
+  validationErrors: {
+    text_with_error: {
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
+    },
+  },
 }
 
-export const Image_Placeholder_changes_Button_Label = Template.bind({})
-Image_Placeholder_changes_Button_Label.args = {
+export const Image_Invalid_Url = Template.bind({})
+Image_Invalid_Url.args = {
   name: 'image_name',
+  defaultValue: 'https://invalid-url',
   placeholder: 'Select an Image',
-  defaultValue: 'https://via.placeholder.com/1080x1920.png?text=Image+Placeholder',
   register: () => {
     /* noop */
   },
-
-  validationErrors: {},
-}
-
-export const Image_Error = Template.bind({})
-Image_Error.args = {
-  name: 'text_with_error',
-  placeholder: 'Select an Image',
-  register: () => {
+  watch: () => {
     /* noop */
   },
   validationErrors: {
@@ -88,14 +113,20 @@ Image_Error.args = {
   },
 }
 
-export const Image_CustomClassName_add_border = Template.bind({})
-Image_CustomClassName_add_border.args = {
-  label: 'Label:',
+export const Image_Error = Template.bind({})
+Image_Error.args = {
   name: 'image_name',
+  defaultValue: 'https://invalid-url',
   placeholder: 'Select an Image',
   register: () => {
     /* noop */
   },
-  validationErrors: {},
-  className: 'border-4',
+  watch: () => {
+    /* noop */
+  },
+  validationErrors: {
+    text_with_error: {
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
+    },
+  },
 }

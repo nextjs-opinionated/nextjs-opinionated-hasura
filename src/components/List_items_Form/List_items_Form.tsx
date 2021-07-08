@@ -6,6 +6,7 @@ import { FormInput } from '../forms/FormInput/FormInput'
 import { useMemo } from 'react'
 import dayjs from 'dayjs'
 import { List_items_validation_schema } from '../../model/schemas/List_items_validation_schema'
+import { FormImage } from '../forms/FormImage/FormImage'
 
 export type List_items_FormProps = {
   onSubmitConfirm: (submitProps: any) => void
@@ -29,6 +30,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
     formState: { errors: validationErrors },
     formState,
     reset,
+    watch,
   } = useForm<List_items_FormProps['initialFormData']>({
     mode: 'onChange',
     resolver: zodResolver(List_items_validation_schema),
@@ -87,10 +89,11 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                   validationErrors={validationErrors}
                 />
 
-                <FormInput
+                <FormImage
                   label='Image URL:'
                   name='imageUrl'
                   register={register}
+                  watch={watch}
                   defaultValue={initialFormData.imageUrl}
                   validationErrors={validationErrors}
                 />
