@@ -48,7 +48,6 @@ export const List_items_validation_schema = z.object({
         if (!value || value?.length === 0) {
           return true
         } else {
-          console.log('--  value: ', value)
           return validator.isDate(value, { format: 'YYYY-MM-DD' })
         }
       },

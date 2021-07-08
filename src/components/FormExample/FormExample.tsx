@@ -7,7 +7,7 @@ import { FormInput } from '../forms/FormInput/FormInput'
 import { FormSelect } from '../forms/FormSelect/FormSelect'
 import { FormToggle } from '../forms/FormToggle/FormToggle'
 import { useMemo, useEffect } from 'react'
-import { FormImage } from '../forms/FormImage/FormImage'
+import { FormLocalImage } from '../forms/FormLocalImage/FormLocalImage'
 import { FormInputColor } from '../forms/FormInputColor/FormInputColor'
 import {
   Fetch_formExample_api_post,
@@ -115,7 +115,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                   ]}
                 />
 
-                <FormImage
+                <FormLocalImage
                   register={register}
                   label='Image:'
                   placeholder='Select an Image'

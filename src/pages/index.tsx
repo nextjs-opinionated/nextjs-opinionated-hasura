@@ -65,8 +65,25 @@ export default function Page() {
             </h1>
             <div className='max-w-md'>
               <p className='mb-5'>
-                A new Next.js boilerplate with TypeScript, TailwindCSS, Storybook, Jest, ESLint,
-                Prettifier, React Hook Forms, Zod and React Query
+                A new Next.js boilerplate with
+                {extLink('hasura', 'https://hasura.io/')},
+                {extLink('graphql-request', 'https://github.com/prisma-labs/graphql-request')},
+                {extLink('graphql-codegen', 'https://www.graphql-code-generator.com/')},
+                {extLink('docker-compose', 'https://docs.docker.com/compose/')} and also
+                {extLink('next.js', 'https://nextjs.org/')},
+                {extLink('typescript', 'https://www.typescriptlang.org/')},
+                {extLink('tailwindcss', 'https://tailwindcss.com/')},
+                {extLink('daisyUI', 'https://daisyui.com/')},
+                {extLink('storybook', 'https://storybook.js.org/')},
+                {extLink('jest', 'https://jestjs.io/')}, {extLink('eslint', 'https://eslint.org/')},
+                {extLink('prettier', 'https://prettier.io/')},
+                {extLink('sweetalert2', 'https://sweetalert2.github.io/')},
+                {extLink('react-icons', 'https://react-icons.github.io/react-icons/')},
+                {extLink('react-hook-form', 'https://react-hook-form.com/')},
+                {extLink('@tailwindcss/forms', 'https://github.com/tailwindlabs/tailwindcss-forms')}
+                ,{extLink('zod', 'https://github.com/colinhacks/zod')},
+                {extLink('react-query', 'https://react-query.tanstack.com/')},
+                {extLink('auth0', 'https://auth0.com/')}
               </p>
               <div className='flex justify-center space-x-2'>
                 <a href='/docs' className='btn btn-ghost'>
@@ -195,8 +212,8 @@ export default function Page() {
           <div className='pt-2 text-center opacity-60'>
             <p>© 2021 Next.js Opinionated Team.</p>
             <a
-              className='btn btn-link'
-              href='https://github.com/nextjs-opinionated/nextjs-opinionated-hasura'
+              className='hover:scale-125 btn btn-link'
+              href='https://github.com/nextjs-opinionated/nextjs-opinionated'
               target='_blank'
               rel='noreferrer'
             >
@@ -221,5 +238,13 @@ export default function Page() {
         }
       `}</style>
     </>
+  )
+}
+
+function extLink(name: string, url: string) {
+  return (
+    <a className='ml-2 link' target='_blank' rel='noreferrer' href={url}>
+      {name}
+    </a>
   )
 }
