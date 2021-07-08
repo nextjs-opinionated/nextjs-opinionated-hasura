@@ -36,6 +36,7 @@ const Page: React.FunctionComponent = () => {
       })
       return resultObj
     },
+
     // # enabled
     //   Set this to false to disable automatic refetching when the query mounts
     //   or changes query keys. To refetch the query, use the refetch method returned
@@ -47,6 +48,7 @@ const Page: React.FunctionComponent = () => {
       enabled: (router.query?.list_item_id as string)?.length > 0,
     }
   )
+  console.log(data?.outputData?.list_items_by_pk)
 
   if (isLoading) {
     return (

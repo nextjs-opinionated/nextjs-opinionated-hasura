@@ -6,7 +6,6 @@ import {
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
-import _ from 'lodash'
 import { dataList } from '../../../model/datas/list-items'
 
 export default withSentry(
