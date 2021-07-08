@@ -74,21 +74,6 @@ Image_DefaultValue.args = {
   validationErrors: {},
 }
 
-export const Image_Placeholder_changes_Button_Label = Template.bind({})
-Image_Placeholder_changes_Button_Label.args = {
-  name: 'image_name',
-  placeholder: 'Select an Image',
-  defaultValue: 'https://via.placeholder.com/1080x1920.png?text=Image+Placeholder',
-  register: () => {
-    /* noop */
-  },
-  watch: () => {
-    /* noop */
-  },
-
-  validationErrors: {},
-}
-
 export const Image_Error = Template.bind({})
 Image_Error.args = {
   name: 'text_with_error',
@@ -104,19 +89,4 @@ Image_Error.args = {
       message: 'Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum rutrum metus at',
     },
   },
-}
-
-export const Image_CustomClassName_add_border = Template.bind({})
-Image_CustomClassName_add_border.args = {
-  label: 'Label:',
-  name: 'image_name',
-  placeholder: 'Select an Image',
-  register: () => {
-    /* noop */
-  },
-  watch: () => {
-    /* noop */
-  },
-  validationErrors: {},
-  className: 'border-4',
 }
