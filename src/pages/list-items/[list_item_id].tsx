@@ -48,7 +48,6 @@ const Page: React.FunctionComponent = () => {
       enabled: (router.query?.list_item_id as string)?.length > 0,
     }
   )
-  console.log(data?.outputData?.list_items_by_pk)
 
   if (isLoading) {
     return (

@@ -7,6 +7,9 @@ import {
 } from '../../../model/api-models/list-items/Insert_list_items_one_api_post'
 import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
+import { dataList } from '../../../model/datas/list-items'
+import fs from 'fs'
+import path from 'path'
 
 export default withSentry(
   logMiddleware(async function insert_list_items_one_api_post(
@@ -24,7 +27,7 @@ export default withSentry(
 
     // server validations
     try {
-      List_items_validation_schema.parse(inputData)
+      //   List_items_validation_schema.parse(inputData)
     } catch (error) {
       if (error?.errors) {
         res.status(HttpStatusCode.BAD_REQUEST_400).json(error.errors)
@@ -34,6 +37,27 @@ export default withSentry(
       return
     }
 
+    const list_items_by_pk = dataList.data.list_items.findIndex((item) => item.id === inputData.id)
+    if (list_items_by_pk < 0) {
+      dataList.data.list_items.push(inputData)
+    } else {
+      dataList.data.list_items[list_items_by_pk] = {
+        ...inputData,
+      }
+    }
+
+    fs.writeFile(
+      path.join(__dirname, '..', '..', '..', '..', '..', 'src', 'model', 'datas', 'list-items.ts'),
+      `export const dataList=${JSON.stringify(dataList)}`,
+      'utf8',
+      (err) => {
+        if (err) {
+          throw new Error(err.message)
+        } else {
+          console.log('success')
+        }
+      }
+    )
     // process
     const data: Insert_list_items_one_api_post['output'] = {
       ...inputData,
