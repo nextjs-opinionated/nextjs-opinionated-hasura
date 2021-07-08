@@ -97,8 +97,8 @@ const List_Items_Page: React.FunctionComponent = () => {
             fields={{
               Image: (item) => (
                 <Link href={`list-items/${item.id}`}>
-                  <a className='pl-0 underline btn btn-link btn-xs'>
-                    <img className='object-scale-down h-24' src={item.imageUrl} />
+                  <a className='pl-0 text-center underline btn btn-link btn-xs'>
+                    <img className='object-scale-down w-32' src={item.imageUrl} />
                   </a>
                 </Link>
               ),
