@@ -90,7 +90,6 @@ describe('Form Local Image Component', () => {
         }}
       />
     )
-    render.debug()
 
     expect(render.getByText('Error Message')).toHaveClass('text-error')
   })

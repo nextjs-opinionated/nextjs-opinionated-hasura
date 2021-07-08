@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { FormBaseProps } from '../FormBaseProps'
 import { FormInput } from '../FormInput/FormInput'
 import { BsImage } from 'react-icons/bs'
-import { useForm } from 'react-hook-form'
 
 export interface FormImageProps extends FormBaseProps {
   width?: string | number
