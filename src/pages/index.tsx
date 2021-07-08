@@ -195,7 +195,7 @@ export default function Page() {
           <div className='pt-2 text-center opacity-60'>
             <p>© 2021 Next.js Opinionated Team.</p>
             <a
-              className='btn btn-link '
+              className='hover:scale-125 btn btn-link'
               href='https://github.com/nextjs-opinionated/nextjs-opinionated'
               target='_blank'
               rel='noreferrer'
