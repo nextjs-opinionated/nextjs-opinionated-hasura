@@ -21,14 +21,13 @@ date: '2021-07-06'
 <br/>
 
 ## Boilerplate with nextjs
-  
-  nextjs-opinionatedd uses a stack full `TS` on the frontend
-  
+
+nextjs-opinionatedd uses a stack full `TS` on the frontend
+
 ## Starting in your PC
 
-  Check our other doc: [Getting-Started](https://nextjs-opinionated.vercel.app/docs/getting-started)
-
+Check our other doc: [Getting-Started](https://nextjs-opinionated.vercel.app/docs/getting-started)
 
 ## Edit this or another section of our documents
 
-  Just edit our `.md` in our [repository](https://github.com/nextjs-opinionated/nextjs-opinionated/src/docs) and it will be live in a moment =)
+Just edit our `.md` in our [repository](https://github.com/nextjs-opinionated/nextjs-opinionated-hasura/src/docs) and it will be live in a moment =)

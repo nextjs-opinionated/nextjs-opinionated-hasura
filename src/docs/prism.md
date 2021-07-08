@@ -72,7 +72,7 @@ description: 'My very first doc'
 I **love** using [Next.js](https://nextjs.org/)
 
 ```js
-const doc = getDocBySlug(params.slug);
+const doc = getDocBySlug(params.slug)
 ```
 ````
 
@@ -92,6 +92,6 @@ into this HTML, which includes the proper elements and class names.
 
 ## Deploy Your Own
 
-View the [**source code**](https://github.com/nextjs-opinionated/nextjs-opinionated) and deploy your own. You can add new Markdown files to `src/docs/` and see them live instantly!
+View the [**source code**](https://github.com/nextjs-opinionated/nextjs-opinionated-hasura) and deploy your own. You can add new Markdown files to `src/docs/` and see them live instantly!
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/git?c=1&s=https://github.com/nextjs-opinionated/nextjs-opinionated)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/git?c=1&s=https://github.com/nextjs-opinionated/nextjs-opinionated-hasura)

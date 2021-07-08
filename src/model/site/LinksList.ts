@@ -18,7 +18,7 @@ export const LinksList: {
   github: {
     id: 'github',
     name: 'Github',
-    externalURL: 'https://github.com/nextjs-opinionated/nextjs-opinionated',
+    externalURL: 'https://github.com/nextjs-opinionated/nextjs-opinionated-hasura',
   },
   docs: {
     id: 'docs',
