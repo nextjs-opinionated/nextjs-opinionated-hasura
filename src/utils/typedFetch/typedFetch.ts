@@ -6,13 +6,13 @@ export type TypedFetchResult<P> = {
   status: number
   statusText: string
   error?: any
-  data?: P
+  outputData?: P
 }
 
 export type TypedFetchParams<INPUT_TYPE> = {
   url: string
   method?: HTTP_METHODS
-  data?: INPUT_TYPE
+  inputData?: INPUT_TYPE
   headers?: Headers
   responseType?: RESPONSE_TYPE
 }
@@ -25,7 +25,7 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
     Accept: 'application/json',
     'Content-Type': 'application/json',
   }),
-  data,
+  inputData: data,
 }: TypedFetchParams<INPUT_TYPE>): Promise<TypedFetchResult<OUTPUT_TYPE>> {
   const fetchOptions: {
     headers: Headers
@@ -60,7 +60,7 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
       status: res.status,
       statusText: res.statusText,
       error: errorJSON,
-      data: undefined,
+      outputData: undefined,
     }
   }
 
@@ -74,7 +74,7 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
         status: res.status,
         statusText: res.statusText,
         error: null,
-        data: resultJSON,
+        outputData: resultJSON,
       }
     } catch (error) {
       console.error('>> await res.json() error: ', error)
@@ -82,7 +82,7 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
         status: res.status,
         statusText: res.statusText,
         error,
-        data: undefined,
+        outputData: undefined,
       }
     }
   }
@@ -92,6 +92,6 @@ export default async function typedFetch<INPUT_TYPE, OUTPUT_TYPE>({
     status: res.status,
     statusText: res.statusText,
     error: '? typed',
-    data: undefined,
+    outputData: undefined,
   }
 }

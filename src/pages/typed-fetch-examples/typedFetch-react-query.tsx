@@ -17,6 +17,7 @@ import {
   Fetch_tester_api_post,
   fetch_tester_api_post_Config,
 } from '../../model/api-models/typed-fetch-examples/Fetch_tester_api_post'
+import { useEffect } from 'react'
 
 export default function Page() {
   const [fetchResultJSON, fetchResultJSONSet] = useState({})
@@ -28,7 +29,7 @@ export default function Page() {
       Fetch_tester_api_get['output']
     >({
       ...fetch_tester_api_get_Config,
-      data: {
+      inputData: {
         some_string: 'Ueba!',
         divide_by: toString(5),
         force_error: toString(forceError),
@@ -36,7 +37,7 @@ export default function Page() {
     })
 
     fetchResultJSONSet((d) => ({ ...d, get: resultObj }))
-    return resultObj.data
+    return resultObj
   })
 
   const postResultObj = useQuery('fetch_tester_api_post_Key', async () => {
@@ -45,7 +46,7 @@ export default function Page() {
       Fetch_tester_api_post['output']
     >({
       ...fetch_tester_api_post_Config,
-      data: {
+      inputData: {
         some_string: 'Ueba!',
         divide_by: 5,
         force_error: forceError,
@@ -53,8 +54,12 @@ export default function Page() {
     })
 
     fetchResultJSONSet((d) => ({ ...d, post: resultObj }))
-    return resultObj.data
+    return resultObj
   })
+
+  useEffect(() => {
+    fetchResultJSONSet({ get: getResultObj.data, post: postResultObj.data })
+  }, [getResultObj, postResultObj])
 
   return (
     <>
