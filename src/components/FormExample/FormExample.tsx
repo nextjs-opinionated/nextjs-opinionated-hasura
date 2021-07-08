@@ -7,7 +7,7 @@ import { FormInput } from '../forms/FormInput/FormInput'
 import { FormSelect } from '../forms/FormSelect/FormSelect'
 import { FormToggle } from '../forms/FormToggle/FormToggle'
 import { useMemo, useEffect } from 'react'
-import { FormImage } from '../forms/FormImage/FormImage'
+import { FormLocalImage } from '../forms/FormLocalImage/FormLocalImage'
 import { FormInputColor } from '../forms/FormInputColor/FormInputColor'
 import {
   Fetch_formExample_api_post,
@@ -115,7 +115,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                   ]}
                 />
 
-                <FormImage
+                <FormLocalImage
                   register={register}
                   label='Image:'
                   placeholder='Select an Image'
@@ -157,7 +157,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                           Fetch_formExample_api_post['output']
                         >({
                           ...fetch_formExample_api_post_Config,
-                          data: {
+                          inputData: {
                             email: getValues('email'),
                             color_select: getValues('color_select'),
                             toggle: getValues('toggle'),
@@ -193,7 +193,7 @@ export const FormExample: React.FunctionComponent<FormExampleProps> = ({
                           const myAlert = withReactContent(Swal)
                           await myAlert.fire({
                             title: 'submited',
-                            html: <CodeBlock content={Fetch_formExample_apiResult.data} />,
+                            html: <CodeBlock content={Fetch_formExample_apiResult.outputData} />,
                             confirmButtonText: 'close',
                             customClass: {
                               confirmButton: 'btn btn-primary btn-md',

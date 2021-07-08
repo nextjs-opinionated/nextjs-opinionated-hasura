@@ -1,11 +1,4 @@
-export type LinksListIds =
-  | 'home'
-  | 'styleGuide'
-  | 'typed-fetch-examples'
-  | 'messages'
-  | 'users'
-  | 'github'
-  | 'documentation'
+export type LinksListIds = 'home' | 'docs' | 'github'
 
 export type LinkProps = {
   id: LinksListIds
@@ -22,34 +15,14 @@ export const LinksList: {
     name: 'Home',
     internalURL: '/',
   },
-  styleGuide: {
-    id: 'styleGuide',
-    name: 'Style Guide',
-    internalURL: '/style-guide',
-  },
-  'typed-fetch-examples': {
-    id: 'typed-fetch-examples',
-    name: 'Typed-Fetch',
-    internalURL: '/typed-fetch-examples',
-  },
-  messages: {
-    id: 'messages',
-    name: 'Messages',
-    internalURL: '/messages',
-  },
-  users: {
-    id: 'users',
-    name: 'Users',
-    internalURL: '/users',
+  docs: {
+    id: 'docs',
+    name: 'Docs',
+    internalURL: '/docs',
   },
   github: {
     id: 'github',
     name: 'Github',
-    externalURL: 'https://github.com/saitodisse/nextjs-opinionated-hasura',
-  },
-  documentation: {
-    id: 'documentation',
-    name: 'Documentation',
-    internalURL: '/docs',
+    externalURL: 'https://github.com/nextjs-opinionated/nextjs-opinionated-hasura',
   },
 }

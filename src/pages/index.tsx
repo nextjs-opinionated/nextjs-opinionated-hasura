@@ -6,7 +6,11 @@ import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import Link from 'next/link'
+import { IoIosArrowDown } from 'react-icons/io'
 import * as nextjsAuth0 from '@auth0/nextjs-auth0'
+import Loading from '../components/Loading/Loading'
+import Logo from '../components/LogoDefault/Logo'
+import { FaGithub } from 'react-icons/fa'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -15,13 +19,9 @@ export default function Page() {
   const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
 
-  const { user, error, isLoading } = nextjsAuth0.useUser()
-  if (isLoading) return <div>Loading...</div>
+  const { error, isLoading } = nextjsAuth0.useUser()
+  if (isLoading) return <Loading />
   if (error) return <div>{error.message}</div>
-
-  const throwKnownError = () => {
-    throw new Error('Error from sentry!!!')
-  }
 
   return (
     <>
@@ -47,124 +47,203 @@ export default function Page() {
 
       <Layout
         title={
-          <div className='flex items-baseline flex-grow px-2 mx-2 space-x-3'>
-            <div className='text-base font-bold'>HOME</div>
-            <div className='text-sm'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+          <div className='flex items-center flex-grow px-2 mx-2 space-x-3'>
+            <Link href='/'>
+              <a>
+                <Logo />
+              </a>
+            </Link>
+            <div className='text-sm font-bold'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
           </div>
         }
         menuItems={Object.values(LinksList)}
       >
-        {/* avatar */}
-        <div className='flex flex-col avatar'>
-          <div className='w-24 h-24 my-8 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2'>
-            <img
-              src={user?.picture || 'http://daisyui.com/tailwind-css-component-profile-1@94w.png'}
-              // Example
-              onClick={throwKnownError}
-            />
-          </div>
-
-          {user && (
-            <div className='flex flex-col'>
-              Welcome, <span className='font-bold underline'>{user.name}</span>
+        <div className='relative min-h-screen hero bg-gradient-to-br from-secondary to-primary text-primary-content'>
+          <div className='flex-col justify-between w-full max-w-6xl mt-10 mb-48 text-center hero-content'>
+            <h1 className='py-4 mb-2 font-extrabold text-center font-title'>
+              <div className='text-5xl lg:text-7xl'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+            </h1>
+            <div className='max-w-md'>
+              <p className='mb-5'>
+                A new Next.js boilerplate with
+                {extLink('hasura', 'https://hasura.io/')},
+                {extLink('graphql-request', 'https://github.com/prisma-labs/graphql-request')},
+                {extLink('graphql-codegen', 'https://www.graphql-code-generator.com/')},
+                {extLink('docker-compose', 'https://docs.docker.com/compose/')} and also
+                {extLink('next.js', 'https://nextjs.org/')},
+                {extLink('typescript', 'https://www.typescriptlang.org/')},
+                {extLink('tailwindcss', 'https://tailwindcss.com/')},
+                {extLink('daisyUI', 'https://daisyui.com/')},
+                {extLink('storybook', 'https://storybook.js.org/')},
+                {extLink('jest', 'https://jestjs.io/')}, {extLink('eslint', 'https://eslint.org/')},
+                {extLink('prettier', 'https://prettier.io/')},
+                {extLink('sweetalert2', 'https://sweetalert2.github.io/')},
+                {extLink('react-icons', 'https://react-icons.github.io/react-icons/')},
+                {extLink('react-hook-form', 'https://react-hook-form.com/')},
+                {extLink('@tailwindcss/forms', 'https://github.com/tailwindlabs/tailwindcss-forms')}
+                ,{extLink('zod', 'https://github.com/colinhacks/zod')},
+                {extLink('react-query', 'https://react-query.tanstack.com/')},
+                {extLink('auth0', 'https://auth0.com/')}
+              </p>
+              <div className='flex justify-center space-x-2'>
+                <a href='/docs' className='btn btn-ghost'>
+                  Documentation
+                </a>
+                <a href='/docs/getting-started' className='btn btn-primary'>
+                  Get Started
+                </a>
+              </div>
+              <div className='absolute left-0 right-0 flex justify-center mt-2 bottom-20'>
+                <IoIosArrowDown className='w-6 h-6 animate-bounce' />
+              </div>
             </div>
-          )}
+          </div>
         </div>
 
-        {/* text */}
-        <div className='pb-3'>
-          <h1 className='py-2 text-3xl font-bold'>
-            {process.env.NEXT_PUBLIC_SITE_NAME} - {process.env.NODE_ENV}
-          </h1>
-
-          <p className='max-w-md my-2'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eius odit soluta
-            porro libero amet quidem, iste nihil ipsam, aspernatur distinctio iure aperiam fugiat
-            quaerat sit architecto nemo tempora ratione.
-          </p>
-
-          <Link href='/messages?showAs=table'>
-            <a className='mx-2 my-4 btn btn-primary btn-md'>Messages (hasura)</a>
-          </Link>
-
-          <hr className='my-16 text-secondary-content' />
-
-          {/* buttons */}
-          <div className='flex flex-wrap space-x-4 space-y-4'>
-            <div></div>
-
-            <Link href='/form-example'>
-              <a className='btn btn-primary'>React Form Example</a>
-            </Link>
-
-            <Link href='/typed-fetch-examples'>
-              <a className='btn btn-primary'>Typed-Fetch</a>
-            </Link>
-
-            <button
-              className='btn btn-primary'
-              onClick={async () => {
-                const myAlert = withReactContent(Swal)
-                await myAlert.fire({
-                  title: 'Some Alert Title',
-                  html: <img src='https://unsplash.it/600/300' />,
-                  imageAlt: 'Custom image',
-                  confirmButtonText: 'ok button',
-                })
-              }}
-            >
-              Show Image
-            </button>
-
-            <Link href='/code-generator'>
-              <a className='btn btn-primary'>Generate Code</a>
-            </Link>
-
-            {!user && (
-              <a className='btn btn-primary btn-md' href='/api/auth/login'>
-                Login
-              </a>
-            )}
-
-            {user && (
-              <a className='btn btn-outline btn-md' href='/api/auth/logout'>
-                Logout
-              </a>
-            )}
+        <div className='max-w-md pb-20 mx-auto hero bg-base-100 md:max-w-full'>
+          <div className='flex-col text-center hero-content'>
+            <div>
+              <h2 className='mt-20 mb-2 text-4xl font-extrabold text-transparent md:text-6xl bg-clip-text bg-gradient-to-r from-primary to-secondary'>
+                A new boilerplate
+              </h2>
+              <h3 className='mt-5 text-2xl font-bold'>
+                Most popular libraries based on JavaScript
+              </h3>
+              <p className='mb-5'>
+                Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+                exercitationem quasi.
+              </p>
+            </div>
+            <div className='grid grid-cols-1 gap-4 mt-5 space-x-2 md:grid-cols-3'>
+              <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
+                <div className='card-body'>
+                  <h2 className='card-title'>React Form Example</h2>
+                  <p>
+                    We got a page with few examples how to use our forms and how to validating it
+                  </p>
+                  <div className='justify-end card-actions'>
+                    <Link href='/form-example'>
+                      <a className='btn btn-primary'>
+                        Click here
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          className='inline-block w-6 h-6 ml-2 stroke-current'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            d='M9 5l7 7-7 7'
+                          ></path>
+                        </svg>
+                      </a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
+                <div className='card-body'>
+                  <h2 className='card-title'>Typed-Fetch</h2>
+                  <p>We created a standard typed-fetch using typeScript to manage API calls</p>
+                  <div className='justify-end card-actions'>
+                    <Link href='/typed-fetch-examples'>
+                      <a className='btn btn-primary'>
+                        Click here
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          className='inline-block w-6 h-6 ml-2 stroke-current'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            d='M9 5l7 7-7 7'
+                          ></path>
+                        </svg>
+                      </a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
+                <div className='card-body'>
+                  <h2 className='card-title'>Show Image</h2>
+                  <p>A simple modal example using the SweetAlert2 library</p>
+                  <div className='justify-end card-actions'>
+                    <button
+                      className='btn btn-primary'
+                      onClick={async () => {
+                        const myAlert = withReactContent(Swal)
+                        await myAlert.fire({
+                          title: 'Some Alert Title',
+                          html: <img src='https://unsplash.it/600/300' />,
+                          imageAlt: 'Custom image',
+                          confirmButtonText: 'ok button',
+                        })
+                      }}
+                    >
+                      Click here
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        className='inline-block w-6 h-6 ml-2 stroke-current'
+                      >
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          strokeWidth='2'
+                          d='M9 5l7 7-7 7'
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <p className='max-w-md mt-5 italic'>
-            {extLink('next.js', 'https://nextjs.org/')},
-            {extLink('typescript', 'https://www.typescriptlang.org/')},
-            {extLink('tailwindcss', 'https://tailwindcss.com/')},
-            {extLink('daisyUI', 'https://daisyui.com/')},
-            {extLink('storybook', 'https://storybook.js.org/')},
-            {extLink('jest', 'https://jestjs.io/')}, {extLink('eslint', 'https://eslint.org/')},
-            {extLink('prettier', 'https://prettier.io/')},
-            {extLink('sweetalert2', 'https://sweetalert2.github.io/')},
-            {extLink('react-icons', 'https://react-icons.github.io/react-icons/')},
-            {extLink('react-hook-form', 'https://react-hook-form.com/')},
-            {extLink('@tailwindcss/forms', 'https://github.com/tailwindlabs/tailwindcss-forms')},
-            {extLink('zod', 'https://github.com/colinhacks/zod')},
-            {extLink('react-query', 'https://react-query.tanstack.com/')},
-            {extLink('auth0', 'https://auth0.com/')}
-            {/*
-              --- HASURA, etc - BELLOW ---
-            */}
-            {extLink('hasura', 'https://hasura.io/')},
-            {extLink('graphql-request', 'https://github.com/prisma-labs/graphql-request')},
-            {extLink('graphql-codegen', 'https://www.graphql-code-generator.com/')},
-            {extLink('docker-compose', 'https://docs.docker.com/compose/')}
-          </p>
+        <div className='w-full p-4 bg-neutral text-neutral-content'>
+          <div className='pt-2 text-center opacity-60'>
+            <p>© 2021 Next.js Opinionated Team.</p>
+            <a
+              className='hover:scale-125 btn btn-link'
+              href='https://github.com/nextjs-opinionated/nextjs-opinionated'
+              target='_blank'
+              rel='noreferrer'
+            >
+              <FaGithub color='#fff' size={22} />
+            </a>
+          </div>
         </div>
       </Layout>
+      <style jsx global>{`
+        html {
+          scroll-behavior: smooth;
+        }
+        html,
+        body {
+          padding: 0;
+          margin: 0;
+          font-family: 'Montserrat', sans-serif;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+      `}</style>
     </>
   )
 }
 
 function extLink(name: string, url: string) {
   return (
-    <a className='link' target='_blank' rel='noreferrer' href={url}>
+    <a className='ml-2 link' target='_blank' rel='noreferrer' href={url}>
       {name}
     </a>
   )

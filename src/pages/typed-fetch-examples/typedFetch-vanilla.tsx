@@ -48,7 +48,7 @@ export default function Page() {
                   Fetch_tester_api_get['output']
                 >({
                   ...fetch_tester_api_get_Config,
-                  data: {
+                  inputData: {
                     some_string: 'Ueba!',
                     divide_by: toString(2),
                     force_error: toString(false),
@@ -72,7 +72,7 @@ export default function Page() {
                   Fetch_tester_api_post['output']
                 >({
                   ...fetch_tester_api_post_Config,
-                  data: {
+                  inputData: {
                     some_string: 'Post Text',
                     divide_by: 5,
                     force_error: false,
@@ -93,7 +93,7 @@ export default function Page() {
                   Fetch_tester_api_get['output']
                 >({
                   ...fetch_tester_api_get_Config,
-                  data: {
+                  inputData: {
                     some_string: 'Get Text',
                     divide_by: toString(10),
                     force_error: toString(true),
@@ -114,7 +114,7 @@ export default function Page() {
                   Fetch_tester_api_post['output']
                 >({
                   ...fetch_tester_api_post_Config,
-                  data: {
+                  inputData: {
                     some_string: 'Post Text',
                     divide_by: 10,
                     force_error: true,
