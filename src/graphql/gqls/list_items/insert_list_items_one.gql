@@ -6,6 +6,6 @@ mutation insert_list_items_one(
     object: $list_item
     on_conflict: { constraint: list_items_pkey, update_columns: $update_columns }
   ) {
-    ...list_itemsFragment
+    ...list_items_fragment
   }
 }

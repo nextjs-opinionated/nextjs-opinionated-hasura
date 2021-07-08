@@ -1,4 +1,4 @@
-fragment list_itemsFragment on list_items {
+fragment list_items_fragment on list_items {
   id
   title
   body

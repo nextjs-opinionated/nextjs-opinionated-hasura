@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { List_Items_Update_Column } from '../../../graphql/generated'
-import { ListItemsValidationSchema } from '../../../model/schemas/ListItemsValidationSchema'
+import { List_items_validation_schema } from '../../../model/schemas/List_items_validation_schema'
 import {
   Insert_list_items_one_api_post,
   insert_list_items_one_api_post_Config,
@@ -26,7 +26,7 @@ export default withSentry(
 
     // server validations
     try {
-      ListItemsValidationSchema.parse(inputData)
+      List_items_validation_schema.parse(inputData)
     } catch (error) {
       if (error?.errors) {
         res.status(HttpStatusCode.BAD_REQUEST_400).json(error.errors)

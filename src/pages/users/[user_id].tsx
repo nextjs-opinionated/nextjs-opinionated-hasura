@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { RoleList } from '../../model/site/RoleList'
 import { DeepMap, FieldError, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { UserValidationSchema } from '../../model/schemas/UserValidationSchema'
+import { Users_validation_schema } from '../../model/schemas/Users_validation_schema'
 import { FormInput } from '../../components/forms/FormInput/FormInput'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
@@ -39,11 +39,11 @@ export default function Page() {
         Users_by_pk_api_get['output']
       >({
         ...users_by_pk_api_get_Config,
-        data: {
+        inputData: {
           id: router.query.user_id as string,
         },
       })
-      return resultObj.data
+      return resultObj.outputData
     },
     // # enabled
     //   Set this to false to disable automatic refetching when the query mounts
@@ -64,7 +64,7 @@ export default function Page() {
     reset,
   } = useForm<FormProps>({
     mode: 'onChange',
-    resolver: zodResolver(UserValidationSchema),
+    resolver: zodResolver(Users_validation_schema),
   })
 
   const { user: currentUser, error, isLoading } = useUser()
@@ -78,7 +78,7 @@ export default function Page() {
       Insert_users_one_api_post['output']
     >({
       ...insert_users_one_api_post_Config,
-      data: {
+      inputData: {
         ...submitProps,
         id: router.query.user_id as string,
       },
@@ -125,7 +125,7 @@ export default function Page() {
         Delete_users_by_pk_api_delete['output']
       >({
         ...delete_users_by_pk_api_delete_Config,
-        data: {
+        inputData: {
           id: queryObj?.data?.users_by_pk?.id?.toString(),
         },
       })

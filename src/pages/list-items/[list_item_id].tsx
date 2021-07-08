@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ListItemsValidationSchema } from '../../model/schemas/ListItemsValidationSchema'
+import { List_items_validation_schema } from '../../model/schemas/List_items_validation_schema'
 import { useRouter } from 'next/router'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
@@ -21,6 +21,8 @@ import {
   Insert_list_items_one_api_post,
   insert_list_items_one_api_post_Config,
 } from '../../model/api-models/list-items/Insert_list_items_one_api_post'
+import { BsImage } from 'react-icons/bs'
+import classnames from 'classnames'
 
 type FormProps = Insert_list_items_one_api_post['input'] & {
   publishedAt_date: string
@@ -31,19 +33,19 @@ const Page: React.FunctionComponent = () => {
   const router = useRouter()
 
   // react-query
-  const queryObj = useQuery(
-    'listItems_by_pk_api_get',
+  const { data, isLoading, isSuccess, error } = useQuery(
+    list_items_by_pk_api_get_Config.url, // queryKey
     async () => {
       const resultObj = await typedFetch<
         List_items_by_pk_api_get['input'],
         List_items_by_pk_api_get['output']
       >({
-        ...list_items_by_pk_api_get_Config,
-        data: {
+        ...list_items_by_pk_api_get_Config, // url, method, responseType
+        inputData: {
           list_item_id: router.query?.list_item_id as string,
         },
       })
-      return resultObj.data
+      return resultObj
     },
     // # enabled
     //   Set this to false to disable automatic refetching when the query mounts
@@ -57,8 +59,6 @@ const Page: React.FunctionComponent = () => {
     }
   )
 
-  console.log('--  router.query?.list_item_id: ', router.query?.list_item_id)
-
   // react-hook-form
   const {
     handleSubmit,
@@ -66,10 +66,14 @@ const Page: React.FunctionComponent = () => {
     formState: { errors: validationErrors },
     formState,
     reset,
+    watch,
   } = useForm<FormProps>({
     mode: 'onChange',
-    resolver: zodResolver(ListItemsValidationSchema),
+    resolver: zodResolver(List_items_validation_schema),
   })
+
+  const imageUrl = watch('imageUrl')
+  const [currentImageIsValid, currentImageIsValidSet] = React.useState(true)
 
   const onSubmit = handleSubmit(
     async (submitProps) => {
@@ -85,7 +89,7 @@ const Page: React.FunctionComponent = () => {
         Insert_list_items_one_api_post['output']
       >({
         ...insert_list_items_one_api_post_Config,
-        data: {
+        inputData: {
           id: router?.query?.list_item_id as string,
           title: submitProps.title,
           body: submitProps.body,
@@ -112,7 +116,7 @@ const Page: React.FunctionComponent = () => {
     }
   )
 
-  if (queryObj.isLoading) {
+  if (isLoading) {
     return (
       <>
         <Head>
@@ -136,8 +140,8 @@ const Page: React.FunctionComponent = () => {
     )
   }
 
-  if (queryObj.error) {
-    return <p>ERROR {queryObj.error}</p>
+  if (error) {
+    return <p>ERROR {error}</p>
   }
 
   return (
@@ -156,7 +160,7 @@ const Page: React.FunctionComponent = () => {
         menuItems={Object.values(LinksList)}
       >
         <main className='flex justify-center mx-8'>
-          {queryObj.isSuccess && (
+          {isSuccess && (
             <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
               <div className='hidden sm:block' aria-hidden='true'>
                 <div className='py-5'>
@@ -178,7 +182,7 @@ const Page: React.FunctionComponent = () => {
                           label='Title:'
                           name='title'
                           register={register}
-                          defaultValue={queryObj.data?.list_items_by_pk?.title}
+                          defaultValue={data?.outputData?.list_items_by_pk?.title}
                           validationErrors={validationErrors}
                         />
 
@@ -186,7 +190,7 @@ const Page: React.FunctionComponent = () => {
                           label='Body:'
                           name='body'
                           register={register}
-                          defaultValue={queryObj.data?.list_items_by_pk?.body}
+                          defaultValue={data?.outputData?.list_items_by_pk?.body}
                           validationErrors={validationErrors}
                         />
 
@@ -194,7 +198,7 @@ const Page: React.FunctionComponent = () => {
                           label='URL:'
                           name='url'
                           register={register}
-                          defaultValue={queryObj.data?.list_items_by_pk?.url}
+                          defaultValue={data?.outputData?.list_items_by_pk?.url}
                           validationErrors={validationErrors}
                         />
 
@@ -202,8 +206,27 @@ const Page: React.FunctionComponent = () => {
                           label='Image URL:'
                           name='imageUrl'
                           register={register}
-                          defaultValue={queryObj.data?.list_items_by_pk?.imageUrl}
+                          defaultValue={data?.outputData?.list_items_by_pk?.imageUrl}
                           validationErrors={validationErrors}
+                        />
+
+                        <img
+                          className={classnames('object-scale-down h-24', {
+                            hidden: currentImageIsValid === false,
+                          })}
+                          src={imageUrl || undefined}
+                          onError={() => {
+                            currentImageIsValidSet(false)
+                          }}
+                          onLoad={() => {
+                            currentImageIsValidSet(true)
+                          }}
+                        />
+                        <BsImage
+                          size={96}
+                          className={classnames('h-24', {
+                            hidden: currentImageIsValid === true,
+                          })}
                         />
 
                         <FormInput
@@ -211,9 +234,9 @@ const Page: React.FunctionComponent = () => {
                           type='date'
                           name='publishedAt_date'
                           register={register}
-                          defaultValue={dayjs(queryObj.data?.list_items_by_pk?.publishedAt).format(
-                            'YYYY-MM-DD'
-                          )}
+                          defaultValue={dayjs(
+                            data?.outputData?.list_items_by_pk?.publishedAt
+                          ).format('YYYY-MM-DD')}
                           validationErrors={validationErrors}
                         />
 
@@ -222,9 +245,9 @@ const Page: React.FunctionComponent = () => {
                           type='time'
                           name='publishedAt_time'
                           register={register}
-                          defaultValue={dayjs(queryObj.data?.list_items_by_pk?.publishedAt).format(
-                            'HH:mm'
-                          )}
+                          defaultValue={dayjs(
+                            data?.outputData?.list_items_by_pk?.publishedAt
+                          ).format('HH:mm')}
                           validationErrors={validationErrors}
                         />
 
@@ -232,7 +255,7 @@ const Page: React.FunctionComponent = () => {
                           <button
                             type='button'
                             onClick={() => {
-                              reset(queryObj?.data?.list_items_by_pk as FormProps)
+                              reset(data?.outputData?.list_items_by_pk as FormProps)
                             }}
                             className='btn btn-secondary btn-link'
                           >

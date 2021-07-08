@@ -30,9 +30,9 @@ export default function Page() {
   const { data, isLoading, error } = useQuery('users_api_get', async () => {
     const resultObj = await typedFetch<Users_api_get['input'], Users_api_get['output']>({
       ...users_api_get_Config,
-      data: { limit: ITEMS_PER_PAGE.toString(), current_page: current_page.toString() },
+      inputData: { limit: ITEMS_PER_PAGE.toString(), current_page: current_page.toString() },
     })
-    return resultObj.data
+    return resultObj.outputData
   })
 
   if (error) {

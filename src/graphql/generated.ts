@@ -979,7 +979,7 @@ export type Insert_List_Items_OneMutationVariables = Exact<{
 }>
 
 export type Insert_List_Items_OneMutation = { __typename?: 'mutation_root' } & {
-  insert_list_items_one?: Maybe<{ __typename?: 'list_items' } & List_ItemsFragmentFragment>
+  insert_list_items_one?: Maybe<{ __typename?: 'list_items' } & List_Items_FragmentFragment>
 }
 
 export type List_ItemsQueryVariables = Exact<{
@@ -988,7 +988,7 @@ export type List_ItemsQueryVariables = Exact<{
 }>
 
 export type List_ItemsQuery = { __typename?: 'query_root' } & {
-  list_items: Array<{ __typename?: 'list_items' } & List_ItemsFragmentFragment>
+  list_items: Array<{ __typename?: 'list_items' } & List_Items_FragmentFragment>
   list_items_aggregate: { __typename?: 'list_items_aggregate' } & {
     aggregate?: Maybe<
       { __typename?: 'list_items_aggregate_fields' } & Pick<List_Items_Aggregate_Fields, 'count'>
@@ -996,7 +996,7 @@ export type List_ItemsQuery = { __typename?: 'query_root' } & {
   }
 }
 
-export type List_ItemsFragmentFragment = { __typename?: 'list_items' } & Pick<
+export type List_Items_FragmentFragment = { __typename?: 'list_items' } & Pick<
   List_Items,
   'id' | 'title' | 'body' | 'url' | 'imageUrl' | 'publishedAt'
 >
@@ -1006,7 +1006,7 @@ export type List_Items_By_PkQueryVariables = Exact<{
 }>
 
 export type List_Items_By_PkQuery = { __typename?: 'query_root' } & {
-  list_items_by_pk?: Maybe<{ __typename?: 'list_items' } & List_ItemsFragmentFragment>
+  list_items_by_pk?: Maybe<{ __typename?: 'list_items' } & List_Items_FragmentFragment>
 }
 
 export type Delete_Users_By_PkMutationVariables = Exact<{
@@ -1060,8 +1060,8 @@ export type Users_By_PkQuery = { __typename?: 'query_root' } & {
   users_by_pk?: Maybe<{ __typename?: 'users' } & UsersFragmentFragment>
 }
 
-export const List_ItemsFragmentFragmentDoc = gql`
-  fragment list_itemsFragment on list_items {
+export const List_Items_FragmentFragmentDoc = gql`
+  fragment list_items_fragment on list_items {
     id
     title
     body
@@ -1096,15 +1096,15 @@ export const Insert_List_Items_OneDocument = gql`
       object: $list_item
       on_conflict: { constraint: list_items_pkey, update_columns: $update_columns }
     ) {
-      ...list_itemsFragment
+      ...list_items_fragment
     }
   }
-  ${List_ItemsFragmentFragmentDoc}
+  ${List_Items_FragmentFragmentDoc}
 `
 export const List_ItemsDocument = gql`
   query list_items($limit: Int, $offset: Int) {
     list_items(limit: $limit, offset: $offset, order_by: { id: desc }) {
-      ...list_itemsFragment
+      ...list_items_fragment
     }
     list_items_aggregate {
       aggregate {
@@ -1112,15 +1112,15 @@ export const List_ItemsDocument = gql`
       }
     }
   }
-  ${List_ItemsFragmentFragmentDoc}
+  ${List_Items_FragmentFragmentDoc}
 `
 export const List_Items_By_PkDocument = gql`
   query list_items_by_pk($id: uuid!) {
     list_items_by_pk(id: $id) {
-      ...list_itemsFragment
+      ...list_items_fragment
     }
   }
-  ${List_ItemsFragmentFragmentDoc}
+  ${List_Items_FragmentFragmentDoc}
 `
 export const Delete_Users_By_PkDocument = gql`
   mutation delete_users_by_pk($id: String!) {

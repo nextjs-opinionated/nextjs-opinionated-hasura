@@ -1,7 +1,7 @@
 import * as z from 'zod'
 import { validate as uuidValidate } from 'uuid'
 
-export const ListItemsValidationSchema = z.object({
+export const List_items_validation_schema = z.object({
   id: z.any().refine(
     (value) => {
       // optional if is on insert mode
@@ -11,7 +11,7 @@ export const ListItemsValidationSchema = z.object({
       return uuidValidate(value)
     },
     {
-      message: 'id must be a valid integer',
+      message: 'id must be a valid uuid',
     }
   ),
   title: z.string().nonempty(),

@@ -28,7 +28,7 @@ export default function Page() {
       Fetch_tester_api_get['output']
     >({
       ...fetch_tester_api_get_Config,
-      data: {
+      inputData: {
         some_string: 'Ueba!',
         divide_by: toString(5),
         force_error: toString(forceError),
@@ -36,7 +36,7 @@ export default function Page() {
     })
 
     fetchResultJSONSet((d) => ({ ...d, get: resultObj }))
-    return resultObj.data
+    return resultObj.outputData
   })
 
   const postResultObj = useQuery('fetch_tester_api_post_Key', async () => {
@@ -45,7 +45,7 @@ export default function Page() {
       Fetch_tester_api_post['output']
     >({
       ...fetch_tester_api_post_Config,
-      data: {
+      inputData: {
         some_string: 'Ueba!',
         divide_by: 5,
         force_error: forceError,
@@ -53,7 +53,7 @@ export default function Page() {
     })
 
     fetchResultJSONSet((d) => ({ ...d, post: resultObj }))
-    return resultObj.data
+    return resultObj.outputData
   })
 
   return (

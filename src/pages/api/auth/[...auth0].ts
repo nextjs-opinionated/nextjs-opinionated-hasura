@@ -44,7 +44,7 @@ export default handleAuth({
           >({
             ...users_by_pk_api_get_Config,
             url,
-            data: {
+            inputData: {
               id: session.user.sub,
             },
           })
@@ -52,9 +52,9 @@ export default handleAuth({
 
           // get user ROLE
           // check if users exists and get current role
-          if (getUserObj.data?.users_by_pk?.role) {
+          if (getUserObj.outputData?.users_by_pk?.role) {
             // return existing user
-            session.user.role = getUserObj.data?.users_by_pk?.role as Roles_Enum
+            session.user.role = getUserObj.outputData?.users_by_pk?.role as Roles_Enum
             return session
           } else {
             // save new user
