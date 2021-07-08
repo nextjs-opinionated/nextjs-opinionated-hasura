@@ -1,8 +1,7 @@
 ## [nextjs-opinionated-hasura](https://github.com/saitodisse/nextjs-opinionated-hasura)
 
 ### - [demo](https://nextjs-opinionated-hasura.vercel.app/)
-
-## <!-- ### - [storybook](https://main--60d0b5d829870700396e0a3b.chromatic.com) -->
+- [storybook](https://main--60d0b5d829870700396e0a3b.chromatic.com) - from nextjs-opinionated
 
 _extends [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated) ([demo](https://nextjs-opinionated.vercel.app/)) - base template, without Hasura and Auth0_
 
