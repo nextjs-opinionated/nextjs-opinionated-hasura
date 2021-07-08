@@ -51,7 +51,7 @@ export const FormImage: React.FC<FormImageProps> = ({
               className={classnames('object-scale-down', {
                 hidden: currentImageIsValid === false,
               })}
-              src={imageUrl || null}
+              src={imageUrl || defaultValue || null}
               onError={() => {
                 currentImageIsValidSet(false)
               }}
