@@ -3,7 +3,7 @@ import { ApiConfig } from '../../../utils/typedFetch/ApiConfig'
 export interface Delete_list_items_by_pk_api_delete {
   input: { id: string }
   output: {
-    affected_rows: 'Int'
+    affected_rows: number
   }
 }
 
