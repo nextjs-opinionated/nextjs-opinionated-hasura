@@ -26,7 +26,15 @@ export default {
   },
 } as Meta
 
-const Template: Story<TableProps> = (args) => <Table {...args} />
+const Template: Story<
+  TableProps<{
+    id: string
+    name: string
+    email: string
+    created_at: string
+    customers: []
+  }>
+> = (args) => <Table {...args} />
 
 const TABLE_DATA = [
   {
@@ -172,7 +180,6 @@ Table_WithImage.args = {
         {item.image ? (
           <div className='avatar'>
             <div className='w-12 h-12 mask mask-squircle'>
-              <img src={item.image} />
               <img src={item.image} />
             </div>
           </div>

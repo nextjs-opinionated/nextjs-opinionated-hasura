@@ -6,8 +6,8 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import _ from 'lodash'
 
-export interface TableProps {
-  data: any[]
+export type TableProps<LINE_TYPE> = {
+  data: LINE_TYPE[]
   fields: { [key: string]: (item: any) => React.ReactNode }
   className?: string
   pageSize?: number
@@ -20,19 +20,21 @@ export interface TableProps {
   deleteConfirmationNoLabel?: string
 }
 
-export const Table: React.FC<TableProps> = ({
-  fields,
-  data,
-  className = '',
-  pageSize = 5,
-  currentPage = 1,
-  totalItems,
-  onPageSet,
-  onDelete,
-  deleteConfirmationMessage = 'Do you really want to delete?',
-  deleteConfirmationYesLabel = 'Yes',
-  deleteConfirmationNoLabel = 'No',
-}) => {
+export function Table<LINE_TYPE>(props: TableProps<LINE_TYPE & { id?: string }>) {
+  const {
+    fields,
+    data,
+    className = '',
+    pageSize = 5,
+    currentPage = 1,
+    totalItems,
+    onPageSet,
+    onDelete,
+    deleteConfirmationMessage = 'Do you really want to delete?',
+    deleteConfirmationYesLabel = 'Yes',
+    deleteConfirmationNoLabel = 'No',
+  } = props
+
   const [totalPage, totalPageSet] = useState<number>(0)
 
   useEffect(() => {
@@ -70,7 +72,7 @@ export const Table: React.FC<TableProps> = ({
                   {onDelete && (
                     <td>
                       <button
-                        data-testid={`btn-delete-${item?.id}`}
+                        data-testid={`btn-delete-${item.id}`}
                         onClick={async () => {
                           const SwalReactAlert = withReactContent(Swal)
                           const swalConfirmDelete = await SwalReactAlert.fire({
@@ -82,7 +84,7 @@ export const Table: React.FC<TableProps> = ({
                             icon: 'question',
                           })
                           if (swalConfirmDelete.isConfirmed) {
-                            await onDelete(item.id)
+                            await onDelete(item.id || '')
                           }
                         }}
                       >
