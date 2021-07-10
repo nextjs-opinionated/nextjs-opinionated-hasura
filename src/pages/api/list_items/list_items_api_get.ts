@@ -3,7 +3,7 @@ import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 import {
   list_items_api_get_Config,
   List_Item_api_get,
-} from '../../../model/api-models/list_items/List_Items_api_get'
+} from '../../../model/api-models/list_items/List_items_api_get'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'

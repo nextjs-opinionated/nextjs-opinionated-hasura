@@ -11,7 +11,7 @@ import typedFetch from '../../utils/typedFetch/typedFetch'
 import {
   List_Item_api_get,
   list_items_api_get_Config,
-} from '../../model/api-models/list_items/List_Items_api_get'
+} from '../../model/api-models/list_items/List_items_api_get'
 import { Table } from '../../components/Table/Table'
 import Link from 'next/link'
 import { BiLinkExternal } from 'react-icons/bi'

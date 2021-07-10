@@ -31,7 +31,7 @@ export default withSentry(
       replaces: defaultReplaces,
     })
     await code_gen_replace({
-      from_file: 'src/pages/list_items/[message_id].tsx',
+      from_file: 'src/pages/list_items/[list_item_id].tsx',
       to_file: `src/pages/${table_name}/[${table_id}].tsx`,
       replaces: defaultReplaces,
     })
@@ -79,15 +79,15 @@ export default withSentry(
       replaces: defaultReplaces,
     })
     await code_gen_replace({
-      from_file: 'src/pages/api/list_items/list_items_by_pk_api_get.ts    ',
-      to_file: `src/pages/api/${table_name}/${table_name}_by_pk_api_get.ts    `,
+      from_file: 'src/pages/api/list_items/list_items_by_pk_api_get.ts',
+      to_file: `src/pages/api/${table_name}/${table_name}_by_pk_api_get.ts`,
       replaces: defaultReplaces,
     })
 
-    // ValidationSchema
+    // validation_schema
     await code_gen_replace({
-      from_file: 'src/model/schemas/List_itemsValidationSchema.ts',
-      to_file: `src/model/schemas/${Table_name}ValidationSchema.ts`,
+      from_file: 'src/model/schemas/List_items_validation_schema.ts',
+      to_file: `src/model/schemas/${Table_name}_validation_schema.ts`,
       replaces: defaultReplaces,
     })
 

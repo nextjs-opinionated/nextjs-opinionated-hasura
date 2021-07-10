@@ -10,7 +10,7 @@ import { useQuery } from 'react-query'
 import {
   List_items_by_pk_api_get,
   list_items_by_pk_api_get_Config,
-} from '../../model/api-models/list_items/List_Items_by_pk_api_get'
+} from '../../model/api-models/list_items/List_items_by_pk_api_get'
 import typedFetch from '../../utils/typedFetch/typedFetch'
 import {
   Insert_list_items_one_api_post,
