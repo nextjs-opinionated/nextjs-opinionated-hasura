@@ -15,93 +15,105 @@ export default withSentry(
 
     const defaultReplaces = [
       {
-        from: 'Messages',
+        from: 'List_items',
         to: Table_name,
       },
       {
-        from: 'messages',
+        from: 'list_items',
         to: table_name,
       },
     ]
 
     // pages
     await code_gen_replace({
-      from_file: 'src/pages/messages/index.tsx',
+      from_file: 'src/pages/list_items/index.tsx',
       to_file: `src/pages/${table_name}/index.tsx`,
       replaces: defaultReplaces,
     })
     await code_gen_replace({
-      from_file: 'src/pages/messages/[message_id].tsx',
+      from_file: 'src/pages/list_items/[message_id].tsx',
       to_file: `src/pages/${table_name}/[${table_id}].tsx`,
+      replaces: defaultReplaces,
+    })
+
+    // components
+    await code_gen_replace({
+      from_file: 'src/components/List_items_Form/List_items_Form.stories.tsx',
+      to_file: `src/components/${Table_name}_Form/${Table_name}_Form.stories.tsx`,
+      replaces: defaultReplaces,
+    })
+    await code_gen_replace({
+      from_file: 'src/components/List_items_Form/List_items_Form.tsx',
+      to_file: `src/components/${Table_name}_Form/${Table_name}_Form.tsx`,
       replaces: defaultReplaces,
     })
 
     // api-models
     await code_gen_replace({
-      from_file: 'src/model/api-models/messages/Insert_messages_one_api_post.ts',
+      from_file: 'src/model/api-models/list_items/Insert_list_items_one_api_post.ts',
       to_file: `src/model/api-models/${table_name}/Insert_${table_name}_one_api_post.ts`,
       replaces: defaultReplaces,
     })
 
     await code_gen_replace({
-      from_file: 'src/model/api-models/messages/Messages_api_get.ts',
+      from_file: 'src/model/api-models/list_items/List_items_api_get.ts',
       to_file: `src/model/api-models/${table_name}/${Table_name}_api_get.ts`,
       replaces: defaultReplaces,
     })
 
     await code_gen_replace({
-      from_file: 'src/model/api-models/messages/Messages_by_pk_api_get.ts',
+      from_file: 'src/model/api-models/list_items/List_items_by_pk_api_get.ts',
       to_file: `src/model/api-models/${table_name}/${Table_name}_by_pk_api_get.ts`,
       replaces: defaultReplaces,
     })
 
     // api
     await code_gen_replace({
-      from_file: 'src/pages/api/messages/insert_messages_one_api_post.ts',
+      from_file: 'src/pages/api/list_items/insert_list_items_one_api_post.ts',
       to_file: `src/pages/api/${table_name}/insert_${table_name}_one_api_post.ts`,
       replaces: defaultReplaces,
     })
     await code_gen_replace({
-      from_file: 'src/pages/api/messages/messages_api_get.ts',
+      from_file: 'src/pages/api/list_items/list_items_api_get.ts',
       to_file: `src/pages/api/${table_name}/${table_name}_api_get.ts`,
       replaces: defaultReplaces,
     })
     await code_gen_replace({
-      from_file: 'src/pages/api/messages/messages_by_pk_api_get.ts    ',
+      from_file: 'src/pages/api/list_items/list_items_by_pk_api_get.ts    ',
       to_file: `src/pages/api/${table_name}/${table_name}_by_pk_api_get.ts    `,
       replaces: defaultReplaces,
     })
 
     // ValidationSchema
     await code_gen_replace({
-      from_file: 'src/model/schemas/MessagesValidationSchema.ts',
+      from_file: 'src/model/schemas/List_itemsValidationSchema.ts',
       to_file: `src/model/schemas/${Table_name}ValidationSchema.ts`,
       replaces: defaultReplaces,
     })
 
     // gqls
     await code_gen_replace({
-      from_file: 'src/graphql/gqls/messages/delete_messages.gql',
+      from_file: 'src/graphql/gqls/list_items/delete_list_items.gql',
       to_file: `src/graphql/gqls/${table_name}/delete_${table_name}.gql`,
       replaces: defaultReplaces,
     })
     await code_gen_replace({
-      from_file: 'src/graphql/gqls/messages/insert_messages_one.gql',
+      from_file: 'src/graphql/gqls/list_items/insert_list_items_one.gql',
       to_file: `src/graphql/gqls/${table_name}/insert_${table_name}_one.gql`,
       replaces: defaultReplaces,
     })
     await code_gen_replace({
-      from_file: 'src/graphql/gqls/messages/messages_by_pk.gql',
+      from_file: 'src/graphql/gqls/list_items/list_items_by_pk.gql',
       to_file: `src/graphql/gqls/${table_name}/${table_name}_by_pk.gql`,
       replaces: defaultReplaces,
     })
     await code_gen_replace({
-      from_file: 'src/graphql/gqls/messages/messages.gql',
+      from_file: 'src/graphql/gqls/list_items/list_items.gql',
       to_file: `src/graphql/gqls/${table_name}/${table_name}.gql`,
       replaces: defaultReplaces,
     })
     await code_gen_replace({
-      from_file: 'src/graphql/gqls/messages/messagesFragment.gql',
+      from_file: 'src/graphql/gqls/list_items/list_itemsFragment.gql',
       to_file: `src/graphql/gqls/${table_name}/${table_name}Fragment.gql`,
       replaces: defaultReplaces,
     })
