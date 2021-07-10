@@ -7,7 +7,7 @@ import { ThemeList } from '../../model/site/ThemeList'
 import { useTheme } from 'next-themes'
 import { useUser } from '@auth0/nextjs-auth0'
 import Loading from '../Loading/Loading'
-import { BiLogIn, BiLogOut } from 'react-icons/bi'
+import { BiLinkExternal, BiLogIn, BiLogOut } from 'react-icons/bi'
 import { BsPersonFill } from 'react-icons/bs'
 import { DropDown } from '../DropDown/DropDown'
 import _ from 'lodash'
@@ -72,19 +72,20 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                   <div className='flex items-center' key={m.name}>
                     {m.internalURL && (
                       <Link href={m.internalURL}>
-                        <a className='rounded-btn btn btn-ghost btn-sm' rel='noopener noreferrer'>
+                        <a className='rounded-btn btn btn-ghost' rel='noopener noreferrer'>
                           {m.name}
                         </a>
                       </Link>
                     )}
                     {m.externalURL && (
                       <a
-                        className='rounded-btn btn btn-ghost btn-sm'
+                        className='rounded-btn btn btn-ghost'
                         href={m.externalURL}
                         target='_blank'
                         rel='noopener noreferrer'
                       >
                         {m.name}
+                        <BiLinkExternal className='ml-2' size={17} />
                       </a>
                     )}
                   </div>
@@ -92,7 +93,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                 <li>
                   <div className='z-30 m-1'>
                     <select
-                      className='w-full max-w-xs border-solid bg-primary select select-bordered'
+                      className='w-full max-w-xs select select-bordered bg-base-100 text-base-content'
                       onChange={(ev) => {
                         setTheme(ev.target.value)
                       }}

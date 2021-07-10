@@ -36,10 +36,10 @@ export const DropDown: React.FC<DropDownProps> = ({
   }
 
   return (
-    <Menu as='div' className={`dropdown inline-block ${className}`}>
+    <Menu as='div' className={`dropdown dropdown-end ${className}`}>
       {({ open }) => (
         <div>
-          <Menu.Button className='btn btn-primary'>
+          <Menu.Button className='btn'>
             {currentValue === '' ? (
               <div className={`flex items-center justify-between`} style={{ width }}>
                 <div className='mr-2'>{label}</div>

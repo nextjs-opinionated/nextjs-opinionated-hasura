@@ -17,6 +17,10 @@ import {
   insert_list_items_one_api_post_Config,
 } from '../../model/api-models/list-items/Insert_list_items_one_api_post'
 import { List_items_Form } from '../../components/List_items_Form/List_items_Form'
+import {
+  Delete_list_items_by_pk_api_delete,
+  delete_list_items_by_pk_api_delete_Config,
+} from '../../model/api-models/list-items/Delete_list_item_by_pk_api_delete'
 
 const Page: React.FunctionComponent = () => {
   const router = useRouter()
@@ -125,8 +129,8 @@ const Page: React.FunctionComponent = () => {
                   },
                 })
 
+                const myAlert = withReactContent(Swal)
                 if (typedFetchResult.error) {
-                  const myAlert = withReactContent(Swal)
                   await myAlert.fire({
                     title: 'error',
                     html: typedFetchResult.statusText,
@@ -135,6 +139,33 @@ const Page: React.FunctionComponent = () => {
                   return
                 }
                 router.push('/list-items')
+              }}
+              //
+              // delete item
+              onDelete={async () => {
+                const result = await typedFetch<
+                  Delete_list_items_by_pk_api_delete['input'],
+                  Delete_list_items_by_pk_api_delete['output']
+                >({
+                  ...delete_list_items_by_pk_api_delete_Config,
+                  inputData: { id: String(data?.outputData?.list_items_by_pk?.id) },
+                })
+
+                // show alert
+                const myAlert = withReactContent(Swal)
+                if (!result.error) {
+                  await myAlert.fire({
+                    title: 'Deletion was successful!',
+                    confirmButtonText: 'close',
+                  })
+                  router.back()
+                } else {
+                  await myAlert.fire({
+                    title: 'error',
+                    html: <p>{JSON.stringify(result.error)}</p>,
+                    confirmButtonText: 'close',
+                  })
+                }
               }}
             />
           )}
