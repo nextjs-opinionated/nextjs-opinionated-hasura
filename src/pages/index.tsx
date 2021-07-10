@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 import Head from 'next/head'
 import React from 'react'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import Link from 'next/link'
