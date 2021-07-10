@@ -40,7 +40,7 @@ export default withSentry(
     const data: Insert_list_items_one_api_post['output'] = await new GqlSdkHelper()
       .getSdk()
       .insert_list_items_one({
-        list_item: inputData,
+        object: inputData,
         update_columns: Object.values(List_Items_Update_Column),
       })
 

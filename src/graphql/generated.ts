@@ -969,7 +969,7 @@ export type Delete_List_Items_By_PkMutation = { __typename?: 'mutation_root' } &
 }
 
 export type Insert_List_Items_OneMutationVariables = Exact<{
-  list_item: List_Items_Insert_Input
+  object: List_Items_Insert_Input
   update_columns: Array<List_Items_Update_Column> | List_Items_Update_Column
 }>
 
@@ -1084,11 +1084,11 @@ export const Delete_List_Items_By_PkDocument = gql`
 `
 export const Insert_List_Items_OneDocument = gql`
   mutation insert_list_items_one(
-    $list_item: list_items_insert_input!
+    $object: list_items_insert_input!
     $update_columns: [list_items_update_column!]!
   ) {
     insert_list_items_one(
-      object: $list_item
+      object: $object
       on_conflict: { constraint: list_items_pkey, update_columns: $update_columns }
     ) {
       ...list_items_fragment

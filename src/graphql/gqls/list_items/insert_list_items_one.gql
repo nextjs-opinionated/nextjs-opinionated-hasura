@@ -1,9 +1,9 @@
 mutation insert_list_items_one(
-  $list_item: list_items_insert_input!
+  $object: list_items_insert_input!
   $update_columns: [list_items_update_column!]!
 ) {
   insert_list_items_one(
-    object: $list_item
+    object: $object
     on_conflict: { constraint: list_items_pkey, update_columns: $update_columns }
   ) {
     ...list_items_fragment
