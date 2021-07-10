@@ -20,7 +20,7 @@ export interface List_items_by_pk_api_get {
 }
 
 export const list_items_by_pk_api_get_Config: ApiConfig = {
-  url: '/api/list-items/list_items_by_pk_api_get',
+  url: '/api/list_items/list_items_by_pk_api_get',
   method: 'get',
   responseType: 'json',
 }

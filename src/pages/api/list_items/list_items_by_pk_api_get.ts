@@ -3,8 +3,8 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import {
   List_items_by_pk_api_get,
   list_items_by_pk_api_get_Config,
-} from '../../../model/api-models/list-items/List_Items_by_pk_api_get'
-import { LIST_ITEMS_STUB_DATA } from '../../../model/api-models/list-items/stubs/LIST_ITEMS_STUB_DATA'
+} from '../../../model/api-models/list_items/List_Items_by_pk_api_get'
+import { LIST_ITEMS_STUB_DATA } from '../../../model/api-models/list_items/stubs/LIST_ITEMS_STUB_DATA'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 

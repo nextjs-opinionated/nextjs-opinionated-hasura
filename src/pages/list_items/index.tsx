@@ -11,7 +11,7 @@ import typedFetch from '../../utils/typedFetch/typedFetch'
 import {
   List_Item_api_get,
   list_items_api_get_Config,
-} from '../../model/api-models/list-items/List_Items_api_get'
+} from '../../model/api-models/list_items/List_Items_api_get'
 import { Table } from '../../components/Table/Table'
 import Link from 'next/link'
 import { BiLinkExternal } from 'react-icons/bi'
@@ -19,7 +19,7 @@ import { v4 as uuidv4 } from 'uuid'
 import {
   Delete_list_items_by_pk_api_delete,
   delete_list_items_by_pk_api_delete_Config,
-} from '../../model/api-models/list-items/Delete_list_item_by_pk_api_delete'
+} from '../../model/api-models/list_items/Delete_list_item_by_pk_api_delete'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import _ from 'lodash'
@@ -99,7 +99,7 @@ const List_Items_Page: React.FunctionComponent = () => {
             <button
               className='mx-2 btn btn-primary'
               onClick={async () => {
-                router.push(`/list-items/${uuidv4()}`)
+                router.push(`/list_items/${uuidv4()}`)
               }}
               disabled={isLoading}
             >
@@ -112,7 +112,7 @@ const List_Items_Page: React.FunctionComponent = () => {
             totalItems={data?.outputData?.list_items_aggregate?.aggregate?.count}
             currentPage={_.toInteger(router.query.page) || 1}
             onPageSet={(pageIndex) => {
-              router.push(`/list-items?page=${pageIndex}`)
+              router.push(`/list_items?page=${pageIndex}`)
             }}
             className='table-zebra'
             data={items || []}
@@ -159,7 +159,7 @@ const List_Items_Page: React.FunctionComponent = () => {
             }}
             fields={{
               Image: (item) => (
-                <Link href={`list-items/${item.id}`}>
+                <Link href={`list_items/${item.id}`}>
                   <a className='w-32 pl-0 text-center underline btn btn-link btn-xs'>
                     <img className='w-32 object-fit' src={item.imageUrl} />
                   </a>
@@ -167,7 +167,7 @@ const List_Items_Page: React.FunctionComponent = () => {
               ),
 
               Title: (item) => (
-                <Link href={`list-items/${item.id}`}>
+                <Link href={`list_items/${item.id}`}>
                   <a className='pl-0 underline btn btn-link btn-xs'> {item.title}</a>
                 </Link>
               ),

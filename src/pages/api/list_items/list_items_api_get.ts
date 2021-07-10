@@ -2,11 +2,11 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import {
   list_items_api_get_Config,
   List_Item_api_get,
-} from '../../../model/api-models/list-items/List_Items_api_get'
+} from '../../../model/api-models/list_items/List_Items_api_get'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
-import { LIST_ITEMS_STUB_DATA } from '../../../model/api-models/list-items/stubs/LIST_ITEMS_STUB_DATA'
+import { LIST_ITEMS_STUB_DATA } from '../../../model/api-models/list_items/stubs/LIST_ITEMS_STUB_DATA'
 import _ from 'lodash'
 
 // THIS IS JUST A SIMULATION
