@@ -10,17 +10,17 @@ import { useQuery } from 'react-query'
 import {
   List_items_by_pk_api_get,
   list_items_by_pk_api_get_Config,
-} from '../../model/api-models/list-items/List_Items_by_pk_api_get'
+} from '../../model/api-models/list_items/List_Items_by_pk_api_get'
 import typedFetch from '../../utils/typedFetch/typedFetch'
 import {
   Insert_list_items_one_api_post,
   insert_list_items_one_api_post_Config,
-} from '../../model/api-models/list-items/Insert_list_items_one_api_post'
+} from '../../model/api-models/list_items/Insert_list_items_one_api_post'
 import { List_items_Form } from '../../components/List_items_Form/List_items_Form'
 import {
   Delete_list_items_by_pk_api_delete,
   delete_list_items_by_pk_api_delete_Config,
-} from '../../model/api-models/list-items/Delete_list_item_by_pk_api_delete'
+} from '../../model/api-models/list_items/Delete_list_item_by_pk_api_delete'
 
 const Page: React.FunctionComponent = () => {
   const router = useRouter()

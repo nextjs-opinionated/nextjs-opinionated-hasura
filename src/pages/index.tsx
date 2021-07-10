@@ -167,7 +167,7 @@ export default function Page() {
                     <p>A standard way to List, Set, Update and Delete items</p>
                   </div>
                   <div className='justify-center card-actions'>
-                    <Link href='/list-items?page=1'>
+                    <Link href='/list_items?page=1'>
                       <a className='btn btn-primary'>list items</a>
                     </Link>
                   </div>
@@ -232,7 +232,7 @@ export default function Page() {
                     </p>
                   </div>
                   <div className='justify-center card-actions'>
-                    <Link href='/list-items/cb0f6982-de0a-4b35-804f-5ed5e8d7bed3'>
+                    <Link href='/list_items/cb0f6982-de0a-4b35-804f-5ed5e8d7bed3'>
                       <a className='btn btn-primary'>Check Validation</a>
                     </Link>
                   </div>

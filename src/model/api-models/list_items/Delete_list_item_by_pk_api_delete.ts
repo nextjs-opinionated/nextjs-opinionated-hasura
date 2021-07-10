@@ -7,7 +7,7 @@ export interface Delete_list_items_by_pk_api_delete {
 }
 
 export const delete_list_items_by_pk_api_delete_Config: ApiConfig = {
-  url: '/api/list-items/delete_list_items_by_pk_api_delete',
+  url: '/api/list_items/delete_list_items_by_pk_api_delete',
   method: 'delete',
   responseType: 'json',
 }

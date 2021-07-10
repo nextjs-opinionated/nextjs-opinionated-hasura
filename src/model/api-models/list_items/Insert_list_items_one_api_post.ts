@@ -9,7 +9,7 @@ export interface Insert_list_items_one_api_post {
 }
 
 export const insert_list_items_one_api_post_Config: ApiConfig = {
-  url: '/api/list-items/insert_list_items_one_api_post',
+  url: '/api/list_items/insert_list_items_one_api_post',
   method: 'post',
   responseType: 'json',
 }

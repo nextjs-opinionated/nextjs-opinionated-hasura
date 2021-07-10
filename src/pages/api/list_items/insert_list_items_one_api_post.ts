@@ -6,7 +6,7 @@ import { List_items_validation_schema } from '../../../model/schemas/List_items_
 import {
   Insert_list_items_one_api_post,
   insert_list_items_one_api_post_Config,
-} from '../../../model/api-models/list-items/Insert_list_items_one_api_post'
+} from '../../../model/api-models/list_items/Insert_list_items_one_api_post'
 import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 
