@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 import Head from 'next/head'
 import React from 'react'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import Link from 'next/link'
@@ -11,6 +9,7 @@ import * as nextjsAuth0 from '@auth0/nextjs-auth0'
 import Loading from '../components/Loading/Loading'
 import Logo from '../components/LogoDefault/Logo'
 import { FaGithub } from 'react-icons/fa'
+import isLocalhost from '../utils/isLocalhost'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -58,135 +57,158 @@ export default function Page() {
         }
         menuItems={Object.values(LinksList)}
       >
-        <div className='relative min-h-screen hero bg-gradient-to-br from-secondary to-primary text-primary-content'>
-          <div className='flex-col justify-between w-full max-w-6xl mt-10 mb-48 text-center hero-content'>
-            <h1 className='py-4 mb-2 font-extrabold text-center font-title'>
-              <div className='text-5xl lg:text-7xl'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
-            </h1>
-            <div className='max-w-md'>
-              <p className='mb-5'>
-                A new Next.js boilerplate with TypeScript, TailwindCSS, Storybook, Jest, ESLint,
-                Prettifier, React Hook Forms, Zod and React Query
-              </p>
-              <div className='flex justify-center space-x-2'>
-                <a href='/docs' className='btn btn-ghost'>
-                  Documentation
-                </a>
-                <a href='/docs/getting-started' className='btn btn-primary'>
-                  Get Started
-                </a>
-              </div>
-              <div className='absolute left-0 right-0 flex justify-center mt-2 bottom-20'>
-                <IoIosArrowDown className='w-6 h-6 animate-bounce' />
+        <div className='min-h-screen hero bg-base-200 bg-gradient-to-br from-secondary to-primary text-primary-content'>
+          <div className='text-center hero-content'>
+            <div className='flex flex-col items-center justify-between w-full max-w-6xl mt-5 mb-48 sm:mt-10'>
+              <h1 className='mt-20 mb-5 text-4xl font-extrabold sm:text-6xl'>
+                {process.env.NEXT_PUBLIC_SITE_NAME}
+              </h1>
+              <div className='max-w-md'>
+                <p className='my-3 text-xs sm:my-10 sm:text-sm sm:block'>
+                  The complete {extLink('Next.js', 'https://nextjs.org/')} boilerplate with
+                  {extLink('tailwindcss', 'https://tailwindcss.com/')},
+                  {extLink('daisyUI', 'https://daisyui.com/')},
+                  {extLink('storybook', 'https://storybook.js.org/')},
+                  {extLink('jest', 'https://jestjs.io/')},{' '}
+                  {extLink('eslint', 'https://eslint.org/')},
+                  {extLink('prettier', 'https://prettier.io/')},
+                  {extLink('sweetalert2', 'https://sweetalert2.github.io/')},
+                  {extLink('react-icons', 'https://react-icons.github.io/react-icons/')},
+                  {extLink('react-hook-form', 'https://react-hook-form.com/')},
+                  {extLink(
+                    '@tailwindcss/forms',
+                    'https://github.com/tailwindlabs/tailwindcss-forms'
+                  )}
+                  ,{extLink('zod', 'https://github.com/colinhacks/zod')},
+                  {extLink('react-query', 'https://react-query.tanstack.com/')} and
+                  {extLink('auth0', 'https://auth0.com/')}
+                </p>
+                <div className='flex flex-wrap justify-center mt-10 space-x-2'>
+                  <a href='/docs' className='btn btn-ghost'>
+                    Documentation
+                  </a>
+                  <a href='/docs/getting-started' className='btn btn-primary'>
+                    Get Started
+                  </a>
+                </div>
+                <div className='absolute left-0 right-0 flex justify-center mt-2 bottom-10 sm:bottom-20'>
+                  <IoIosArrowDown className='w-6 h-6 animate-bounce' />
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className='max-w-md pb-20 mx-auto hero bg-base-100 md:max-w-full'>
+        <div className='max-w-md pb-20 mx-auto hero md:max-w-full bg-base-300'>
           <div className='flex-col text-center hero-content'>
             <div>
               <h2 className='mt-20 mb-2 text-4xl font-extrabold text-transparent md:text-6xl bg-clip-text bg-gradient-to-r from-primary to-secondary'>
-                A new boilerplate
+                Demos
               </h2>
-              <h3 className='mt-5 text-2xl font-bold'>
-                Most popular libraries based on JavaScript
-              </h3>
-              <p className='mb-5'>
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
-                exercitationem quasi.
-              </p>
+              <h3 className='mt-5 text-2xl font-bold'>Check some features</h3>
             </div>
+
             <div className='grid grid-cols-1 gap-4 mt-5 space-x-2 md:grid-cols-3'>
-              <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
-                <div className='card-body'>
-                  <h2 className='card-title'>React Form Example</h2>
-                  <p>
-                    We got a page with few examples how to use our forms and how to validating it
-                  </p>
-                  <div className='justify-end card-actions'>
-                    <Link href='/form-example'>
-                      <a className='btn btn-primary'>
-                        Click here
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          fill='none'
-                          viewBox='0 0 24 24'
-                          className='inline-block w-6 h-6 ml-2 stroke-current'
-                        >
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth='2'
-                            d='M9 5l7 7-7 7'
-                          ></path>
-                        </svg>
-                      </a>
-                    </Link>
+              {/* CARD */}
+              <div className='shadow-2xl card lg:card-side text-neutral bg-base-100'>
+                <div className='justify-between card-body'>
+                  <div>
+                    <h2 className='card-title'>Storybook</h2>
+                    <p>
+                      this project works with storybook (and also with next.js, tailwind and
+                      postcss)
+                    </p>
                   </div>
-                </div>
-              </div>
-              <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
-                <div className='card-body'>
-                  <h2 className='card-title'>Typed-Fetch</h2>
-                  <p>We created a standard typed-fetch using typeScript to manage API calls</p>
-                  <div className='justify-end card-actions'>
-                    <Link href='/typed-fetch-examples'>
-                      <a className='btn btn-primary'>
-                        Click here
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          fill='none'
-                          viewBox='0 0 24 24'
-                          className='inline-block w-6 h-6 ml-2 stroke-current'
-                        >
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth='2'
-                            d='M9 5l7 7-7 7'
-                          ></path>
-                        </svg>
+                  <div className='justify-center card-actions'>
+                    {isLocalhost() ? (
+                      <a href='http://localhost:6006' className='btn btn-primary'>
+                        see storybook
                       </a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className='shadow-2xl card lg:card-side bg-primary text-primary-content'>
-                <div className='card-body'>
-                  <h2 className='card-title'>Show Image</h2>
-                  <p>A simple modal example using the SweetAlert2 library</p>
-                  <div className='justify-end card-actions'>
-                    <button
-                      className='btn btn-primary'
-                      onClick={async () => {
-                        const myAlert = withReactContent(Swal)
-                        await myAlert.fire({
-                          title: 'Some Alert Title',
-                          html: <img src='https://unsplash.it/600/300' />,
-                          imageAlt: 'Custom image',
-                          confirmButtonText: 'ok button',
-                        })
-                      }}
-                    >
-                      Click here
-                      <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                        className='inline-block w-6 h-6 ml-2 stroke-current'
+                    ) : (
+                      <a
+                        href='https://main--60d0b5d829870700396e0a3b.chromatic.com'
+                        className='btn btn-primary'
                       >
-                        <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          strokeWidth='2'
-                          d='M9 5l7 7-7 7'
-                        ></path>
-                      </svg>
-                    </button>
+                        see storybook
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
+
+              {/* CARD */}
+              <div className='shadow-2xl card lg:card-side text-neutral bg-base-100'>
+                <div className='justify-between card-body'>
+                  <div>
+                    <h2 className='card-title'>Code Generator</h2>
+                    <p>
+                      Generate code directly from this project if you are running on
+                      http://localhost:3000
+                    </p>
+                  </div>
+                  <div className='justify-center card-actions'>
+                    <Link href='/code-generator'>
+                      <a className='btn btn-primary'>Generate code</a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* CARD */}
+              <div className='shadow-2xl card lg:card-side text-neutral bg-base-100'>
+                <div className='justify-between card-body'>
+                  <div>
+                    <h2 className='card-title'>React Hook Form</h2>
+                    <p>We created components to use with react hook form. See them in action.</p>
+                  </div>
+                  <div className='justify-center card-actions'>
+                    <Link href='/form-example'>
+                      <a className='btn btn-primary'>form example</a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* CARD */}
+              <div className='shadow-2xl card lg:card-side text-neutral bg-base-100'>
+                <div className='justify-between card-body'>
+                  <div>
+                    <h2 className='card-title'>TypedFetch</h2>
+                    <p>
+                      We created a standard typed-fetch using typeScript to manage API calls. That
+                      way you will be typing input and output of all fetch calls
+                    </p>
+                  </div>
+                  <div className='justify-center card-actions'>
+                    <Link href='/typed-fetch-examples'>
+                      <a className='btn btn-primary'>test fetch</a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className='max-w-md mx-auto hero bg-neutral text-neutral-content md:max-w-full'>
+          <div className='text-center hero-content'>
+            <div className='sm:my-32'>
+              <h2 className='mt-20 mb-2 text-4xl font-extrabold md:text-6xl'>
+                The complete boilerplate for Next.js
+              </h2>{' '}
+              <h3 className='my-10 text-3xl font-bold'>start your project the right way</h3>{' '}
+              <p className='max-w-lg mx-auto my-10'>
+                {process.env.NEXT_PUBLIC_SITE_NAME} has all best dependencies and our team always
+                make sure everything is updated
+                <br />
+                {/* 
+                <div className='w-full max-w-xs mx-auto my-3 space-x-2 md:max-w-md'>
+                  <Link href='/code-generator'>
+                    <a className='btn-outline btn-sm btn'>Codepen</a>
+                  </Link>
+                </div>
+                */}
+              </p>
             </div>
           </div>
         </div>
@@ -221,5 +243,13 @@ export default function Page() {
         }
       `}</style>
     </>
+  )
+}
+
+function extLink(name: string, url: string) {
+  return (
+    <a className='mx-1 link' target='_blank' rel='noreferrer' href={url}>
+      {name}
+    </a>
   )
 }
