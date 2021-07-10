@@ -1,5 +1,5 @@
 query list_items($limit: Int, $offset: Int) {
-  list_items(limit: $limit, offset: $offset, order_by: { id: desc }) {
+  list_items(limit: $limit, offset: $offset, order_by: { created_at: asc }) {
     ...list_items_fragment
   }
   list_items_aggregate {

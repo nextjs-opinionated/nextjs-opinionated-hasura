@@ -960,17 +960,12 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>
 }
 
-export type Delete_List_Item_By_PkMutationVariables = Exact<{
-  list_item_id: Scalars['uuid']
+export type Delete_List_Items_By_PkMutationVariables = Exact<{
+  id: Scalars['uuid']
 }>
 
-export type Delete_List_Item_By_PkMutation = { __typename?: 'mutation_root' } & {
-  delete_list_items?: Maybe<
-    { __typename?: 'list_items_mutation_response' } & Pick<
-      List_Items_Mutation_Response,
-      'affected_rows'
-    >
-  >
+export type Delete_List_Items_By_PkMutation = { __typename?: 'mutation_root' } & {
+  delete_list_items_by_pk?: Maybe<{ __typename?: 'list_items' } & Pick<List_Items, 'id'>>
 }
 
 export type Insert_List_Items_OneMutationVariables = Exact<{
@@ -1080,10 +1075,10 @@ export const UsersFragmentFragmentDoc = gql`
     created_at
   }
 `
-export const Delete_List_Item_By_PkDocument = gql`
-  mutation delete_list_item_by_pk($list_item_id: uuid!) {
-    delete_list_items(where: { id: { _lt: $list_item_id } }) {
-      affected_rows
+export const Delete_List_Items_By_PkDocument = gql`
+  mutation delete_list_items_by_pk($id: uuid!) {
+    delete_list_items_by_pk(id: $id) {
+      id
     }
   }
 `
@@ -1103,7 +1098,7 @@ export const Insert_List_Items_OneDocument = gql`
 `
 export const List_ItemsDocument = gql`
   query list_items($limit: Int, $offset: Int) {
-    list_items(limit: $limit, offset: $offset, order_by: { id: desc }) {
+    list_items(limit: $limit, offset: $offset, order_by: { created_at: asc }) {
       ...list_items_fragment
     }
     list_items_aggregate {
@@ -1180,18 +1175,18 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action()
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    delete_list_item_by_pk(
-      variables: Delete_List_Item_By_PkMutationVariables,
+    delete_list_items_by_pk(
+      variables: Delete_List_Items_By_PkMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<Delete_List_Item_By_PkMutation> {
+    ): Promise<Delete_List_Items_By_PkMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<Delete_List_Item_By_PkMutation>(
-            Delete_List_Item_By_PkDocument,
+          client.request<Delete_List_Items_By_PkMutation>(
+            Delete_List_Items_By_PkDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
-        'delete_list_item_by_pk'
+        'delete_list_items_by_pk'
       )
     },
     insert_list_items_one(

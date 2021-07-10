@@ -122,7 +122,7 @@ const List_Items_Page: React.FunctionComponent = () => {
                 Delete_list_items_by_pk_api_delete['output']
               >({
                 ...delete_list_items_by_pk_api_delete_Config,
-                inputData: { id: id },
+                inputData: { id },
               })
 
               const myAlert = withReactContent(Swal)

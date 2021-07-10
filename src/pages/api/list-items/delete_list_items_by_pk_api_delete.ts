@@ -6,9 +6,8 @@ import {
 } from '../../../model/api-models/list-items/Delete_list_item_by_pk_api_delete'
 import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
+import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 
-// THIS IS JUST A SIMULATION
-// Go check for https://github.com/nextjs-opinionated/nextjs-opinionated-hasura for a real implementation
 export default withSentry(
   logMiddleware(async function insert_list_items_one_api_post(
     req: NextApiRequest,
@@ -20,10 +19,16 @@ export default withSentry(
       res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
     }
 
-    // THIS IS JUST A SIMULATION
-    // Go check for https://github.com/nextjs-opinionated/nextjs-opinionated-hasura for a real implementation
-    res.status(HttpStatusCode.OK_200).json({
-      affected_rows: 1,
-    } as Delete_list_items_by_pk_api_delete['output'])
+    // input data
+    const inputData = req.query as Delete_list_items_by_pk_api_delete['input']
+
+    const data: Delete_list_items_by_pk_api_delete['output'] = await new GqlSdkHelper()
+      .getSdk()
+      .delete_list_items_by_pk({
+        id: inputData.id,
+      })
+
+    // output data
+    res.status(HttpStatusCode.OK_200).json(data)
   })
 )
