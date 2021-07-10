@@ -138,7 +138,7 @@ const Page: React.FunctionComponent = () => {
                   })
                   return
                 }
-                router.push('/list-items')
+                router.back()
               }}
               //
               // delete item

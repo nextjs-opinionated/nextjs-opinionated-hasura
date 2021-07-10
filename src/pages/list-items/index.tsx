@@ -131,6 +131,7 @@ const List_Items_Page: React.FunctionComponent = () => {
                   title: 'Deleted Item',
                   confirmButtonText: 'close',
                 })
+                await refetch()
               } else {
                 await myAlert.fire({
                   title: 'error',
