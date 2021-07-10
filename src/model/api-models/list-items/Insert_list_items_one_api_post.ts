@@ -11,13 +11,15 @@ export interface Insert_list_items_one_api_post {
     updated_at: string
   }
   output: {
-    id: string
-    title: string
-    body: string
-    url: string
-    imageUrl: string
-    publishedAt: string
-    updated_at: string
+    insert_list_items_one: {
+      id: string
+      title: string
+      body: string
+      url: string
+      imageUrl: string
+      publishedAt: string
+      updated_at: string
+    }
   }
 }
 
