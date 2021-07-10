@@ -10,6 +10,7 @@ import Loading from '../components/Loading/Loading'
 import Logo from '../components/LogoDefault/Logo'
 import { FaGithub } from 'react-icons/fa'
 import isLocalhost from '../utils/isLocalhost'
+import { BiLinkExternal } from 'react-icons/bi'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -99,7 +100,7 @@ export default function Page() {
           </div>
         </div>
 
-        <div className='max-w-md pb-20 mx-auto hero md:max-w-full bg-base-300'>
+        <div className='max-w-md pb-20 mx-auto hero md:max-w-full bg-base-100'>
           <div className='flex-col text-center hero-content'>
             <div>
               <h2 className='mt-20 mb-2 text-4xl font-extrabold text-transparent md:text-6xl bg-clip-text bg-gradient-to-r from-primary to-secondary'>
@@ -108,9 +109,9 @@ export default function Page() {
               <h3 className='mt-5 text-2xl font-bold'>Check some features</h3>
             </div>
 
-            <div className='grid grid-cols-1 gap-4 mt-5 space-x-2 md:grid-cols-3'>
+            <div className='grid grid-cols-1 gap-6 mt-5 space-x-2 md:grid-cols-3 text-base-content'>
               {/* CARD */}
-              <div className='shadow-2xl card lg:card-side text-neutral bg-base-100'>
+              <div className='shadow-2xl card lg:card-side bg-base-300'>
                 <div className='justify-between card-body'>
                   <div>
                     <h2 className='card-title'>Storybook</h2>
@@ -137,7 +138,7 @@ export default function Page() {
               </div>
 
               {/* CARD */}
-              <div className='shadow-2xl card lg:card-side text-neutral bg-base-100'>
+              <div className='shadow-2xl card lg:card-side bg-base-300'>
                 <div className='justify-between card-body'>
                   <div>
                     <h2 className='card-title'>Code Generator</h2>
@@ -155,7 +156,7 @@ export default function Page() {
               </div>
 
               {/* CARD */}
-              <div className='shadow-2xl card lg:card-side text-neutral bg-base-100'>
+              <div className='shadow-2xl card lg:card-side bg-base-300'>
                 <div className='justify-between card-body'>
                   <div>
                     <h2 className='card-title'>CRUD Example</h2>
@@ -170,7 +171,7 @@ export default function Page() {
               </div>
 
               {/* CARD */}
-              <div className='shadow-2xl card lg:card-side text-neutral bg-base-100'>
+              <div className='shadow-2xl card lg:card-side bg-base-300'>
                 <div className='justify-between card-body'>
                   <div>
                     <h2 className='card-title'>TypedFetch</h2>
@@ -182,6 +183,53 @@ export default function Page() {
                   <div className='justify-center card-actions'>
                     <Link href='/typed-fetch-examples'>
                       <a className='btn btn-primary'>test fetch</a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* CARD */}
+              <div className='shadow-2xl card lg:card-side bg-base-300'>
+                <div className='justify-between card-body'>
+                  <div>
+                    <h2 className='card-title'>Authentication</h2>
+                    <p className='inline'>
+                      We use a simple integration with auth0. The incredible integration is made
+                      with the
+                      <div className='flex items-center justify-center'>
+                        <a
+                          href='https://github.com/auth0/nextjs-auth0'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='underline'
+                        >
+                          nextjs-auth0
+                        </a>
+                        <BiLinkExternal className='ml-2' size={17} />
+                      </div>
+                    </p>
+                  </div>
+                  <div className='justify-center card-actions'>
+                    <Link href='/typed-fetch-examples'>
+                      <a className='btn btn-primary'>Login now</a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* CARD */}
+              <div className='shadow-2xl card lg:card-side bg-base-300'>
+                <div className='justify-between card-body'>
+                  <div>
+                    <h2 className='card-title'>Universal Validation</h2>
+                    <p className='inline'>
+                      ZOD validator is a simple validation library. We use it to validate input
+                      fields on server side and on cliente side.
+                    </p>
+                  </div>
+                  <div className='justify-center card-actions'>
+                    <Link href='/list-items/cb0f6982-de0a-4b35-804f-5ed5e8d7bed3'>
+                      <a className='btn btn-primary'>Check Validation</a>
                     </Link>
                   </div>
                 </div>
