@@ -22,20 +22,34 @@ import {
 } from '../../model/api-models/list-items/Delete_list_item_by_pk_api_delete'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
+import _ from 'lodash'
 
 const List_Items_Page: React.FunctionComponent = () => {
-  const [current_page, current_pageSet] = useState(1)
-  const ITEMS_PER_PAGE = 3
-
-  const { data, isLoading, error, refetch } = useQuery('fetch_tester_api_get_Key', async () => {
-    const resultObj = await typedFetch<List_Item_api_get['input'], List_Item_api_get['output']>({
-      ...list_items_api_get_Config,
-      inputData: { limit: ITEMS_PER_PAGE.toString(), current_page: current_page.toString() },
-    })
-    return resultObj
-  })
-
   const router = useRouter()
+  const ITEMS_PER_PAGE = 3
+  const { data, isLoading, error, refetch } = useQuery(
+    'fetch_tester_api_get_Key',
+    async () => {
+      const resultObj = await typedFetch<List_Item_api_get['input'], List_Item_api_get['output']>({
+        ...list_items_api_get_Config,
+        inputData: {
+          limit: ITEMS_PER_PAGE.toString(),
+          current_page: String(router.query.page) || '1',
+        },
+      })
+      return resultObj
+    },
+    // # enabled
+    //   Set this to false to disable automatic refetching when the query mounts
+    //   or changes query keys. To refetch the query, use the refetch method returned
+    //   from the useQuery instance. Defaults to true.
+    //
+    // dependent query
+    // https://github.com/tannerlinsley/react-query-essentials/blob/master/18%20-%20dependent%20queries/app/src/App.js
+    {
+      enabled: (router.query.page as string)?.length > 0,
+    }
+  )
 
   useEffect(() => {
     if (error) {
@@ -60,33 +74,7 @@ const List_Items_Page: React.FunctionComponent = () => {
     ;(async () => {
       await refetch()
     })()
-  }, [current_page, refetch])
-
-  const onDelete = async (id: string) => {
-    const result = await typedFetch<
-      Delete_list_items_by_pk_api_delete['input'],
-      Delete_list_items_by_pk_api_delete['output']
-    >({
-      ...delete_list_items_by_pk_api_delete_Config,
-      inputData: { id: id },
-    })
-
-    if (!result.error) {
-      const myAlert = withReactContent(Swal)
-      await myAlert.fire({
-        title: 'Deleted Item',
-        confirmButtonText: 'close',
-      })
-      await router.push('/list-items')
-    } else {
-      const myAlert = withReactContent(Swal)
-      await myAlert.fire({
-        title: 'error',
-        html: <p>{JSON.stringify(result.error)}</p>,
-        confirmButtonText: 'close',
-      })
-    }
-  }
+  }, [router.query.page, refetch])
 
   return (
     <>
@@ -122,16 +110,58 @@ const List_Items_Page: React.FunctionComponent = () => {
           <Table
             pageSize={ITEMS_PER_PAGE}
             totalItems={data?.outputData?.list_items_aggregate?.aggregate?.count}
-            currentPage={current_page}
-            onPageSet={current_pageSet}
+            currentPage={_.toInteger(router.query.page) || 1}
+            onPageSet={(pageIndex) => {
+              router.push(`/list-items?page=${pageIndex}`)
+            }}
             className='table-zebra'
             data={items || []}
-            onDelete={onDelete}
+            onDelete={async (id: string) => {
+              const result = await typedFetch<
+                Delete_list_items_by_pk_api_delete['input'],
+                Delete_list_items_by_pk_api_delete['output']
+              >({
+                ...delete_list_items_by_pk_api_delete_Config,
+                inputData: { id: id },
+              })
+
+              const myAlert = withReactContent(Swal)
+              if (!result.error) {
+                await myAlert.fire({
+                  title: 'Deleted Item',
+                  confirmButtonText: 'close',
+                })
+              } else {
+                await myAlert.fire({
+                  title: 'error',
+                  html: <p>{JSON.stringify(result.error)}</p>,
+                  confirmButtonText: 'close',
+                })
+              }
+              // THIS IS JUST A SIMULATION
+              // Go check for https://github.com/nextjs-opinionated/nextjs-opinionated-hasura for a real implementation
+              await myAlert.fire({
+                title: 'THIS IS JUST A SIMULATION',
+                html: (
+                  <p>
+                    Go check for
+                    <a
+                      className='mx-2 link'
+                      href='https://github.com/nextjs-opinionated/nextjs-opinionated-hasura'
+                    >
+                      nextjs-opinionated-hasura
+                    </a>
+                    for a real implementation
+                  </p>
+                ),
+                confirmButtonText: 'close',
+              })
+            }}
             fields={{
               Image: (item) => (
                 <Link href={`list-items/${item.id}`}>
-                  <a className='pl-0 text-center underline btn btn-link btn-xs'>
-                    <img className='object-scale-down w-32' src={item.imageUrl} />
+                  <a className='w-32 pl-0 text-center underline btn btn-link btn-xs'>
+                    <img className='w-32 object-fit' src={item.imageUrl} />
                   </a>
                 </Link>
               ),

@@ -72,7 +72,7 @@ description: 'My very first doc'
 I **love** using [Next.js](https://nextjs.org/)
 
 ```js
-const doc = getDocBySlug(params.slug);
+const doc = getDocBySlug(params.slug)
 ```
 ````
 

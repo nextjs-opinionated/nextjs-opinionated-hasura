@@ -24,7 +24,6 @@ import {
 
 const Page: React.FunctionComponent = () => {
   const router = useRouter()
-  const Alerta = withReactContent(Swal)
 
   // react-query
   const { data, isLoading, isSuccess, error } = useQuery(
@@ -82,48 +81,6 @@ const Page: React.FunctionComponent = () => {
     return <p>ERROR {error}</p>
   }
 
-  const onDelete = async () => {
-    const swalConfirmDelete = await Alerta.fire({
-      html: (
-        <p>
-          Do you want to delete the item:{' '}
-          <strong>{data?.outputData?.list_items_by_pk?.title}</strong>
-        </p>
-      ),
-      showCloseButton: true,
-      showDenyButton: true,
-      denyButtonText: 'No',
-      confirmButtonText: 'Yes',
-      icon: 'question',
-    })
-
-    if (swalConfirmDelete.isConfirmed && data?.outputData?.list_items_by_pk?.id) {
-      const result = await typedFetch<
-        Delete_list_items_by_pk_api_delete['input'],
-        Delete_list_items_by_pk_api_delete['output']
-      >({
-        ...delete_list_items_by_pk_api_delete_Config,
-        inputData: { id: data?.outputData?.list_items_by_pk?.id.toString() },
-      })
-
-      if (!result.error) {
-        const myAlert = withReactContent(Swal)
-        await myAlert.fire({
-          title: 'Deleted Item',
-          confirmButtonText: 'close',
-        })
-        await router.push('/list-items')
-      } else {
-        const myAlert = withReactContent(Swal)
-        await myAlert.fire({
-          title: 'error',
-          html: <p>{JSON.stringify(result.error)}</p>,
-          confirmButtonText: 'close',
-        })
-      }
-    }
-  }
-
   return (
     <>
       <Head>
@@ -142,7 +99,8 @@ const Page: React.FunctionComponent = () => {
         <main className='flex justify-center mx-8'>
           {isSuccess && data?.outputData?.list_items_by_pk?.id === router.query?.list_item_id && (
             <List_items_Form
-              onDelete={onDelete}
+              //
+              // initial data
               initialFormData={{
                 title: data?.outputData?.list_items_by_pk?.title || '',
                 body: data?.outputData?.list_items_by_pk?.body || '',
@@ -150,6 +108,8 @@ const Page: React.FunctionComponent = () => {
                 imageUrl: data?.outputData?.list_items_by_pk?.imageUrl || '',
                 publishedAt: data?.outputData?.list_items_by_pk?.publishedAt || '',
               }}
+              //
+              // submit data
               onSubmitConfirm={async (submitProps) => {
                 const publishedAt = new Date(
                   `${submitProps.publishedAt_date}T${submitProps.publishedAt_time}`
@@ -175,8 +135,8 @@ const Page: React.FunctionComponent = () => {
                   },
                 })
 
+                const myAlert = withReactContent(Swal)
                 if (typedFetchResult.error) {
-                  const myAlert = withReactContent(Swal)
                   await myAlert.fire({
                     title: 'error',
                     html: typedFetchResult.statusText,
@@ -184,7 +144,70 @@ const Page: React.FunctionComponent = () => {
                   })
                   return
                 }
-                router.push('/list-items')
+                // THIS IS JUST A SIMULATION
+                // Go check for https://github.com/nextjs-opinionated/nextjs-opinionated-hasura for a real implementation
+                await myAlert.fire({
+                  title: 'THIS IS JUST A SIMULATION',
+                  html: (
+                    <p>
+                      Go check for
+                      <a
+                        className='mx-2 link'
+                        href='https://github.com/nextjs-opinionated/nextjs-opinionated-hasura'
+                      >
+                        nextjs-opinionated-hasura
+                      </a>
+                      for a real implementation
+                    </p>
+                  ),
+                  confirmButtonText: 'close',
+                })
+                router.back()
+              }}
+              //
+              // delete item
+              onDelete={async () => {
+                const result = await typedFetch<
+                  Delete_list_items_by_pk_api_delete['input'],
+                  Delete_list_items_by_pk_api_delete['output']
+                >({
+                  ...delete_list_items_by_pk_api_delete_Config,
+                  inputData: { id: String(data?.outputData?.list_items_by_pk?.id) },
+                })
+
+                // show alert
+                const myAlert = withReactContent(Swal)
+                if (!result.error) {
+                  await myAlert.fire({
+                    title: 'Deletion was successful!',
+                    confirmButtonText: 'close',
+                  })
+                  // THIS IS JUST A SIMULATION
+                  // Go check for https://github.com/nextjs-opinionated/nextjs-opinionated-hasura for a real implementation
+                  await myAlert.fire({
+                    title: 'THIS IS JUST A SIMULATION',
+                    html: (
+                      <p>
+                        Go check for
+                        <a
+                          className='mx-2 link'
+                          href='https://github.com/nextjs-opinionated/nextjs-opinionated-hasura'
+                        >
+                          nextjs-opinionated-hasura
+                        </a>
+                        for a real implementation
+                      </p>
+                    ),
+                    confirmButtonText: 'close',
+                  })
+                  router.back()
+                } else {
+                  await myAlert.fire({
+                    title: 'error',
+                    html: <p>{JSON.stringify(result.error)}</p>,
+                    confirmButtonText: 'close',
+                  })
+                }
               }}
             />
           )}

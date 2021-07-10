@@ -6,9 +6,11 @@ import {
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
-import { dataList } from '../../../model/datas/list-items'
+import { LIST_ITEMS_STUB_DATA } from '../../../model/api-models/list-items/stubs/LIST_ITEMS_STUB_DATA'
 import _ from 'lodash'
 
+// THIS IS JUST A SIMULATION
+// Go check for https://github.com/nextjs-opinionated/nextjs-opinionated-hasura for a real implementation
 export default withSentry(
   logMiddleware(async function API(req: NextApiRequest, res: NextApiResponse) {
     // check method
@@ -24,22 +26,23 @@ export default withSentry(
 
     const inputData = req.query as List_Item_api_get['input']
 
+    // THIS IS JUST A SIMULATION
+    // Go check for https://github.com/nextjs-opinionated/nextjs-opinionated-hasura for a real implementation
     const limit = _.toNumber(inputData.limit)
     const current_page = _.toNumber(inputData.current_page)
     const offset = current_page * limit - limit
 
     const listItems: List_Item_api_get['output']['list_items'] = []
     for (let x = offset; x < offset + limit; x++) {
-      if (dataList.data.list_items[x]) {
-        listItems.push(dataList.data.list_items[x])
+      if (LIST_ITEMS_STUB_DATA.data.list_items[x]) {
+        listItems.push(LIST_ITEMS_STUB_DATA.data.list_items[x])
       }
     }
 
     // process
-
     const data: List_Item_api_get['output'] = {
       list_items: listItems,
-      list_items_aggregate: dataList.data.list_items_aggregate,
+      list_items_aggregate: LIST_ITEMS_STUB_DATA.data.list_items_aggregate,
     }
 
     // output data

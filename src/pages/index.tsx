@@ -158,12 +158,12 @@ export default function Page() {
               <div className='shadow-2xl card lg:card-side text-neutral bg-base-100'>
                 <div className='justify-between card-body'>
                   <div>
-                    <h2 className='card-title'>React Hook Form</h2>
-                    <p>We created components to use with react hook form. See them in action.</p>
+                    <h2 className='card-title'>CRUD Example</h2>
+                    <p>A standard way to List, Set, Update and Delete items</p>
                   </div>
                   <div className='justify-center card-actions'>
-                    <Link href='/form-example'>
-                      <a className='btn btn-primary'>form example</a>
+                    <Link href='/list-items?page=1'>
+                      <a className='btn btn-primary'>list items</a>
                     </Link>
                   </div>
                 </div>

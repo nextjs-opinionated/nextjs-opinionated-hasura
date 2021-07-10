@@ -6,10 +6,9 @@ import {
 } from '../../../model/api-models/list-items/Delete_list_item_by_pk_api_delete'
 import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
-import { dataList } from '../../../model/datas/list-items'
-import fs from 'fs'
-import path from 'path'
 
+// THIS IS JUST A SIMULATION
+// Go check for https://github.com/nextjs-opinionated/nextjs-opinionated-hasura for a real implementation
 export default withSentry(
   logMiddleware(async function insert_list_items_one_api_post(
     req: NextApiRequest,
@@ -21,31 +20,10 @@ export default withSentry(
       res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
     }
 
-    // input data
-    const inputData = req.query as Delete_list_items_by_pk_api_delete['input']
-
-    const list_items_by_pk = dataList.data.list_items.findIndex((item) => item.id === inputData.id)
-    if (list_items_by_pk >= 0) {
-      delete dataList.data.list_items[list_items_by_pk]
-      dataList.data.list_items_aggregate.aggregate.count =
-        dataList.data.list_items_aggregate.aggregate.count - 1
-    }
-    fs.writeFile(
-      path.join(__dirname, '..', '..', '..', '..', '..', 'src', 'model', 'datas', 'list-items.ts'),
-      `export const dataList=${JSON.stringify(dataList)}`,
-      'utf8',
-      (err) => {
-        if (err) {
-          throw new Error(err.message)
-        }
-      }
-    )
-    // process
-    const data: Delete_list_items_by_pk_api_delete['output'] = {
+    // THIS IS JUST A SIMULATION
+    // Go check for https://github.com/nextjs-opinionated/nextjs-opinionated-hasura for a real implementation
+    res.status(HttpStatusCode.OK_200).json({
       affected_rows: 1,
-    }
-
-    // output data
-    res.status(HttpStatusCode.OK_200).json(data)
+    } as Delete_list_items_by_pk_api_delete['output'])
   })
 )

@@ -7,9 +7,14 @@ import { useMemo } from 'react'
 import dayjs from 'dayjs'
 import { List_items_validation_schema } from '../../model/schemas/List_items_validation_schema'
 import { FormImage } from '../forms/FormImage/FormImage'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 export type List_items_FormProps = {
   onDelete: () => void
+  deleteConfirmationMessage?: string
+  deleteConfirmationYesLabel?: string
+  deleteConfirmationNoLabel?: string
   onSubmitConfirm: (submitProps: any) => void
   initialFormData: {
     // id: router?.query?.list_item_id as string,
@@ -24,6 +29,9 @@ export type List_items_FormProps = {
 export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
   onSubmitConfirm,
   onDelete,
+  deleteConfirmationMessage = 'Do you really want to delete?',
+  deleteConfirmationYesLabel = 'Yes',
+  deleteConfirmationNoLabel = 'No',
   initialFormData = {},
 }) => {
   const {
@@ -66,8 +74,9 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
           </div>
           <div className='mt-5 md:mt-0 md:col-span-2'>
             <div className='shadow sm:rounded-md sm:overflow-hidden'>
-              <div className='px-4 py-5 space-y-6 sm:p-6'>
+              <div className='px-4 py-5 sm:p-6'>
                 <FormInput
+                  className='mb-4'
                   label='Title:'
                   name='title'
                   register={register}
@@ -76,6 +85,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                 />
 
                 <FormInput
+                  className='mb-4'
                   label='Body:'
                   name='body'
                   register={register}
@@ -84,6 +94,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                 />
 
                 <FormInput
+                  className='mb-4'
                   label='URL:'
                   name='url'
                   register={register}
@@ -92,6 +103,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                 />
 
                 <FormImage
+                  className='mb-4'
                   label='Image URL:'
                   name='imageUrl'
                   register={register}
@@ -101,6 +113,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                 />
 
                 <FormInput
+                  className='mb-4'
                   label='Publish Date:'
                   type='date'
                   name='publishedAt_date'
@@ -110,6 +123,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                 />
 
                 <FormInput
+                  className='mb-4'
                   label='Publish Time:'
                   type='time'
                   name='publishedAt_time'
@@ -132,16 +146,32 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                   <button type='submit' className='btn btn-primary' disabled={!formState.isValid}>
                     SAVE
                   </button>
-                  {initialFormData && (
+                </div>
+
+                {initialFormData && (
+                  <div className='flex justify-end mt-2'>
                     <button
                       type='button'
-                      onClick={() => onDelete()}
-                      className='ml-2 btn btn-link text-error'
+                      onClick={async () => {
+                        const SwalReactAlert = withReactContent(Swal)
+                        const swalConfirmDelete = await SwalReactAlert.fire({
+                          html: <p>{deleteConfirmationMessage}</p>,
+                          showCloseButton: true,
+                          showDenyButton: true,
+                          denyButtonText: deleteConfirmationNoLabel,
+                          confirmButtonText: deleteConfirmationYesLabel,
+                          icon: 'question',
+                        })
+                        if (swalConfirmDelete.isConfirmed) {
+                          await onDelete()
+                        }
+                      }}
+                      className='mx-2 link text-error'
                     >
                       Delete
                     </button>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
