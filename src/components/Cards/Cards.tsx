@@ -2,10 +2,10 @@ import Link from 'next/link'
 import React, { ReactNode } from 'react'
 
 export interface CardProps {
-  title: string
-  text: string
-  url: string | ReactNode
-  urlText: string
+  title?: string
+  text?: string
+  url?: string | ReactNode
+  urlText?: string
 }
 
 export const Card: React.FC<CardProps> = () => {
