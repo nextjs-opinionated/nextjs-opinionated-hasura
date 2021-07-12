@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,7 +16,6 @@ export type List_items_FormProps = {
   deleteConfirmationNoLabel?: string
   onSubmitConfirm: (submitProps: any) => void
   initialFormData: {
-    // id: router?.query?.list_item_id as string,
     title: string
     body: string
     url: string

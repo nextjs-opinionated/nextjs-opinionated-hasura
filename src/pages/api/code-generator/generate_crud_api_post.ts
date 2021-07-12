@@ -33,7 +33,13 @@ export default withSentry(
     await code_gen_replace({
       from_file: 'src/pages/list_items/[list_item_id].tsx',
       to_file: `src/pages/${table_name}/[${table_id}].tsx`,
-      replaces: defaultReplaces,
+      replaces: [
+        ...defaultReplaces,
+        {
+          from: 'list_item_id',
+          to: table_id,
+        },
+      ],
     })
 
     // components

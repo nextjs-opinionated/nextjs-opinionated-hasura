@@ -35,7 +35,7 @@ const Page: React.FunctionComponent = () => {
       >({
         ...list_items_by_pk_api_get_Config, // url, method, responseType
         inputData: {
-          list_item_id: router.query?.list_item_id as string,
+          id: router.query?.list_item_id as string,
         },
       })
       return resultObj
