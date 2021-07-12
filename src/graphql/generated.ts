@@ -991,11 +991,6 @@ export type List_ItemsQuery = { __typename?: 'query_root' } & {
   }
 }
 
-export type List_Items_FragmentFragment = { __typename?: 'list_items' } & Pick<
-  List_Items,
-  'id' | 'title' | 'body' | 'url' | 'imageUrl' | 'publishedAt'
->
-
 export type List_Items_By_PkQueryVariables = Exact<{
   id: Scalars['uuid']
 }>
@@ -1003,6 +998,11 @@ export type List_Items_By_PkQueryVariables = Exact<{
 export type List_Items_By_PkQuery = { __typename?: 'query_root' } & {
   list_items_by_pk?: Maybe<{ __typename?: 'list_items' } & List_Items_FragmentFragment>
 }
+
+export type List_Items_FragmentFragment = { __typename?: 'list_items' } & Pick<
+  List_Items,
+  'id' | 'title' | 'body' | 'url' | 'imageUrl' | 'publishedAt'
+>
 
 export type Delete_Users_By_PkMutationVariables = Exact<{
   id: Scalars['String']
