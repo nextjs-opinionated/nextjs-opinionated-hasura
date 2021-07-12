@@ -6,13 +6,13 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import _ from 'lodash'
 
-export type TableProps<LINE_TYPE> = {
-  data: LINE_TYPE[]
+export type TableProps<QUERY_ITEM_TYPE> = {
+  data: Array<QUERY_ITEM_TYPE>
   fields: Partial<
     {
-      [key in keyof LINE_TYPE]: {
+      [key in keyof QUERY_ITEM_TYPE]: {
         label: string
-        getNode: (item: LINE_TYPE) => React.ReactNode
+        getNode: (item: QUERY_ITEM_TYPE) => React.ReactNode
       }
     }
   >
