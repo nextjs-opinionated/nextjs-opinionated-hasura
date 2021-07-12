@@ -15,7 +15,7 @@ export type List_items_FormProps = {
   deleteConfirmationMessage?: string
   deleteConfirmationYesLabel?: string
   deleteConfirmationNoLabel?: string
-  onSubmitConfirm: (submitProps: any) => void
+  onSubmitConfirm: (submitProps: Insert_list_items_one_api_post['input']) => void
   initialFormData: Insert_list_items_one_api_post['input']
 }
 

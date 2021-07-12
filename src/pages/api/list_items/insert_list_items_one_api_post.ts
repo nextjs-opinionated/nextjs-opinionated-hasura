@@ -19,6 +19,7 @@ export default withSentry(
     if (req.method !== insert_list_items_one_api_post_Config.method.toUpperCase()) {
       res.setHeader('Allow', [insert_list_items_one_api_post_Config.method.toUpperCase()])
       res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
+      return
     }
 
     // input data

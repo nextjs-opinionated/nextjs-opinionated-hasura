@@ -14,6 +14,7 @@ export default withSentry(
     if (req.method !== list_items_by_pk_api_get_Config.method.toUpperCase()) {
       res.setHeader('Allow', [list_items_by_pk_api_get_Config.method.toUpperCase()])
       res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
+      return
     }
 
     // input data

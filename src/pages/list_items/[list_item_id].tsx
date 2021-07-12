@@ -20,7 +20,7 @@ import { List_items_Form } from '../../components/List_items_Form/List_items_For
 import {
   Delete_list_items_by_pk_api_delete,
   delete_list_items_by_pk_api_delete_Config,
-} from '../../model/api-models/list_items/Delete_list_item_by_pk_api_delete'
+} from '../../model/api-models/list_items/Delete_list_items_by_pk_api_delete'
 
 const Page: React.FunctionComponent = () => {
   const router = useRouter()
@@ -99,6 +99,7 @@ const Page: React.FunctionComponent = () => {
           {isSuccess && (
             <List_items_Form
               initialFormData={{
+                id: router.query?.list_item_id as string,
                 title: data?.outputData?.list_items_by_pk?.title || '',
                 body: data?.outputData?.list_items_by_pk?.body || '',
                 url: data?.outputData?.list_items_by_pk?.url || '',

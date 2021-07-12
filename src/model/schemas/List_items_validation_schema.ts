@@ -3,7 +3,7 @@ import validator from 'validator'
 import { validate as uuidValidate } from 'uuid'
 
 export const List_items_validation_schema = z.object({
-  id: z.any().refine(
+  id: z.string().refine(
     (value) => {
       return uuidValidate(value)
     },

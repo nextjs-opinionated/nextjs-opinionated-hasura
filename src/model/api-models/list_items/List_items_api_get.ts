@@ -1,7 +1,7 @@
 import { List_ItemsQuery } from '../../../graphql/generated'
 import { ApiConfig } from '../../../utils/typedFetch/ApiConfig'
 
-export interface List_Item_api_get {
+export interface List_Items_api_get {
   input: {
     limit: string
     current_page: string

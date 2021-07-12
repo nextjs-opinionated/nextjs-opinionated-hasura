@@ -1,6 +1,9 @@
 import { withSentry } from '@sentry/nextjs'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Users_by_pk_api_get } from '../../../model/api-models/users/Users_by_pk_api_get'
+import {
+  Users_by_pk_api_get,
+  users_by_pk_api_get_Config,
+} from '../../../model/api-models/users/Users_by_pk_api_get'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
@@ -8,8 +11,8 @@ import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 export default withSentry(
   logMiddleware(async function API(req: NextApiRequest, res: NextApiResponse) {
     // check method
-    if (req.method !== 'GET') {
-      res.setHeader('Allow', ['GET'])
+    if (req.method !== users_by_pk_api_get_Config.method.toUpperCase()) {
+      res.setHeader('Allow', [users_by_pk_api_get_Config.method.toUpperCase()])
       res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
     }
 
@@ -18,7 +21,7 @@ export default withSentry(
 
     // process
     const data: Users_by_pk_api_get['output'] = await new GqlSdkHelper().getSdk().users_by_pk({
-      id: inputData.id as string,
+      id: String(inputData.id),
     })
 
     // output data

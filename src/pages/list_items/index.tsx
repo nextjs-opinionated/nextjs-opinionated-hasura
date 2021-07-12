@@ -9,7 +9,7 @@ import { LinksList } from '../../model/site/LinksList'
 import { useQuery } from 'react-query'
 import typedFetch from '../../utils/typedFetch/typedFetch'
 import {
-  List_Item_api_get,
+  List_Items_api_get,
   list_items_api_get_Config,
 } from '../../model/api-models/list_items/List_items_api_get'
 import { Table } from '../../components/Table/Table'
@@ -19,7 +19,7 @@ import { v4 as uuidv4 } from 'uuid'
 import {
   Delete_list_items_by_pk_api_delete,
   delete_list_items_by_pk_api_delete_Config,
-} from '../../model/api-models/list_items/Delete_list_item_by_pk_api_delete'
+} from '../../model/api-models/list_items/Delete_list_items_by_pk_api_delete'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import _ from 'lodash'
@@ -30,13 +30,15 @@ const List_Items_Page: React.FunctionComponent = () => {
   const { data, isLoading, error, refetch } = useQuery(
     'fetch_tester_api_get_Key',
     async () => {
-      const resultObj = await typedFetch<List_Item_api_get['input'], List_Item_api_get['output']>({
-        ...list_items_api_get_Config,
-        inputData: {
-          limit: ITEMS_PER_PAGE.toString(),
-          current_page: String(router.query.page) || '1',
-        },
-      })
+      const resultObj = await typedFetch<List_Items_api_get['input'], List_Items_api_get['output']>(
+        {
+          ...list_items_api_get_Config,
+          inputData: {
+            limit: ITEMS_PER_PAGE.toString(),
+            current_page: String(router.query.page) || '1',
+          },
+        }
+      )
       return resultObj
     },
     // # enabled

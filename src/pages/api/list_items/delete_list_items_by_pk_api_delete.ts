@@ -3,7 +3,7 @@ import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import {
   Delete_list_items_by_pk_api_delete,
   delete_list_items_by_pk_api_delete_Config,
-} from '../../../model/api-models/list_items/Delete_list_item_by_pk_api_delete'
+} from '../../../model/api-models/list_items/Delete_list_items_by_pk_api_delete'
 import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
@@ -17,6 +17,7 @@ export default withSentry(
     if (req.method !== delete_list_items_by_pk_api_delete_Config.method.toUpperCase()) {
       res.setHeader('Allow', [delete_list_items_by_pk_api_delete_Config.method.toUpperCase()])
       res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
+      return
     }
 
     // input data

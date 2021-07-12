@@ -1,13 +1,9 @@
 import { handleAuth, handleCallback, handleLogin, handleLogout } from '@auth0/nextjs-auth0'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Roles_Enum } from '../../../graphql/generated'
+import { Roles_Enum, Users_Update_Column } from '../../../graphql/generated'
 import { Insert_users_one_api_post } from '../../../model/api-models/users/Insert_users_one_api_post'
-import {
-  Users_by_pk_api_get,
-  users_by_pk_api_get_Config,
-} from '../../../model/api-models/users/Users_by_pk_api_get'
+import { Users_by_pk_api_get } from '../../../model/api-models/users/Users_by_pk_api_get'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
-import typedFetch from '../../../utils/typedFetch/typedFetch'
 
 // from: https://github.com/auth0/nextjs-auth0/issues/108#issuecomment-800059278
 
@@ -32,29 +28,17 @@ export default handleAuth({
       await handleCallback(req, res, {
         redirectUri: redirectUri,
         afterCallback: async (req, res, session /* , state */) => {
-          // search for user
-          // at server we have to pass absolute url
-          const url = `${(process.env.AUTH0_BASE_URL as string).replace(/(.+)\/?$/gm, '$1')}${
-            users_by_pk_api_get_Config.url
-          }`
-          console.log('--  url: ', url)
-          const getUserObj = await typedFetch<
-            Users_by_pk_api_get['input'],
-            Users_by_pk_api_get['output']
-          >({
-            ...users_by_pk_api_get_Config,
-            url,
-            inputData: {
+          const userResultObj: Users_by_pk_api_get['output'] = await new GqlSdkHelper()
+            .getSdk()
+            .users_by_pk({
               id: session.user.sub,
-            },
-          })
-          console.log('--  getUserObj: ', getUserObj)
+            })
 
           // get user ROLE
           // check if users exists and get current role
-          if (getUserObj.outputData?.users_by_pk?.role) {
+          if (userResultObj?.users_by_pk?.role) {
             // return existing user
-            session.user.role = getUserObj.outputData?.users_by_pk?.role as Roles_Enum
+            session.user.role = userResultObj?.users_by_pk?.role as Roles_Enum
             return session
           } else {
             // save new user
@@ -62,11 +46,15 @@ export default handleAuth({
               id: session.user.sub,
               name: session.user.name,
               email: session.user.email,
+              image: session.user.picture,
               role: Roles_Enum.User,
             } as Insert_users_one_api_post['input']
             const insertResultObj: Insert_users_one_api_post['output'] = await new GqlSdkHelper()
               .getSdk()
-              .insert_users_one({ user: inputData })
+              .insert_users_one({
+                object: inputData,
+                update_columns: Object.values(Users_Update_Column),
+              })
 
             session.user.role = insertResultObj.insert_users_one?.role
             return session

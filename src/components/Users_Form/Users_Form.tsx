@@ -8,13 +8,16 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { Insert_users_one_api_post } from '../../model/api-models/users/Insert_users_one_api_post'
 import { RoleList } from '../../model/site/RoleList'
+import { FormImage } from '../forms/FormImage/FormImage'
+import { FormSelect } from '../forms/FormSelect/FormSelect'
+import _ from 'lodash'
 
 export type Users_FormProps = {
   onDelete: () => void
   deleteConfirmationMessage?: string
   deleteConfirmationYesLabel?: string
   deleteConfirmationNoLabel?: string
-  onSubmitConfirm: (submitProps: any) => void
+  onSubmitConfirm: (submitProps: Insert_users_one_api_post['input']) => void
   initialFormData: Insert_users_one_api_post['input']
 }
 
@@ -32,6 +35,7 @@ export const Users_Form: React.FunctionComponent<Users_FormProps> = ({
     formState: { errors: validationErrors },
     formState,
     reset,
+    watch,
   } = useForm<Users_FormProps['initialFormData']>({
     mode: 'onChange',
     resolver: zodResolver(Users_validation_schema),
@@ -84,19 +88,28 @@ export const Users_Form: React.FunctionComponent<Users_FormProps> = ({
                   validationErrors={validationErrors}
                 />
 
-                {/* TODO: change to select component */}
-                <select
-                  {...register('role')}
+                <FormImage
+                  label='image:'
+                  name='image'
+                  watch={watch}
+                  register={register}
+                  height={96}
+                  defaultValue={initialFormData?.image}
+                  validationErrors={validationErrors}
+                />
+
+                <FormSelect
+                  label='Role'
+                  placeholder='Select a role'
                   name='role'
-                  defaultValue={initialFormData?.role as string}
-                  className='w-full mt-10 select select-bordered'
-                >
-                  {Object.entries(RoleList).map(([key, value]) => (
-                    <option key={key} value={key}>
-                      {value.name}
-                    </option>
-                  ))}
-                </select>
+                  register={register}
+                  validationErrors={''}
+                  className=''
+                  options={_.map(RoleList, (item) => ({
+                    label: item.name,
+                    value: item.id,
+                  }))}
+                />
 
                 <div className='flex justify-end'>
                   <button

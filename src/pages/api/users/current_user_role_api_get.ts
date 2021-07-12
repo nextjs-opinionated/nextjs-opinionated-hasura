@@ -3,7 +3,10 @@ import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 import { withSentry } from '@sentry/nextjs'
 import { logMiddleware } from '../../../utils/middleware/logMiddleware'
-import { Current_user_role_api_get } from '../../../model/api-models/users/Current_user_role_api_get'
+import {
+  Current_user_role_api_get,
+  current_user_role_api_get_Config,
+} from '../../../model/api-models/users/Current_user_role_api_get'
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0'
 import { Roles_Enum } from '../../../graphql/generated'
 
@@ -14,14 +17,14 @@ export default withSentry(
       res: NextApiResponse
     ) {
       // check method
-      if (req.method !== 'GET') {
-        res.setHeader('Allow', ['GET'])
+      if (req.method !== current_user_role_api_get_Config.method.toUpperCase()) {
+        res.setHeader('Allow', [current_user_role_api_get_Config.method.toUpperCase()])
         res.status(HttpStatusCode.METHOD_NOT_ALLOWED_405).end(`Method ${req.method} Not Allowed`)
+        return
       }
 
       // process
       const session = getSession(req, res)
-      console.log('--  session.user: ', session?.user)
       const data = await new GqlSdkHelper().getSdk().users_by_pk({ id: session?.user.sub })
 
       const role: Current_user_role_api_get['output'] = data?.users_by_pk?.role as Roles_Enum
