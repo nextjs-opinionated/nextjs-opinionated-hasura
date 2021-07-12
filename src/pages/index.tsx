@@ -112,7 +112,7 @@ export default function Page() {
 
             <div className='grid grid-cols-1 gap-6 mt-5 space-x-2 md:grid-cols-3 text-base-content'>
               {/* CARD */}
-              <div className='shadow-2xl card lg:card-side bg-base-300'>
+              <div className='shadow-xl card lg:card-side bg-base-300'>
                 <div className='justify-between card-body'>
                   <div>
                     <h2 className='card-title'>Storybook</h2>
@@ -139,7 +139,7 @@ export default function Page() {
               </div>
 
               {/* CARD */}
-              <div className='shadow-2xl card lg:card-side bg-base-300'>
+              <div className='shadow-xl card lg:card-side bg-base-300'>
                 <div className='justify-between card-body'>
                   <div>
                     <h2 className='card-title'>Code Generator</h2>
@@ -157,7 +157,7 @@ export default function Page() {
               </div>
 
               {/* CARD */}
-              <div className='shadow-2xl card lg:card-side bg-base-300'>
+              <div className='shadow-xl card lg:card-side bg-base-300'>
                 <div className='justify-between card-body'>
                   <div>
                     <h2 className='card-title'>CRUD Example</h2>
@@ -172,7 +172,7 @@ export default function Page() {
               </div>
 
               {/* CARD */}
-              <div className='shadow-2xl card lg:card-side bg-base-300'>
+              <div className='shadow-xl card lg:card-side bg-base-300'>
                 <div className='justify-between card-body'>
                   <div>
                     <h2 className='card-title'>TypedFetch</h2>
@@ -190,7 +190,7 @@ export default function Page() {
               </div>
 
               {/* CARD */}
-              <div className='shadow-2xl card lg:card-side bg-base-300'>
+              <div className='shadow-xl card lg:card-side bg-base-300'>
                 <div className='justify-between card-body'>
                   <div>
                     <h2 className='card-title'>Authentication</h2>
@@ -219,7 +219,7 @@ export default function Page() {
               </div>
 
               {/* CARD */}
-              <div className='shadow-2xl card lg:card-side bg-base-300'>
+              <div className='shadow-xl card lg:card-side bg-base-300'>
                 <div className='justify-between card-body'>
                   <div>
                     <h2 className='card-title'>Universal Validation</h2>
@@ -252,7 +252,6 @@ export default function Page() {
               <p className='max-w-lg mx-auto my-10'>
                 {process.env.NEXT_PUBLIC_SITE_NAME} has all best dependencies and our team always
                 make sure everything is updated
-                <br />
               </p>
             </div>
           </div>
