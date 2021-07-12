@@ -9,8 +9,6 @@ import * as nextjsAuth0 from '@auth0/nextjs-auth0'
 import Loading from '../components/Loading/Loading'
 import Logo from '../components/LogoDefault/Logo'
 import { FaGithub } from 'react-icons/fa'
-import isLocalhost from '../utils/isLocalhost'
-import { BiLinkExternal } from 'react-icons/bi'
 import { Card } from '../components/Cards/Cards'
 
 export default function Page() {
