@@ -7,7 +7,7 @@ import withReactContent from 'sweetalert2-react-content'
 import _ from 'lodash'
 
 export type TableProps<LINE_TYPE> = {
-  data: LINE_TYPE[]
+  data?: LINE_TYPE[]
   fields: { [key: string]: (item: any) => React.ReactNode }
   className?: string
   pageSize?: number
@@ -59,8 +59,9 @@ export function Table<LINE_TYPE>(props: TableProps<LINE_TYPE & { id?: string }>)
           </thead>
 
           <tbody>
-            {data?.length > 0 &&
-              data?.map((item, index) => (
+            {data &&
+              data.length > 0 &&
+              data.map((item, index) => (
                 <tr key={`${index}-tr`}>
                   {_.map(fields, (value, key) => (
                     <td key={`${key}-tr`} className=' text-base-content'>
