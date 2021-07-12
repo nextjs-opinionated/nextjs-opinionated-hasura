@@ -24,7 +24,7 @@ export default withSentry(
     const data: List_items_by_pk_api_get['output'] = await new GqlSdkHelper()
       .getSdk()
       .list_items_by_pk({
-        id: inputData.id,
+        id: String(inputData.id),
       })
 
     // output data
