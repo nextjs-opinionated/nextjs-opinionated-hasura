@@ -119,8 +119,8 @@ export default withSentry(
       replaces: defaultReplaces,
     })
     await code_gen_replace({
-      from_file: 'src/graphql/gqls/list_items/list_itemsFragment.gql',
-      to_file: `src/graphql/gqls/${table_name}/${table_name}Fragment.gql`,
+      from_file: 'src/graphql/gqls/list_items/list_items_fragment.gql',
+      to_file: `src/graphql/gqls/${table_name}/${table_name}_fragment.gql`,
       replaces: defaultReplaces,
     })
 
