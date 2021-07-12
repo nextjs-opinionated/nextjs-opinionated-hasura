@@ -49,7 +49,6 @@ export const Card = () => {
       urlText: 'Check Validation',
     },
   ]
-  console.log(data[0])
   return (
     <div className='grid grid-cols-1 gap-6 mt-5 space-x-2 md:grid-cols-3'>
       {data?.map((cards, index) => (
