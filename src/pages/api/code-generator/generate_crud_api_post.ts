@@ -99,8 +99,8 @@ export default withSentry(
 
     // gqls
     await code_gen_replace({
-      from_file: 'src/graphql/gqls/list_items/delete_list_items.gql',
-      to_file: `src/graphql/gqls/${table_name}/delete_${table_name}.gql`,
+      from_file: 'src/graphql/gqls/list_items/delete_list_items_by_pk.gql',
+      to_file: `src/graphql/gqls/${table_name}/delete_${table_name}_by_pk.gql`,
       replaces: defaultReplaces,
     })
     await code_gen_replace({
