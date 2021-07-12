@@ -7,8 +7,15 @@ import withReactContent from 'sweetalert2-react-content'
 import _ from 'lodash'
 
 export type TableProps<LINE_TYPE> = {
-  data?: LINE_TYPE[]
-  fields: { [key: string]: (item: any) => React.ReactNode }
+  data: LINE_TYPE[]
+  fields: Partial<
+    {
+      [key in keyof LINE_TYPE]: {
+        label: string
+        getNode: (item: LINE_TYPE) => React.ReactNode
+      }
+    }
+  >
   className?: string
   pageSize?: number
   currentPage?: number
@@ -49,9 +56,9 @@ export function Table<LINE_TYPE>(props: TableProps<LINE_TYPE & { id?: string }>)
         <table className={classnames(`table w-full ${className}`)}>
           <thead>
             <tr>
-              {_.map(fields, (value, key) => (
+              {_.map(fields, (field, key) => (
                 <th key={`${key}-thead`} className=' text-base-content'>
-                  {key}
+                  {field?.label}
                 </th>
               ))}
               {onDelete && <th className=' text-base-content'>&nbsp;</th>}
@@ -63,9 +70,9 @@ export function Table<LINE_TYPE>(props: TableProps<LINE_TYPE & { id?: string }>)
               data.length > 0 &&
               data.map((item, index) => (
                 <tr key={`${index}-tr`}>
-                  {_.map(fields, (value, key) => (
+                  {_.map(fields, (field, key) => (
                     <td key={`${key}-tr`} className=' text-base-content'>
-                      {value(item)}
+                      {field?.getNode(item)}
                     </td>
                   ))}
 
