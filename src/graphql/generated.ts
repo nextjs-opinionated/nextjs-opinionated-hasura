@@ -720,7 +720,6 @@ export type Users = {
   id: Scalars['String']
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
-  oauth_id?: Maybe<Scalars['String']>
   role?: Maybe<Roles_Enum>
   /** An object relationship */
   roleByRole?: Maybe<Roles>
@@ -773,7 +772,6 @@ export type Users_Bool_Exp = {
   id?: Maybe<String_Comparison_Exp>
   image?: Maybe<String_Comparison_Exp>
   name?: Maybe<String_Comparison_Exp>
-  oauth_id?: Maybe<String_Comparison_Exp>
   role?: Maybe<Roles_Enum_Comparison_Exp>
   roleByRole?: Maybe<Roles_Bool_Exp>
   updated_at?: Maybe<Timestamptz_Comparison_Exp>
@@ -786,8 +784,6 @@ export enum Users_Constraint {
   /** unique or primary key constraint */
   UsersEmailKey = 'users_email_key',
   /** unique or primary key constraint */
-  UsersOauthIdKey = 'users_oauth_id_key',
-  /** unique or primary key constraint */
   UsersPkey = 'users_pkey',
 }
 
@@ -799,7 +795,6 @@ export type Users_Insert_Input = {
   id?: Maybe<Scalars['String']>
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
-  oauth_id?: Maybe<Scalars['String']>
   role?: Maybe<Roles_Enum>
   roleByRole?: Maybe<Roles_Obj_Rel_Insert_Input>
   updated_at?: Maybe<Scalars['timestamptz']>
@@ -814,7 +809,6 @@ export type Users_Max_Fields = {
   id?: Maybe<Scalars['String']>
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
-  oauth_id?: Maybe<Scalars['String']>
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
@@ -826,7 +820,6 @@ export type Users_Max_Order_By = {
   id?: Maybe<Order_By>
   image?: Maybe<Order_By>
   name?: Maybe<Order_By>
-  oauth_id?: Maybe<Order_By>
   updated_at?: Maybe<Order_By>
 }
 
@@ -839,7 +832,6 @@ export type Users_Min_Fields = {
   id?: Maybe<Scalars['String']>
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
-  oauth_id?: Maybe<Scalars['String']>
   updated_at?: Maybe<Scalars['timestamptz']>
 }
 
@@ -851,7 +843,6 @@ export type Users_Min_Order_By = {
   id?: Maybe<Order_By>
   image?: Maybe<Order_By>
   name?: Maybe<Order_By>
-  oauth_id?: Maybe<Order_By>
   updated_at?: Maybe<Order_By>
 }
 
@@ -879,7 +870,6 @@ export type Users_Order_By = {
   id?: Maybe<Order_By>
   image?: Maybe<Order_By>
   name?: Maybe<Order_By>
-  oauth_id?: Maybe<Order_By>
   role?: Maybe<Order_By>
   roleByRole?: Maybe<Roles_Order_By>
   updated_at?: Maybe<Order_By>
@@ -905,8 +895,6 @@ export enum Users_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  OauthId = 'oauth_id',
-  /** column name */
   Role = 'role',
   /** column name */
   UpdatedAt = 'updated_at',
@@ -920,7 +908,6 @@ export type Users_Set_Input = {
   id?: Maybe<Scalars['String']>
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
-  oauth_id?: Maybe<Scalars['String']>
   role?: Maybe<Roles_Enum>
   updated_at?: Maybe<Scalars['timestamptz']>
 }
@@ -939,8 +926,6 @@ export enum Users_Update_Column {
   Image = 'image',
   /** column name */
   Name = 'name',
-  /** column name */
-  OauthId = 'oauth_id',
   /** column name */
   Role = 'role',
   /** column name */
@@ -1038,14 +1023,6 @@ export type UsersFragmentFragment = { __typename?: 'users' } & Pick<
   Users,
   'id' | 'name' | 'email' | 'image' | 'role' | 'created_at'
 >
-
-export type Users_By_Oauth_IdQueryVariables = Exact<{
-  oauth_id: Scalars['String']
-}>
-
-export type Users_By_Oauth_IdQuery = { __typename?: 'query_root' } & {
-  users: Array<{ __typename?: 'users' } & UsersFragmentFragment>
-}
 
 export type Users_By_PkQueryVariables = Exact<{
   id: Scalars['String']
@@ -1145,14 +1122,6 @@ export const UsersDocument = gql`
       aggregate {
         count
       }
-    }
-  }
-  ${UsersFragmentFragmentDoc}
-`
-export const Users_By_Oauth_IdDocument = gql`
-  query users_by_oauth_id($oauth_id: String!) {
-    users(where: { oauth_id: { _eq: $oauth_id } }) {
-      ...usersFragment
     }
   }
   ${UsersFragmentFragmentDoc}
@@ -1265,19 +1234,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             ...wrappedRequestHeaders,
           }),
         'users'
-      )
-    },
-    users_by_oauth_id(
-      variables: Users_By_Oauth_IdQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<Users_By_Oauth_IdQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<Users_By_Oauth_IdQuery>(Users_By_Oauth_IdDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'users_by_oauth_id'
       )
     },
     users_by_pk(
