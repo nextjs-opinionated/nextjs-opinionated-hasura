@@ -1,4 +1,4 @@
-fragment usersFragment on users {
+fragment users_fragment on users {
   id
   name
   email

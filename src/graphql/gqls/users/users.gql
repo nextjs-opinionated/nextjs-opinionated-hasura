@@ -1,6 +1,6 @@
 query users($limit: Int, $offset: Int) {
-  users(limit: $limit, offset: $offset, order_by: { id: desc }) {
-    ...usersFragment
+  users(limit: $limit, offset: $offset, order_by: { created_at: asc }) {
+    ...users_fragment
   }
   users_aggregate {
     aggregate {

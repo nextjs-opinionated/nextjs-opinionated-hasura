@@ -1,5 +1,5 @@
 query users_by_pk($id: String!) {
   users_by_pk(id: $id) {
-    ...usersFragment
+    ...users_fragment
   }
 }

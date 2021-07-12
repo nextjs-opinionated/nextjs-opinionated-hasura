@@ -1,8 +1,8 @@
-mutation insert_users_one($user: users_insert_input!) {
+mutation insert_users_one($object: users_insert_input!, $update_columns: [users_update_column!]!) {
   insert_users_one(
-    object: $user
-    on_conflict: { constraint: users_pkey, update_columns: [name, email, role] }
+    object: $object
+    on_conflict: { constraint: users_pkey, update_columns: $update_columns }
   ) {
-    ...usersFragment
+    ...users_fragment
   }
 }

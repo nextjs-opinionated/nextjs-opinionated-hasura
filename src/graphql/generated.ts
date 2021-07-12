@@ -994,15 +994,16 @@ export type Delete_Users_By_PkMutationVariables = Exact<{
 }>
 
 export type Delete_Users_By_PkMutation = { __typename?: 'mutation_root' } & {
-  delete_users_by_pk?: Maybe<{ __typename?: 'users' } & UsersFragmentFragment>
+  delete_users_by_pk?: Maybe<{ __typename?: 'users' } & Pick<Users, 'id'>>
 }
 
 export type Insert_Users_OneMutationVariables = Exact<{
-  user: Users_Insert_Input
+  object: Users_Insert_Input
+  update_columns: Array<Users_Update_Column> | Users_Update_Column
 }>
 
 export type Insert_Users_OneMutation = { __typename?: 'mutation_root' } & {
-  insert_users_one?: Maybe<{ __typename?: 'users' } & UsersFragmentFragment>
+  insert_users_one?: Maybe<{ __typename?: 'users' } & Users_FragmentFragment>
 }
 
 export type UsersQueryVariables = Exact<{
@@ -1011,7 +1012,7 @@ export type UsersQueryVariables = Exact<{
 }>
 
 export type UsersQuery = { __typename?: 'query_root' } & {
-  users: Array<{ __typename?: 'users' } & UsersFragmentFragment>
+  users: Array<{ __typename?: 'users' } & Users_FragmentFragment>
   users_aggregate: { __typename?: 'users_aggregate' } & {
     aggregate?: Maybe<
       { __typename?: 'users_aggregate_fields' } & Pick<Users_Aggregate_Fields, 'count'>
@@ -1019,18 +1020,18 @@ export type UsersQuery = { __typename?: 'query_root' } & {
   }
 }
 
-export type UsersFragmentFragment = { __typename?: 'users' } & Pick<
-  Users,
-  'id' | 'name' | 'email' | 'image' | 'role' | 'created_at'
->
-
 export type Users_By_PkQueryVariables = Exact<{
   id: Scalars['String']
 }>
 
 export type Users_By_PkQuery = { __typename?: 'query_root' } & {
-  users_by_pk?: Maybe<{ __typename?: 'users' } & UsersFragmentFragment>
+  users_by_pk?: Maybe<{ __typename?: 'users' } & Users_FragmentFragment>
 }
+
+export type Users_FragmentFragment = { __typename?: 'users' } & Pick<
+  Users,
+  'id' | 'name' | 'email' | 'image' | 'role' | 'created_at'
+>
 
 export const List_Items_FragmentFragmentDoc = gql`
   fragment list_items_fragment on list_items {
@@ -1042,8 +1043,8 @@ export const List_Items_FragmentFragmentDoc = gql`
     publishedAt
   }
 `
-export const UsersFragmentFragmentDoc = gql`
-  fragment usersFragment on users {
+export const Users_FragmentFragmentDoc = gql`
+  fragment users_fragment on users {
     id
     name
     email
@@ -1097,26 +1098,28 @@ export const List_Items_By_PkDocument = gql`
 export const Delete_Users_By_PkDocument = gql`
   mutation delete_users_by_pk($id: String!) {
     delete_users_by_pk(id: $id) {
-      ...usersFragment
+      id
     }
   }
-  ${UsersFragmentFragmentDoc}
 `
 export const Insert_Users_OneDocument = gql`
-  mutation insert_users_one($user: users_insert_input!) {
+  mutation insert_users_one(
+    $object: users_insert_input!
+    $update_columns: [users_update_column!]!
+  ) {
     insert_users_one(
-      object: $user
-      on_conflict: { constraint: users_pkey, update_columns: [name, email, role] }
+      object: $object
+      on_conflict: { constraint: users_pkey, update_columns: $update_columns }
     ) {
-      ...usersFragment
+      ...users_fragment
     }
   }
-  ${UsersFragmentFragmentDoc}
+  ${Users_FragmentFragmentDoc}
 `
 export const UsersDocument = gql`
   query users($limit: Int, $offset: Int) {
-    users(limit: $limit, offset: $offset, order_by: { id: desc }) {
-      ...usersFragment
+    users(limit: $limit, offset: $offset, order_by: { created_at: asc }) {
+      ...users_fragment
     }
     users_aggregate {
       aggregate {
@@ -1124,15 +1127,15 @@ export const UsersDocument = gql`
       }
     }
   }
-  ${UsersFragmentFragmentDoc}
+  ${Users_FragmentFragmentDoc}
 `
 export const Users_By_PkDocument = gql`
   query users_by_pk($id: String!) {
     users_by_pk(id: $id) {
-      ...usersFragment
+      ...users_fragment
     }
   }
-  ${UsersFragmentFragmentDoc}
+  ${Users_FragmentFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
