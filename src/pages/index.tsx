@@ -166,7 +166,7 @@ export default function Page() {
 
 function extLink(name: string, url: string) {
   return (
-    <a className='mx-1 hover:link' target='_blank' rel='noreferrer' href={url}>
+    <a className='mx-1 link-hover hover:link-neutral' target='_blank' rel='noreferrer' href={url}>
       {name}
     </a>
   )
