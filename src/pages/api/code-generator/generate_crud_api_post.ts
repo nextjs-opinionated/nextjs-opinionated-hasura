@@ -10,6 +10,10 @@ export default withSentry(
     const inputData = req.body as Generate_crud_api_post['input']
 
     const table_name = inputData.table_name.toLowerCase()
+    const Table_Name = table_name
+      .split('_')
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join('_')
     const Table_name = `${table_name[0].toUpperCase()}${table_name.slice(1).toLowerCase()}`
     const table_id = inputData.table_id.toLowerCase()
 
@@ -17,6 +21,10 @@ export default withSentry(
       {
         from: 'List_items',
         to: Table_name,
+      },
+      {
+        from: 'List_Items',
+        to: Table_Name,
       },
       {
         from: 'list_items',
