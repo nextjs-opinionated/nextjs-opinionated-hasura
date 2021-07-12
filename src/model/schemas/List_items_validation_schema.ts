@@ -5,9 +5,6 @@ import { validate as uuidValidate } from 'uuid'
 export const List_items_validation_schema = z.object({
   id: z.any().refine(
     (value) => {
-      if (!value || value?.length === 0) {
-        return true
-      }
       return uuidValidate(value)
     },
     {
