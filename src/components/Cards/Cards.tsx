@@ -5,9 +5,10 @@ export interface CardProps {
   title: string
   text: string
   url: string | ReactNode
+  urlText: string
 }
 
-export const Card = () => {
+export const Card: React.FC<CardProps> = () => {
   const data = [
     {
       title: 'Storybook',
@@ -51,8 +52,8 @@ export const Card = () => {
   ]
   return (
     <div className='grid grid-cols-1 gap-6 mt-5 space-x-2 md:grid-cols-3'>
-      {data?.map((cards, index) => (
-        <div key={index} className='shadow-xl card lg:card-side bg-base-300'>
+      {data?.map((cards, i) => (
+        <div key={i} className='shadow-xl card lg:card-side bg-base-300'>
           <div className='justify-between card-body'>
             <>
               <h2 className='card-title'>{cards.title}</h2>
