@@ -16,6 +16,12 @@ export default withSentry(
       req: NextApiRequest,
       res: NextApiResponse
     ) {
+      // check user's admin role
+      const session = getSession(req, res)
+      if (session?.user.role !== Roles_Enum.Admin) {
+        res.status(HttpStatusCode.FORBIDDEN_403).end(`your role is forbidden`)
+        return
+      }
       // check method
       if (req.method !== current_user_role_api_get_Config.method.toUpperCase()) {
         res.setHeader('Allow', [current_user_role_api_get_Config.method.toUpperCase()])
@@ -24,7 +30,6 @@ export default withSentry(
       }
 
       // process
-      const session = getSession(req, res)
       const data = await new GqlSdkHelper().getSdk().users_by_pk({ id: session?.user.sub })
 
       const role: Current_user_role_api_get['output'] = data?.users_by_pk?.role as Roles_Enum

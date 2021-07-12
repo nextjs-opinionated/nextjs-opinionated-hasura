@@ -5,12 +5,13 @@ import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import Link from 'next/link'
 import { IoIosArrowDown } from 'react-icons/io'
-import * as nextjsAuth0 from '@auth0/nextjs-auth0'
+import { useUser } from '@auth0/nextjs-auth0'
 import Loading from '../components/Loading/Loading'
 import Logo from '../components/LogoDefault/Logo'
 import { FaGithub } from 'react-icons/fa'
 import isLocalhost from '../utils/isLocalhost'
 import { BiLinkExternal } from 'react-icons/bi'
+import { Roles_Enum } from '../graphql/generated'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -19,7 +20,7 @@ export default function Page() {
   const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
 
-  const { error, isLoading } = nextjsAuth0.useUser()
+  const { error, isLoading, user } = useUser()
   if (isLoading) return <Loading />
   if (error) return <div>{error.message}</div>
 
@@ -238,6 +239,23 @@ export default function Page() {
                   </div>
                 </div>
               </div>
+
+              {/* CARD */}
+              {user?.role === Roles_Enum.Admin && (
+                <div className='shadow-2xl card lg:card-side bg-base-300'>
+                  <div className='justify-between card-body'>
+                    <div>
+                      <h2 className='card-title'>Users</h2>
+                      <p>You can see and edit users, only if you are an administrator.</p>
+                    </div>
+                    <div className='justify-center card-actions'>
+                      <Link href='/users'>
+                        <a className='btn btn-primary'>See users</a>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
