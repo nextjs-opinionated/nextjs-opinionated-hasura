@@ -8,6 +8,7 @@ import { List_items_validation_schema } from '../../model/schemas/List_items_val
 import { FormImage } from '../forms/FormImage/FormImage'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { Insert_list_items_one_api_post } from '../../model/api-models/list_items/Insert_list_items_one_api_post'
 
 export type List_items_FormProps = {
   onDelete: () => void
@@ -15,13 +16,7 @@ export type List_items_FormProps = {
   deleteConfirmationYesLabel?: string
   deleteConfirmationNoLabel?: string
   onSubmitConfirm: (submitProps: any) => void
-  initialFormData: {
-    title: string
-    body: string
-    url: string
-    imageUrl: string
-    publishedAt: string
-  }
+  initialFormData: Insert_list_items_one_api_post['input']
 }
 
 export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
@@ -55,6 +50,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
       console.error('--  submitErrors: ', submitErrors)
     }
   )
+
   return (
     <form onSubmit={onSubmit} className='max-w-4xl md:w-full'>
       <div className='hidden sm:block' aria-hidden='true'>
@@ -116,7 +112,9 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                   type='date'
                   name='publishedAt_date'
                   register={register}
-                  defaultValue={dayjs(initialFormData.publishedAt).format('YYYY-MM-DD')}
+                  defaultValue={dayjs(initialFormData.publishedAt || undefined).format(
+                    'YYYY-MM-DD'
+                  )}
                   validationErrors={validationErrors}
                 />
 
@@ -126,7 +124,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                   type='time'
                   name='publishedAt_time'
                   register={register}
-                  defaultValue={dayjs(initialFormData.publishedAt).format('HH:mm')}
+                  defaultValue={dayjs(initialFormData.publishedAt || undefined).format('HH:mm')}
                   validationErrors={validationErrors}
                 />
 
