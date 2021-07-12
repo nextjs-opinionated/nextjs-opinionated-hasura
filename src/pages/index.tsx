@@ -109,7 +109,8 @@ export default function Page() {
               </h2>
               <h3 className='mt-5 text-2xl font-bold'>Check some features</h3>
             </div>
-            {/* Cards components */}
+
+            {/* Grid Cards component */}
             <>
               <Card />
             </>
@@ -146,18 +147,9 @@ export default function Page() {
         </footer>
       </Layout>
       <style jsx global>{`
-        html {
-          scroll-behavior: smooth;
-        }
         html,
         body {
-          padding: 0;
-          margin: 0;
           font-family: 'Montserrat', sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
         }
       `}</style>
     </>
