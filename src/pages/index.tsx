@@ -11,6 +11,7 @@ import Logo from '../components/LogoDefault/Logo'
 import { FaGithub } from 'react-icons/fa'
 import isLocalhost from '../utils/isLocalhost'
 import { BiLinkExternal } from 'react-icons/bi'
+import { Card } from '../components/Cards/Cards'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -235,6 +236,9 @@ export default function Page() {
                 </div>
               </div>
             </div>
+            <>
+              <Card />
+            </>
           </div>
         </div>
 
@@ -249,13 +253,6 @@ export default function Page() {
                 {process.env.NEXT_PUBLIC_SITE_NAME} has all best dependencies and our team always
                 make sure everything is updated
                 <br />
-                {/* 
-                <div className='w-full max-w-xs mx-auto my-3 space-x-2 md:max-w-md'>
-                  <Link href='/code-generator'>
-                    <a className='btn-outline btn-sm btn'>Codepen</a>
-                  </Link>
-                </div>
-                */}
               </p>
             </div>
           </div>
@@ -296,7 +293,7 @@ export default function Page() {
 
 function extLink(name: string, url: string) {
   return (
-    <a className='mx-1 link' target='_blank' rel='noreferrer' href={url}>
+    <a className='mx-1 hover:link' target='_blank' rel='noreferrer' href={url}>
       {name}
     </a>
   )
