@@ -109,6 +109,7 @@ export default function Page() {
               </h2>
               <h3 className='mt-5 text-2xl font-bold'>Check some features</h3>
             </div>
+            {/* Cards components */}
             <>
               <Card />
             </>
@@ -130,7 +131,7 @@ export default function Page() {
           </div>
         </div>
 
-        <div className='w-full p-4 bg-neutral text-neutral-content'>
+        <footer className='w-full p-4 bg-neutral text-neutral-content'>
           <div className='pt-2 text-center opacity-60'>
             <p>© 2021 Next.js Opinionated Team.</p>
             <a
@@ -142,7 +143,7 @@ export default function Page() {
               <FaGithub color='#fff' size={22} />
             </a>
           </div>
-        </div>
+        </footer>
       </Layout>
       <style jsx global>{`
         html {
