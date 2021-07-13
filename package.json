@@ -29,7 +29,8 @@
     "test:ci": "jest --runInBand --no-cache",
     "storybook": "start-storybook --ci -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "chromatic": "chromatic --exit-zero-on-changes"
+    "chromatic": "chromatic --exit-zero-on-changes",
+    "lint": "eslint src/**/{*.ts,**/*.tsx}"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.4.2",
@@ -63,6 +64,7 @@
     "sweetalert2-react-content": "^4.1.0",
     "uuid": "^8.3.2",
     "validator": "^13.6.0",
+    "vfile": "^5.0.2",
     "zod": "^3.2.0"
   },
   "devDependencies": {
@@ -93,8 +95,8 @@
     "@types/react-dom": "^17.0.8",
     "@types/uuid": "^8.3.1",
     "@types/validator": "^13.6.0",
-    "@typescript-eslint/eslint-plugin": "^4.28.1",
-    "@typescript-eslint/parser": "^4.28.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
     "autoprefixer": "^10.2.6",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^27.0.6",
@@ -102,9 +104,12 @@
     "chokidar-cli": "^2.1.0",
     "chromatic": "^5.9.2",
     "cross-env": "^7.0.3",
-    "eslint": "^7.29.0",
+    "eslint": "^7.30.0",
+    "eslint-config-blvd": "^1.2.1",
     "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "ignore-loader": "^0.1.2",
@@ -114,6 +119,7 @@
     "postcss": "^8.3.5",
     "postcss-cli": "^8.3.1",
     "postcss-loader": "^4.1.0",
+    "prettier": "^2.3.2",
     "react-test-renderer": "^17.0.2",
     "sharp": "^0.28.3",
     "storybook": "^6.3.2",

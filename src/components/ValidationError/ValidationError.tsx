@@ -16,7 +16,7 @@ export const ValidationError: React.FC<ValidationErrorProps> = ({
         return (
           <p
             className='my-1 text-base-content'
-            key={index}
+            key={`val_${index}`}
           >{`${error?.path} : ${error?.message}`}</p>
         )
       })}

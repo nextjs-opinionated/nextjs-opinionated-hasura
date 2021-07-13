@@ -79,6 +79,7 @@ export function Table<LINE_TYPE>(props: TableProps<LINE_TYPE & { id?: string }>)
                   {onDelete && (
                     <td>
                       <button
+                        type='button'
                         data-testid={`btn-delete-${item.id}`}
                         onClick={async () => {
                           const SwalReactAlert = withReactContent(Swal)

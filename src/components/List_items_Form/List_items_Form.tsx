@@ -9,21 +9,15 @@ import { List_items_validation_schema } from '../../model/schemas/List_items_val
 import { FormImage } from '../forms/FormImage/FormImage'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { Insert_list_items_one_api_post } from '../../model/api-models/list_items/Insert_list_items_one_api_post'
 
 export type List_items_FormProps = {
   onDelete: () => void
   deleteConfirmationMessage?: string
   deleteConfirmationYesLabel?: string
   deleteConfirmationNoLabel?: string
-  onSubmitConfirm: (submitProps: any) => void
-  initialFormData: {
-    // id: router?.query?.list_item_id as string,
-    title: string
-    body: string
-    url: string
-    imageUrl: string
-    publishedAt: string
-  }
+  onSubmitConfirm: (submitProps: Insert_list_items_one_api_post['input']) => void
+  initialFormData: Insert_list_items_one_api_post['input']
 }
 
 export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
@@ -32,7 +26,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
   deleteConfirmationMessage = 'Do you really want to delete?',
   deleteConfirmationYesLabel = 'Yes',
   deleteConfirmationNoLabel = 'No',
-  initialFormData = {},
+  initialFormData,
 }) => {
   const {
     handleSubmit,
@@ -118,7 +112,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                   type='date'
                   name='publishedAt_date'
                   register={register}
-                  defaultValue={dayjs(initialFormData.publishedAt).format('YYYY-MM-DD')}
+                  defaultValue={dayjs(initialFormData.publishedAt || '').format('YYYY-MM-DD')}
                   validationErrors={validationErrors}
                 />
 
@@ -128,7 +122,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                   type='time'
                   name='publishedAt_time'
                   register={register}
-                  defaultValue={dayjs(initialFormData.publishedAt).format('HH:mm')}
+                  defaultValue={dayjs(initialFormData.publishedAt || '').format('HH:mm')}
                   validationErrors={validationErrors}
                 />
 

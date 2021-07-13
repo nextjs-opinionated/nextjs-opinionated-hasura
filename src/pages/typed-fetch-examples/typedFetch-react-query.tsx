@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import toString from 'lodash/toString'
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { CodeBlock } from '../../components/CodeBlock/CodeBlock'
 import { Layout } from '../../components/Layout/Layout'
 import { LinksList } from '../../model/site/LinksList'
@@ -17,7 +17,6 @@ import {
   Fetch_tester_api_post,
   fetch_tester_api_post_Config,
 } from '../../model/api-models/typed-fetch-examples/Fetch_tester_api_post'
-import { useEffect } from 'react'
 
 export default function Page() {
   const [fetchResultJSON, fetchResultJSONSet] = useState({})
@@ -83,6 +82,7 @@ export default function Page() {
           {/* buttons */}
           <div className='flex flex-wrap items-center my-6'>
             <button
+              type='button'
               className='m-2 btn btn-primary'
               onClick={async () => {
                 await getResultObj.refetch()
@@ -91,6 +91,7 @@ export default function Page() {
               refetch get
             </button>
             <button
+              type='button'
               className='m-2 btn btn-primary'
               onClick={async () => {
                 await postResultObj.refetch()
@@ -99,6 +100,7 @@ export default function Page() {
               refetch post
             </button>
             <button
+              type='button'
               className={classnames('m-2 btn btn-primary', {
                 'btn-active': forceError,
                 'btn-outline': !forceError,

@@ -3,12 +3,13 @@ import { ApiConfig } from '../../../utils/typedFetch/ApiConfig'
 export interface Insert_list_items_one_api_post {
   input: {
     id: string
+    body?: string | null | undefined
+    imageUrl?: string | null | undefined
+    publishedAt?: string | null | undefined
+    publishedAt_date?: string | null | undefined
+    publishedAt_time?: string | null | undefined
     title: string
-    body: string
     url: string
-    imageUrl: string
-    publishedAt: string
-    updated_at: string
   }
   output: {
     insert_list_items_one: {

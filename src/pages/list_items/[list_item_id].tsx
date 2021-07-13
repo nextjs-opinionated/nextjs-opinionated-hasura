@@ -21,6 +21,7 @@ import {
   Delete_list_items_by_pk_api_delete,
   delete_list_items_by_pk_api_delete_Config,
 } from '../../model/api-models/list_items/Delete_list_item_by_pk_api_delete'
+import _ from 'lodash'
 
 const Page: React.FunctionComponent = () => {
   const router = useRouter()
@@ -97,11 +98,12 @@ const Page: React.FunctionComponent = () => {
         menuItems={Object.values(LinksList)}
       >
         <main className='flex justify-center mx-8'>
-          {isSuccess && data?.outputData?.list_items_by_pk?.id === router.query?.list_item_id && (
+          {isSuccess && (
             <List_items_Form
               //
               // initial data
               initialFormData={{
+                id: router.query?.list_item_id as string,
                 title: data?.outputData?.list_items_by_pk?.title || '',
                 body: data?.outputData?.list_items_by_pk?.body || '',
                 url: data?.outputData?.list_items_by_pk?.url || '',
@@ -111,28 +113,36 @@ const Page: React.FunctionComponent = () => {
               //
               // submit data
               onSubmitConfirm={async (submitProps) => {
-                const publishedAt = new Date(
-                  `${submitProps.publishedAt_date}T${submitProps.publishedAt_time}`
-                ) // format date to timestamps
+                // console.log('--  submitProps: ', submitProps)
+                let publishedAt: Date | null = null
+
+                if (
+                  String(submitProps.publishedAt_date)?.length > 0 &&
+                  String(submitProps.publishedAt_time)?.length > 0
+                ) {
+                  publishedAt = new Date(
+                    `${submitProps.publishedAt_date}T${submitProps.publishedAt_time}`
+                  ) // format date to timestamps
+                }
 
                 const headers = new Headers()
                 headers.append('Content-Type', 'application/json')
+
+                const inputData = {
+                  id: router?.query?.list_item_id as string,
+                  title: submitProps.title as string,
+                  body: submitProps.body as string,
+                  url: submitProps.url as string,
+                  imageUrl: submitProps.imageUrl as string,
+                  publishedAt: (_.isDate(publishedAt) && publishedAt.toISOString()) || null,
+                }
 
                 const typedFetchResult = await typedFetch<
                   Insert_list_items_one_api_post['input'],
                   Insert_list_items_one_api_post['output']
                 >({
                   ...insert_list_items_one_api_post_Config,
-                  inputData: {
-                    id: router?.query?.list_item_id as string,
-                    title: submitProps.title as string,
-                    body: submitProps.body as string,
-                    url: submitProps.url as string,
-                    imageUrl: submitProps.imageUrl as string,
-                    publishedAt: publishedAt.toISOString(),
-                    updated_at: new Date().toISOString(),
-                    // timezoneOffset: new Date().getTimezoneOffset(),
-                  },
+                  inputData,
                 })
 
                 const myAlert = withReactContent(Swal)

@@ -112,10 +112,12 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                 <li>
                   <div className='m-1'>
                     {!user && (
-                      <a className='btn btn-ghost' href='/api/auth/login'>
-                        Login
-                        <BiLogIn size={20} className='mx-2' />
-                      </a>
+                      <Link href='/api/auth/login'>
+                        <a className='btn btn-ghost'>
+                          Login
+                          <BiLogIn size={20} className='mx-2' />
+                        </a>
+                      </Link>
                     )}
 
                     {user && (
@@ -130,7 +132,11 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                           label={
                             <div className='avatar'>
                               <div className='w-10 h-10 m-1 rounded-full'>
-                                {user?.picture ? <img src={user?.picture} /> : <BsPersonFill />}
+                                {user?.picture ? (
+                                  <img alt={user.name || undefined} src={user?.picture} />
+                                ) : (
+                                  <BsPersonFill />
+                                )}
                               </div>
                             </div>
                           }
@@ -138,9 +144,11 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                             {
                               id: '1',
                               value: (
-                                <a className='justify-center btn btn-ghost' href='/api/auth/logout'>
-                                  <BiLogOut size={20} className='mx-2' />
-                                </a>
+                                <Link href='/api/auth/logout'>
+                                  <a className='justify-center btn btn-ghost'>
+                                    <BiLogOut size={20} className='mx-2' />
+                                  </a>
+                                </Link>
                               ),
                             },
                           ]}
@@ -173,6 +181,13 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
               {m.internalURL && (
                 <Link href={m.internalURL}>
                   <a
+                    tabIndex={0}
+                    role='link'
+                    onKeyDown={() => {
+                      if (checkboxRef.current) {
+                        checkboxRef.current.checked = false
+                      }
+                    }}
                     onClick={() => {
                       if (checkboxRef.current) {
                         checkboxRef.current.checked = false

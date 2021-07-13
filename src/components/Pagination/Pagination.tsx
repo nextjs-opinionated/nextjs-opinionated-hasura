@@ -46,7 +46,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       endOfPageOnList = currentPage + 2
     }
     const listOfNumbers: number[] = []
-    for (let i = startOfPageOnList; i <= endOfPageOnList; i++) {
+    for (let i = startOfPageOnList; i <= endOfPageOnList; i += 1) {
       listOfNumbers.push(i)
     }
 
@@ -75,6 +75,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   return (
     <div data-testid='button' className='btn-group '>
       <button
+        type='button'
         onClick={() => {
           handlePreviousPage()
         }}
@@ -86,6 +87,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       </button>
       {listNumberOfPages.map((item) => (
         <button
+          type='button'
           key={item}
           onClick={() => {
             handlePage(item)
@@ -98,6 +100,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         </button>
       ))}
       <button
+        type='button'
         onClick={() => {
           handleNextPage()
         }}
