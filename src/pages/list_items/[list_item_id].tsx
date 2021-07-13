@@ -17,11 +17,11 @@ import {
   insert_list_items_one_api_post_Config,
 } from '../../model/api-models/list_items/Insert_list_items_one_api_post'
 import { List_items_Form } from '../../components/List_items_Form/List_items_Form'
+import _ from 'lodash'
 import {
   Delete_list_items_by_pk_api_delete,
   delete_list_items_by_pk_api_delete_Config,
-} from '../../model/api-models/list_items/Delete_list_item_by_pk_api_delete'
-import _ from 'lodash'
+} from '../../model/api-models/list_items/Delete_list_items_by_pk_api_delete'
 
 const Page: React.FunctionComponent = () => {
   const router = useRouter()
