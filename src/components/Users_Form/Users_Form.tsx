@@ -103,7 +103,7 @@ export const Users_Form: React.FunctionComponent<Users_FormProps> = ({
                   placeholder='Select a role'
                   name='role'
                   register={register}
-                  validationErrors={''}
+                  validationErrors={validationErrors}
                   className=''
                   options={_.map(RoleList, (item) => ({
                     label: item.name,
