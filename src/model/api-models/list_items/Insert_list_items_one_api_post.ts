@@ -1,10 +1,8 @@
-import { z } from 'zod'
-import { Insert_List_Items_OneMutation } from '../../../graphql/generated'
+import { Insert_List_Items_OneMutation, List_Items_Insert_Input } from '../../../graphql/generated'
 import { ApiConfig } from '../../../utils/typedFetch/ApiConfig'
-import { List_items_validation_schema } from '../../schemas/List_items_validation_schema'
 
 export interface Insert_list_items_one_api_post {
-  input: z.infer<typeof List_items_validation_schema>
+  input: List_Items_Insert_Input
   output: Insert_List_Items_OneMutation
 }
 

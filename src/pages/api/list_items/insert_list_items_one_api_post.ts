@@ -38,7 +38,7 @@ export default withSentry(
     }
 
     // process
-    const data: Insert_list_items_one_api_post['output'] = await new GqlSdkHelper()
+    const data /* : Insert_list_items_one_api_post['output'] */ = await new GqlSdkHelper()
       .getSdk()
       .insert_list_items_one({
         object: inputData,

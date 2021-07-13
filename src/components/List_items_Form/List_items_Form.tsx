@@ -8,15 +8,15 @@ import { List_items_validation_schema } from '../../model/schemas/List_items_val
 import { FormImage } from '../forms/FormImage/FormImage'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import { Insert_list_items_one_api_post } from '../../model/api-models/list_items/Insert_list_items_one_api_post'
+import { z } from 'zod'
 
 export type List_items_FormProps = {
   onDelete: () => void
   deleteConfirmationMessage?: string
   deleteConfirmationYesLabel?: string
   deleteConfirmationNoLabel?: string
-  onSubmitConfirm: (submitProps: Insert_list_items_one_api_post['input']) => void
-  initialFormData: Insert_list_items_one_api_post['input']
+  onSubmitConfirm: (submitProps: z.infer<typeof List_items_validation_schema>) => void
+  initialFormData: z.infer<typeof List_items_validation_schema>
 }
 
 export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({

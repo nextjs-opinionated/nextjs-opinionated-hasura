@@ -22,6 +22,7 @@ import {
   Delete_list_items_by_pk_api_delete,
   delete_list_items_by_pk_api_delete_Config,
 } from '../../model/api-models/list_items/Delete_list_items_by_pk_api_delete'
+import dayjs from 'dayjs'
 
 const Page: React.FunctionComponent = () => {
   const router = useRouter()
@@ -105,7 +106,10 @@ const Page: React.FunctionComponent = () => {
                 body: data?.outputData?.list_items_by_pk?.body || '',
                 url: data?.outputData?.list_items_by_pk?.url || '',
                 imageUrl: data?.outputData?.list_items_by_pk?.imageUrl || '',
-                publishedAt: data?.outputData?.list_items_by_pk?.publishedAt || '',
+                publishedAt_date:
+                  dayjs(data?.outputData?.list_items_by_pk?.publishedAt).format('YYYY-MM-DD') || '',
+                publishedAt_time:
+                  dayjs(data?.outputData?.list_items_by_pk?.publishedAt).format('HH:mm') || '',
               }}
               onSubmitConfirm={async (submitProps) => {
                 // console.log('--  submitProps: ', submitProps)
