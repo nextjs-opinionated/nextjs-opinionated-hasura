@@ -31,7 +31,7 @@
     "start": "next start",
     "export": "next export",
     "format": "prettier --write .",
-    "gen": "graphql-codegen --config codegen.yml && prettier ./src/graphql/generated.ts --write --config .prettierrc",
+    "gen": "graphql-codegen --config codegen.yml && prettier ./src/graphql/generated.ts --write --config .prettierrc && eslint ./src/graphql/generated.ts --fix",
     "genRemote": "graphql-codegen --config codegen.remote.yml && prettier ./src/graphql/generated.ts --write --config .prettierrc",
     "genWatch": "node ./hasura/wait-for-url.js && chokidar \"./src/graphql/gqls/**/*.gql\" \"./hasura/migrations/**/*.sql\" --initial -c \"yarn gen\"",
     "genWatchRemote": "chokidar \"./src/graphql/gqls/**/*.gql\" --initial -c \"yarn genRemote\"",

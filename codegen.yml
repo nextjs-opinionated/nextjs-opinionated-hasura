@@ -9,6 +9,7 @@ generates:
     plugins:
       - add:
           content:
+            - '/* eslint-disable no-shadow */'
             - '/* generated code */'
       - typescript
       - typescript-operations

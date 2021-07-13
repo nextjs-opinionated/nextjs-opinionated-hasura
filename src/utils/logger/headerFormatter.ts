@@ -1,4 +1,4 @@
-import { IncomingHttpHeaders } from "http"
+import { IncomingHttpHeaders } from 'http'
 
 export const headerFormatter = (headers: IncomingHttpHeaders) => {
   const keyValues = {}

@@ -5,7 +5,6 @@ image_url: 'https://www.f5.com/content/dam/f5-com/global-assets/f5-logos/getting
 date: '2021-07-06'
 ---
 
-
 ## [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated)
 
 ### - [demo](https://nextjs-opinionated.vercel.app/)
@@ -16,21 +15,20 @@ date: '2021-07-06'
 
 _check [nextjs-opinionated-hasura](https://github.com/saitodisse/nextjs-opinionated-hasura) ([demo](https://nextjs-opinionated-hasura.vercel.app/)) with Hasura and Auth0_
 
-
 ### This template includes
-  - [next.js](https://nextjs.org/)
-  - [storybook](https://storybook.js.org/)
-  - [typescript](https://www.typescriptlang.org/)
-  - [tailwindcss](https://tailwindcss.com/)
-  - [daisyui](https://daisyui.com/)
-  - [jest](https://jestjs.io/)
-  - [eslint](https://eslint.org/)
-  - [prettifier](https://prettier.io/)
-  - [sweetalert2](https://sweetalert2.github.io/)
-  - [react-icons](https://react-icons.github.io/react-icons/)
-  - [react-query](https://react-query.tanstack.com/)
-  - [auth0](https://auth0.com/)
 
+- [next.js](https://nextjs.org/)
+- [storybook](https://storybook.js.org/)
+- [typescript](https://www.typescriptlang.org/)
+- [tailwindcss](https://tailwindcss.com/)
+- [daisyui](https://daisyui.com/)
+- [jest](https://jestjs.io/)
+- [eslint](https://eslint.org/)
+- [prettifier](https://prettier.io/)
+- [sweetalert2](https://sweetalert2.github.io/)
+- [react-icons](https://react-icons.github.io/react-icons/)
+- [react-query](https://react-query.tanstack.com/)
+- [auth0](https://auth0.com/)
 
 ## how to use
 

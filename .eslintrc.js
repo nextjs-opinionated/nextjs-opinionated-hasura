@@ -9,7 +9,6 @@ module.exports = {
     'next',
     'next/core-web-vitals',
     'eslint-config-blvd/react',
-    // 'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'prettier',

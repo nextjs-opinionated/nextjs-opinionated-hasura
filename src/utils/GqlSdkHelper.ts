@@ -7,23 +7,23 @@ if (typeof window !== 'undefined') {
 }
 
 export default class GqlSdkHelper {
-  private _client: GraphQLClient
+  private client: GraphQLClient
 
-  private _sdk: ReturnType<typeof getSdk>
+  private sdk: ReturnType<typeof getSdk>
 
   constructor() {
     const gqlEndpoint = process.env.NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT as string
     const adminSecret = process.env.HASURA_ADMIN_SECRET as string
 
-    this._client = new GraphQLClient(gqlEndpoint, {
+    this.client = new GraphQLClient(gqlEndpoint, {
       headers: {
         'x-hasura-admin-secret': adminSecret,
       },
     })
-    this._sdk = getSdk(this._client)
+    this.sdk = getSdk(this.client)
   }
 
   public getSdk() {
-    return this._sdk
+    return this.sdk
   }
 }
