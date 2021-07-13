@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { handleAuth, handleCallback, handleLogin, handleLogout } from '@auth0/nextjs-auth0'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Roles_Enum, Users_Update_Column } from '../../../graphql/generated'
@@ -27,7 +28,7 @@ export default handleAuth({
       const { redirectUri } = getUrls({ req })
       await handleCallback(req, res, {
         redirectUri,
-        afterCallback: async (req, res, session /* , state */) => {
+        afterCallback: async (_req, _res, session /* , state */) => {
           const userResultObj: Users_by_pk_api_get['output'] = await new GqlSdkHelper()
             .getSdk()
             .users_by_pk({
@@ -40,25 +41,24 @@ export default handleAuth({
             // return existing user
             session.user.role = userResultObj?.users_by_pk?.role as Roles_Enum
             return session
-          } else {
-            // save new user
-            const inputData = {
-              id: session.user.sub,
-              name: session.user.name,
-              email: session.user.email,
-              image: session.user.picture,
-              role: Roles_Enum.User,
-            } as Insert_users_one_api_post['input']
-            const insertResultObj: Insert_users_one_api_post['output'] = await new GqlSdkHelper()
-              .getSdk()
-              .insert_users_one({
-                object: inputData,
-                update_columns: Object.values(Users_Update_Column),
-              })
-
-            session.user.role = insertResultObj.insert_users_one?.role
-            return session
           }
+          // save new user
+          const inputData = {
+            id: session.user.sub,
+            name: session.user.name,
+            email: session.user.email,
+            image: session.user.picture,
+            role: Roles_Enum.User,
+          } as Insert_users_one_api_post['input']
+          const insertResultObj: Insert_users_one_api_post['output'] = await new GqlSdkHelper()
+            .getSdk()
+            .insert_users_one({
+              object: inputData,
+              update_columns: Object.values(Users_Update_Column),
+            })
+
+          session.user.role = insertResultObj.insert_users_one?.role
+          return session
         },
       })
     } catch (error) {

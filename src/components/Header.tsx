@@ -15,7 +15,7 @@ export function Header() {
           <a className='px-6 py-3 text-gray-00 hover:text-purple-300'>Github</a>
         </Link>
       </nav>
-      <button className='absolute top-0 right-0 flex flex-col p-4 mt-5 md:hidden'>
+      <button type='button' className='absolute top-0 right-0 flex flex-col p-4 mt-5 md:hidden'>
         <span className='w-5 h-px mb-1 bg-orange-500' />
         <span className='w-5 h-px mb-1 bg-orange-500' />
         <span className='w-5 h-px mb-1 bg-orange-500' />

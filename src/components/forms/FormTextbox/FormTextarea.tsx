@@ -11,7 +11,7 @@ export interface FormTextareaProps {
 }
 
 export const FormTextarea: React.FC<FormTextareaProps> = ({
-  label: label,
+  label,
   name,
   register,
   defaultValue,
