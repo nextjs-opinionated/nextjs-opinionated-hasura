@@ -40,6 +40,7 @@ export default function Page() {
           {/* buttons */}
           <div className='flex flex-wrap items-center my-6'>
             <button
+              type='button'
               className='m-2 btn btn-primary'
               title={`{some_string: 'Ueba!', divide_by: 2,}`}
               onClick={async () => {
@@ -61,6 +62,7 @@ export default function Page() {
             </button>
 
             <button
+              type='button'
               className='m-2 btn btn-primary'
               title={`{
   some_string: 'Post Text',
@@ -85,6 +87,7 @@ export default function Page() {
             </button>
 
             <button
+              type='button'
               className='m-2 btn btn-secondary'
               title={`{some_string: 'Post Text', divide_by: 0, force_error: true,}`}
               onClick={async () => {
@@ -106,6 +109,7 @@ export default function Page() {
             </button>
 
             <button
+              type='button'
               className='m-2 btn btn-secondary'
               title={`{some_string: 'Post Text', divide_by: 0, force_error: true, }`}
               onClick={async () => {

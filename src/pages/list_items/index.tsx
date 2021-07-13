@@ -96,11 +96,12 @@ const List_Items_Page: React.FunctionComponent = () => {
         menuItems={Object.values(LinksList)}
       >
         <main className='md:mx-8'>
-          <div className='flex flex-wrap my-4'></div>
+          <div className='flex flex-wrap my-4' />
 
           <div className='flex items-center justify-between my-10'>
             <h2 className='text-lg font-bold '>List Items:</h2>
             <button
+              type='button'
               className='mx-2 btn btn-primary'
               onClick={async () => {
                 router.push(`/list_items/${uuidv4()}`)
@@ -150,7 +151,11 @@ const List_Items_Page: React.FunctionComponent = () => {
                 getNode: (item) => (
                   <Link href={`list_items/${item.id}`}>
                     <a className='w-32 pl-0 text-center underline btn btn-link btn-xs'>
-                      <img className='w-32 object-fit' src={item.imageUrl || ''} />
+                      <img
+                        alt={item.title || undefined}
+                        className='w-32 object-fit'
+                        src={item.imageUrl || undefined}
+                      />
                     </a>
                   </Link>
                 ),

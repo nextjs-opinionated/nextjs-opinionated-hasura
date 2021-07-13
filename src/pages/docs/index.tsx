@@ -37,6 +37,7 @@ export default function Docs({ docs }: DocsProps) {
               <div key={item.slug} className='card bordered'>
                 <figure className='bg-base-200'>
                   <img
+                    alt={item.meta.title || undefined}
                     src={
                       item.meta.image_url ||
                       'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'

@@ -76,7 +76,7 @@ export const Cards: React.FC<CardsProps> = () => {
                         strokeLinejoin='round'
                         strokeWidth='2'
                         d='M9 5l7 7-7 7'
-                      ></path>
+                      />
                     </svg>
                   </a>
                 </Link>

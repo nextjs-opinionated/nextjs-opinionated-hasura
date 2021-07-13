@@ -13,10 +13,13 @@ export const ChangeThemeDropDown: React.FC<ChangeThemeDropDownProps> = ({ label 
     <>
       <DropDown
         label={label || ''}
-        items={Object.values(ThemeList).map((theme) => ({ id: theme.id, value: theme.name }))}
+        items={Object.values(ThemeList).map((itemTheme) => ({
+          id: itemTheme.id,
+          value: itemTheme.name,
+        }))}
         selectedId={theme || null}
-        onSelect={(theme) => {
-          setTheme(theme)
+        onSelect={(selectedTheme) => {
+          setTheme(selectedTheme)
         }}
       />
     </>

@@ -5,7 +5,6 @@ import { FaCaretDown } from 'react-icons/fa'
 
 export interface DropDownProps {
   label: ReactNode
-  // FIXME: change value to an object like {id: 'sss', body: <></>}
   items: { id: string; value: ReactNode }[]
   onSelect: (string) => void
   selectedId: string | null
@@ -41,7 +40,7 @@ export const DropDown: React.FC<DropDownProps> = ({
         <div>
           <Menu.Button className='btn'>
             {currentValue === '' ? (
-              <div className={`flex items-center justify-between`} style={{ width }}>
+              <div className='flex items-center justify-between' style={{ width }}>
                 <div className='mr-2'>{label}</div>
                 <FaCaretDown />{' '}
               </div>
@@ -66,7 +65,8 @@ export const DropDown: React.FC<DropDownProps> = ({
               {Object.values(items).map((t) => (
                 <Menu.Item key={t.id}>
                   <li>
-                    <a
+                    <button
+                      type='button'
                       className={classnames({
                         'font-bold': selectedId === t.id,
                       })}
@@ -75,7 +75,7 @@ export const DropDown: React.FC<DropDownProps> = ({
                       }}
                     >
                       {t.value}
-                    </a>
+                    </button>
                   </li>
                 </Menu.Item>
               ))}

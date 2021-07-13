@@ -25,7 +25,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
   deleteConfirmationMessage = 'Do you really want to delete?',
   deleteConfirmationYesLabel = 'Yes',
   deleteConfirmationNoLabel = 'No',
-  initialFormData = {},
+  initialFormData,
 }) => {
   const {
     handleSubmit,
@@ -112,9 +112,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                   type='date'
                   name='publishedAt_date'
                   register={register}
-                  defaultValue={dayjs(initialFormData.publishedAt || undefined).format(
-                    'YYYY-MM-DD'
-                  )}
+                  defaultValue={dayjs(initialFormData.publishedAt || '').format('YYYY-MM-DD')}
                   validationErrors={validationErrors}
                 />
 
@@ -124,7 +122,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
                   type='time'
                   name='publishedAt_time'
                   register={register}
-                  defaultValue={dayjs(initialFormData.publishedAt || undefined).format('HH:mm')}
+                  defaultValue={dayjs(initialFormData.publishedAt || '').format('HH:mm')}
                   validationErrors={validationErrors}
                 />
 

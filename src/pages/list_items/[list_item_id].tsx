@@ -20,7 +20,8 @@ import { List_items_Form } from '../../components/List_items_Form/List_items_For
 import {
   Delete_list_items_by_pk_api_delete,
   delete_list_items_by_pk_api_delete_Config,
-} from '../../model/api-models/list_items/Delete_list_items_by_pk_api_delete'
+} from '../../model/api-models/list_items/Delete_list_item_by_pk_api_delete'
+import _ from 'lodash'
 
 const Page: React.FunctionComponent = () => {
   const router = useRouter()
@@ -107,27 +108,36 @@ const Page: React.FunctionComponent = () => {
                 publishedAt: data?.outputData?.list_items_by_pk?.publishedAt || '',
               }}
               onSubmitConfirm={async (submitProps) => {
-                const publishedAt = new Date(
-                  `${submitProps.publishedAt_date}T${submitProps.publishedAt_time}`
-                ) // format date to timestamps
+                // console.log('--  submitProps: ', submitProps)
+                let publishedAt: Date | null = null
+
+                if (
+                  String(submitProps.publishedAt_date)?.length > 0 &&
+                  String(submitProps.publishedAt_time)?.length > 0
+                ) {
+                  publishedAt = new Date(
+                    `${submitProps.publishedAt_date}T${submitProps.publishedAt_time}`
+                  ) // format date to timestamps
+                }
 
                 const headers = new Headers()
                 headers.append('Content-Type', 'application/json')
+
+                const inputData = {
+                  id: router?.query?.list_item_id as string,
+                  title: submitProps.title as string,
+                  body: submitProps.body as string,
+                  url: submitProps.url as string,
+                  imageUrl: submitProps.imageUrl as string,
+                  publishedAt: (_.isDate(publishedAt) && publishedAt.toISOString()) || null,
+                }
 
                 const typedFetchResult = await typedFetch<
                   Insert_list_items_one_api_post['input'],
                   Insert_list_items_one_api_post['output']
                 >({
                   ...insert_list_items_one_api_post_Config,
-                  inputData: {
-                    id: router?.query?.list_item_id as string,
-                    title: submitProps.title,
-                    body: submitProps.body,
-                    url: submitProps.url,
-                    imageUrl: submitProps.imageUrl,
-                    publishedAt: publishedAt.toISOString(),
-                    // timezoneOffset: new Date().getTimezoneOffset(),
-                  },
+                  inputData,
                 })
 
                 const myAlert = withReactContent(Swal)

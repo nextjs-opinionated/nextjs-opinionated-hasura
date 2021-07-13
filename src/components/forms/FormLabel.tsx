@@ -3,7 +3,7 @@ import React from 'react'
 import { FormBaseProps } from './FormBaseProps'
 
 export const FormLabel: React.FC<Pick<FormBaseProps, 'name' | 'label' | 'labelDescription'>> = ({
-  label: label,
+  label,
   name,
   labelDescription,
 }) => {

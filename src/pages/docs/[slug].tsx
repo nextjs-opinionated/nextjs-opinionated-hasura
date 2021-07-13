@@ -40,7 +40,7 @@ export default function Doc({ meta, content }: MetaTypes) {
       <Head>
         <title>{meta?.title}</title>
         <meta charSet='utf-8' />
-        <link href={`https://unpkg.com/prismjs@0.0.1/themes/prism-okaidia.css`} rel='stylesheet' />
+        <link href='https://unpkg.com/prismjs@0.0.1/themes/prism-okaidia.css' rel='stylesheet' />
       </Head>
 
       <Layout
@@ -54,6 +54,7 @@ export default function Doc({ meta, content }: MetaTypes) {
       >
         <article
           className='w-full px-8 m-auto my-4 prose lg:w-3/4 lg:prose-xl sm:my-16'
+          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </Layout>

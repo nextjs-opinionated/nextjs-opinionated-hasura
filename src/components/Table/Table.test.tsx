@@ -147,8 +147,7 @@ describe('Table Component', () => {
                 {item.image ? (
                   <div className='avatar'>
                     <div className='w-12 h-12 mask mask-squircle'>
-                      <img src={item.image} />
-                      <img src={item.image} />
+                      <img alt={item.name} src={item.image} />
                     </div>
                   </div>
                 ) : (
