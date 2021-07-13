@@ -1,7 +1,5 @@
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import classnames from 'classnames'
-import React, { ChangeEvent } from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
 import { FormBaseProps } from '../FormBaseProps'
 import { FormLabel } from '../FormLabel'
 import { FiCamera } from 'react-icons/fi'
@@ -57,9 +55,16 @@ export const FormLocalImage: React.FC<FormLocalImageProps> = ({
           >
             <div className='flex justify-center'>
               {image?.url ? (
-                <img src={image.url} style={{ height }} className='object-scale-down rounded-btn' />
+                <img
+                  src={image.url}
+                  alt={image.name || undefined}
+                  style={{ height }}
+                  className='object-scale-down rounded-btn'
+                />
               ) : (
-                <div style={{ height }} className='w-full bg-base-300 rounded-btn'></div>
+                <div style={{ height }} className='w-full bg-base-300 rounded-btn'>
+                  {' '}
+                </div>
               )}
             </div>
           </div>
@@ -83,7 +88,7 @@ export const FormLocalImage: React.FC<FormLocalImageProps> = ({
               {...register(name)}
               id={name}
               name={name}
-            ></input>
+            />
           </label>
         </div>
 

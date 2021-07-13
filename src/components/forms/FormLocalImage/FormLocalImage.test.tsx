@@ -14,7 +14,7 @@ describe('Form Local Image Component', () => {
         register={() => {
           /* noop */
         }}
-        validationErrors={''}
+        validationErrors={undefined}
         className='text-lg select-accent'
       />
     )
@@ -30,7 +30,7 @@ describe('Form Local Image Component', () => {
         register={() => {
           /* noop */
         }}
-        validationErrors={''}
+        validationErrors={undefined}
       />
     )
 
@@ -50,7 +50,7 @@ describe('Form Local Image Component', () => {
         register={() => {
           /* noop */
         }}
-        validationErrors={''}
+        validationErrors={undefined}
       />
     )
 

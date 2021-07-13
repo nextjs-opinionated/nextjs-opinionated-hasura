@@ -20,7 +20,7 @@ export default withSentry(async function fetch_tester_api_get(
   const result = 10 / toNumber(inputData.divide_by)
   const finalMessage = `Your string <${inputData.some_string}> has ${inputData.some_string.length} letters`
 
-  await new Promise(function (resolve) {
+  await new Promise((resolve) => {
     setTimeout(resolve, 1000)
   })
 

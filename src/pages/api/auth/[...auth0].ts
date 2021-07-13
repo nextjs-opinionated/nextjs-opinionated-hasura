@@ -10,8 +10,8 @@ import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 const audience = process.env.AUTH0_AUDIENCE
 const scope = process.env.AUTH0_SCOPE
 
-function getUrls(req: NextApiRequest) {
-  const host = req.headers['host']
+function getUrls({ req }) {
+  const { host } = req.headers
   const protocol = process.env.VERCEL_URL ? 'https' : 'http'
   const redirectUri = `${protocol}://${host}/api/auth/callback`
   const returnTo = `${protocol}://${host}`
@@ -24,9 +24,9 @@ function getUrls(req: NextApiRequest) {
 export default handleAuth({
   async callback(req: NextApiRequest, res: NextApiResponse) {
     try {
-      const { redirectUri } = getUrls(req)
+      const { redirectUri } = getUrls({ req })
       await handleCallback(req, res, {
-        redirectUri: redirectUri,
+        redirectUri,
         afterCallback: async (req, res, session /* , state */) => {
           const userResultObj: Users_by_pk_api_get['output'] = await new GqlSdkHelper()
             .getSdk()
@@ -68,15 +68,15 @@ export default handleAuth({
 
   async login(req: NextApiRequest, res: NextApiResponse) {
     try {
-      const { redirectUri, returnTo } = getUrls(req)
+      const { redirectUri, returnTo } = getUrls({ req })
 
       await handleLogin(req, res, {
         authorizationParams: {
-          audience: audience,
-          scope: scope,
-          redirect_uri: redirectUri,
+          audience,
+          scope,
+          redirectUri,
         },
-        returnTo: returnTo,
+        returnTo,
       })
     } catch (error) {
       res.status(error.status || 400).end(error.message)
@@ -84,9 +84,9 @@ export default handleAuth({
   },
 
   async logout(req: NextApiRequest, res: NextApiResponse) {
-    const { returnTo } = getUrls(req)
+    const { returnTo } = getUrls({ req })
     await handleLogout(req, res, {
-      returnTo: returnTo,
+      returnTo,
     })
   },
 })

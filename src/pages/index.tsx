@@ -82,12 +82,12 @@ export default function Page() {
                   {extLink('auth0', 'https://auth0.com/')}
                 </p>
                 <div className='flex flex-wrap justify-center mt-10 space-x-2'>
-                  <a href='/docs' className='btn btn-ghost'>
-                    Documentation
-                  </a>
-                  <a href='/docs/getting-started' className='btn btn-primary'>
-                    Get Started
-                  </a>
+                  <Link href='/docs'>
+                    <a className='btn btn-ghost'>Documentation</a>
+                  </Link>
+                  <Link href='/docs/getting-started'>
+                    <a className='btn btn-primary'>Get Started</a>
+                  </Link>
                 </div>
                 <div className='absolute left-0 right-0 flex justify-center mt-2 bottom-10 sm:bottom-20'>
                   <IoIosArrowDown className='w-6 h-6 animate-bounce' />
