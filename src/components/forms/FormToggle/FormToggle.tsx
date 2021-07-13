@@ -20,7 +20,7 @@ export const FormToggle: React.FC<FormBaseProps> = ({
             disabled={disabled}
             className='toggle'
           />
-          <span className='ml-4 toggle-mark'></span>
+          <span className='ml-4 toggle-mark'> </span>
         </div>
       </label>
     </div>

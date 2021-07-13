@@ -17,7 +17,7 @@ describe('Form Local Image Component', () => {
         watch={() => {
           /* noop */
         }}
-        validationErrors={''}
+        validationErrors={undefined}
         className='text-lg select-accent'
       />
     )
@@ -36,7 +36,7 @@ describe('Form Local Image Component', () => {
         watch={() => {
           /* noop */
         }}
-        validationErrors={''}
+        validationErrors={undefined}
       />
     )
 
@@ -59,7 +59,7 @@ describe('Form Local Image Component', () => {
         watch={() => {
           /* noop */
         }}
-        validationErrors={''}
+        validationErrors={undefined}
       />
     )
 

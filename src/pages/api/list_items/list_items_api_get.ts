@@ -33,6 +33,7 @@ export default withSentry(
     const offset = current_page * limit - limit
 
     const listItems: List_Item_api_get['output']['list_items'] = []
+    /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
     for (let x = offset; x < offset + limit; x++) {
       if (LIST_ITEMS_STUB_DATA.data.list_items[x]) {
         listItems.push(LIST_ITEMS_STUB_DATA.data.list_items[x])

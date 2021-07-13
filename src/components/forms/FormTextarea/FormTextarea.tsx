@@ -4,7 +4,7 @@ import { FormBaseProps } from '../FormBaseProps'
 import { FormLabel } from '../FormLabel'
 
 export const FormTextarea: React.FC<FormBaseProps> = ({
-  label: label,
+  label,
   name,
   register,
   defaultValue,

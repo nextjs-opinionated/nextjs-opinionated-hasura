@@ -27,7 +27,7 @@ export default withSentry(
     const list_items_by_pk = LIST_ITEMS_STUB_DATA.data.list_items.find(
       (item) => item.id === inputData.list_item_id
     )
-    const data: List_items_by_pk_api_get['output'] = { list_items_by_pk: list_items_by_pk }
+    const data: List_items_by_pk_api_get['output'] = { list_items_by_pk }
 
     // output data
     res.status(HttpStatusCode.OK_200).json(data)

@@ -14,7 +14,7 @@ describe('Select Component', () => {
         register={() => {
           /* noop */
         }}
-        validationErrors={''}
+        validationErrors={undefined}
         className='text-lg select-accent'
         options={[
           { value: 'it1', label: 'item 1' },
@@ -33,7 +33,7 @@ describe('Select Component', () => {
         register={() => {
           /* noop */
         }}
-        validationErrors={''}
+        validationErrors={undefined}
         defaultValue='it2'
         className='text-lg select-accent'
         options={[
@@ -59,7 +59,7 @@ describe('Select Component', () => {
         register={() => {
           /* noop */
         }}
-        validationErrors={''}
+        validationErrors={undefined}
         defaultValue='it2'
         className='text-lg select-accent'
         options={[

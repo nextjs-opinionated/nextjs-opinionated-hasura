@@ -1,7 +1,6 @@
-import _ from 'lodash'
+import React, { useState } from 'react'
+import isNumber from 'lodash/isNumber'
 import classnames from 'classnames'
-import React from 'react'
-import { useState } from 'react'
 import { FormBaseProps } from '../FormBaseProps'
 import { FormInput } from '../FormInput/FormInput'
 import { BsImage } from 'react-icons/bs'
@@ -47,6 +46,7 @@ export const FormImage: React.FC<FormImageProps> = ({
 
           <div className='flex justify-center p-2'>
             <img
+              alt={imageUrl}
               style={{ width, height }}
               className={classnames(
                 'object-scale-down rounded-lg border-solid shadow-2xl border-base-300',
@@ -63,7 +63,7 @@ export const FormImage: React.FC<FormImageProps> = ({
               }}
             />
             <BsImage
-              size={(_.isNumber(height) && height) || (_.isNumber(width) && width) || 96}
+              size={(isNumber(height) && height) || (isNumber(width) && width) || 96}
               className={classnames('h-24', {
                 hidden: currentImageIsValid === true,
               })}
