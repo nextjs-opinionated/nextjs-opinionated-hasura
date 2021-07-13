@@ -30,24 +30,27 @@ export const Cards: React.FC<CardsProps> = () => {
     },
     {
       title: 'TypedFetch',
-      text:
-        'We created a standard typed-fetch using typeScript to manage API calls. That way you will be typing input and output of all fetch calls',
+      text: 'We created a standard typed-fetch using typeScript to manage API calls. That way you will be typing input and output of all fetch calls',
       url: '/typed-fetch-examples',
       urlText: 'Test fetch',
     },
     {
       title: 'Authentication',
-      text:
-        'We use a simple integration with auth0. The incredible integration is made with the nextjs-auth0',
+      text: 'We use a simple integration with auth0. The incredible integration is made with the nextjs-auth0',
       url: '/typed-fetch-examples',
       urlText: 'Login Now',
     },
     {
       title: 'Universal Validation',
-      text:
-        'ZOD validator is a simple validation library. We use it to validate input fields on server side and on cliente side',
+      text: 'ZOD validator is a simple validation library. We use it to validate input fields on server side and on cliente side',
       url: '/list_items/cb0f6982-de0a-4b35-804f-5ed5e8d7bed3',
       urlText: 'Check Validation',
+    },
+    {
+      title: 'Users',
+      text: 'You can see and edit users, only if you are an administrator.',
+      url: '/users',
+      urlText: 'See users',
     },
   ]
   return (
