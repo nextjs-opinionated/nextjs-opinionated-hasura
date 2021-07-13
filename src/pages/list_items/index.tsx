@@ -23,6 +23,7 @@ import {
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import _ from 'lodash'
+import { Insert_list_items_one_api_post } from '../../model/api-models/list_items/Insert_list_items_one_api_post'
 
 const List_Items_Page: React.FunctionComponent = () => {
   const router = useRouter()
@@ -107,7 +108,7 @@ const List_Items_Page: React.FunctionComponent = () => {
             </button>
           </div>
 
-          <Table
+          <Table<Insert_list_items_one_api_post['input']>
             pageSize={ITEMS_PER_PAGE}
             totalItems={data?.outputData?.list_items_aggregate?.aggregate?.count}
             currentPage={_.toInteger(router.query.page) || 1}
@@ -158,30 +159,48 @@ const List_Items_Page: React.FunctionComponent = () => {
               })
             }}
             fields={{
-              Image: (item) => (
-                <Link href={`list_items/${item.id}`}>
-                  <a className='w-32 pl-0 text-center underline btn btn-link btn-xs'>
-                    <img className='w-32 object-fit' src={item.imageUrl} />
-                  </a>
-                </Link>
-              ),
+              imageUrl: {
+                label: 'Image',
+                getNode: (item) => (
+                  <Link href={`list_items/${item.id}`}>
+                    <a className='w-32 pl-0 text-center underline btn btn-link btn-xs'>
+                      <img className='w-32 object-fit' src={item.imageUrl} />
+                    </a>
+                  </Link>
+                ),
+              },
 
-              Title: (item) => (
-                <Link href={`list_items/${item.id}`}>
-                  <a className='pl-0 underline btn btn-link btn-xs'> {item.title}</a>
-                </Link>
-              ),
-              Description: (item) => (
-                <div className='w-32 text-sm whitespace-pre-wrap'>{item.body}</div>
-              ),
-              'Published at': (item) => item.publishedAt,
-              link: (item) => (
-                <Link href={`${item.url}`}>
-                  <a className='flex' title={item.url}>
-                    <BiLinkExternal className='ml-2' size={20} />
-                  </a>
-                </Link>
-              ),
+              title: {
+                label: 'Title',
+                getNode: (item) => (
+                  <Link href={`list_items/${item.id}`}>
+                    <a className='pl-0 underline btn btn-link btn-xs'> {item.title}</a>
+                  </Link>
+                ),
+              },
+
+              body: {
+                label: 'Description',
+                getNode: (item) => (
+                  <div className='w-32 text-sm whitespace-pre-wrap'>{item.body}</div>
+                ),
+              },
+
+              publishedAt: {
+                label: 'Plublished At',
+                getNode: (item) => item.publishedAt,
+              },
+
+              url: {
+                label: 'Link',
+                getNode: (item) => (
+                  <Link href={`${item.url}`}>
+                    <a className='flex' title={item.url}>
+                      <BiLinkExternal className='ml-2' size={20} />
+                    </a>
+                  </Link>
+                ),
+              },
             }}
           />
         </main>
