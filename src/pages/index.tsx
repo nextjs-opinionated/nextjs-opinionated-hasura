@@ -5,13 +5,9 @@ import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
 import Link from 'next/link'
 import { IoIosArrowDown } from 'react-icons/io'
-import { useUser } from '@auth0/nextjs-auth0'
-import Loading from '../components/Loading/Loading'
 import Logo from '../components/LogoDefault/Logo'
 import { FaGithub } from 'react-icons/fa'
-import isLocalhost from '../utils/isLocalhost'
-import { BiLinkExternal } from 'react-icons/bi'
-import { Roles_Enum } from '../graphql/generated'
+import { Cards } from '../components/Cards/Cards'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -19,10 +15,6 @@ export default function Page() {
   const imageUrl = process.env.NEXT_PUBLIC_SITE_IMAGE
   const description = process.env.NEXT_PUBLIC_SITE_DESCRIPTION
   const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS
-
-  const { error, isLoading, user } = useUser()
-  if (isLoading) return <Loading />
-  if (error) return <div>{error.message}</div>
 
   return (
     <>
@@ -114,149 +106,8 @@ export default function Page() {
               <h3 className='mt-5 text-2xl font-bold'>Check some features</h3>
             </div>
 
-            <div className='grid grid-cols-1 gap-6 mt-5 space-x-2 md:grid-cols-3 text-base-content'>
-              {/* CARD */}
-              <div className='shadow-xl card lg:card-side bg-base-300'>
-                <div className='justify-between card-body'>
-                  <div>
-                    <h2 className='card-title'>Storybook</h2>
-                    <p>
-                      this project works with storybook (and also with next.js, tailwind and
-                      postcss)
-                    </p>
-                  </div>
-                  <div className='justify-center card-actions'>
-                    {isLocalhost() ? (
-                      <a href='http://localhost:6006' className='btn btn-primary'>
-                        see storybook
-                      </a>
-                    ) : (
-                      <a
-                        href='https://main--60d0b5d829870700396e0a3b.chromatic.com'
-                        className='btn btn-primary'
-                      >
-                        see storybook
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* CARD */}
-              <div className='shadow-xl card lg:card-side bg-base-300'>
-                <div className='justify-between card-body'>
-                  <div>
-                    <h2 className='card-title'>Code Generator</h2>
-                    <p>
-                      Generate code directly from this project if you are running on
-                      http://localhost:3000
-                    </p>
-                  </div>
-                  <div className='justify-center card-actions'>
-                    <Link href='/code-generator'>
-                      <a className='btn btn-primary'>Generate code</a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* CARD */}
-              <div className='shadow-xl card lg:card-side bg-base-300'>
-                <div className='justify-between card-body'>
-                  <div>
-                    <h2 className='card-title'>CRUD Example</h2>
-                    <p>A standard way to List, Set, Update and Delete items</p>
-                  </div>
-                  <div className='justify-center card-actions'>
-                    <Link href='/list_items?page=1'>
-                      <a className='btn btn-primary'>list items</a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* CARD */}
-              <div className='shadow-xl card lg:card-side bg-base-300'>
-                <div className='justify-between card-body'>
-                  <div>
-                    <h2 className='card-title'>TypedFetch</h2>
-                    <p>
-                      We created a standard typed-fetch using typeScript to manage API calls. That
-                      way you will be typing input and output of all fetch calls
-                    </p>
-                  </div>
-                  <div className='justify-center card-actions'>
-                    <Link href='/typed-fetch-examples'>
-                      <a className='btn btn-primary'>test fetch</a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* CARD */}
-              <div className='shadow-xl card lg:card-side bg-base-300'>
-                <div className='justify-between card-body'>
-                  <div>
-                    <h2 className='card-title'>Authentication</h2>
-                    <p className='inline'>
-                      We use a simple integration with auth0. The incredible integration is made
-                      with the
-                      <div className='flex items-center justify-center'>
-                        <a
-                          href='https://github.com/auth0/nextjs-auth0'
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          className='underline'
-                        >
-                          nextjs-auth0
-                        </a>
-                        <BiLinkExternal className='ml-2' size={17} />
-                      </div>
-                    </p>
-                  </div>
-                  <div className='justify-center card-actions'>
-                    <Link href='/typed-fetch-examples'>
-                      <a className='btn btn-primary'>Login now</a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* CARD */}
-              <div className='shadow-xl card lg:card-side bg-base-300'>
-                <div className='justify-between card-body'>
-                  <div>
-                    <h2 className='card-title'>Universal Validation</h2>
-                    <p className='inline'>
-                      ZOD validator is a simple validation library. We use it to validate input
-                      fields on server side and on cliente side.
-                    </p>
-                  </div>
-                  <div className='justify-center card-actions'>
-                    <Link href='/list_items/cb0f6982-de0a-4b35-804f-5ed5e8d7bed3'>
-                      <a className='btn btn-primary'>Check Validation</a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* CARD */}
-              {user?.role === Roles_Enum.Admin && (
-                <div className='shadow-xl card lg:card-side bg-base-300'>
-                  <div className='justify-between card-body'>
-                    <div>
-                      <h2 className='card-title'>Users</h2>
-                      <p>You can see and edit users, only if you are an administrator.</p>
-                    </div>
-                    <div className='justify-center card-actions'>
-                      <Link href='/users'>
-                        <a className='btn btn-primary'>See users</a>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+            {/* Grid Cards component */}
+            <Cards />
           </div>
         </div>
 
@@ -275,7 +126,7 @@ export default function Page() {
           </div>
         </div>
 
-        <div className='w-full p-4 bg-neutral text-neutral-content'>
+        <footer className='w-full p-4 bg-neutral text-neutral-content'>
           <div className='pt-2 text-center opacity-60'>
             <p>© 2021 Next.js Opinionated Team.</p>
             <a
@@ -287,21 +138,12 @@ export default function Page() {
               <FaGithub color='#fff' size={22} />
             </a>
           </div>
-        </div>
+        </footer>
       </Layout>
       <style jsx global>{`
-        html {
-          scroll-behavior: smooth;
-        }
         html,
         body {
-          padding: 0;
-          margin: 0;
           font-family: 'Montserrat', sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
         }
       `}</style>
     </>
@@ -310,7 +152,7 @@ export default function Page() {
 
 function extLink(name: string, url: string) {
   return (
-    <a className='mx-1 link' target='_blank' rel='noreferrer' href={url}>
+    <a className='mx-1 link-hover hover:link-neutral' target='_blank' rel='noreferrer' href={url}>
       {name}
     </a>
   )
