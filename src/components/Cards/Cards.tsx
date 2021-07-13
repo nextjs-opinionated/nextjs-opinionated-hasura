@@ -1,14 +1,14 @@
 import Link from 'next/link'
 import React, { ReactNode } from 'react'
 
-export interface CardProps {
+export interface CardsProps {
   title?: string
   text?: string
   url?: string | ReactNode
   urlText?: string
 }
 
-export const Card: React.FC<CardProps> = () => {
+export const Cards: React.FC<CardsProps> = () => {
   const data = [
     {
       title: 'Storybook',

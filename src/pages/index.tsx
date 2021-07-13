@@ -9,7 +9,7 @@ import * as nextjsAuth0 from '@auth0/nextjs-auth0'
 import Loading from '../components/Loading/Loading'
 import Logo from '../components/LogoDefault/Logo'
 import { FaGithub } from 'react-icons/fa'
-import { Card } from '../components/Cards/Cards'
+import { Cards } from '../components/Cards/Cards'
 
 export default function Page() {
   const pageTitle = process.env.NEXT_PUBLIC_SITE_NAME
@@ -109,9 +109,7 @@ export default function Page() {
             </div>
 
             {/* Grid Cards component */}
-            <>
-              <Card />
-            </>
+            <Cards />
           </div>
         </div>
 
