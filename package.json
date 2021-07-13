@@ -30,7 +30,7 @@
     "storybook": "start-storybook --ci -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "chromatic": "chromatic --exit-zero-on-changes",
-    "lint": "eslint src/**/{*.ts,**/*.tsx}"
+    "lint": "next lint --fix -c ./.eslintrc.js"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.4.2",
