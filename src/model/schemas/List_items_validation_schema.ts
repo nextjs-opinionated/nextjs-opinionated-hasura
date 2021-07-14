@@ -27,9 +27,8 @@ export const List_items_validation_schema = z.object({
         // optional if is on insert mode
         if (!value || value?.length === 0) {
           return true
-        } else {
-          return validator.isURL(value)
         }
+        return validator.isURL(value)
       },
       {
         message: 'must be a valid URL',
@@ -41,9 +40,8 @@ export const List_items_validation_schema = z.object({
       // optional
       if (!value || value?.length === 0) {
         return true
-      } else {
-        return validator.isDate(value, { format: 'YYYY-MM-DD' })
       }
+      return validator.isDate(value, { format: 'YYYY-MM-DD' })
     },
     {
       message: 'must be a valid URL',
@@ -54,9 +52,8 @@ export const List_items_validation_schema = z.object({
       // optional
       if (!value || value?.length === 0) {
         return true
-      } else {
-        return value.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/) // https://stackoverflow.com/a/7536768
       }
+      return value.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/) // https://stackoverflow.com/a/7536768
     },
     {
       message: 'must be a valid time',

@@ -46,7 +46,7 @@
     "type-check": "tsc --pretty --noEmit",
     "remove-local-database": "(cd ./hasura; docker-compose down -v)",
     "chromatic": "chromatic --exit-zero-on-changes",
-    "lint": "next lint --fix -c ./.eslintrc.js",
+    "lint": "eslint --fix -c ./.eslintrc.js src && next lint --fix -c ./.eslintrc.js src",
     "checkAll": "yarn lint && yarn test:ci && yarn build",
     "push": "yarn checkAll && git push"
   },

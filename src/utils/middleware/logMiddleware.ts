@@ -14,7 +14,7 @@ export const logMiddleware = (handler: (req: NextApiRequest, res: NextApiRespons
 
     const headerWithoutCookie = omit(headers, ['cookie'])
 
-    const body: unknown = req.body
+    const { body } = req
 
     logger.debug(
       {
