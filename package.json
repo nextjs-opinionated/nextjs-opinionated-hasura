@@ -30,7 +30,7 @@
     "storybook": "start-storybook --ci -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "chromatic": "chromatic --exit-zero-on-changes",
-    "lint": "next lint --fix -c ./.eslintrc.js",
+    "lint": "eslint --fix -c ./.eslintrc.js src && next lint --fix -c ./.eslintrc.js src",
     "checkAll": "yarn lint && yarn test:ci && yarn build",
     "push": "yarn checkAll && git push"
   },
