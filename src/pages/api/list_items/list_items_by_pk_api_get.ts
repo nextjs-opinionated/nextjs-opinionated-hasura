@@ -9,7 +9,7 @@ import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 import { HttpStatusCode } from '../../../utils/typedFetch/HttpStatusCode'
 
 export default withSentry(
-  logMiddleware(async function API(req: NextApiRequest, res: NextApiResponse) {
+  logMiddleware(async function list_items_by_pk_api_get(req: NextApiRequest, res: NextApiResponse) {
     // check method
     if (req.method !== list_items_by_pk_api_get_Config.method.toUpperCase()) {
       res.setHeader('Allow', [list_items_by_pk_api_get_Config.method.toUpperCase()])

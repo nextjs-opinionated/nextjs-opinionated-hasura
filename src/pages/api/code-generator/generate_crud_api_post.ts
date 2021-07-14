@@ -84,16 +84,19 @@ export default withSentry(
       to_file: `src/model/api-models/${list_items}/Insert_${list_items}_one_api_post.ts`,
       replaces: defaultReplaces,
     })
-
     await code_gen_replace({
       from_file: 'src/model/api-models/list_items/List_items_api_get.ts',
       to_file: `src/model/api-models/${list_items}/${List_items}_api_get.ts`,
       replaces: defaultReplaces,
     })
-
     await code_gen_replace({
       from_file: 'src/model/api-models/list_items/List_items_by_pk_api_get.ts',
       to_file: `src/model/api-models/${list_items}/${List_items}_by_pk_api_get.ts`,
+      replaces: defaultReplaces,
+    })
+    await code_gen_replace({
+      from_file: 'src/model/api-models/list_items/Delete_list_items_by_pk_api_delete.ts',
+      to_file: `src/model/api-models/${list_items}/Delete_${list_items}_by_pk_api_delete.ts`,
       replaces: defaultReplaces,
     })
 
@@ -111,6 +114,11 @@ export default withSentry(
     await code_gen_replace({
       from_file: 'src/pages/api/list_items/list_items_by_pk_api_get.ts',
       to_file: `src/pages/api/${list_items}/${list_items}_by_pk_api_get.ts`,
+      replaces: defaultReplaces,
+    })
+    await code_gen_replace({
+      from_file: 'src/pages/api/list_items/delete_list_items_by_pk_api_delete.ts',
+      to_file: `src/pages/api/${list_items}/delete_${list_items}_by_pk_api_delete.ts`,
       replaces: defaultReplaces,
     })
 

@@ -9,7 +9,7 @@ import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 import GqlSdkHelper from '../../../utils/GqlSdkHelper'
 
 export default withSentry(
-  logMiddleware(async function insert_list_items_one_api_post(
+  logMiddleware(async function delete_list_items_by_pk_api_delete(
     req: NextApiRequest,
     res: NextApiResponse
   ) {

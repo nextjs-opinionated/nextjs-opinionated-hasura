@@ -10,7 +10,7 @@ import { logMiddleware } from '../../../utils/middleware/logMiddleware'
 import _ from 'lodash'
 
 export default withSentry(
-  logMiddleware(async function API(req: NextApiRequest, res: NextApiResponse) {
+  logMiddleware(async function list_items_api_get(req: NextApiRequest, res: NextApiResponse) {
     // check method
     if (req.method !== list_items_api_get_Config.method.toUpperCase()) {
       res.setHeader('Allow', [list_items_api_get_Config.method.toUpperCase()])
