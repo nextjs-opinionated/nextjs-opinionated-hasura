@@ -1,23 +1,193 @@
 {
-  "lc: logChild": {
-    "prefix": "linit",
-    "body": ["const log = logger.child({ file: '${TM_FILEPATH/.*?\\/src\\/(.+)$/$1/}' })"],
-    "description": "Pino log Child"
+  "ll1": {
+    "prefix": "l",
+    "body": ["console.log('$1')"],
+    "description": "Console.Log HERE"
   },
-  "linfo: log.info": {
-    "prefix": "linfo",
-    "body": ["log.info({ msg: '${1}', ${2} })"],
-    "description": "Pino log Info"
+  "ll2": {
+    "prefix": "ll",
+    "body": ["console.log(\"--  $1: \", $1)"],
+    "description": "Console.Log"
   },
-  "ldebug: log.debug": {
-    "prefix": "ldebug",
-    "body": ["log.debug({ msg: '${1}', ${2} })"],
-    "description": "Pino log Debug"
+  "ll3": {
+    "prefix": "lll",
+    "body": [
+      "",
+      "// *- DEBUG --------------------------*",
+      "console.log(",
+      "  '\\n>>---------\\n ${1}:\\n',",
+      "  require('util').inspect(${1},",
+      "{",
+      "    showHidden: false,",
+      "    depth: null,",
+      "    colors: true",
+      "}),",
+      "  '\\n>>---------\\n\\n\\n\\n\\n\\n\\n'",
+      ")",
+      "// *-----------------------------------*",
+      ""
+    ],
+    "description": "Pretty Log"
   },
-  "lerror: log.error": {
-    "prefix": "lerror",
-    "body": ["log.error(error, { estado: `ERRO`, msg: `${1}`, ${2} })"],
-    "description": "Pino log Error"
+  "ll3_json": {
+    "prefix": "lllj",
+    "body": [
+      "console.log('\\n>>---------\\n ${1}:\\n', JSON.stringify(${1}, null, 2), '\\n>>---------\\n\\n\\n\\n\\n\\n\\n\\n')"
+    ],
+    "description": "Pretty Log"
+  },
+  "ll3_json_save": {
+    "prefix": "llljSalvar",
+    "body": [
+      "// -x-x-x-x-x-x-x-x-x-x-x-x-x-x-x",
+      "const fs = require('fs-extra')",
+      "const stringify = require('json-stringify-safe')",
+      "const data = stringify(${1}, null, 2)",
+      "fs.writeFile('/tmp/debug.json', data, 'utf8')",
+      "  .then(savefileJsonFormatedResult => ({savefileJsonFormatedResult}))",
+      "  .then(console.log(`\\n>>---------\\n\\n\\n\\n${1} salvo em ${'/tmp/debug.json'}\\n\\n\\n\\n>>---------\\n`))",
+      "// -x-x-x-x-x-x-x-x-x-x-x-x-x-x-x"
+    ],
+    "description": "Pretty Log"
+  },
+  "useOvermind": {
+    "prefix": "useOvermind",
+    "body": ["const { state, actions } = useOvermind()"],
+    "description": "Use Overmind Hook"
+  },
+  "useAuth0": {
+    "prefix": "useAuth0",
+    "body": ["const { ${1} } = useAuth0() as UseAuth0Type"],
+    "description": "Use Auth0 Hook"
+  },
+  "useEffect": {
+    "prefix": "useEffect",
+    "body": ["useEffect(() => {", "  ${1}", "}, [])"],
+    "description": "useEffect Hook"
+  },
+  "useEffectAsync": {
+    "prefix": "useEffectAsync",
+    "body": ["useEffect(() => {", "  ;(async () => {", "    ${1}", "  })()", "}, [])"],
+    "description": "useEffect Async Hook"
+  },
+  "reactIcons": {
+    "prefix": "reactIconsImports",
+    "body": [
+      "import IconsAi from 'react-icons/ai'",
+      "import IconsBi from 'react-icons/bi'",
+      "import IconsBs from 'react-icons/bs'",
+      "import IconsCg from 'react-icons/cg'",
+      "import IconsDi from 'react-icons/di'",
+      "import IconsFa from 'react-icons/fa'",
+      "import IconsFc from 'react-icons/fc'",
+      "import IconsFi from 'react-icons/fi'",
+      "import IconsGi from 'react-icons/gi'",
+      "import IconsGo from 'react-icons/go'",
+      "import IconsGr from 'react-icons/gr'",
+      "import IconsHi from 'react-icons/hi'",
+      "import IconsIm from 'react-icons/im'",
+      "import IconsIo from 'react-icons/io'",
+      "import IconsMd from 'react-icons/md'",
+      "import IconsRi from 'react-icons/ri'",
+      "import IconsSi from 'react-icons/si'",
+      "import IconsTi from 'react-icons/ti'",
+      "import IconsVsc from 'react-icons/vsc'",
+      "import IconsWi from 'react-icons/wi'"
+    ],
+    "description": "import * from 'react-icons/*'"
+  },
+  "useState": {
+    "prefix": "useState",
+    "body": ["const [${1}, ${1}Set] = useState([])"],
+    "description": "useState Hook"
+  },
+  "jsonPre": {
+    "prefix": "jsonPre",
+    "body": ["<pre>{JSON.stringify(${1}, null, 2)}</pre>"],
+    "description": "useState Hook"
+  },
+  "SNIPPETS_VARIABLES": {
+    "prefix": "SNIPPETS_VARIABLES",
+    "body": [
+      "$BLOCK_COMMENT_START",
+      "TM_SELECTED_TEXT The currently selected text or the empty string",
+      "$TM_SELECTED_TEXT",
+      "",
+      "TM_CURRENT_LINE The contents of the current line",
+      "$TM_CURRENT_LINE",
+      "",
+      "TM_CURRENT_WORD The contents of the word under cursor or the empty string",
+      "$TM_CURRENT_WORD",
+      "",
+      "TM_LINE_INDEX The zero-index based line number",
+      "$TM_LINE_INDEX",
+      "",
+      "TM_LINE_NUMBER The one-index based line number",
+      "$TM_LINE_NUMBER",
+      "",
+      "TM_FILENAME The filename of the current document",
+      "$TM_FILENAME",
+      "",
+      "TM_FILENAME_BASE The filename of the current document without its extensions",
+      "$TM_FILENAME_BASE",
+      "",
+      "TM_DIRECTORY The directory of the current document",
+      "$TM_DIRECTORY",
+      "",
+      "TM_FILEPATH The full file path of the current document",
+      "$TM_FILEPATH",
+      "",
+      "CLIPBOARD The contents of your clipboard",
+      "$CLIPBOARD",
+      "",
+      "WORKSPACE_NAME The name of the opened workspace or folder",
+      "$WORKSPACE_NAME",
+      "",
+      "CURRENT_YEAR The current year",
+      "$CURRENT_YEAR",
+      "",
+      "CURRENT_YEAR_SHORT The current year's last two digits",
+      "$CURRENT_YEAR_SHORT",
+      "",
+      "CURRENT_MONTH The month as two digits (example '02')",
+      "$CURRENT_MONTH",
+      "",
+      "CURRENT_MONTH_NAME The full name of the month (example 'July')",
+      "$CURRENT_MONTH_NAME",
+      "",
+      "CURRENT_MONTH_NAME_SHORT The short name of the month (example 'Jul')",
+      "$CURRENT_MONTH_NAME_SHORT",
+      "",
+      "CURRENT_DATE The day of the month",
+      "$CURRENT_DATE",
+      "",
+      "CURRENT_DAY_NAME The name of day (example 'Monday')",
+      "$CURRENT_DAY_NAME",
+      "",
+      "CURRENT_DAY_NAME_SHORT The short name of the day (example 'Mon')",
+      "$CURRENT_DAY_NAME_SHORT",
+      "",
+      "CURRENT_HOUR The current hour in 24-hour clock format",
+      "$CURRENT_HOUR",
+      "",
+      "CURRENT_MINUTE The current minute",
+      "$CURRENT_MINUTE",
+      "",
+      "CURRENT_SECOND The current second",
+      "$CURRENT_SECOND",
+      "",
+      "CURRENT_SECONDS_UNIX The number of seconds since the Unix epoch",
+      "$CURRENT_SECONDS_UNIX",
+      "",
+      "$TM_FILENAME",
+      "(${TM_FILENAME/(.*)\\..+$/$1/})",
+      "$TM_FILEPATH",
+      "(${TM_FILEPATH/.*?\\/src\\/(.+)$/$1/})",
+      "",
+      "$BLOCK_COMMENT_END",
+      ""
+    ],
+    "description": "SNIPPETS_VARIABLES"
   },
   "tw:classnames": {
     "prefix": "cns",
@@ -30,10 +200,5 @@
       ")}"
     ],
     "description": "classnames"
-  },
-  "useEffectAsync": {
-    "prefix": "useEffectAsync",
-    "body": ["useEffect(() => {", "  ;(async () => {", "    ${1}", "  })()", "}, [])"],
-    "description": "useEffect Async Hook"
   }
 }
