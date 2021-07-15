@@ -68,5 +68,8 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'jsx-a11y/label-has-associated-control': 0,
     'no-shadow': 0,
+    'no-await-in-loop': 0,
+    'prefer-destructuring': 0,
+    'no-param-reassign': 0,
   },
 }
