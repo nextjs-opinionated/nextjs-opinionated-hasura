@@ -46,13 +46,11 @@ export default function Page() {
 
       <Layout
         title={
-          <div className='flex items-center flex-grow px-2 mx-2 space-x-3'>
-            <Link href='/'>
-              <a>
-                <Logo />
-              </a>
-            </Link>
-            <div className='text-sm font-bold'>{process.env.NEXT_PUBLIC_SITE_NAME}</div>
+          <div className='flex items-center justify-end flex-grow px-2 mx-2 space-x-3 md:justify-start'>
+            <Logo />
+            <div className='hidden text-sm font-bold md:block'>
+              {process.env.NEXT_PUBLIC_SITE_NAME}
+            </div>
           </div>
         }
         menuItems={Object.values(LinksList)}

@@ -25,6 +25,9 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
   const { user, error, isLoading } = useUser()
   const checkboxRef = useRef<HTMLInputElement>(null)
 
+  // eslint-disable-next-line no-console
+  console.log(menuItems)
+
   if (isLoading) return <Loading />
   if (error) return <div>{error.message}</div>
 
@@ -214,6 +217,54 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
               )}
             </li>
           ))}
+          <li>
+            <div className='m-1'>
+              {!user && (
+                <Link href='/api/auth/login'>
+                  <a className='btn btn-primary'>
+                    Login
+                    <BiLogIn size={20} className='mx-2' />
+                  </a>
+                </Link>
+              )}
+
+              {user && (
+                <>
+                  <DropDown
+                    className='static bg-transparent'
+                    width={50}
+                    selectedId={null}
+                    onSelect={() => {
+                      /**/
+                    }}
+                    label={
+                      <div className='avatar'>
+                        <div className='w-10 h-10 m-1 rounded-full'>
+                          {user?.picture ? (
+                            <img alt={user.name || undefined} src={user?.picture} />
+                          ) : (
+                            <BsPersonFill />
+                          )}
+                        </div>
+                      </div>
+                    }
+                    items={[
+                      {
+                        id: '1',
+                        value: (
+                          <Link href='/api/auth/logout'>
+                            <a className='justify-center btn btn-ghost'>
+                              <BiLogOut size={20} className='mx-2' />
+                            </a>
+                          </Link>
+                        ),
+                      },
+                    ]}
+                  />
+                </>
+              )}
+            </div>
+          </li>
         </ul>
       </div>
     </div>
