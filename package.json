@@ -25,13 +25,14 @@
     "build": "cross-env NODE_ENV=production next build",
     "start": "next start",
     "export": "next export",
-    "test": "jest --watch",
-    "test:ci": "jest --runInBand --no-cache",
+    "test": "jest --env=jsdom --modulePathIgnorePatterns='\\.integration\\.'",
+    "test:integration": "jest --env=node",
+    "test:ci": "yarn test --runInBand --no-cache",
     "storybook": "start-storybook --ci -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "chromatic": "chromatic --exit-zero-on-changes",
     "lint": "eslint --fix -c ./.eslintrc.js src && next lint --fix -c ./.eslintrc.js src",
-    "checkAll": "yarn lint && yarn test:ci && yarn build",
+    "checkAll": "yarn lint && yarn test:ci && yarn build && yarn storybook --smoke-test",
     "push": "yarn checkAll && git push"
   },
   "dependencies": {

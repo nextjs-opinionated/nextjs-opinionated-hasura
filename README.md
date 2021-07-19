@@ -35,11 +35,14 @@ Just fork and run:
 # npm install
 yarn install
 
-# nextjs site
+# next.js site
 yarn dev
 
 # storybook site
 yarn storybook
+
+# tests
+yarn test --watch
 ```
 
 ---
@@ -63,7 +66,7 @@ yarn
 _tests everything's still works:_
 
 ```sh
-yarn build && yarn test && yarn storybook
+yarn checkAll
 ```
 
 If everything is working, please make a pull request
