@@ -25,9 +25,6 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
   const { user, error, isLoading } = useUser()
   const checkboxRef = useRef<HTMLInputElement>(null)
 
-  // eslint-disable-next-line no-console
-  console.log(menuItems)
-
   if (isLoading) return <Loading />
   if (error) return <div>{error.message}</div>
 
