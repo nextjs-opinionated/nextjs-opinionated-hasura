@@ -73,7 +73,7 @@ export const Pagination: React.FC<PaginationProps> = ({
     handlePagination()
   }, [currentPage, handlePagination])
   return (
-    <div data-testid='button' className='btn-group '>
+    <div data-testid='button' className='mt-10 btn-group'>
       <button
         type='button'
         onClick={() => {
