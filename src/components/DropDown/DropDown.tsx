@@ -61,7 +61,7 @@ export const DropDown: React.FC<DropDownProps> = ({
           >
             <Menu.Items
               static
-              className='shadow menu dropdown-content rounded-box bg-base-100'
+              className='shadow menu dropdown-content'
               style={{ width: width + 34 }}
             >
               {Object.values(items).map((t) => (
