@@ -22,14 +22,9 @@ describe('Home page', () => {
       user: { picture: 'http://daisyui.com/tailwind-css-component-profile-1@94w.png' },
     })
     const PageWithProvider = <Page />
-    const { getByText, getByRole } = TestingLib.render(PageWithProvider)
+    const { getByText } = TestingLib.render(PageWithProvider)
 
     const eleList = getByText('Code Generator')
-    const image = getByRole('img')
     expect(eleList).toBeInTheDocument()
-    expect(image).toHaveAttribute(
-      'src',
-      'http://daisyui.com/tailwind-css-component-profile-1@94w.png'
-    )
   })
 })

@@ -1,6 +1,7 @@
 ## [nextjs-opinionated-hasura](https://github.com/saitodisse/nextjs-opinionated-hasura)
 
 ### - [demo](https://nextjs-opinionated-hasura.vercel.app/)
+
 - [storybook](https://main--60d0b5d829870700396e0a3b.chromatic.com) - from nextjs-opinionated
 
 _extends [nextjs-opinionated](https://github.com/saitodisse/nextjs-opinionated) ([demo](https://nextjs-opinionated.vercel.app/)) - base template, without Hasura and Auth0_
@@ -97,11 +98,14 @@ Just fork and run:
 # npm install
 yarn install
 
-# nextjs site
+# next.js site
 yarn dev
 
 # storybook site
 yarn storybook
+
+# tests
+yarn test --watch
 ```
 
 ---
@@ -132,7 +136,7 @@ yarn
 _tests everything's still works:_
 
 ```sh
-yarn build && yarn test:ci && yarn storybook
+yarn checkAll
 ```
 
 If everything is working, please make a pull request

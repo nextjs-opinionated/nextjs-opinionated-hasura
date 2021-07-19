@@ -122,15 +122,16 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                     {user && (
                       <>
                         <DropDown
-                          className='static bg-transparent'
-                          width={50}
+                          className='static dropdown-open'
+                          classNameButton='btn-ghost'
+                          width={60}
                           selectedId={null}
                           onSelect={() => {
                             /**/
                           }}
                           label={
                             <div className='avatar'>
-                              <div className='w-10 h-10 m-1 rounded-full'>
+                              <div className='m-1 rounded-full w-9'>
                                 {user?.picture ? (
                                   <img alt={user.name || undefined} src={user?.picture} />
                                 ) : (
@@ -144,8 +145,11 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
                               id: '1',
                               value: (
                                 <Link href='/api/auth/logout'>
-                                  <a className='justify-center btn btn-ghost'>
-                                    <BiLogOut size={20} className='mx-2' />
+                                  <a className=''>
+                                    <div className='flex items-center p-1 text-primary-content bg-primary'>
+                                      logout
+                                      <BiLogOut size={16} className='ml-2' />
+                                    </div>
                                   </a>
                                 </Link>
                               ),
@@ -211,6 +215,27 @@ export const Layout: React.FC<LayoutProps> = ({ title, menuItems, children }) =>
               )}
             </li>
           ))}
+          <li>
+            <div className='m-1'>
+              {!user && (
+                <Link href='/api/auth/login'>
+                  <a className='btn btn-primary'>
+                    Login
+                    <BiLogIn size={20} className='mx-2' />
+                  </a>
+                </Link>
+              )}
+
+              {user && (
+                <Link href='/api/auth/logout'>
+                  <a className='justify-center btn btn-ghost' title={user.name || undefined}>
+                    logout
+                    <BiLogOut size={17} className='mx-2' />
+                  </a>
+                </Link>
+              )}
+            </div>
+          </li>
         </ul>
       </div>
     </div>

@@ -9,6 +9,7 @@ export interface DropDownProps {
   onSelect: (string) => void
   selectedId: string | null
   className?: string
+  classNameButton?: string
   width?: number
 }
 
@@ -18,6 +19,7 @@ export const DropDown: React.FC<DropDownProps> = ({
   onSelect,
   selectedId,
   className,
+  classNameButton,
   width = 176,
 }) => {
   const [currentValue, currentValueSet] = useState<string | null>(null)
@@ -38,7 +40,7 @@ export const DropDown: React.FC<DropDownProps> = ({
     <Menu as='div' className={`dropdown dropdown-end ${className}`}>
       {({ open }) => (
         <div>
-          <Menu.Button className='btn'>
+          <Menu.Button className={`btn ${classNameButton}`}>
             {currentValue === '' ? (
               <div className='flex items-center justify-between' style={{ width }}>
                 <div className='mr-2'>{label}</div>
@@ -59,7 +61,7 @@ export const DropDown: React.FC<DropDownProps> = ({
           >
             <Menu.Items
               static
-              className='shadow menu dropdown-content rounded-box bg-base-100'
+              className='shadow menu dropdown-content'
               style={{ width: width + 34 }}
             >
               {Object.values(items).map((t) => (

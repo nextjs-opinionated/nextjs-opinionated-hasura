@@ -22,7 +22,6 @@
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=production next build",
-    "build-storybook": "build-storybook -s public",
     "build:tailwind": "postcss src/scss/base.scss -o src/scss/tailwind.scss",
     "dev": "yarn dockerClear; run-p hasuraLocal genWatch devNext",
     "devNext": "cross-env NODE_OPTIONS=\"--inspect\" next dev -p 3000 | pino-pretty -i time,pid,hostname -c",
@@ -40,14 +39,16 @@
     "hasuraConsole": "(cd ./hasura; node ./wait-for-url.js && hasura console --skip-update-check --no-browser --console-port 9696)",
     "migrateLocalToProd": "set -o allexport && . ./.env.local && set +o allexport && (cd ./hasura; hasura migrate apply --skip-update-check --endpoint \"$HASURA_PROD_SERVER_URL\" --admin-secret=$HASURA_PROD_ADMIN_SECRET; hasura metadata apply --skip-update-check --endpoint \"$HASURA_PROD_SERVER_URL\" --admin-secret=$HASURA_PROD_ADMIN_SECRET)",
     "migrationLocalApply": "set -o allexport && . ./.env.local && set +o allexport && (cd ./hasura; hasura migrate apply --skip-update-check --admin-secret=$HASURA_ADMIN_SECRET; hasura metadata apply --skip-update-check --admin-secret=$HASURA_ADMIN_SECRET)",
-    "test": "jest --watch",
-    "test-all": "yarn lint && yarn type-check && yarn test",
-    "test:ci": "jest --runInBand --no-cache",
     "type-check": "tsc --pretty --noEmit",
     "remove-local-database": "(cd ./hasura; docker-compose down -v)",
+    "test": "jest --env=jsdom --modulePathIgnorePatterns='\\.integration\\.'",
+    "test:integration": "jest --env=node",
+    "test:ci": "yarn test --runInBand --no-cache",
+    "storybook": "start-storybook --ci -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
     "chromatic": "chromatic --exit-zero-on-changes",
     "lint": "eslint --fix -c ./.eslintrc.js src && next lint --fix -c ./.eslintrc.js src",
-    "checkAll": "yarn lint && yarn test:ci && yarn build",
+    "checkAll": "yarn lint && yarn test:ci && yarn build && yarn storybook --smoke-test",
     "push": "yarn checkAll && git push"
   },
   "dependencies": {
