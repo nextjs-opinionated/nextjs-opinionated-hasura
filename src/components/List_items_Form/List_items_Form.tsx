@@ -25,7 +25,7 @@ export const List_items_Form: React.FunctionComponent<List_items_FormProps> = ({
   deleteConfirmationMessage = 'Do you really want to delete?',
   deleteConfirmationYesLabel = 'Yes',
   deleteConfirmationNoLabel = 'No',
-  initialFormData,
+  initialFormData = {},
 }) => {
   const {
     handleSubmit,
