@@ -26,17 +26,36 @@ export default {
   },
 } as Meta
 
-const Template: Story<
-  TableProps<{
-    id: string
-    name: string
-    email: string
-    created_at: string
-    customers: []
-  }>
-> = (args) => <Table {...args} />
+type CURRENT_LINE_TYPE = {
+  id: string
+  name: string
+  email: string
+  created_at: string
+  customers: []
+}
 
-const TABLE_DATA = [
+const FIELDS_TYPES: TableProps<CURRENT_LINE_TYPE>['fields'] = {
+  name: {
+    label: 'Name',
+    getNode: (item) => (
+      <Link href={`companies/${item.id}`}>
+        <a className='pl-0 underline btn btn-link btn-xs'> {item.name}</a>
+      </Link>
+    ),
+  },
+  email: {
+    label: 'E-mail',
+    getNode: (item) => item.email,
+  },
+  created_at: {
+    label: 'Created At',
+    getNode: (item) => dayjs(item.created_at).format('YYYY-MM-DD'),
+  },
+}
+
+const Template: Story<TableProps<CURRENT_LINE_TYPE>> = (args) => <Table {...args} />
+
+const TABLE_DATA: CURRENT_LINE_TYPE[] = [
   {
     id: 'cd89d348-5832-44d2-9ef7-829c26b11974',
     name: 'Empresa 1',
@@ -74,26 +93,16 @@ const TABLE_DATA = [
   },
 ]
 
-const FIELDS = {
-  Name: (item) => (
-    <Link href={`company/${item.id}`}>
-      <a className='pl-0 underline btn btn-link btn-xs'> {item.name}</a>
-    </Link>
-  ),
-  'E-mail': (item) => item.email,
-  'Created At': (item) => dayjs(item.created_at).format('YYYY-MM-DD'),
-}
-
 export const Table_Simple = Template.bind({})
 Table_Simple.args = {
   data: TABLE_DATA,
-  fields: FIELDS,
+  fields: FIELDS_TYPES,
 }
 
 export const Table_With_Pagination = Template.bind({})
 Table_With_Pagination.args = {
   data: TABLE_DATA,
-  fields: FIELDS,
+  fields: FIELDS_TYPES,
   pageSize: 5,
   currentPage: 2,
   totalItems: 20,
@@ -106,7 +115,7 @@ Table_With_Pagination.args = {
 export const Table_WithClassName = Template.bind({})
 Table_WithClassName.args = {
   data: TABLE_DATA,
-  fields: FIELDS,
+  fields: FIELDS_TYPES,
   className: ' table-compact table-zebra',
 }
 
@@ -114,8 +123,11 @@ export const Table_WithoutLink = Template.bind({})
 Table_WithoutLink.args = {
   data: TABLE_DATA,
   fields: {
-    ...FIELDS,
-    Name: (item) => item.name,
+    ...FIELDS_TYPES,
+    name: {
+      label: 'Name',
+      getNode: (item) => item.name,
+    },
   },
 }
 
@@ -124,7 +136,7 @@ export const Table_With_Delete_Button = Template.bind({})
 Table_With_Delete_Button.args = {
   data: TABLE_DATA,
   fieldNames: ['name', 'email'],
-  fields: FIELDS,
+  fields: FIELDS_TYPES,
   onDelete: (id) => {
     // eslint-disable-next-line no-console
     console.log('--  id: ', id)
@@ -174,21 +186,24 @@ Table_WithImage.args = {
     },
   ],
   fields: {
-    ...FIELDS,
-    Imagem: (item) => (
-      <div className='flex items-center space-x-3'>
-        {item.image ? (
-          <div className='avatar'>
-            <div className='w-12 h-12 mask mask-squircle'>
-              <img alt={item.name || undefined} src={item.image} />
+    ...FIELDS_TYPES,
+    image: {
+      label: 'Image',
+      getNode: (item) => (
+        <div className='flex items-center space-x-3'>
+          {item.image ? (
+            <div className='avatar'>
+              <div className='w-12 h-12 mask mask-squircle'>
+                <img alt={item.name || undefined} src={item.image} />
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className='flex flex-row items-center justify-center w-12 h-12 mask mask-squircle bg-base-300'>
-            <FaUserAlt size={25} />
-          </div>
-        )}
-      </div>
-    ),
+          ) : (
+            <div className='flex flex-row items-center justify-center w-12 h-12 mask mask-squircle bg-base-300'>
+              <FaUserAlt size={25} />
+            </div>
+          )}
+        </div>
+      ),
+    },
   },
 }
