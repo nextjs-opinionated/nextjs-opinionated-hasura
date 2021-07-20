@@ -15,10 +15,9 @@ Users_Form_Empty.args = {}
 export const Users_Form_Filled = Template.bind({})
 Users_Form_Filled.args = {
   initialFormData: {
-    title: 'Some Title',
-    body: 'My incredible body',
-    url: 'https://altphotos.com/photo/lovely-brunette-covers-her-mouth-behind-the-leaf-1882/',
-    imageUrl: 'https://media.altphotos.com/cache/images/2017/07/13/07/752/woman-hat-portrait.jpg',
-    publishedAt: '2021-07-08T11:41:00+00:00',
+    name: 'User Name',
+    email: 'user@email.com',
+    image: 'https://altphotos.com/photo/lovely-brunette-covers-her-mouth-behind-the-leaf-1882/',
+    role: 'user',
   },
 }
