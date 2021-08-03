@@ -35,28 +35,34 @@ export const List_items_validation_schema = z.object({
       }
     ),
   publishedAt: z.string().nullish(),
-  publishedAt_date: z.string().refine(
-    (value) => {
-      // optional
-      if (!value || value?.length === 0) {
-        return true
+  publishedAt_date: z
+    .string()
+    .nullish()
+    .refine(
+      (value) => {
+        // optional
+        if (!value || value?.length === 0) {
+          return true
+        }
+        return validator.isDate(value, { format: 'YYYY-MM-DD' })
+      },
+      {
+        message: 'must be a valid URL',
       }
-      return validator.isDate(value, { format: 'YYYY-MM-DD' })
-    },
-    {
-      message: 'must be a valid URL',
-    }
-  ),
-  publishedAt_time: z.string().refine(
-    (value) => {
-      // optional
-      if (!value || value?.length === 0) {
-        return true
+    ),
+  publishedAt_time: z
+    .string()
+    .nullish()
+    .refine(
+      (value) => {
+        // optional
+        if (!value || value?.length === 0) {
+          return true
+        }
+        return value.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/) // https://stackoverflow.com/a/7536768
+      },
+      {
+        message: 'must be a valid time',
       }
-      return value.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/) // https://stackoverflow.com/a/7536768
-    },
-    {
-      message: 'must be a valid time',
-    }
-  ),
+    ),
 })

@@ -951,8 +951,9 @@ export type Delete_List_Items_By_PkMutationVariables = Exact<{
   id: Scalars['uuid']
 }>
 
-export type Delete_List_Items_By_PkMutation = { __typename?: 'mutation_root' } & {
-  delete_list_items_by_pk?: Maybe<{ __typename?: 'list_items' } & Pick<List_Items, 'id'>>
+export type Delete_List_Items_By_PkMutation = {
+  __typename?: 'mutation_root'
+  delete_list_items_by_pk?: Maybe<{ __typename?: 'list_items'; id: any }>
 }
 
 export type Insert_List_Items_OneMutationVariables = Exact<{
@@ -960,8 +961,17 @@ export type Insert_List_Items_OneMutationVariables = Exact<{
   update_columns: Array<List_Items_Update_Column> | List_Items_Update_Column
 }>
 
-export type Insert_List_Items_OneMutation = { __typename?: 'mutation_root' } & {
-  insert_list_items_one?: Maybe<{ __typename?: 'list_items' } & List_Items_FragmentFragment>
+export type Insert_List_Items_OneMutation = {
+  __typename?: 'mutation_root'
+  insert_list_items_one?: Maybe<{
+    __typename?: 'list_items'
+    id: any
+    title?: Maybe<string>
+    body: string
+    url?: Maybe<string>
+    imageUrl?: Maybe<string>
+    publishedAt?: Maybe<any>
+  }>
 }
 
 export type List_ItemsQueryVariables = Exact<{
@@ -969,12 +979,20 @@ export type List_ItemsQueryVariables = Exact<{
   offset?: Maybe<Scalars['Int']>
 }>
 
-export type List_ItemsQuery = { __typename?: 'query_root' } & {
-  list_items: Array<{ __typename?: 'list_items' } & List_Items_FragmentFragment>
-  list_items_aggregate: { __typename?: 'list_items_aggregate' } & {
-    aggregate?: Maybe<
-      { __typename?: 'list_items_aggregate_fields' } & Pick<List_Items_Aggregate_Fields, 'count'>
-    >
+export type List_ItemsQuery = {
+  __typename?: 'query_root'
+  list_items: Array<{
+    __typename?: 'list_items'
+    id: any
+    title?: Maybe<string>
+    body: string
+    url?: Maybe<string>
+    imageUrl?: Maybe<string>
+    publishedAt?: Maybe<any>
+  }>
+  list_items_aggregate: {
+    __typename?: 'list_items_aggregate'
+    aggregate?: Maybe<{ __typename?: 'list_items_aggregate_fields'; count: number }>
   }
 }
 
@@ -982,21 +1000,36 @@ export type List_Items_By_PkQueryVariables = Exact<{
   id: Scalars['uuid']
 }>
 
-export type List_Items_By_PkQuery = { __typename?: 'query_root' } & {
-  list_items_by_pk?: Maybe<{ __typename?: 'list_items' } & List_Items_FragmentFragment>
+export type List_Items_By_PkQuery = {
+  __typename?: 'query_root'
+  list_items_by_pk?: Maybe<{
+    __typename?: 'list_items'
+    id: any
+    title?: Maybe<string>
+    body: string
+    url?: Maybe<string>
+    imageUrl?: Maybe<string>
+    publishedAt?: Maybe<any>
+  }>
 }
 
-export type List_Items_FragmentFragment = { __typename?: 'list_items' } & Pick<
-  List_Items,
-  'id' | 'title' | 'body' | 'url' | 'imageUrl' | 'publishedAt'
->
+export type List_Items_FragmentFragment = {
+  __typename?: 'list_items'
+  id: any
+  title?: Maybe<string>
+  body: string
+  url?: Maybe<string>
+  imageUrl?: Maybe<string>
+  publishedAt?: Maybe<any>
+}
 
 export type Delete_Users_By_PkMutationVariables = Exact<{
   id: Scalars['String']
 }>
 
-export type Delete_Users_By_PkMutation = { __typename?: 'mutation_root' } & {
-  delete_users_by_pk?: Maybe<{ __typename?: 'users' } & Pick<Users, 'id'>>
+export type Delete_Users_By_PkMutation = {
+  __typename?: 'mutation_root'
+  delete_users_by_pk?: Maybe<{ __typename?: 'users'; id: string }>
 }
 
 export type Insert_Users_OneMutationVariables = Exact<{
@@ -1004,8 +1037,17 @@ export type Insert_Users_OneMutationVariables = Exact<{
   update_columns: Array<Users_Update_Column> | Users_Update_Column
 }>
 
-export type Insert_Users_OneMutation = { __typename?: 'mutation_root' } & {
-  insert_users_one?: Maybe<{ __typename?: 'users' } & Users_FragmentFragment>
+export type Insert_Users_OneMutation = {
+  __typename?: 'mutation_root'
+  insert_users_one?: Maybe<{
+    __typename?: 'users'
+    id: string
+    name?: Maybe<string>
+    email?: Maybe<string>
+    image?: Maybe<string>
+    role?: Maybe<Roles_Enum>
+    created_at: any
+  }>
 }
 
 export type UsersQueryVariables = Exact<{
@@ -1013,12 +1055,20 @@ export type UsersQueryVariables = Exact<{
   offset?: Maybe<Scalars['Int']>
 }>
 
-export type UsersQuery = { __typename?: 'query_root' } & {
-  users: Array<{ __typename?: 'users' } & Users_FragmentFragment>
-  users_aggregate: { __typename?: 'users_aggregate' } & {
-    aggregate?: Maybe<
-      { __typename?: 'users_aggregate_fields' } & Pick<Users_Aggregate_Fields, 'count'>
-    >
+export type UsersQuery = {
+  __typename?: 'query_root'
+  users: Array<{
+    __typename?: 'users'
+    id: string
+    name?: Maybe<string>
+    email?: Maybe<string>
+    image?: Maybe<string>
+    role?: Maybe<Roles_Enum>
+    created_at: any
+  }>
+  users_aggregate: {
+    __typename?: 'users_aggregate'
+    aggregate?: Maybe<{ __typename?: 'users_aggregate_fields'; count: number }>
   }
 }
 
@@ -1026,14 +1076,28 @@ export type Users_By_PkQueryVariables = Exact<{
   id: Scalars['String']
 }>
 
-export type Users_By_PkQuery = { __typename?: 'query_root' } & {
-  users_by_pk?: Maybe<{ __typename?: 'users' } & Users_FragmentFragment>
+export type Users_By_PkQuery = {
+  __typename?: 'query_root'
+  users_by_pk?: Maybe<{
+    __typename?: 'users'
+    id: string
+    name?: Maybe<string>
+    email?: Maybe<string>
+    image?: Maybe<string>
+    role?: Maybe<Roles_Enum>
+    created_at: any
+  }>
 }
 
-export type Users_FragmentFragment = { __typename?: 'users' } & Pick<
-  Users,
-  'id' | 'name' | 'email' | 'image' | 'role' | 'created_at'
->
+export type Users_FragmentFragment = {
+  __typename?: 'users'
+  id: string
+  name?: Maybe<string>
+  email?: Maybe<string>
+  image?: Maybe<string>
+  role?: Maybe<Roles_Enum>
+  created_at: any
+}
 
 export const List_Items_FragmentFragmentDoc = gql`
   fragment list_items_fragment on list_items {
