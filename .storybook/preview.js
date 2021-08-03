@@ -4,6 +4,7 @@ import { StrictMode } from 'react'
 
 import * as nextImage from 'next/image'
 import { ThemeProvider, useTheme } from 'next-themes'
+import { ChangeThemeLayout } from '../src/components/helpers/ChangeThemeLayout'
 
 // global decorators
 export const decorators = [
@@ -12,7 +13,9 @@ export const decorators = [
     return (
       <ThemeProvider theme={theme}>
         <StrictMode>
-          <Story />
+          <ChangeThemeLayout>
+            <Story />
+          </ChangeThemeLayout>
         </StrictMode>
       </ThemeProvider>
     )
