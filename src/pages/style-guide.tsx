@@ -2,7 +2,6 @@ import Head from 'next/head'
 import React from 'react'
 import { Layout } from '../components/Layout/Layout'
 import { LinksList } from '../model/site/LinksList'
-import { ChangeThemeDropDown } from '../components/ChangeThemeDropDown/ChangeThemeDropDown'
 
 export default function Page({
   pageTitle = 'Style Guide',
@@ -45,9 +44,6 @@ export default function Page({
             <div className='pt-32 pb-12'>
               <div className='inline-block text-2xl font-bold border-b-8 lg:text-7xl text-base-content border-primary'>
                 Typography
-              </div>
-              <div className='flex justify-end w-full pb-10'>
-                <ChangeThemeDropDown />
               </div>
             </div>
             <div className='flex flex-col space-x-6 lg:flex-row'>
@@ -112,9 +108,6 @@ export default function Page({
               <div className='inline-block text-2xl font-bold border-b-8 lg:text-7xl text-base-content border-primary'>
                 Brand Colors
               </div>
-              <div className='flex justify-end w-full pb-10'>
-                <ChangeThemeDropDown />
-              </div>
             </div>
             <div className='grid grid-cols-4 gap-6 mt-10 text-xs font-semibold capitalize md:grid-cols-6'>
               <div>
@@ -170,9 +163,6 @@ export default function Page({
               <div className='inline-block text-2xl font-bold border-b-8 lg:text-7xl text-base-content border-primary'>
                 Base Colors
               </div>
-              <div className='flex justify-end w-full pb-10'>
-                <ChangeThemeDropDown />
-              </div>
             </div>
             <div className='grid grid-cols-2 gap-6 mt-10 text-xs font-semibold capitalize lg:grid-cols-5'>
               <div>
@@ -195,9 +185,6 @@ export default function Page({
             <div className='pt-32 pb-12'>
               <div className='inline-block text-2xl font-bold border-b-8 lg:text-7xl text-base-content border-primary'>
                 State Colors
-              </div>
-              <div className='flex justify-end w-full pb-10'>
-                <ChangeThemeDropDown />
               </div>
             </div>
             <div className='grid grid-cols-2 gap-6 mt-10 text-xs font-semibold capitalize lg:grid-cols-5'>

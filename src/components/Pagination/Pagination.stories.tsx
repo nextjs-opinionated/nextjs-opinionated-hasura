@@ -18,9 +18,6 @@ export default {
       },
     },
   },
-  parameters: {
-    layout: 'centered',
-  },
 } as Meta
 
 const Template: Story<PaginationProps> = (args) => <Pagination {...args} />

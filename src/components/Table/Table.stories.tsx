@@ -21,7 +21,6 @@ export default {
     },
   },
   parameters: {
-    layout: 'centered',
     actions: { argTypesRegex: null },
   },
 } as Meta

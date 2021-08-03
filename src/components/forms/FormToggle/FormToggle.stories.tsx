@@ -6,9 +6,6 @@ import { FormBaseProps } from '../FormBaseProps'
 export default {
   title: 'Component/Forms/FormToggle',
   component: FormToggle,
-  parameters: {
-    layout: 'centered',
-  },
 } as Meta
 
 const Template: Story<FormBaseProps> = (args) => <FormToggle {...args} />

@@ -5,9 +5,13 @@ import Loading from './Loading'
 export default {
   title: 'Component/Loading',
   component: Loading,
-  parameters: {
-    layout: 'centered',
-  },
+  decorators: [
+    (Story) => (
+      <>
+        <Story />
+      </>
+    ),
+  ],
 } as Meta
 
 const Template = (args) => (
